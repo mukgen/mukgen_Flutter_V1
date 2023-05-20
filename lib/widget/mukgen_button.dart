@@ -40,6 +40,7 @@ class MukGenButton extends StatelessWidget {
             style: TextStyle(
                 fontFamily: 'MukgenSemiBold',
                 fontSize: fontSize.sp,
+                fontWeight: FontWeight.w600,
                 color: textColor),
           ),
         ),
