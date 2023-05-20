@@ -8,14 +8,14 @@ import 'package:mukgen_flutter_v1/screen/main_delivery_party.dart';
 import 'package:mukgen_flutter_v1/screen/main_review.dart';
 import 'package:mukgen_flutter_v1/screen/main_suggestion.dart';
 
-class MainNavigatorApp extends StatefulWidget {
-  const MainNavigatorApp({Key? key}) : super(key: key);
+class MainNavigator extends StatefulWidget {
+  const MainNavigator({Key? key}) : super(key: key);
 
   @override
-  State<MainNavigatorApp> createState() => _MainNavigatorAppState();
+  State<MainNavigator> createState() => _MainNavigatorState();
 }
 
-class _MainNavigatorAppState extends State<MainNavigatorApp> {
+class _MainNavigatorState extends State<MainNavigator> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [

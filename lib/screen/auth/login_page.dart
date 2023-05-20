@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/widget/Main_Navigator.dart';
+import 'package:mukgen_flutter_v1/widget/main_navigator.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -206,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.push(
                                       context,
                                       Transition(
-                                        child: MainNavigatorApp(),
+                                        child: MainNavigator(),
                                         transitionEffect:
                                             TransitionEffect.RIGHT_TO_LEFT,
                                       ),
