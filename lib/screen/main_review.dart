@@ -86,69 +86,52 @@ class _MainReviewPageState extends State<MainReviewPage> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.only(top: 5.0.h, left: 140.0.w),
-                  child: TextButton(
-                    child: Text(
-                      '다른날 보러가기',
-                      style: TextStyle(
-                        color: MukGenColor.pointLight1,
-                        fontSize: 12.0.sp,
-                        fontFamily: 'MukgenRegular',
-                        fontWeight: FontWeight.w400,
-                      ),
+                padding: EdgeInsets.only(top: 5.0.h, left: 140.0.w),
+                child: TextButton(
+                  child: Text(
+                    '다른날 보러가기',
+                    style: TextStyle(
+                      color: MukGenColor.pointLight1,
+                      fontSize: 12.0.sp,
+                      fontFamily: 'MukgenRegular',
+                      fontWeight: FontWeight.w400,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        Transition(
-                          child: OtherDaysPage(),
-                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                        ),
-                      );
-                    },
-                  )),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      Transition(
+                        child: OtherDaysPage(),
+                        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
-          Column(
-            children: [
-              SizedBox(height: 10.0.h),
-              Container(
-                width: 353.0.w,
-                height: 92.0.h,
-                decoration: BoxDecoration(
-                  color: MukGenColor.primaryLight3,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              SizedBox(height: 10.0.h),
-              Container(
-                width: 353.0.w,
-                height: 92.0.h,
-                decoration: BoxDecoration(
-                  color: MukGenColor.primaryLight3,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              SizedBox(height: 10.0.h),
-              Container(
-                width: 353.0.w,
-                height: 92.0.h,
-                decoration: BoxDecoration(
-                  color: MukGenColor.primaryLight3,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              SizedBox(height: 10.0.h),
-              Container(
-                width: 353.0.w,
-                height: 57.0.h,
-                decoration: BoxDecoration(
-                  color: MukGenColor.primaryLight3,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ],
-          )
+          SizedBox(
+            width: double.infinity,
+            height: 300.0.h,
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Container(
+                      width: 353.0.w,
+                      height: 92.0.h,
+                      decoration: BoxDecoration(
+                        color: MukGenColor.primaryLight3,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    SizedBox(height: 10.0.h),
+                  ],
+                );
+              },
+            ),
+          ),
         ],
       ),
       floatingActionButton: SizedBox(
