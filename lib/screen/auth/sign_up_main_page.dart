@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_nickname_page.dart';
-import 'package:transition/transition.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignupStartPage extends StatefulWidget {
@@ -21,15 +21,11 @@ class _SignupStartPageState extends State<SignupStartPage> {
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
+          onPressed: () => Navigator.of(context).pop(),
           icon: Icon(
             Icons.arrow_back,
             color: MukGenColor.primaryLight1,
-            size: 24,
+            size: 24.0.sp,
           ),
         ),
       ),
@@ -73,39 +69,15 @@ class _SignupStartPageState extends State<SignupStartPage> {
             ),
           ),
           const Spacer(),
-          SizedBox(
-            width: 352.0.w,
-            height: 55.0.h,
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  Navigator.push(
-                    context,
-                    Transition(
-                      child: SignUpNamePage(),
-                      transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                    ),
-                  );
-                });
-              },
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(MukGenColor.primaryBase),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              child: Text(
-                '시작하기',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0.sp,
-                  fontFamily: 'MukgenSemiBold',
-                  color: MukGenColor.white,
-                ),
-              ),
+          MukGenButton(
+            width: 352,
+            height: 55,
+            backgroundColor: MukGenColor.primaryBase,
+            text: "시작하기",
+            textColor: MukGenColor.white,
+            fontSize: 16,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SignUpNamePage()),
             ),
           ),
           SizedBox(height: 20.0.h),
