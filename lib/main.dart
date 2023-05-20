@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(393,852),
+      designSize: Size(393, 852),
       builder: (context, child) => MaterialApp(
         home: SplashPage(),
         debugShowCheckedModeBanner: false,
@@ -34,7 +34,8 @@ class _SplashPageState extends State<SplashPage> {
         context,
         PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 575),
-          pageBuilder: (context, animation, secondaryAnimation) => StartingApp(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              StartingApp(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
@@ -63,13 +64,12 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: Colors.white,
       body: Center(
           child: Image(
-            image: AssetImage(
-              'assets/images/MUKGEN.png',
-            ),
-            width: 169.0.w,
-            height: 48.0.h,
-          )
-      ),
+        image: AssetImage(
+          'assets/images/MUKGEN.png',
+        ),
+        width: 169.0.w,
+        height: 48.0.h,
+      )),
     );
   }
 }
