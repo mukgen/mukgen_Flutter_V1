@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/screen/SignUp/signup_nickname.dart';
+import 'package:mukgen_flutter_v1/screen/auth/sign_up_id_pw_page.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupStartPage extends StatefulWidget {
-  const SignupStartPage({Key? key}) : super(key: key);
+class SignUpNamePage extends StatefulWidget {
+  const SignUpNamePage({Key? key}) : super(key: key);
 
   @override
-  State<SignupStartPage> createState() => _SignupStartPageState();
+  State<SignUpNamePage> createState() => _SignupNamePageState();
 }
 
-class _SignupStartPageState extends State<SignupStartPage> {
+class _SignupNamePageState extends State<SignUpNamePage> {
+  String _inputValue = '';
+
+  bool get isFormValid => _inputValue.isNotEmpty;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +42,9 @@ class _SignupStartPageState extends State<SignupStartPage> {
           SizedBox(height: 40.0.h),
           Container(
             alignment: Alignment.topLeft,
-            padding: EdgeInsets.only(left: 20.0.w),
+            margin: EdgeInsets.only(left: 20.0.w),
             child: Text(
-              '시작하기',
+              '별명을 입력해주세요.',
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
@@ -49,25 +53,33 @@ class _SignupStartPageState extends State<SignupStartPage> {
           ),
           SizedBox(height: 24.0.h),
           Container(
-            alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: 20.0.w),
-            child: Text(
-              '먹젠과 함께 학교에서 즐거운 식생활을 누려보세요.',
+            width: 352.0.w,
+            child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  _inputValue = value;
+                });
+              },
               style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'MukgenRegular',
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Transform.translate(
-              offset: Offset(0, 120),
-              child: Image(
-                image: AssetImage('assets/images/signupmukgen.png'),
-                width: 160.0.w,
-                height: 160.0.h,
+              decoration: InputDecoration(
+                hintText: '별명',
+                hintStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'MukgenSemiBold',
+                    color: Color(0xFFC9CAD0)),
+                enabledBorder: _inputValue.isEmpty
+                    ? UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                    : UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xFF000000), width: 2)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFFE6B01), width: 2)),
               ),
             ),
           ),
@@ -78,17 +90,19 @@ class _SignupStartPageState extends State<SignupStartPage> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  Navigator.push(
-                    context,
-                    Transition(
-                      child: SignUpNamePage(),
-                      transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                    ),
-                  );
+                  if (isFormValid == true) {
+                    Navigator.push(
+                      context,
+                      Transition(
+                        child: SignUpIdPwPage(),
+                        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                      ),
+                    );
+                  }
                 });
               },
               child: Text(
-                '시작하기',
+                '다음',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -97,7 +111,9 @@ class _SignupStartPageState extends State<SignupStartPage> {
                 ),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFF6B6C71)),
+                backgroundColor: isFormValid == false
+                    ? MaterialStateProperty.all(Color(0xFFC9CAD0))
+                    : MaterialStateProperty.all(Color(0xFF6B6C71)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
