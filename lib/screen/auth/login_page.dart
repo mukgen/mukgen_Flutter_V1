@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
               child: SizedBox(), // 빈 컨테이너 또는 원하는 위젯을 추가하세요
             ),
             MukGenButton(
-              buttonText: "로그인",
+              text: "로그인",
               width: 352,
               height: 55,
               backgroundColor:

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class MukGenButton extends StatelessWidget {
   const MukGenButton(
       {Key? key,
-      required this.buttonText,
+      required this.text,
       required this.width,
       required this.height,
       required this.backgroundColor,
@@ -13,7 +13,7 @@ class MukGenButton extends StatelessWidget {
       this.onPressed})
       : super(key: key);
 
-  final String buttonText;
+  final String text;
   final double width, height, fontSize;
   final Color backgroundColor, textColor;
   final VoidCallback? onPressed;
@@ -36,7 +36,7 @@ class MukGenButton extends StatelessWidget {
         },
         child: Center(
           child: Text(
-            buttonText,
+            text,
             style: TextStyle(
                 fontFamily: 'MukgenSemiBold',
                 fontSize: fontSize.sp,
