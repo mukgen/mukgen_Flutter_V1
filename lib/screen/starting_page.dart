@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_main_page.dart';
-import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/auth/login_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
@@ -45,22 +44,15 @@ class _StartingPageState extends State<StartingPage> {
                     height: 24.0.h,
                   ),
                   MukGenButton(
-                    width: 353,
-                    height: 55,
-                    backgroundColor: MukGenColor.primaryLight3,
-                    text: "로그인",
-                    fontSize: 16,
-                    textColor: MukGenColor.black,
-                    onPressed: () => setState(() {
-                      Navigator.push(
-                        context,
-                        Transition(
-                          child: LoginPage(),
-                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                        ),
-                      );
-                    }),
-                  ),
+                      width: 353,
+                      height: 55,
+                      backgroundColor: MukGenColor.primaryLight3,
+                      text: "로그인",
+                      fontSize: 16,
+                      textColor: MukGenColor.black,
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => LoginPage()))),
                   SizedBox(
                     height: 24.0.h,
                   ),
@@ -71,15 +63,9 @@ class _StartingPageState extends State<StartingPage> {
                     text: "시작하기",
                     fontSize: 16,
                     textColor: MukGenColor.white,
-                    onPressed: () => setState(() {
-                      Navigator.push(
-                        context,
-                        Transition(
-                          child: SignupStartPage(),
-                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                        ),
-                      );
-                    }),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => SignupStartPage())),
                   ),
                 ],
               ),
