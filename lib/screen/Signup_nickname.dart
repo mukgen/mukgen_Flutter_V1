@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/screen/Signup_idpw.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up_id_pw_page.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +12,7 @@ class SignupnameApp extends StatefulWidget {
 
 class _SignupnameAppState extends State<SignupnameApp> {
   String _inputValue = '';
+
   bool get isFormValid => _inputValue.isNotEmpty;
 
   @override
@@ -72,11 +73,11 @@ class _SignupnameAppState extends State<SignupnameApp> {
                     color: Color(0xFFC9CAD0)),
                 enabledBorder: _inputValue.isEmpty
                     ? UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                        borderSide:
+                            BorderSide(color: Color(0xFFC9CAD0), width: 2))
                     : UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFF000000), width: 2)),
+                        borderSide:
+                            BorderSide(color: Color(0xFF000000), width: 2)),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFFE6B01), width: 2)),
               ),
@@ -93,7 +94,7 @@ class _SignupnameAppState extends State<SignupnameApp> {
                     Navigator.push(
                       context,
                       Transition(
-                        child: SignupidpwApp(),
+                        child: SignUpIdPwPage(),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     );

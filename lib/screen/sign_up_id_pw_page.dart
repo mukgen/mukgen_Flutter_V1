@@ -4,14 +4,14 @@ import 'package:mukgen_flutter_v1/screen/Signup_number.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupidpwApp extends StatefulWidget {
-  const SignupidpwApp({Key? key}) : super(key: key);
+class SignUpIdPwPage extends StatefulWidget {
+  const SignUpIdPwPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupidpwApp> createState() => _SignupidpwAppState();
+  State<SignUpIdPwPage> createState() => _SignUpIdPwPageState();
 }
 
-class _SignupidpwAppState extends State<SignupidpwApp> {
+class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
   bool _changeIconColor = false;
   bool _changeIconColor2 = false;
   bool _obscureText = true;
