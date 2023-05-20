@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 
 class MainBoardApp extends StatefulWidget {
   const MainBoardApp({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
   bool weekly = false;
   bool all = true;
 
-  changestate() {
+  changeState() {
     daily = false;
     weekly = false;
     all = false;
@@ -24,7 +25,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -38,7 +39,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                   child: Text(
                     '급식 게시판',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 24.0.sp,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
                     ),
@@ -53,18 +54,18 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 35.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: all ? Color(0xFFFE6B01) : Color(0xFFFFFFFF),
+                        color: all ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: all
-                              ? Color(0xFFFE6B01)
-                              : Color(0xFFC9CAD0), // 외곽선 색깔
+                              ? MukGenColor.pointBase
+                              : MukGenColor.primaryLight2, // 외곽선 색깔
                           width: 1.0.w, // 외곽선 두께
                         ),
                       ),
                       child: TextButton(
                         onPressed: () {
                           setState(() {
-                            changestate();
+                            changeState();
                             all = !all;
                           });
                         },
@@ -72,8 +73,11 @@ class _MainBoardAppState extends State<MainBoardApp> {
                           '전체',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: all ? Color(0xFFFFFFFF) : Color(0xFF85858D),
-                            fontFamily: all ? 'MukgenSemiBold' : 'MukgenRegular',
+                            color: all
+                                ? MukGenColor.white
+                                : MukGenColor.primaryLight1,
+                            fontFamily:
+                                all ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16,
                             fontWeight: all ? FontWeight.w600 : FontWeight.w400,
                           ),
@@ -86,18 +90,19 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 35.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: daily ? Color(0xFFFE6B01) : Color(0xFFFFFFFF),
+                        color:
+                            daily ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: daily
-                              ? Color(0xFFFE6B01)
-                              : Color(0xFFC9CAD0), // 외곽선 색깔
+                              ? MukGenColor.pointBase
+                              : MukGenColor.primaryLight2, // 외곽선 색깔
                           width: 1.0.w, // 외곽선 두께
                         ),
                       ),
                       child: TextButton(
                         onPressed: () {
                           setState(() {
-                            changestate();
+                            changeState();
                             daily = !daily;
                           });
                         },
@@ -105,10 +110,14 @@ class _MainBoardAppState extends State<MainBoardApp> {
                           '일간',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: daily ? Color(0xFFFFFFFF) : Color(0xFF85858D),
-                            fontFamily: daily ? 'MukgenSemiBold' : 'MukgenRegular',
+                            color: daily
+                                ? MukGenColor.white
+                                : MukGenColor.pointLight1,
+                            fontFamily:
+                                daily ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16,
-                            fontWeight: daily ? FontWeight.w600 : FontWeight.w400,
+                            fontWeight:
+                                daily ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ),
@@ -119,18 +128,19 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 35.0.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: weekly ? Color(0xFFFE6B01) : Color(0xFFFFFFFF),
+                        color:
+                            weekly ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: weekly
-                              ? Color(0xFFFE6B01)
-                              : Color(0xFFC9CAD0), // 외곽선 색깔
+                              ? MukGenColor.pointBase
+                              : MukGenColor.primaryLight2, // 외곽선 색깔
                           width: 1.0.w, // 외곽선 두께
                         ),
                       ),
                       child: TextButton(
                         onPressed: () {
                           setState(() {
-                            changestate();
+                            changeState();
                             weekly = !weekly;
                           });
                         },
@@ -138,10 +148,14 @@ class _MainBoardAppState extends State<MainBoardApp> {
                           '주간',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: weekly ? Color(0xFFFFFFFF) : Color(0xFF85858D),
-                            fontFamily: weekly ? 'MukgenSemiBold' : 'MukgenRegular',
+                            color: weekly
+                                ? MukGenColor.white
+                                : MukGenColor.primaryLight1,
+                            fontFamily:
+                                weekly ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16,
-                            fontWeight: weekly ? FontWeight.w600 : FontWeight.w400,
+                            fontWeight:
+                                weekly ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ),
@@ -156,8 +170,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 51.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                     SizedBox(height: 8.0.h),
                     Container(
@@ -165,8 +178,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 51.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                     SizedBox(height: 8.0.h),
                     Container(
@@ -174,8 +186,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 51.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                     SizedBox(height: 8.0.h),
                     Container(
@@ -183,8 +194,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 144.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                     SizedBox(height: 8.0.h),
                     Container(
@@ -192,8 +202,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 144.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                     SizedBox(height: 8.0.h),
                     Container(
@@ -201,8 +210,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 144.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                     SizedBox(height: 8.0.h),
                     Container(
@@ -210,8 +218,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       height: 144.0.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFF5F6F6)
-                      ),
+                          color: MukGenColor.primaryLight3),
                     ),
                   ],
                 ),
@@ -220,17 +227,15 @@ class _MainBoardAppState extends State<MainBoardApp> {
           ],
         ),
       ),
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: 70.0.w,
         height: 70.0.h,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: (){
-
-            },
+            onPressed: () {},
             elevation: 0,
-            backgroundColor: Color(0xFFFE6B01),
-            child: Icon(Icons.add,size: 30,color: Color(0xFFFFFFFF)),
+            backgroundColor: MukGenColor.pointBase,
+            child: Icon(Icons.add, size: 30, color: MukGenColor.white),
           ),
         ),
       ),
