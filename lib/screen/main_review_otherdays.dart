@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 
-class OtherDaysApp extends StatefulWidget {
-  const OtherDaysApp({Key? key}) : super(key: key);
+class OtherDaysPage extends StatefulWidget {
+  const OtherDaysPage({Key? key}) : super(key: key);
 
   @override
-  State<OtherDaysApp> createState() => _OtherDaysAppState();
+  State<OtherDaysPage> createState() => _OtherDaysPageState();
 }
 
-class _OtherDaysAppState extends State<OtherDaysApp> {
+class _OtherDaysPageState extends State<OtherDaysPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -25,35 +26,31 @@ class _OtherDaysAppState extends State<OtherDaysApp> {
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Color(0xFF85858D),
-            size: 24,
+            color: MukGenColor.primaryLight1,
+            size: 24.0.sp,
           ),
         ),
         centerTitle: true,
         title: Text(
           '급식',
           style: TextStyle(
-            color: Color(0xFF85858D),
+            color: MukGenColor.primaryLight1,
             fontWeight: FontWeight.w600,
-            fontSize: 20,
+            fontSize: 20.0.sp,
             fontFamily: 'MukgenSemiBold',
           ),
         ),
       ),
-      body: SingleChildScrollView(
-
-      ),
-      floatingActionButton: Container(
+      body: SingleChildScrollView(),
+      floatingActionButton: SizedBox(
         width: 70.0.w,
         height: 70.0.h,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: (){
-
-            },
+            onPressed: null,
             elevation: 0,
-            backgroundColor: Color(0xFFFE6B01),
-            child: Icon(Icons.add,size: 30,color: Color(0xFFFFFFFF)),
+            backgroundColor: MukGenColor.pointBase,
+            child: Icon(Icons.add, size: 30.0.sp, color: MukGenColor.white),
           ),
         ),
       ),

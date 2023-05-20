@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/Customicons/custom_icons_icons.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/MainPage.dart';
-import 'package:mukgen_flutter_v1/screen/Main_Board.dart';
-import 'package:mukgen_flutter_v1/screen/Main_DeliveryParty.dart';
-import 'package:mukgen_flutter_v1/screen/Main_Review.dart';
-import 'package:mukgen_flutter_v1/screen/Main_Suggestion.dart';
+import 'package:mukgen_flutter_v1/screen/main_page.dart';
+import 'package:mukgen_flutter_v1/screen/main_board.dart';
+import 'package:mukgen_flutter_v1/screen/main_delivery_party.dart';
+import 'package:mukgen_flutter_v1/screen/main_review.dart';
+import 'package:mukgen_flutter_v1/screen/main_suggestion.dart';
 
-class MainNavigatorApp extends StatefulWidget {
-  const MainNavigatorApp({Key? key}) : super(key: key);
+class MainNavigator extends StatefulWidget {
+  const MainNavigator({Key? key}) : super(key: key);
 
   @override
-  State<MainNavigatorApp> createState() => _MainNavigatorAppState();
+  State<MainNavigator> createState() => _MainNavigatorState();
 }
 
-class _MainNavigatorAppState extends State<MainNavigatorApp> {
+class _MainNavigatorState extends State<MainNavigator> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const MainHomeApp(),
-    const MainBoardApp(),
-    const MainSuggestionApp(),
-    const MainReviewApp(),
-    const MainDeliveryPartyApp(),
+    const MainHomePage(),
+    const MainBoardPage(),
+    const MainSuggestionPage(),
+    const MainReviewPage(),
+    const MainDeliveryPartyPage(),
   ];
 
   final PageController _pageController = PageController(initialPage: 0);
@@ -51,15 +52,15 @@ class _MainNavigatorAppState extends State<MainNavigatorApp> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: _pages,
         onPageChanged: _onPageChanged,
+        children: _pages,
       ),
       bottomNavigationBar: SizedBox(
         height: 86.0.h,
         child: BottomNavigationBar(
-          backgroundColor: Color(0xFFFFFFFF),
+          backgroundColor: MukGenColor.white,
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(CustomIcons.home),
               label: '홈',
@@ -88,19 +89,19 @@ class _MainNavigatorAppState extends State<MainNavigatorApp> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           unselectedLabelStyle: TextStyle(
-            color: Color(0xFFC9CAD0),
+            color: MukGenColor.primaryLight2,
             fontWeight: FontWeight.w600,
             fontSize: 14,
             fontFamily: 'MukgenSemiBold',
           ),
           selectedLabelStyle: TextStyle(
-            color: Color(0xFFFE6B01),
+            color: MukGenColor.pointBase,
             fontWeight: FontWeight.w600,
             fontSize: 14,
             fontFamily: 'MukgenSemiBold',
           ),
-          selectedItemColor: Color(0xFFFE6B01),
-          unselectedItemColor: Color(0xFFC9CAD0),
+          selectedItemColor: MukGenColor.pointBase,
+          unselectedItemColor: MukGenColor.primaryLight2,
           iconSize: 30,
           elevation: 0,
         ),

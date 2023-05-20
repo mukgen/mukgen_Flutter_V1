@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/screen/StartingPage.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/starting_page.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupnumberApp extends StatefulWidget {
-  const SignupnumberApp({Key? key}) : super(key: key);
+class SignUpNumberPage extends StatefulWidget {
+  const SignUpNumberPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupnumberApp> createState() => _SignupnumberAppState();
+  State<SignUpNumberPage> createState() => _SignUpNumberPageState();
 }
 
-class _SignupnumberAppState extends State<SignupnumberApp> {
-  String _inputValue = '';
-  String _inputValue2 = '';
-  String _inputValue3 = '';
-
-  bool get isFormValid =>
-      _inputValue.isNotEmpty &&
-          _inputValue2.isNotEmpty &&
-          _inputValue3.isNotEmpty;
-  bool get isFormValid2 =>
-      _inputValue.length == 3 &&
-          _inputValue2.length == 4 &&
-          _inputValue3.length == 4;
-
+class _SignUpNumberPageState extends State<SignUpNumberPage> {
   late FocusNode _firstFocusNode;
   late FocusNode _secondFocusNode;
   late FocusNode _thirdFocusNode;
@@ -57,9 +46,9 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -70,8 +59,8 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0xFF85858D),
-            size: 24,
+            color: MukGenColor.primaryLight1,
+            size: 24.0.sp,
           ),
         ),
       ),
@@ -85,7 +74,7 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
             child: Text(
               '전화번호를 입력해주세요.',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.0.sp,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'MukgenSemiBold',
               ),
@@ -98,7 +87,7 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
             child: Text(
               '배달 파티 모집 시 사용됩니다.',
               style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.0.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'MukgenRegular'),
             ),
@@ -107,7 +96,7 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
           Row(
             children: [
               SizedBox(width: 20.0.w),
-              Container(
+              SizedBox(
                 height: 56.0.h,
                 width: 98.0.w,
                 child: TextFormField(
@@ -115,9 +104,7 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                     if (value.length == 3) {
                       _secondFocusNode.requestFocus();
                     }
-                    setState(() {
-                      _inputValue = value;
-                    });
+                    setState(() {});
                   },
                   autofocus: true,
                   focusNode: _firstFocusNode,
@@ -126,22 +113,22 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.0.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'MukgenSemiBold',
                   ),
                   decoration: InputDecoration(
                     counterText: '',
-                    enabledBorder: _inputValue.isEmpty
+                    enabledBorder: _firstController.text.isEmpty
                         ? UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide: BorderSide(
+                                color: MukGenColor.primaryLight2, width: 2))
                         : UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFF000000), width: 2)),
+                            borderSide:
+                                BorderSide(color: MukGenColor.black, width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: MukGenColor.pointBase, width: 2)),
                   ),
                 ),
               ),
@@ -149,13 +136,13 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
               Text(
                 '-',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                 ),
               ),
               SizedBox(width: 10.0.w),
-              Container(
+              SizedBox(
                 height: 56.0.h,
                 width: 98.0.w,
                 child: TextFormField(
@@ -163,9 +150,7 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                     if (value.length == 4) {
                       _thirdFocusNode.requestFocus();
                     }
-                    setState(() {
-                      _inputValue2 = value;
-                    });
+                    setState(() {});
                   },
                   focusNode: _secondFocusNode,
                   controller: _secondController,
@@ -173,22 +158,22 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.0.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'MukgenSemiBold',
                   ),
                   decoration: InputDecoration(
                     counterText: '',
-                    enabledBorder: _inputValue2.isEmpty
+                    enabledBorder: _secondController.text.isEmpty
                         ? UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide: BorderSide(
+                                color: MukGenColor.primaryLight2, width: 2))
                         : UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFF000000), width: 2)),
+                            borderSide:
+                                BorderSide(color: MukGenColor.black, width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: MukGenColor.pointBase, width: 2)),
                   ),
                 ),
               ),
@@ -196,20 +181,18 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
               Text(
                 '-',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                 ),
               ),
               SizedBox(width: 10.0.w),
-              Container(
+              SizedBox(
                 height: 56.0.h,
                 width: 98.0.w,
                 child: TextFormField(
                   onChanged: (value) {
-                    setState(() {
-                      _inputValue3 = value;
-                    });
+                    setState(() {});
                   },
                   focusNode: _thirdFocusNode,
                   controller: _thirdController,
@@ -217,65 +200,46 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.0.sp,
                       fontWeight: FontWeight.w600,
-                      fontFamily: 'MukgenSemiBold'
-                  ),
+                      fontFamily: 'MukgenSemiBold'),
                   decoration: InputDecoration(
                     counterText: '',
-                    enabledBorder: _inputValue3.isEmpty
+                    enabledBorder: _thirdController.text.isEmpty
                         ? UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide: BorderSide(
+                                color: MukGenColor.primaryLight2, width: 2))
                         : UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFF000000), width: 2)),
+                            borderSide:
+                                BorderSide(color: MukGenColor.black, width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: MukGenColor.pointBase, width: 2)),
                   ),
                 ),
               ),
             ],
           ),
-          Spacer(),
-          SizedBox(
-            width: 352.0.w,
-            height: 55.0.h,
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (isFormValid == true) {
-                    Navigator.push(
-                      context,
-                      Transition(
-                        child: StartingApp(),
-                        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                      ),
-                    );
-                  }
-                });
-              },
-              child: Text(
-                '완료',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFFFFFFF),
-                ),
-              ),
-              style: ButtonStyle(
-                backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(Color(0xFFC9CAD0))
-                    : MaterialStateProperty.all(Color(0xFF6B6C71)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-            ),
+          const Spacer(),
+          MukGenButton(
+            text: "완료",
+            width: 352,
+            height: 55,
+            backgroundColor: _firstController.text.length == 3 &&
+                    _secondController.text.length == 4 &&
+                    _thirdController.text.length == 4
+                ? MukGenColor.grey
+                : MukGenColor.primaryLight2,
+            fontSize: 16,
+            textColor: MukGenColor.white,
+            onPressed: () {
+              if (_firstController.text.length == 3 &&
+                  _secondController.text.length == 4 &&
+                  _thirdController.text.length == 4) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => StartingPage()));
+              }
+            },
           ),
           SizedBox(height: 20.0.h),
         ],
