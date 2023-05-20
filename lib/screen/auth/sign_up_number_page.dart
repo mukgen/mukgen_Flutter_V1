@@ -12,20 +12,6 @@ class SignUpNumberPage extends StatefulWidget {
 }
 
 class _SignUpNumberPageState extends State<SignUpNumberPage> {
-  String _inputValue = '';
-  String _inputValue2 = '';
-  String _inputValue3 = '';
-
-  bool get isFormValid =>
-      _inputValue.isNotEmpty &&
-      _inputValue2.isNotEmpty &&
-      _inputValue3.isNotEmpty;
-
-  bool get isFormValid2 =>
-      _inputValue.length == 3 &&
-      _inputValue2.length == 4 &&
-      _inputValue3.length == 4;
-
   late FocusNode _firstFocusNode;
   late FocusNode _secondFocusNode;
   late FocusNode _thirdFocusNode;
@@ -117,9 +103,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                     if (value.length == 3) {
                       _secondFocusNode.requestFocus();
                     }
-                    setState(() {
-                      _inputValue = value;
-                    });
+                    setState(() {});
                   },
                   autofocus: true,
                   focusNode: _firstFocusNode,
@@ -134,7 +118,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                   ),
                   decoration: InputDecoration(
                     counterText: '',
-                    enabledBorder: _inputValue.isEmpty
+                    enabledBorder: _firstController.text.isEmpty
                         ? UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: MukGenColor.primaryLight2, width: 2))
@@ -165,9 +149,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                     if (value.length == 4) {
                       _thirdFocusNode.requestFocus();
                     }
-                    setState(() {
-                      _inputValue2 = value;
-                    });
+                    setState(() {});
                   },
                   focusNode: _secondFocusNode,
                   controller: _secondController,
@@ -181,7 +163,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                   ),
                   decoration: InputDecoration(
                     counterText: '',
-                    enabledBorder: _inputValue2.isEmpty
+                    enabledBorder: _secondController.text.isEmpty
                         ? UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: MukGenColor.primaryLight2, width: 2))
@@ -209,9 +191,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                 width: 98.0.w,
                 child: TextFormField(
                   onChanged: (value) {
-                    setState(() {
-                      _inputValue3 = value;
-                    });
+                    setState(() {});
                   },
                   focusNode: _thirdFocusNode,
                   controller: _thirdController,
@@ -224,7 +204,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                       fontFamily: 'MukgenSemiBold'),
                   decoration: InputDecoration(
                     counterText: '',
-                    enabledBorder: _inputValue3.isEmpty
+                    enabledBorder: _thirdController.text.isEmpty
                         ? UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: MukGenColor.primaryLight2, width: 2))
@@ -247,7 +227,9 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
               onPressed: () {
                 setState(
                   () {
-                    if (isFormValid == true) {
+                    if (_firstController.text.length == 3 &&
+                        _secondController.text.length == 4 &&
+                        _thirdController.text.length == 4) {
                       Navigator.push(
                         context,
                         Transition(
@@ -260,9 +242,11 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                 );
               },
               style: ButtonStyle(
-                backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(MukGenColor.primaryLight2)
-                    : MaterialStateProperty.all(MukGenColor.grey),
+                backgroundColor: _firstController.text.length == 3 &&
+                        _secondController.text.length == 4 &&
+                        _thirdController.text.length == 4
+                    ? MaterialStateProperty.all(MukGenColor.grey)
+                    : MaterialStateProperty.all(MukGenColor.primaryLight2),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
