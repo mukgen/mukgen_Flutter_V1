@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/Signup_main.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,7 @@ class _StartingAppState extends State<StartingApp> {
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
-        backgroundColor: Color(0xFFF5F6F6),
+        backgroundColor: MukGenColor.primaryLight3,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -25,7 +26,7 @@ class _StartingAppState extends State<StartingApp> {
                 child: Container(
                   margin: EdgeInsets.only(top: 199.0.h),
                   child: Image(
-                    image: AssetImage('assets/images/startingmukgen.png'),
+                    image: const AssetImage('assets/images/startingmukgen.png'),
                     width: 160.0.w,
                     height: 189.0.w,
                   ),
@@ -35,7 +36,7 @@ class _StartingAppState extends State<StartingApp> {
             SizedBox(height: 199.0.h),
             Container(
               alignment: Alignment.bottomCenter,
-              color: Color(0xFFFFFFFF),
+              color: MukGenColor.white,
               height: 158.0.h,
               child: Column(
                 children: [
@@ -57,22 +58,23 @@ class _StartingAppState extends State<StartingApp> {
                           );
                         });
                       },
-                      child: Text(
-                        '로그인',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'MukgenSemiBold',
-                            color: Color(0xFF000000)),
-                      ),
                       style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(Color(0xFFF5F6F6)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        backgroundColor: MaterialStateProperty.all(
+                            MukGenColor.primaryLight3),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                      ),
+                      child: Text(
+                        '로그인',
+                        style: TextStyle(
+                            fontSize: 16.0.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'MukgenSemiBold',
+                            color: MukGenColor.black),
                       ),
                     ),
                   ),
@@ -94,22 +96,23 @@ class _StartingAppState extends State<StartingApp> {
                           );
                         });
                       },
-                      child: Text(
-                        '시작하기',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'MukgenSemiBold',
-                            color: Color(0xFFFFFFFF)),
-                      ),
                       style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(Color(0xFFFF7A1B)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        backgroundColor: MaterialStateProperty.all(
+                            MukGenColor.primaryLight1),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                      ),
+                      child: Text(
+                        '시작하기',
+                        style: TextStyle(
+                            fontSize: 16.0.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'MukgenSemiBold',
+                            color: MukGenColor.white),
                       ),
                     ),
                   ),
