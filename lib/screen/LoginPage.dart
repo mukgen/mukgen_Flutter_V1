@@ -58,7 +58,7 @@ class _LoginAppState extends State<LoginApp> {
               ),
             ),
             SizedBox(height: 24.0.h),
-            Container(
+            SizedBox(
               width: 352.0.w,
               child: TextFormField(
                 onChanged: (value) {
@@ -68,7 +68,7 @@ class _LoginAppState extends State<LoginApp> {
                 },
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontFamily: 'MukgenSemiBold',
                 ),
                 decoration: InputDecoration(
@@ -77,11 +77,11 @@ class _LoginAppState extends State<LoginApp> {
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
-                      color: MukGenColor.white),
+                      color: MukGenColor.primaryLight2),
                   enabledBorder: _inputValue.isEmpty
                       ? UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: MukGenColor.white, width: 2))
+                          borderSide: BorderSide(
+                              color: MukGenColor.primaryLight2, width: 2))
                       : UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: MukGenColor.black, width: 2)),
@@ -92,7 +92,7 @@ class _LoginAppState extends State<LoginApp> {
               ),
             ),
             SizedBox(height: 24.0.h),
-            Container(
+            SizedBox(
               width: 352.0.w,
               child: TextFormField(
                 onChanged: (value) {
@@ -103,7 +103,7 @@ class _LoginAppState extends State<LoginApp> {
                 obscureText: _obscureText,
                 obscuringCharacter: '*',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                 ),
@@ -116,8 +116,8 @@ class _LoginAppState extends State<LoginApp> {
                       color: MukGenColor.primaryLight2),
                   enabledBorder: _inputValue2.isEmpty
                       ? UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: MukGenColor.primaryLight2, width: 2))
+                          borderSide: BorderSide(
+                              color: MukGenColor.primaryLight2, width: 2))
                       : UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: MukGenColor.black, width: 2)),
@@ -128,7 +128,7 @@ class _LoginAppState extends State<LoginApp> {
                     color: _changeiconColor
                         ? MukGenColor.pointLight1
                         : MukGenColor.primaryLight1,
-                    icon: Icon(Icons.remove_red_eye_rounded),
+                    icon: const Icon(Icons.remove_red_eye_rounded),
                     onPressed: () {
                       setState(() {
                         _changeiconColor = !_changeiconColor;
@@ -146,9 +146,20 @@ class _LoginAppState extends State<LoginApp> {
               width: 352.0.w,
               height: 55.0.h,
               child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: isFormValid == false
+                      ? MaterialStateProperty.all(MukGenColor.primaryLight2)
+                      : MaterialStateProperty.all(MukGenColor.primaryBase),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
                 onPressed: () {
-                  setState(() {
-                    showDialog(
+                  setState(
+                    () {
+                      showDialog(
                         context: context,
                         barrierDismissible: true,
                         builder: (BuildContext context) {
@@ -156,7 +167,7 @@ class _LoginAppState extends State<LoginApp> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9.16),
                             ),
-                            content: Container(
+                            content: SizedBox(
                               width: 280.0.w,
                               height: 45.0.h,
                               child: SingleChildScrollView(
@@ -167,15 +178,15 @@ class _LoginAppState extends State<LoginApp> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Container(
+                                          padding: EdgeInsets.only(top: 10.0.h),
                                           child: Text(
                                             '(사용자 ID)님 환영합니다!',
                                             style: TextStyle(
                                               fontFamily: 'MukgenSemiBold',
-                                              fontSize: 24,
+                                              fontSize: 24.0.sp,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                          padding: EdgeInsets.only(top: 10.0.h),
                                         ),
                                       ],
                                     ),
@@ -202,21 +213,21 @@ class _LoginAppState extends State<LoginApp> {
                                 },
                                 child: Center(
                                   child: Container(
+                                    width: 280.0.w,
+                                    height: 50.0.h,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: MukGenColor.primaryLight1,
+                                      borderRadius: BorderRadius.circular(7.12),
+                                    ),
                                     child: Text(
                                       '확인',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 14,
+                                        fontSize: 14.0.sp,
                                         fontFamily: 'MukgenSemiBold',
-                                        color: Colors.white,
+                                        color: MukGenColor.white,
                                       ),
-                                    ),
-                                    alignment: Alignment.center,
-                                    width: 280.0.w,
-                                    height: 50.0.h,
-                                    decoration: BoxDecoration(
-                                      color: MukGenColor.primaryLight1,
-                                      borderRadius: BorderRadius.circular(7.12),
                                     ),
                                   ),
                                 ),
@@ -224,26 +235,18 @@ class _LoginAppState extends State<LoginApp> {
                               SizedBox(height: 3.0.h)
                             ],
                           );
-                        });
-                  });
+                        },
+                      );
+                    },
+                  );
                 },
                 child: Text(
                   '로그인',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                    fontSize: 16.0.sp,
                     fontFamily: 'MukgenSemiBold',
-                    color: Colors.white,
-                  ),
-                ),
-                style: ButtonStyle(
-                  backgroundColor: isFormValid == false
-                      ? MaterialStateProperty.all(MukGenColor.primaryLight2)
-                      : MaterialStateProperty.all(MukGenColor.grey),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                    color: MukGenColor.white,
                   ),
                 ),
               ),
