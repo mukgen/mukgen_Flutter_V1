@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/MainPage.dart';
-import 'package:mukgen_flutter_v1/screen/Main_Board.dart';
-import 'package:mukgen_flutter_v1/screen/Main_DeliveryParty.dart';
-import 'package:mukgen_flutter_v1/screen/Main_Review.dart';
-import 'package:mukgen_flutter_v1/screen/Main_Suggestion.dart';
+import 'package:mukgen_flutter_v1/screen/main_page.dart';
+import 'package:mukgen_flutter_v1/screen/main_board.dart';
+import 'package:mukgen_flutter_v1/screen/main_delivery_party.dart';
+import 'package:mukgen_flutter_v1/screen/main_review.dart';
+import 'package:mukgen_flutter_v1/screen/main_suggestion.dart';
 
 class MainNavigatorApp extends StatefulWidget {
   const MainNavigatorApp({Key? key}) : super(key: key);

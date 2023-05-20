@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/StartingPage.dart';
+import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 
 void main() => runApp(const MyApp());
 
