@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/widget/main_navigator.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
-import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 
@@ -197,43 +196,23 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           actions: <Widget>[
-                            TextButton(
+                            MukGenButton(
+                              text: "확인",
+                              width: 280,
+                              height: 50,
+                              backgroundColor: MukGenColor.primaryLight1,
+                              fontSize: 14,
+                              textColor: MukGenColor.white,
                               onPressed: () {
                                 if (idController.text.isNotEmpty &&
                                     pwdController.text.isNotEmpty) {
-                                  setState(() {
-                                    Navigator.of(context).pop();
-                                    Navigator.push(
-                                      context,
-                                      Transition(
-                                        child: MainNavigator(),
-                                        transitionEffect:
-                                            TransitionEffect.RIGHT_TO_LEFT,
-                                      ),
-                                    );
-                                  });
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MainNavigator()),
+                                      (route) => false);
                                 }
                               },
-                              child: Center(
-                                child: Container(
-                                  width: 280.0.w,
-                                  height: 50.0.h,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: MukGenColor.primaryLight1,
-                                    borderRadius: BorderRadius.circular(7.12),
-                                  ),
-                                  child: Text(
-                                    '확인',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.0.sp,
-                                      fontFamily: 'MukgenSemiBold',
-                                      color: MukGenColor.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ),
                             SizedBox(height: 3.0.h)
                           ],
