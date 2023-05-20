@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_id_pw_page.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,9 +19,9 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -31,7 +32,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0xFF85858D),
+            color: MukGenColor.primaryLight1,
             size: 24,
           ),
         ),
@@ -44,15 +45,15 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 20.0.w),
             child: Text(
-              '별명을 입력해주세요.',
+              '이름을 입력해주세요.',
               style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold'),
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
+          SizedBox(
             width: 352.0.w,
             child: TextFormField(
               onChanged: (value) {
@@ -62,62 +63,65 @@ class _SignupNamePageState extends State<SignUpNamePage> {
               },
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 20.0.sp,
               ),
               decoration: InputDecoration(
-                hintText: '별명',
+                hintText: '이름',
                 hintStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.0.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'MukgenSemiBold',
-                    color: Color(0xFFC9CAD0)),
+                    color: MukGenColor.primaryLight2),
                 enabledBorder: _inputValue.isEmpty
                     ? UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                        borderSide: BorderSide(
+                            color: MukGenColor.primaryLight2, width: 2))
                     : UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color(0xFF000000), width: 2)),
+                            BorderSide(color: MukGenColor.black, width: 2)),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                    borderSide:
+                        BorderSide(color: MukGenColor.pointBase, width: 2)),
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: 352.0.w,
             height: 55.0.h,
             child: TextButton(
               onPressed: () {
-                setState(() {
-                  if (isFormValid == true) {
-                    Navigator.push(
-                      context,
-                      Transition(
-                        child: SignUpIdPwPage(),
-                        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                      ),
-                    );
-                  }
-                });
+                setState(
+                  () {
+                    if (isFormValid == true) {
+                      Navigator.push(
+                        context,
+                        Transition(
+                          child: SignUpIdPwPage(),
+                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                        ),
+                      );
+                    }
+                  },
+                );
               },
-              child: Text(
-                '다음',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFFFFFFF),
-                ),
-              ),
               style: ButtonStyle(
                 backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(Color(0xFFC9CAD0))
-                    : MaterialStateProperty.all(Color(0xFF6B6C71)),
+                    ? MaterialStateProperty.all(MukGenColor.primaryLight2)
+                    : MaterialStateProperty.all(MukGenColor.grey),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                ),
+              ),
+              child: Text(
+                '다음',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0.sp,
+                  fontFamily: 'MukgenSemiBold',
+                  color: MukGenColor.white,
                 ),
               ),
             ),
