@@ -25,31 +25,34 @@ class _MainReviewPageState extends State<MainReviewPage> {
         children: [
           SizedBox(height: 50.0.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  padding: EdgeInsets.only(left: 20.0.w),
-                  child: Text(
-                    formattedDate,
-                    style: TextStyle(
-                        fontFamily: 'MukgenSemiBold',
-                        fontSize: 20.0.sp,
-                        fontWeight: FontWeight.w600,
-                        color: MukGenColor.primaryBase),
-                  )),
-              IconButton(
-                onPressed: null,
-                icon: const Icon(CustomIcons.calendar),
-                color: MukGenColor.primaryLight2,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 20.0.w),
+                    child: Text(
+                      formattedDate,
+                      style: TextStyle(
+                          fontFamily: 'MukgenSemiBold',
+                          fontSize: 20.0.sp,
+                          fontWeight: FontWeight.w600,
+                          color: MukGenColor.primaryBase),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: null,
+                    icon: const Icon(CustomIcons.calendar),
+                    color: MukGenColor.primaryLight2,
+                  ),
+                ],
               ),
-              Container(
-                padding: EdgeInsets.only(left: 160.0.w),
-                child: IconButton(
-                  icon: const Icon(Icons.person),
-                  iconSize: 28,
-                  color: MukGenColor.primaryLight2,
-                  onPressed: null,
-                ),
+              IconButton(
+                icon: const Icon(Icons.person),
+                iconSize: 28,
+                color: MukGenColor.primaryLight2,
+                onPressed: null,
               ),
             ],
           ),
