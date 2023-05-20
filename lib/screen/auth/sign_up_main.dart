@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_nickname.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,9 +15,9 @@ class _SignupStartPageState extends State<SignupStartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -27,7 +28,7 @@ class _SignupStartPageState extends State<SignupStartPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0xFF85858D),
+            color: MukGenColor.primaryLight1,
             size: 24,
           ),
         ),
@@ -42,7 +43,7 @@ class _SignupStartPageState extends State<SignupStartPage> {
             child: Text(
               '시작하기',
               style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold'),
             ),
@@ -54,7 +55,7 @@ class _SignupStartPageState extends State<SignupStartPage> {
             child: Text(
               '먹젠과 함께 학교에서 즐거운 식생활을 누려보세요.',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.0.sp,
                 fontFamily: 'MukgenRegular',
                 fontWeight: FontWeight.w400,
               ),
@@ -63,15 +64,15 @@ class _SignupStartPageState extends State<SignupStartPage> {
           Container(
             alignment: Alignment.center,
             child: Transform.translate(
-              offset: Offset(0, 120),
+              offset: const Offset(0, 120),
               child: Image(
-                image: AssetImage('assets/images/signupmukgen.png'),
+                image: const AssetImage('assets/images/signupmukgen.png'),
                 width: 160.0.w,
                 height: 160.0.h,
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: 352.0.w,
             height: 55.0.h,
@@ -87,21 +88,22 @@ class _SignupStartPageState extends State<SignupStartPage> {
                   );
                 });
               },
-              child: Text(
-                '시작하기',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFFFFFFF),
-                ),
-              ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFF6B6C71)),
+                backgroundColor:
+                    MaterialStateProperty.all(MukGenColor.primaryBase),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                ),
+              ),
+              child: Text(
+                '시작하기',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0.sp,
+                  fontFamily: 'MukgenSemiBold',
+                  color: MukGenColor.white,
                 ),
               ),
             ),
