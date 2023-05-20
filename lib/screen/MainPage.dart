@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 
 class MainHomeApp extends StatefulWidget {
   const MainHomeApp({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -23,20 +24,19 @@ class _MainHomeAppState extends State<MainHomeApp> {
               Container(
                 padding: EdgeInsets.only(left: 20.0.w),
                 child: Image(
-                  image: AssetImage('assets/images/MukgenMainHomeAppBar.png'),
+                  image: const AssetImage(
+                      'assets/images/MukgenMainHomeAppBar.png'),
                   width: 104.0.w,
                 ),
               ),
               Container(
-                  padding: EdgeInsets.only(left: 210.0.w),
-                  child: IconButton(
-                    icon: Icon(Icons.person),
-                    iconSize: 28,
-                    color: Color(0xFFC9CAD0),
-                    onPressed: (){
-
-                    },
-                  )
+                padding: EdgeInsets.only(left: 210.0.w),
+                child: IconButton(
+                  icon: const Icon(Icons.person),
+                  iconSize: 28,
+                  color: MukGenColor.primaryLight2,
+                  onPressed: null,
+                ),
               ),
             ],
           ),
@@ -47,7 +47,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
             child: Text(
               '오늘의 급식',
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold'),
             ),
@@ -65,7 +65,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
                   height: 220.0.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xFFF5F6F6),
+                    color: MukGenColor.primaryLight3,
                   ),
                 ),
                 SizedBox(width: 7.0.w),
@@ -75,7 +75,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
                   height: 220.0.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xFF000000),
+                    color: MukGenColor.black,
                   ),
                 ),
               ],
@@ -88,7 +88,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
             height: 69.0.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Color(0xFFF5F6F6),
+              color: MukGenColor.primaryLight3,
             ),
           ),
           SizedBox(height: 20.0.h),
@@ -101,26 +101,24 @@ class _MainHomeAppState extends State<MainHomeApp> {
                 child: Text(
                   '인기글',
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.0.sp,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold'),
                 ),
               ),
               SizedBox(width: 252.0.w),
-              Container(
+              SizedBox(
                 child: TextButton(
-                  onPressed: (){
-                    setState(() {
-
-                    });
+                  onPressed: () {
+                    setState(() {});
                   },
-                  child: Text('더보기',
+                  child: Text(
+                    '더보기',
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.0.sp,
                         fontWeight: FontWeight.w400,
                         fontFamily: 'MukgenRegular',
-                        color: Color(0xFFFF7A1B)
-                    ),
+                        color: MukGenColor.pointLight1),
                   ),
                 ),
               ),
@@ -134,7 +132,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
                 height: 49.0.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFFF5F6F6),
+                  color: MukGenColor.primaryLight3,
                 ),
               ),
               SizedBox(height: 8.0.h),
@@ -143,7 +141,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
                 height: 49.0.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFFF5F6F6),
+                  color: MukGenColor.primaryLight3,
                 ),
               ),
               SizedBox(height: 8.0.h),
@@ -152,7 +150,7 @@ class _MainHomeAppState extends State<MainHomeApp> {
                 height: 49.0.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFFF5F6F6),
+                  color: MukGenColor.primaryLight3,
                 ),
               ),
             ],
