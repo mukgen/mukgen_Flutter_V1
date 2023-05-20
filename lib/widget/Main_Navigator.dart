@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/main_page.dart';
@@ -51,15 +52,15 @@ class _MainNavigatorAppState extends State<MainNavigatorApp> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: _pages,
         onPageChanged: _onPageChanged,
+        children: _pages,
       ),
       bottomNavigationBar: SizedBox(
         height: 86.0.h,
         child: BottomNavigationBar(
-          backgroundColor: Color(0xFFFFFFFF),
+          backgroundColor: MukGenColor.white,
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(CustomIcons.home),
               label: '홈',
@@ -88,19 +89,19 @@ class _MainNavigatorAppState extends State<MainNavigatorApp> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           unselectedLabelStyle: TextStyle(
-            color: Color(0xFFC9CAD0),
+            color: MukGenColor.primaryLight2,
             fontWeight: FontWeight.w600,
             fontSize: 14,
             fontFamily: 'MukgenSemiBold',
           ),
           selectedLabelStyle: TextStyle(
-            color: Color(0xFFFE6B01),
+            color: MukGenColor.pointBase,
             fontWeight: FontWeight.w600,
             fontSize: 14,
             fontFamily: 'MukgenSemiBold',
           ),
-          selectedItemColor: Color(0xFFFE6B01),
-          unselectedItemColor: Color(0xFFC9CAD0),
+          selectedItemColor: MukGenColor.pointBase,
+          unselectedItemColor: MukGenColor.primaryLight2,
           iconSize: 30,
           elevation: 0,
         ),
