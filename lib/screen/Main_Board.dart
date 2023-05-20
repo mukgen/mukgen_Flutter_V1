@@ -26,13 +26,13 @@ class _MainBoardAppState extends State<MainBoardApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MukGenColor.white,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+      body: Center(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width - 20.0.w,
+            child: Column(
               children: [
-                SizedBox(height: 91.0.h),
+                SizedBox(height: 32.0.h),
                 Container(
                   alignment: Alignment.topLeft,
                   margin: EdgeInsets.only(left: 20.0.w),
@@ -78,7 +78,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                                 : MukGenColor.primaryLight1,
                             fontFamily:
                                 all ? 'MukgenSemiBold' : 'MukgenRegular',
-                            fontSize: 16,
+                            fontSize: 16.0.sp,
                             fontWeight: all ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
@@ -115,7 +115,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                                 : MukGenColor.pointLight1,
                             fontFamily:
                                 daily ? 'MukgenSemiBold' : 'MukgenRegular',
-                            fontSize: 16,
+                            fontSize: 16.0.sp,
                             fontWeight:
                                 daily ? FontWeight.w600 : FontWeight.w400,
                           ),
@@ -153,7 +153,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                                 : MukGenColor.primaryLight1,
                             fontFamily:
                                 weekly ? 'MukgenSemiBold' : 'MukgenRegular',
-                            fontSize: 16,
+                            fontSize: 16.0.sp,
                             fontWeight:
                                 weekly ? FontWeight.w600 : FontWeight.w400,
                           ),
@@ -162,69 +162,30 @@ class _MainBoardAppState extends State<MainBoardApp> {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    SizedBox(height: 32.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 51.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                    SizedBox(height: 8.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 51.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                    SizedBox(height: 8.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 51.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                    SizedBox(height: 8.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 144.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                    SizedBox(height: 8.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 144.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                    SizedBox(height: 8.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 144.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                    SizedBox(height: 8.0.h),
-                    Container(
-                      width: 353.0.w,
-                      height: 144.0.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: MukGenColor.primaryLight3),
-                    ),
-                  ],
+                SizedBox(
+                  width: double.infinity,
+                  height: 500.0.h,
+                  child: ListView.builder(
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            width: 353.0.w,
+                            height: 144.0.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: MukGenColor.primaryLight3),
+                          ),
+                          SizedBox(height: 8.0.h),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
       floatingActionButton: SizedBox(
@@ -232,7 +193,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
         height: 70.0.h,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: null,
             elevation: 0,
             backgroundColor: MukGenColor.pointBase,
             child: Icon(Icons.add, size: 30, color: MukGenColor.white),
