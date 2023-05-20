@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/screen/signup_nickname.dart';
+import 'package:mukgen_flutter_v1/screen/SignUp/signup_nickname.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

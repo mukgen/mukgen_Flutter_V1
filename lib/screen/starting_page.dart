@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/signup_main.dart';
+import 'package:mukgen_flutter_v1/screen/SignUp/signup_main.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/login_page.dart';
+import 'package:mukgen_flutter_v1/screen/auth/login_page.dart';
 
 class StartingPage extends StatefulWidget {
   const StartingPage({Key? key}) : super(key: key);

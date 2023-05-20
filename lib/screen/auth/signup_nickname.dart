@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/screen/sign_up_id_pw_page.dart';
+import 'package:mukgen_flutter_v1/screen/SignUp/sign_up_id_pw_page.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
