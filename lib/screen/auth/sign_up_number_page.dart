@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/screen/auth/sign_up_nickname.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,9 +59,9 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -72,8 +72,8 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0xFF85858D),
-            size: 24,
+            color: MukGenColor.primaryLight1,
+            size: 24.0.sp,
           ),
         ),
       ),
@@ -87,7 +87,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             child: Text(
               '전화번호를 입력해주세요.',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.0.sp,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'MukgenSemiBold',
               ),
@@ -100,7 +100,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             child: Text(
               '배달 파티 모집 시 사용됩니다.',
               style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.0.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'MukgenRegular'),
             ),
@@ -109,7 +109,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
           Row(
             children: [
               SizedBox(width: 20.0.w),
-              Container(
+              SizedBox(
                 height: 56.0.h,
                 width: 98.0.w,
                 child: TextFormField(
@@ -128,7 +128,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.0.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'MukgenSemiBold',
                   ),
@@ -136,14 +136,14 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                     counterText: '',
                     enabledBorder: _inputValue.isEmpty
                         ? UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide: BorderSide(
+                                color: MukGenColor.primaryLight2, width: 2))
                         : UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2)),
+                                BorderSide(color: MukGenColor.black, width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: MukGenColor.pointBase, width: 2)),
                   ),
                 ),
               ),
@@ -151,13 +151,13 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
               Text(
                 '-',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                 ),
               ),
               SizedBox(width: 10.0.w),
-              Container(
+              SizedBox(
                 height: 56.0.h,
                 width: 98.0.w,
                 child: TextFormField(
@@ -175,7 +175,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.0.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'MukgenSemiBold',
                   ),
@@ -183,14 +183,14 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                     counterText: '',
                     enabledBorder: _inputValue2.isEmpty
                         ? UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide: BorderSide(
+                                color: MukGenColor.primaryLight2, width: 2))
                         : UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2)),
+                                BorderSide(color: MukGenColor.black, width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: MukGenColor.pointBase, width: 2)),
                   ),
                 ),
               ),
@@ -198,13 +198,13 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
               Text(
                 '-',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                 ),
               ),
               SizedBox(width: 10.0.w),
-              Container(
+              SizedBox(
                 height: 56.0.h,
                 width: 98.0.w,
                 child: TextFormField(
@@ -219,61 +219,63 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.0.sp,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold'),
                   decoration: InputDecoration(
                     counterText: '',
                     enabledBorder: _inputValue3.isEmpty
                         ? UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide: BorderSide(
+                                color: MukGenColor.primaryLight2, width: 2))
                         : UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2)),
+                                BorderSide(color: MukGenColor.black, width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: MukGenColor.pointBase, width: 2)),
                   ),
                 ),
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: 352.0.w,
             height: 55.0.h,
             child: TextButton(
               onPressed: () {
-                setState(() {
-                  if (isFormValid == true) {
-                    Navigator.push(
-                      context,
-                      Transition(
-                        child: StartingPage(),
-                        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                      ),
-                    );
-                  }
-                });
+                setState(
+                  () {
+                    if (isFormValid == true) {
+                      Navigator.push(
+                        context,
+                        Transition(
+                          child: StartingPage(),
+                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                        ),
+                      );
+                    }
+                  },
+                );
               },
-              child: Text(
-                '완료',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFFFFFFF),
-                ),
-              ),
               style: ButtonStyle(
                 backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(Color(0xFFC9CAD0))
-                    : MaterialStateProperty.all(Color(0xFF6B6C71)),
+                    ? MaterialStateProperty.all(MukGenColor.primaryLight2)
+                    : MaterialStateProperty.all(MukGenColor.grey),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                ),
+              ),
+              child: Text(
+                '완료',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0.sp,
+                  fontFamily: 'MukgenSemiBold',
+                  color: MukGenColor.white,
                 ),
               ),
             ),
