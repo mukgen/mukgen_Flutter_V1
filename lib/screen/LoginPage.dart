@@ -25,7 +25,7 @@ class _LoginAppState extends State<LoginApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xFFFFFFFF),
         elevation: 0,
@@ -81,14 +81,14 @@ class _LoginAppState extends State<LoginApp> {
                       color: Color(0xFFC9CAD0)),
                   enabledBorder: _inputValue.isEmpty
                       ? UnderlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                          borderSide:
+                              BorderSide(color: Color(0xFFC9CAD0), width: 2))
                       : UnderlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Color(0xFF000000), width: 2)),
+                          borderSide:
+                              BorderSide(color: Colors.black, width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
-                      BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                          BorderSide(color: Color(0xFFFE6B01), width: 2)),
                 ),
               ),
             ),
@@ -117,14 +117,14 @@ class _LoginAppState extends State<LoginApp> {
                       color: Color(0xFFC9CAD0)),
                   enabledBorder: _inputValue2.isEmpty
                       ? UnderlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                          borderSide:
+                              BorderSide(color: Color(0xFFC9CAD0), width: 2))
                       : UnderlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Color(0xFF000000), width: 2)),
+                          borderSide:
+                              BorderSide(color: Colors.black, width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
-                      BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                          BorderSide(color: Color(0xFFFE6B01), width: 2)),
                   suffixIcon: IconButton(
                     color: _changeiconColor
                         ? Color(0xFFFF7A1B)
@@ -164,7 +164,8 @@ class _LoginAppState extends State<LoginApp> {
                                 child: ListBody(
                                   children: <Widget>[
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Container(
                                           child: Text(
@@ -194,7 +195,7 @@ class _LoginAppState extends State<LoginApp> {
                                         Transition(
                                           child: MainNavigatorApp(),
                                           transitionEffect:
-                                          TransitionEffect.RIGHT_TO_LEFT,
+                                              TransitionEffect.RIGHT_TO_LEFT,
                                         ),
                                       );
                                     });
@@ -208,7 +209,7 @@ class _LoginAppState extends State<LoginApp> {
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         fontFamily: 'MukgenSemiBold',
-                                        color: Color(0xFFFFFFFF),
+                                        color: Colors.white,
                                       ),
                                     ),
                                     alignment: Alignment.center,
@@ -216,8 +217,7 @@ class _LoginAppState extends State<LoginApp> {
                                     height: 50.0.h,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFFF7A1B),
-                                      borderRadius:
-                                      BorderRadius.circular(7.12),
+                                      borderRadius: BorderRadius.circular(7.12),
                                     ),
                                   ),
                                 ),
@@ -234,7 +234,7 @@ class _LoginAppState extends State<LoginApp> {
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                     fontFamily: 'MukgenSemiBold',
-                    color: Color(0xFFFFFFFF),
+                    color: Colors.white,
                   ),
                 ),
                 style: ButtonStyle(
