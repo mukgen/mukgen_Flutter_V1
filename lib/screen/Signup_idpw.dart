@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/Signup_number.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,22 +12,25 @@ class SignupidpwApp extends StatefulWidget {
 }
 
 class _SignupidpwAppState extends State<SignupidpwApp> {
-  bool _changeiconColor = false;
-  bool _changeiconColor2 = false;
+  bool _changeIconColor = false;
+  bool _changeIconColor2 = false;
   bool _obscureText = true;
   bool _obscureText2 = true;
   String _inputValue = '';
   String _inputValue2 = '';
   String _inputValue3 = '';
 
-  bool get isFormValid => _inputValue.isNotEmpty && _inputValue2.isNotEmpty && _inputValue3.isNotEmpty;
+  bool get isFormValid =>
+      _inputValue.isNotEmpty &&
+      _inputValue2.isNotEmpty &&
+      _inputValue3.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -37,8 +41,8 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0xFF85858D),
-            size: 24,
+            color: MukGenColor.primaryLight1,
+            size: 24.0.sp,
           ),
         ),
       ),
@@ -52,14 +56,14 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
             child: Text(
               '아이디와\n비밀번호를 입력해주세요.',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.0.sp,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'MukgenSemiBold',
               ),
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
+          SizedBox(
             width: 352.0.w,
             child: TextFormField(
               onChanged: (value) {
@@ -70,7 +74,7 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
               maxLength: 15,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 20,
+                fontSize: 20.0.sp,
                 fontFamily: 'MukgenSemiBold',
               ),
               decoration: InputDecoration(
@@ -80,29 +84,29 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFC9CAD0),
+                  color: MukGenColor.primaryLight2,
                 ),
                 helperText: '최소 5자, 최대 15자',
                 helperStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'MukgenRegular',
-                    color: Color(0xFFC9CAD0)
-                ),
+                    color: MukGenColor.primaryLight2),
                 enabledBorder: _inputValue.isEmpty
                     ? UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                        borderSide: BorderSide(
+                            color: MukGenColor.primaryLight2, width: 2))
                     : UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFF000000), width: 2)),
+                        borderSide:
+                            BorderSide(color: MukGenColor.black, width: 2)),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                    borderSide:
+                        BorderSide(color: MukGenColor.pointBase, width: 2)),
               ),
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
+          SizedBox(
             width: 352.0.w,
             child: TextFormField(
               onChanged: (value) {
@@ -114,7 +118,7 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
               obscureText: _obscureText,
               obscuringCharacter: '*',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 20.0.sp,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'MukgenSemiBold',
               ),
@@ -122,34 +126,35 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
                 counterText: '',
                 hintText: '비밀번호',
                 hintStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFC9CAD0),
+                  color: MukGenColor.primaryLight2,
                 ),
                 helperText: '특수문자 최소 1자 포함, 최대 20자',
                 helperStyle: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.0.sp,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'MukgenRegular',
-                    color: Color(0xFFC9CAD0)
-                ),
+                    color: MukGenColor.primaryLight2),
                 enabledBorder: _inputValue2.isEmpty
                     ? UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                        borderSide: BorderSide(
+                            color: MukGenColor.primaryLight2, width: 2))
                     : UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFF000000), width: 2)),
+                        borderSide:
+                            BorderSide(color: MukGenColor.black, width: 2)),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                    borderSide:
+                        BorderSide(color: MukGenColor.pointBase, width: 2)),
                 suffixIcon: IconButton(
-                  color:
-                  _changeiconColor ? Color(0xFFFF7A1B) : Color(0xFF85858D),
-                  icon: Icon(Icons.remove_red_eye_rounded),
+                  color: _changeIconColor
+                      ? MukGenColor.pointLight1
+                      : MukGenColor.primaryLight1,
+                  icon: const Icon(Icons.remove_red_eye_rounded),
                   onPressed: () {
                     setState(() {
-                      _changeiconColor = !_changeiconColor;
+                      _changeIconColor = !_changeIconColor;
                       _obscureText = !_obscureText;
                     });
                   },
@@ -158,7 +163,7 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
+          SizedBox(
             width: 352.0.w,
             child: TextFormField(
               onChanged: (value) {
@@ -170,7 +175,7 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
               obscureText: _obscureText2,
               obscuringCharacter: '*',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 20.0.sp,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'MukgenSemiBold',
               ),
@@ -181,24 +186,26 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFC9CAD0),
+                  color: MukGenColor.primaryLight2,
                 ),
                 enabledBorder: _inputValue3.isEmpty
                     ? UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                        borderSide: BorderSide(
+                            color: MukGenColor.primaryLight2, width: 2))
                     : UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xFF000000), width: 2)),
+                        borderSide:
+                            BorderSide(color: MukGenColor.black, width: 2)),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                    borderSide:
+                        BorderSide(color: MukGenColor.pointBase, width: 2)),
                 suffixIcon: IconButton(
-                  color:
-                  _changeiconColor2 ? Color(0xFFFF7A1B) : Color(0xFF85858D),
-                  icon: Icon(Icons.remove_red_eye_rounded),
+                  color: _changeIconColor2
+                      ? MukGenColor.pointLight1
+                      : MukGenColor.primaryLight1,
+                  icon: const Icon(Icons.remove_red_eye_rounded),
                   onPressed: () {
                     setState(() {
-                      _changeiconColor2 = !_changeiconColor2;
+                      _changeIconColor2 = !_changeIconColor2;
                       _obscureText2 = !_obscureText2;
                     });
                   },
@@ -206,7 +213,7 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: 352.0.w,
             height: 55.0.h,
@@ -224,23 +231,23 @@ class _SignupidpwAppState extends State<SignupidpwApp> {
                   }
                 });
               },
-              child: Text(
-                '다음',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  fontFamily: 'MukgenSemiBold',
-                  color: Color(0xFFFFFFFF),
-                ),
-              ),
               style: ButtonStyle(
                 backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(Color(0xFFC9CAD0))
-                    : MaterialStateProperty.all(Color(0xFF6B6C71)),
+                    ? MaterialStateProperty.all(MukGenColor.primaryLight2)
+                    : MaterialStateProperty.all(MukGenColor.primaryBase),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                ),
+              ),
+              child: Text(
+                '다음',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0.sp,
+                  fontFamily: 'MukgenSemiBold',
+                  color: MukGenColor.white,
                 ),
               ),
             ),
