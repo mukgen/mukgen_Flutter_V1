@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/widget/Main_Navigator.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
@@ -16,10 +17,23 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _changeiconColor = false;
   bool _obscureText = true;
-  String _inputValue = '';
-  String _inputValue2 = '';
 
-  bool get isFormValid => _inputValue.isNotEmpty && _inputValue2.isNotEmpty;
+  late TextEditingController idController;
+  late TextEditingController pwdController;
+
+  @override
+  void initState() {
+    super.initState();
+    idController = TextEditingController();
+    pwdController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    idController.dispose();
+    pwdController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           icon: Icon(
             Icons.arrow_back,
             color: MukGenColor.primaryLight1,
-            size: 24,
+            size: 24.0.sp,
           ),
         ),
       ),
@@ -61,16 +75,13 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 352.0.w,
               child: TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    _inputValue = value;
-                  });
-                },
+                controller: idController,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 20.0.sp,
                   fontFamily: 'MukgenSemiBold',
                 ),
+                onChanged: (value) => setState(() {}),
                 decoration: InputDecoration(
                   hintText: '아이디',
                   hintStyle: TextStyle(
@@ -78,13 +89,12 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
                       color: MukGenColor.primaryLight2),
-                  enabledBorder: _inputValue.isEmpty
-                      ? UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: MukGenColor.primaryLight2, width: 2))
-                      : UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: MukGenColor.black, width: 2)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: idController.text.isEmpty
+                              ? MukGenColor.primaryLight2
+                              : MukGenColor.black,
+                          width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: MukGenColor.pointBase, width: 2)),
@@ -95,11 +105,8 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 352.0.w,
               child: TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    _inputValue2 = value;
-                  });
-                },
+                controller: pwdController,
+                onChanged: (value) => setState(() {}),
                 obscureText: _obscureText,
                 obscuringCharacter: '*',
                 style: TextStyle(
@@ -110,11 +117,11 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   hintText: '비밀번호',
                   hintStyle: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.0.sp,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
                       color: MukGenColor.primaryLight2),
-                  enabledBorder: _inputValue2.isEmpty
+                  enabledBorder: pwdController.text.isEmpty
                       ? UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: MukGenColor.primaryLight2, width: 2))
@@ -142,116 +149,102 @@ class _LoginPageState extends State<LoginPage> {
             Expanded(
               child: SizedBox(), // 빈 컨테이너 또는 원하는 위젯을 추가하세요
             ),
-            SizedBox(
-              width: 352.0.w,
-              height: 55.0.h,
-              child: TextButton(
-                style: ButtonStyle(
-                  backgroundColor: isFormValid == false
-                      ? MaterialStateProperty.all(MukGenColor.primaryLight2)
-                      : MaterialStateProperty.all(MukGenColor.primaryBase),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(9.16),
-                            ),
-                            content: SizedBox(
-                              width: 280.0.w,
-                              height: 45.0.h,
-                              child: SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(top: 10.0.h),
-                                          child: Text(
-                                            '(사용자 ID)님 환영합니다!',
-                                            style: TextStyle(
-                                              fontFamily: 'MukgenSemiBold',
-                                              fontSize: 24.0.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+            MukGenButton(
+              buttonText: "로그인",
+              width: 352,
+              height: 55,
+              backgroundColor:
+                  idController.text.isNotEmpty && pwdController.text.isNotEmpty
+                      ? MukGenColor.primaryBase
+                      : MukGenColor.primaryLight2,
+              fontSize: 16.0.sp,
+              textColor: MukGenColor.white,
+              onPressed: () => {
+                setState(
+                  () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.16),
+                          ),
+                          content: SizedBox(
+                            width: 280.0.w,
+                            height: 45.0.h,
+                            child: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(top: 10.0.h),
+                                        child: Text(
+                                          '(사용자 ID)님 환영합니다!',
+                                          style: TextStyle(
+                                            fontFamily: 'MukgenSemiBold',
+                                            fontSize: 24.0.sp,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  if (isFormValid == true) {
-                                    setState(() {
-                                      Navigator.of(context).pop();
-                                      Navigator.push(
-                                        context,
-                                        Transition(
-                                          child: MainNavigatorApp(),
-                                          transitionEffect:
-                                              TransitionEffect.RIGHT_TO_LEFT,
-                                        ),
-                                      );
-                                    });
-                                  }
-                                },
-                                child: Center(
-                                  child: Container(
-                                    width: 280.0.w,
-                                    height: 50.0.h,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: MukGenColor.primaryLight1,
-                                      borderRadius: BorderRadius.circular(7.12),
-                                    ),
-                                    child: Text(
-                                      '확인',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.0.sp,
-                                        fontFamily: 'MukgenSemiBold',
-                                        color: MukGenColor.white,
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                if (idController.text.isNotEmpty &&
+                                    pwdController.text.isNotEmpty) {
+                                  setState(() {
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                      context,
+                                      Transition(
+                                        child: MainNavigatorApp(),
+                                        transitionEffect:
+                                            TransitionEffect.RIGHT_TO_LEFT,
                                       ),
+                                    );
+                                  });
+                                }
+                              },
+                              child: Center(
+                                child: Container(
+                                  width: 280.0.w,
+                                  height: 50.0.h,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: MukGenColor.primaryLight1,
+                                    borderRadius: BorderRadius.circular(7.12),
+                                  ),
+                                  child: Text(
+                                    '확인',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14.0.sp,
+                                      fontFamily: 'MukgenSemiBold',
+                                      color: MukGenColor.white,
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 3.0.h)
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-                child: Text(
-                  '로그인',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.0.sp,
-                    fontFamily: 'MukgenSemiBold',
-                    color: MukGenColor.white,
-                  ),
+                            ),
+                            SizedBox(height: 3.0.h)
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
-              ),
+                SizedBox(height: 20.0.h),
+              },
             ),
-            SizedBox(height: 20.0.h),
           ],
         ),
       ),
