@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 
-class MainBoardApp extends StatefulWidget {
-  const MainBoardApp({Key? key}) : super(key: key);
+class MainBoardPage extends StatefulWidget {
+  const MainBoardPage({Key? key}) : super(key: key);
 
   @override
-  State<MainBoardApp> createState() => _MainBoardAppState();
+  State<MainBoardPage> createState() => _MainBoardPageState();
 }
 
-class _MainBoardAppState extends State<MainBoardApp> {
+class _MainBoardPageState extends State<MainBoardPage> {
   bool daily = false;
   bool weekly = false;
   bool all = true;
@@ -29,7 +29,10 @@ class _MainBoardAppState extends State<MainBoardApp> {
       body: Center(
         child: SingleChildScrollView(
           child: SizedBox(
-            width: MediaQuery.of(context).size.width - 20.0.w,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width - 20.0.w,
             child: Column(
               children: [
                 SizedBox(height: 32.0.h),
@@ -77,7 +80,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                                 ? MukGenColor.white
                                 : MukGenColor.primaryLight1,
                             fontFamily:
-                                all ? 'MukgenSemiBold' : 'MukgenRegular',
+                            all ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
                             fontWeight: all ? FontWeight.w600 : FontWeight.w400,
                           ),
@@ -91,7 +94,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color:
-                            daily ? MukGenColor.pointBase : MukGenColor.white,
+                        daily ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: daily
                               ? MukGenColor.pointBase
@@ -114,10 +117,10 @@ class _MainBoardAppState extends State<MainBoardApp> {
                                 ? MukGenColor.white
                                 : MukGenColor.pointLight1,
                             fontFamily:
-                                daily ? 'MukgenSemiBold' : 'MukgenRegular',
+                            daily ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
                             fontWeight:
-                                daily ? FontWeight.w600 : FontWeight.w400,
+                            daily ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ),
@@ -129,7 +132,7 @@ class _MainBoardAppState extends State<MainBoardApp> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color:
-                            weekly ? MukGenColor.pointBase : MukGenColor.white,
+                        weekly ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: weekly
                               ? MukGenColor.pointBase
@@ -152,10 +155,10 @@ class _MainBoardAppState extends State<MainBoardApp> {
                                 ? MukGenColor.white
                                 : MukGenColor.primaryLight1,
                             fontFamily:
-                                weekly ? 'MukgenSemiBold' : 'MukgenRegular',
+                            weekly ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
                             fontWeight:
-                                weekly ? FontWeight.w600 : FontWeight.w400,
+                            weekly ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ),

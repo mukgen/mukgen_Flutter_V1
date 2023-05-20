@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
         PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 575),
           pageBuilder: (context, animation, secondaryAnimation) =>
-              StartingApp(),
+              StartingPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(

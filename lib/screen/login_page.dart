@@ -4,14 +4,14 @@ import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 
-class LoginApp extends StatefulWidget {
-  const LoginApp({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginApp> createState() => _LoginAppState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginAppState extends State<LoginApp> {
+class _LoginPageState extends State<LoginPage> {
   int index = 0;
 
   bool _changeiconColor = false;

@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:mukgen_flutter_v1/screen/Signup_nickname.dart';
 import 'package:mukgen_flutter_v1/screen/StartingPage.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupnumberApp extends StatefulWidget {
-  const SignupnumberApp({Key? key}) : super(key: key);
+class SignUpNumberPage extends StatefulWidget {
+  const SignUpNumberPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupnumberApp> createState() => _SignupnumberAppState();
+  State<SignUpNumberPage> createState() => _SignUpNumberPageState();
 }
 
-class _SignupnumberAppState extends State<SignupnumberApp> {
+class _SignUpNumberPageState extends State<SignUpNumberPage> {
   String _inputValue = '';
   String _inputValue2 = '';
   String _inputValue3 = '';
 
   bool get isFormValid =>
       _inputValue.isNotEmpty &&
-          _inputValue2.isNotEmpty &&
-          _inputValue3.isNotEmpty;
+      _inputValue2.isNotEmpty &&
+      _inputValue3.isNotEmpty;
+
   bool get isFormValid2 =>
       _inputValue.length == 3 &&
-          _inputValue2.length == 4 &&
-          _inputValue3.length == 4;
+      _inputValue2.length == 4 &&
+      _inputValue3.length == 4;
 
   late FocusNode _firstFocusNode;
   late FocusNode _secondFocusNode;
@@ -134,14 +136,14 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                     counterText: '',
                     enabledBorder: _inputValue.isEmpty
                         ? UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide:
+                                BorderSide(color: Color(0xFFC9CAD0), width: 2))
                         : UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFF000000), width: 2)),
+                            borderSide:
+                                BorderSide(color: Color(0xFF000000), width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: Color(0xFFFE6B01), width: 2)),
                   ),
                 ),
               ),
@@ -181,14 +183,14 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                     counterText: '',
                     enabledBorder: _inputValue2.isEmpty
                         ? UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide:
+                                BorderSide(color: Color(0xFFC9CAD0), width: 2))
                         : UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFF000000), width: 2)),
+                            borderSide:
+                                BorderSide(color: Color(0xFF000000), width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: Color(0xFFFE6B01), width: 2)),
                   ),
                 ),
               ),
@@ -219,20 +221,19 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      fontFamily: 'MukgenSemiBold'
-                  ),
+                      fontFamily: 'MukgenSemiBold'),
                   decoration: InputDecoration(
                     counterText: '',
                     enabledBorder: _inputValue3.isEmpty
                         ? UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                            borderSide:
+                                BorderSide(color: Color(0xFFC9CAD0), width: 2))
                         : UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xFF000000), width: 2)),
+                            borderSide:
+                                BorderSide(color: Color(0xFF000000), width: 2)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                            BorderSide(color: Color(0xFFFE6B01), width: 2)),
                   ),
                 ),
               ),
@@ -249,7 +250,7 @@ class _SignupnumberAppState extends State<SignupnumberApp> {
                     Navigator.push(
                       context,
                       Transition(
-                        child: StartingApp(),
+                        child: StartingPage(),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     );

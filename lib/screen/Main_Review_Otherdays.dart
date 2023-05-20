@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OtherDaysApp extends StatefulWidget {
-  const OtherDaysApp({Key? key}) : super(key: key);
+class OtherDaysPage extends StatefulWidget {
+  const OtherDaysPage({Key? key}) : super(key: key);
 
   @override
-  State<OtherDaysApp> createState() => _OtherDaysAppState();
+  State<OtherDaysPage> createState() => _OtherDaysPageState();
 }
 
-class _OtherDaysAppState extends State<OtherDaysApp> {
+class _OtherDaysPageState extends State<OtherDaysPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

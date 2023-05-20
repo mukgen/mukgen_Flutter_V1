@@ -5,18 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
-class MainSuggestionApp extends StatefulWidget {
-  const MainSuggestionApp({Key? key}) : super(key: key);
+class MainSuggestionPage extends StatefulWidget {
+  const MainSuggestionPage({Key? key}) : super(key: key);
 
   @override
-  State<MainSuggestionApp> createState() => _MainSuggestionAppState();
+  State<MainSuggestionPage> createState() => _MainSuggestionPageState();
 }
 
-class _MainSuggestionAppState extends State<MainSuggestionApp> {
-
+class _MainSuggestionPageState extends State<MainSuggestionPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    );
+    return Scaffold();
   }
 }

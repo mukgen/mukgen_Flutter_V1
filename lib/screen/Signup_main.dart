@@ -3,14 +3,14 @@ import 'package:mukgen_flutter_v1/screen/Signup_nickname.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupStartApp extends StatefulWidget {
-  const SignupStartApp({Key? key}) : super(key: key);
+class SignupStartPage extends StatefulWidget {
+  const SignupStartPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupStartApp> createState() => _SignupStartAppState();
+  State<SignupStartPage> createState() => _SignupStartPageState();
 }
 
-class _SignupStartAppState extends State<SignupStartApp> {
+class _SignupStartPageState extends State<SignupStartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +57,6 @@ class _SignupStartAppState extends State<SignupStartApp> {
                 fontSize: 16,
                 fontFamily: 'MukgenRegular',
                 fontWeight: FontWeight.w400,
-
               ),
             ),
           ),
@@ -82,7 +81,7 @@ class _SignupStartAppState extends State<SignupStartApp> {
                   Navigator.push(
                     context,
                     Transition(
-                      child: SignupnameApp(),
+                      child: SignUpNamePage(),
                       transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                     ),
                   );

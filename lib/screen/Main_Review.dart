@@ -7,15 +7,15 @@ import 'package:mukgen_flutter_v1/screen/Main_Review_Otherdays.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transition/transition.dart';
 
-class MainReviewApp extends StatefulWidget {
-  const MainReviewApp({Key? key}) : super(key: key);
+class MainReviewPage extends StatefulWidget {
+  const MainReviewPage({Key? key}) : super(key: key);
 
   @override
-  State<MainReviewApp> createState() => _MainReviewAppState();
+  State<MainReviewPage> createState() => _MainReviewPageState();
 }
 
-class _MainReviewAppState extends State<MainReviewApp> {
-  final String now = new DateTime.now().toString();
+class _MainReviewPageState extends State<MainReviewPage> {
+  final String now = DateTime.now().toString();
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   @override
@@ -36,15 +36,11 @@ class _MainReviewAppState extends State<MainReviewApp> {
                         fontFamily: 'MukgenSemiBold',
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF6B6C71)
-                    ),
-                  )
-              ),
+                        color: Color(0xFF6B6C71)),
+                  )),
               Container(
                 child: IconButton(
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   icon: Icon(CustomIcons.calendar),
                   color: Color(0xFFC9CAD0),
                 ),
@@ -55,11 +51,8 @@ class _MainReviewAppState extends State<MainReviewApp> {
                     icon: Icon(Icons.person),
                     iconSize: 28,
                     color: Color(0xFFC9CAD0),
-                    onPressed: () {
-
-                    },
-                  )
-              ),
+                    onPressed: () {},
+                  )),
             ],
           ),
           Column(
@@ -81,7 +74,8 @@ class _MainReviewAppState extends State<MainReviewApp> {
               Container(
                 padding: EdgeInsets.only(left: 20.0.w),
                 alignment: Alignment.centerLeft,
-                child: Text('오늘 급식 리뷰',
+                child: Text(
+                  '오늘 급식 리뷰',
                   style: TextStyle(
                     color: Color(0xFF000000),
                     fontFamily: 'MukgenSemiBold',
@@ -93,26 +87,23 @@ class _MainReviewAppState extends State<MainReviewApp> {
               Container(
                   padding: EdgeInsets.only(top: 5.0.h, left: 140.0.w),
                   child: TextButton(
-                    child: Text(
-                        '다른날 보러가기',
+                    child: Text('다른날 보러가기',
                         style: TextStyle(
                           color: Color(0xFFFF7A1B),
                           fontSize: 12,
                           fontFamily: 'MukgenRegular',
                           fontWeight: FontWeight.w400,
-                        )
-                    ),
+                        )),
                     onPressed: () {
                       Navigator.push(
                         context,
                         Transition(
-                          child: OtherDaysApp(),
+                          child: OtherDaysPage(),
                           transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                         ),
                       );
                     },
-                  )
-              ),
+                  )),
             ],
           ),
           Column(
@@ -162,12 +153,10 @@ class _MainReviewAppState extends State<MainReviewApp> {
         height: 70.0.h,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: (){
-
-            },
+            onPressed: () {},
             elevation: 0,
             backgroundColor: Color(0xFFFE6B01),
-            child: Icon(Icons.add,size: 30,color: Color(0xFFFFFFFF)),
+            child: Icon(Icons.add, size: 30, color: Color(0xFFFFFFFF)),
           ),
         ),
       ),

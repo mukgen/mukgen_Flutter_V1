@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 
-class MainHomeApp extends StatefulWidget {
-  const MainHomeApp({Key? key}) : super(key: key);
+class MainHomePage extends StatefulWidget {
+  const MainHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MainHomeApp> createState() => _MainHomeAppState();
+  State<MainHomePage> createState() => _MainHomePageState();
 }
 
-class _MainHomeAppState extends State<MainHomeApp> {
+class _MainHomePageState extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

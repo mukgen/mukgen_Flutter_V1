@@ -224,7 +224,7 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
                     Navigator.push(
                       context,
                       Transition(
-                        child: SignupnumberApp(),
+                        child: SignUpNumberPage(),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     );

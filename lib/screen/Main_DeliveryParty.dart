@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MainDeliveryPartyApp extends StatefulWidget {
-  const MainDeliveryPartyApp({Key? key}) : super(key: key);
+class MainDeliveryPartyPage extends StatefulWidget {
+  const MainDeliveryPartyPage({Key? key}) : super(key: key);
 
   @override
-  State<MainDeliveryPartyApp> createState() => _MainDeliveryPartyAppState();
+  State<MainDeliveryPartyPage> createState() => _MainDeliveryPartyPageState();
 }
 
-class _MainDeliveryPartyAppState extends State<MainDeliveryPartyApp> {
+class _MainDeliveryPartyPageState extends State<MainDeliveryPartyPage> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

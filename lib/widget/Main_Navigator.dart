@@ -18,11 +18,11 @@ class _MainNavigatorAppState extends State<MainNavigatorApp> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const MainHomeApp(),
-    const MainBoardApp(),
-    const MainSuggestionApp(),
-    const MainReviewApp(),
-    const MainDeliveryPartyApp(),
+    const MainHomePage(),
+    const MainBoardPage(),
+    const MainSuggestionPage(),
+    const MainReviewPage(),
+    const MainDeliveryPartyPage(),
   ];
 
   final PageController _pageController = PageController(initialPage: 0);

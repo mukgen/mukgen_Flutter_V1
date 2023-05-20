@@ -3,14 +3,14 @@ import 'package:mukgen_flutter_v1/screen/sign_up_id_pw_page.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupnameApp extends StatefulWidget {
-  const SignupnameApp({Key? key}) : super(key: key);
+class SignUpNamePage extends StatefulWidget {
+  const SignUpNamePage({Key? key}) : super(key: key);
 
   @override
-  State<SignupnameApp> createState() => _SignupnameAppState();
+  State<SignUpNamePage> createState() => _SignupNamePageState();
 }
 
-class _SignupnameAppState extends State<SignupnameApp> {
+class _SignupNamePageState extends State<SignUpNamePage> {
   String _inputValue = '';
 
   bool get isFormValid => _inputValue.isNotEmpty;

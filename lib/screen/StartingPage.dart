@@ -3,16 +3,16 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/Signup_main.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/LoginPage.dart';
+import 'package:mukgen_flutter_v1/screen/login_page.dart';
 
-class StartingApp extends StatefulWidget {
-  const StartingApp({Key? key}) : super(key: key);
+class StartingPage extends StatefulWidget {
+  const StartingPage({Key? key}) : super(key: key);
 
   @override
-  State<StartingApp> createState() => _StartingAppState();
+  State<StartingPage> createState() => _StartingPageState();
 }
 
-class _StartingAppState extends State<StartingApp> {
+class _StartingPageState extends State<StartingPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -52,7 +52,7 @@ class _StartingAppState extends State<StartingApp> {
                           Navigator.push(
                             context,
                             Transition(
-                              child: LoginApp(),
+                              child: LoginPage(),
                               transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                             ),
                           );
@@ -90,7 +90,7 @@ class _StartingAppState extends State<StartingApp> {
                           Navigator.push(
                             context,
                             Transition(
-                              child: SignupStartApp(),
+                              child: SignupStartPage(),
                               transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                             ),
                           );
