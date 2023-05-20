@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_number_page.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -213,47 +214,19 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             ),
           ),
           const Spacer(),
-          SizedBox(
-            width: 352.0.w,
-            height: 55.0.h,
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (idController.text.isNotEmpty &&
-                      pwdController.text.isNotEmpty &&
-                      pwdCheckController.text.isNotEmpty) {
-                    Navigator.push(
-                      context,
-                      Transition(
-                        child: SignUpNumberPage(),
-                        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                      ),
-                    );
-                  }
-                });
-              },
-              style: ButtonStyle(
-                backgroundColor: idController.text.isNotEmpty &&
-                        pwdController.text.isNotEmpty &&
-                        pwdCheckController.text.isNotEmpty
-                    ? MaterialStateProperty.all(MukGenColor.primaryBase)
-                    : MaterialStateProperty.all(MukGenColor.primaryLight2),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              child: Text(
-                '다음',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0.sp,
-                  fontFamily: 'MukgenSemiBold',
-                  color: MukGenColor.white,
-                ),
-              ),
-            ),
+          MukGenButton(
+            width: 352,
+            height: 55,
+            text: "다음",
+            textColor: MukGenColor.white,
+            fontSize: 16,
+            backgroundColor: idController.text.isNotEmpty &&
+                    pwdController.text.isNotEmpty &&
+                    pwdCheckController.text.isNotEmpty
+                ? MukGenColor.primaryBase
+                : MukGenColor.primaryLight2,
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SignUpNumberPage())),
           ),
           SizedBox(height: 20.0.h),
         ],
