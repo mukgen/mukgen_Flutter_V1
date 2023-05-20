@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mukgen_flutter_v1/widget/Main_Navigator.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/foundation.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 
 class LoginApp extends StatefulWidget {
   const LoginApp({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class _LoginAppState extends State<LoginApp> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
@@ -36,7 +35,7 @@ class _LoginAppState extends State<LoginApp> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0xFF85858D),
+            color: MukGenColor.primaryLight1,
             size: 24,
           ),
         ),
@@ -52,7 +51,7 @@ class _LoginAppState extends State<LoginApp> {
               child: Text(
                 '로그인을 위한\n정보를 입력해주세요.',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                 ),
@@ -78,17 +77,17 @@ class _LoginAppState extends State<LoginApp> {
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
-                      color: Color(0xFFC9CAD0)),
+                      color: MukGenColor.white),
                   enabledBorder: _inputValue.isEmpty
                       ? UnderlineInputBorder(
                           borderSide:
-                              BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                              BorderSide(color: MukGenColor.white, width: 2))
                       : UnderlineInputBorder(
                           borderSide:
-                              BorderSide(color: Colors.black, width: 2)),
+                              BorderSide(color: MukGenColor.black, width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                          BorderSide(color: MukGenColor.pointBase, width: 2)),
                 ),
               ),
             ),
@@ -114,21 +113,21 @@ class _LoginAppState extends State<LoginApp> {
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
-                      color: Color(0xFFC9CAD0)),
+                      color: MukGenColor.primaryLight2),
                   enabledBorder: _inputValue2.isEmpty
                       ? UnderlineInputBorder(
                           borderSide:
-                              BorderSide(color: Color(0xFFC9CAD0), width: 2))
+                              BorderSide(color: MukGenColor.primaryLight2, width: 2))
                       : UnderlineInputBorder(
                           borderSide:
-                              BorderSide(color: Colors.black, width: 2)),
+                              BorderSide(color: MukGenColor.black, width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color(0xFFFE6B01), width: 2)),
+                          BorderSide(color: MukGenColor.pointBase, width: 2)),
                   suffixIcon: IconButton(
                     color: _changeiconColor
-                        ? Color(0xFFFF7A1B)
-                        : Color(0xFF85858D),
+                        ? MukGenColor.pointLight1
+                        : MukGenColor.primaryLight1,
                     icon: Icon(Icons.remove_red_eye_rounded),
                     onPressed: () {
                       setState(() {
@@ -216,7 +215,7 @@ class _LoginAppState extends State<LoginApp> {
                                     width: 280.0.w,
                                     height: 50.0.h,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFFF7A1B),
+                                      color: MukGenColor.primaryLight1,
                                       borderRadius: BorderRadius.circular(7.12),
                                     ),
                                   ),
@@ -239,8 +238,8 @@ class _LoginAppState extends State<LoginApp> {
                 ),
                 style: ButtonStyle(
                   backgroundColor: isFormValid == false
-                      ? MaterialStateProperty.all(Color(0xFFC9CAD0))
-                      : MaterialStateProperty.all(Color(0xFF6B6C71)),
+                      ? MaterialStateProperty.all(MukGenColor.primaryLight2)
+                      : MaterialStateProperty.all(MukGenColor.grey),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
