@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_id_pw_page.dart';
-import 'package:transition/transition.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpNamePage extends StatefulWidget {
@@ -12,9 +12,19 @@ class SignUpNamePage extends StatefulWidget {
 }
 
 class _SignupNamePageState extends State<SignUpNamePage> {
-  String _inputValue = '';
+  late TextEditingController nameController;
 
-  bool get isFormValid => _inputValue.isNotEmpty;
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +35,11 @@ class _SignupNamePageState extends State<SignUpNamePage> {
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
+          onPressed: () => Navigator.of(context).pop(),
           icon: Icon(
             Icons.arrow_back,
             color: MukGenColor.primaryLight1,
-            size: 24,
+            size: 24.0.sp,
           ),
         ),
       ),
@@ -56,11 +62,8 @@ class _SignupNamePageState extends State<SignUpNamePage> {
           SizedBox(
             width: 352.0.w,
             child: TextFormField(
-              onChanged: (value) {
-                setState(() {
-                  _inputValue = value;
-                });
-              },
+              controller: nameController,
+              onChanged: (value) => setState(() {}),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0.sp,
@@ -72,7 +75,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
                     fontWeight: FontWeight.w600,
                     fontFamily: 'MukgenSemiBold',
                     color: MukGenColor.primaryLight2),
-                enabledBorder: _inputValue.isEmpty
+                enabledBorder: nameController.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: MukGenColor.primaryLight2, width: 2))
@@ -86,45 +89,22 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             ),
           ),
           const Spacer(),
-          SizedBox(
-            width: 352.0.w,
-            height: 55.0.h,
-            child: TextButton(
-              onPressed: () {
-                setState(
-                  () {
-                    if (isFormValid == true) {
-                      Navigator.push(
-                        context,
-                        Transition(
-                          child: SignUpIdPwPage(),
-                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                        ),
-                      );
-                    }
-                  },
+          MukGenButton(
+            text: "다음",
+            width: 352,
+            height: 55,
+            backgroundColor: nameController.text.isEmpty
+                ? MukGenColor.primaryLight2
+                : MukGenColor.grey,
+            fontSize: 16,
+            textColor: MukGenColor.white,
+            onPressed: () {
+              if (nameController.text.isNotEmpty) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SignUpIdPwPage()),
                 );
-              },
-              style: ButtonStyle(
-                backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(MukGenColor.primaryLight2)
-                    : MaterialStateProperty.all(MukGenColor.grey),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              child: Text(
-                '다음',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0.sp,
-                  fontFamily: 'MukgenSemiBold',
-                  color: MukGenColor.white,
-                ),
-              ),
-            ),
+              }
+            },
           ),
           SizedBox(height: 20.0.h),
         ],
