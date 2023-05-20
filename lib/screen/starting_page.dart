@@ -44,15 +44,16 @@ class _StartingPageState extends State<StartingPage> {
                     height: 24.0.h,
                   ),
                   MukGenButton(
-                      width: 353,
-                      height: 55,
-                      backgroundColor: MukGenColor.primaryLight3,
-                      text: "로그인",
-                      fontSize: 16,
-                      textColor: MukGenColor.black,
-                      onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => LoginPage()))),
+                    width: 353,
+                    height: 55,
+                    backgroundColor: MukGenColor.primaryLight3,
+                    text: "로그인",
+                    fontSize: 16,
+                    textColor: MukGenColor.black,
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    ),
+                  ),
                   SizedBox(
                     height: 24.0.h,
                   ),
