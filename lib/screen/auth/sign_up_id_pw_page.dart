@@ -16,14 +16,26 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
   bool _changeIconColor2 = false;
   bool _obscureText = true;
   bool _obscureText2 = true;
-  String _inputValue = '';
-  String _inputValue2 = '';
-  String _inputValue3 = '';
 
-  bool get isFormValid =>
-      _inputValue.isNotEmpty &&
-      _inputValue2.isNotEmpty &&
-      _inputValue3.isNotEmpty;
+  late TextEditingController idController;
+  late TextEditingController pwdController;
+  late TextEditingController pwdCheckController;
+
+  @override
+  void initState() {
+    super.initState();
+    idController = TextEditingController();
+    pwdController = TextEditingController();
+    pwdCheckController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    idController.dispose();
+    pwdController.dispose();
+    pwdCheckController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +46,7 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
         elevation: 0,
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
+          onPressed: () => Navigator.of(context).pop(),
           icon: Icon(
             Icons.arrow_back,
             color: MukGenColor.primaryLight1,
@@ -66,11 +74,8 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
           SizedBox(
             width: 352.0.w,
             child: TextFormField(
-              onChanged: (value) {
-                setState(() {
-                  _inputValue = value;
-                });
-              },
+              controller: idController,
+              onChanged: (value) => setState(() {}),
               maxLength: 15,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -81,18 +86,18 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
                 counterText: '',
                 hintText: '아이디',
                 hintStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                   color: MukGenColor.primaryLight2,
                 ),
                 helperText: '최소 5자, 최대 15자',
                 helperStyle: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.0.sp,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'MukgenRegular',
                     color: MukGenColor.primaryLight2),
-                enabledBorder: _inputValue.isEmpty
+                enabledBorder: idController.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: MukGenColor.primaryLight2, width: 2))
@@ -109,11 +114,8 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
           SizedBox(
             width: 352.0.w,
             child: TextFormField(
-              onChanged: (value) {
-                setState(() {
-                  _inputValue2 = value;
-                });
-              },
+              controller: pwdController,
+              onChanged: (value) => setState(() {}),
               maxLength: 20,
               obscureText: _obscureText,
               obscuringCharacter: '*',
@@ -137,7 +139,7 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
                     fontWeight: FontWeight.w400,
                     fontFamily: 'MukgenRegular',
                     color: MukGenColor.primaryLight2),
-                enabledBorder: _inputValue2.isEmpty
+                enabledBorder: pwdController.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: MukGenColor.primaryLight2, width: 2))
@@ -166,11 +168,8 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
           SizedBox(
             width: 352.0.w,
             child: TextFormField(
-              onChanged: (value) {
-                setState(() {
-                  _inputValue3 = value;
-                });
-              },
+              controller: pwdCheckController,
+              onChanged: (value) => setState(() {}),
               maxLength: 20,
               obscureText: _obscureText2,
               obscuringCharacter: '*',
@@ -183,12 +182,12 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
                 counterText: '',
                 hintText: '비밀번호 확인',
                 hintStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
                   color: MukGenColor.primaryLight2,
                 ),
-                enabledBorder: _inputValue3.isEmpty
+                enabledBorder: pwdCheckController.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: MukGenColor.primaryLight2, width: 2))
@@ -220,7 +219,9 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (isFormValid == true) {
+                  if (idController.text.isNotEmpty &&
+                      pwdController.text.isNotEmpty &&
+                      pwdCheckController.text.isNotEmpty) {
                     Navigator.push(
                       context,
                       Transition(
@@ -232,9 +233,11 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
                 });
               },
               style: ButtonStyle(
-                backgroundColor: isFormValid == false
-                    ? MaterialStateProperty.all(MukGenColor.primaryLight2)
-                    : MaterialStateProperty.all(MukGenColor.primaryBase),
+                backgroundColor: idController.text.isNotEmpty &&
+                        pwdController.text.isNotEmpty &&
+                        pwdCheckController.text.isNotEmpty
+                    ? MaterialStateProperty.all(MukGenColor.primaryBase)
+                    : MaterialStateProperty.all(MukGenColor.primaryLight2),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
