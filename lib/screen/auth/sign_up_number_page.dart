@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -220,49 +221,25 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             ],
           ),
           const Spacer(),
-          SizedBox(
-            width: 352.0.w,
-            height: 55.0.h,
-            child: TextButton(
-              onPressed: () {
-                setState(
-                  () {
-                    if (_firstController.text.length == 3 &&
-                        _secondController.text.length == 4 &&
-                        _thirdController.text.length == 4) {
-                      Navigator.push(
-                        context,
-                        Transition(
-                          child: StartingPage(),
-                          transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                        ),
-                      );
-                    }
-                  },
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: _firstController.text.length == 3 &&
-                        _secondController.text.length == 4 &&
-                        _thirdController.text.length == 4
-                    ? MaterialStateProperty.all(MukGenColor.grey)
-                    : MaterialStateProperty.all(MukGenColor.primaryLight2),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              child: Text(
-                '완료',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0.sp,
-                  fontFamily: 'MukgenSemiBold',
-                  color: MukGenColor.white,
-                ),
-              ),
-            ),
+          MukGenButton(
+            text: "완료",
+            width: 352,
+            height: 55,
+            backgroundColor: _firstController.text.length == 3 &&
+                    _secondController.text.length == 4 &&
+                    _thirdController.text.length == 4
+                ? MukGenColor.grey
+                : MukGenColor.primaryLight2,
+            fontSize: 16,
+            textColor: MukGenColor.white,
+            onPressed: () {
+              if (_firstController.text.length == 3 &&
+                  _secondController.text.length == 4 &&
+                  _thirdController.text.length == 4) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => StartingPage()));
+              }
+            },
           ),
           SizedBox(height: 20.0.h),
         ],
