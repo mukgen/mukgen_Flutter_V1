@@ -3,6 +3,7 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_id_pw_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 
 class SignUpNamePage extends StatefulWidget {
   const SignUpNamePage({Key? key}) : super(key: key);
@@ -14,16 +15,25 @@ class SignUpNamePage extends StatefulWidget {
 class _SignupNamePageState extends State<SignUpNamePage> {
   late TextEditingController nameController;
 
+  bool _isButtonEnabled = false;
+
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController();
+    nameController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
     super.dispose();
     nameController.dispose();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      _isButtonEnabled = nameController.text.isNotEmpty;
+    });
   }
 
   @override
@@ -59,43 +69,21 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             ),
           ),
           SizedBox(height: 24.0.h),
-          SizedBox(
-            width: 352.0.w,
-            child: TextFormField(
-              controller: nameController,
-              onChanged: (value) => setState(() {}),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0.sp,
-              ),
-              decoration: InputDecoration(
-                hintText: '이름',
-                hintStyle: TextStyle(
-                    fontSize: 20.0.sp,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'MukgenSemiBold',
-                    color: MukGenColor.primaryLight2),
-                enabledBorder: nameController.text.isEmpty
-                    ? UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: MukGenColor.primaryLight2, width: 2))
-                    : UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: MukGenColor.black, width: 2)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: MukGenColor.pointBase, width: 2)),
-              ),
-            ),
+          MukGenTextField(
+            width: 352,
+            controller: nameController,
+            fontSize: 20,
+            isPwdTextField: false,
+            maxLength: null,
+            hintText: "이름",
           ),
           const Spacer(),
           MukGenButton(
             text: "다음",
             width: 352,
             height: 55,
-            backgroundColor: nameController.text.isEmpty
-                ? MukGenColor.primaryLight2
-                : MukGenColor.grey,
+            backgroundColor:
+                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
