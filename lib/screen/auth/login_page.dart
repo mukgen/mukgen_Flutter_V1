@@ -109,69 +109,64 @@ class _LoginPageState extends State<LoginPage> {
                   : MukGenColor.primaryLight2,
               fontSize: 16.0.sp,
               textColor: MukGenColor.white,
-              onPressed: () => {
-                setState(
-                  () {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9.16),
-                          ),
-                          content: SizedBox(
-                            width: 280.0.w,
-                            height: 45.0.h,
-                            child: SingleChildScrollView(
-                              child: ListBody(
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(top: 10.0.h),
-                                        child: Text(
-                                          '(사용자 ID)님 환영합니다!',
-                                          style: TextStyle(
-                                            fontFamily: 'MukgenSemiBold',
-                                            fontSize: 24.0.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9.16),
+                      ),
+                      content: SizedBox(
+                        width: 280.0.w,
+                        height: 45.0.h,
+                        child: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10.0.h),
+                                    child: Text(
+                                      '(사용자 ID)님 환영합니다!',
+                                      style: TextStyle(
+                                        fontFamily: 'MukgenSemiBold',
+                                        fontSize: 24.0.sp,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                          actions: <Widget>[
-                            MukGenButton(
-                              text: "확인",
-                              width: 280,
-                              height: 50,
-                              backgroundColor: MukGenColor.primaryLight1,
-                              fontSize: 14,
-                              textColor: MukGenColor.white,
-                              onPressed: () {
-                                if (_isButtonEnabled) {
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MainNavigator()),
-                                      (route) => false);
-                                }
-                              },
-                            ),
-                            SizedBox(height: 3.0.h)
-                          ],
-                        );
-                      },
+                        ),
+                      ),
+                      actions: <Widget>[
+                        MukGenButton(
+                          text: "확인",
+                          width: 280,
+                          height: 50,
+                          backgroundColor: MukGenColor.primaryLight1,
+                          fontSize: 14,
+                          textColor: MukGenColor.white,
+                          onPressed: () {
+                            if (_isButtonEnabled) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => MainNavigator()),
+                                  (route) => false);
+                            }
+                          },
+                        ),
+                        SizedBox(height: 3.0.h)
+                      ],
                     );
                   },
-                ),
-                SizedBox(height: 20.0.h),
+                );
+                SizedBox(height: 20.0.h);
               },
             ),
           ],
