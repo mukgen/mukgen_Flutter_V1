@@ -13,6 +13,7 @@ class MukGenTextField extends StatefulWidget {
     this.height,
     this.hintText,
     this.helperText,
+    bool? autofocus,
   }) : super(key: key);
 
   final double width;
@@ -24,6 +25,7 @@ class MukGenTextField extends StatefulWidget {
   final String? hintText, helperText;
 
   final bool isPwdTextField;
+  final bool autofocus = false;
 
   @override
   State<MukGenTextField> createState() => _MukGenTextFieldState();
@@ -42,6 +44,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               controller: widget.controller,
               onChanged: (value) => setState(() {}),
               maxLength: widget.maxLength,
+              autofocus: widget.autofocus,
               obscureText: !_isClicked,
               obscuringCharacter: '*',
               style: TextStyle(
@@ -96,6 +99,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
             height: widget.height != null ? widget.height!.h : null,
             child: TextFormField(
               controller: widget.controller,
+              autofocus: widget.autofocus,
               onChanged: (value) => setState(() {}),
               maxLength: widget.maxLength,
               style: TextStyle(
