@@ -53,7 +53,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
+                  fontFamily: 'MukgenRegular',
                   color: MukGenColor.primaryLight2,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
@@ -101,6 +101,12 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'MukgenSemiBold',
+                  color: MukGenColor.primaryLight2,
+                ),
+                helperStyle: TextStyle(
+                  fontSize: 16.0.sp,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'MukgenRegular',
                   color: MukGenColor.primaryLight2,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
