@@ -10,10 +10,10 @@ class MukGenTextField extends StatefulWidget {
     required this.fontSize,
     required this.isPwdTextField,
     required this.maxLength,
+    required this.autofocus,
     this.height,
     this.hintText,
     this.helperText,
-    bool? autofocus,
     TextInputType? textInputType,
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class MukGenTextField extends StatefulWidget {
   final TextInputType textInputType = TextInputType.text;
 
   final bool isPwdTextField;
-  final bool autofocus = false;
+  final bool autofocus;
 
   @override
   State<MukGenTextField> createState() => _MukGenTextFieldState();
