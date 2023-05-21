@@ -117,8 +117,12 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
                 _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
             textColor: MukGenColor.white,
             fontSize: 16,
-            onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SignUpNumberPage())),
+            onPressed: () {
+              _isButtonEnabled
+                  ? Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SignUpNumberPage()))
+                  : null;
+            },
           ),
           SizedBox(height: 20.0.h),
         ],
