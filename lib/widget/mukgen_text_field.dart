@@ -3,22 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 
 class MukGenTextField extends StatefulWidget {
-  const MukGenTextField(
-      {Key? key,
-      required this.width,
-      required this.controller,
-      required this.fontSize,
-      required this.isPwdTextField,
-      this.hintText,
-      required this.maxLength})
-      : super(key: key);
+  const MukGenTextField({
+    Key? key,
+    required this.width,
+    required this.controller,
+    required this.fontSize,
+    required this.isPwdTextField,
+    required this.maxLength,
+    this.hintText,
+    this.helperText,
+  }) : super(key: key);
 
   final double width;
 
   final int? maxLength;
   final int fontSize;
   final TextEditingController controller;
-  final String? hintText;
+  final String? hintText, helperText;
 
   final bool isPwdTextField;
 
@@ -47,6 +48,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               ),
               decoration: InputDecoration(
                 counterText: '',
+                helperText: widget.helperText,
                 hintText: widget.hintText,
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
@@ -94,6 +96,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               decoration: InputDecoration(
                 counterText: '',
                 hintText: widget.hintText,
+                helperText: widget.helperText,
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
