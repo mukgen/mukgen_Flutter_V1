@@ -86,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 20,
               hintText: "아이디",
               isPwdTextField: false,
+              autofocus: false,
               maxLength: null,
             ),
             SizedBox(height: 24.0.h),
@@ -95,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 20,
               hintText: "비밀번호",
               isPwdTextField: true,
+              autofocus: false,
               maxLength: null,
             ),
             const Expanded(

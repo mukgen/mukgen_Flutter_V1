@@ -74,6 +74,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             controller: nameController,
             fontSize: 20,
             isPwdTextField: false,
+            autofocus: true,
             maxLength: null,
             hintText: "이름",
           ),
