@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
-import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpNumberPage extends StatefulWidget {
@@ -53,9 +52,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
           onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
+            Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.arrow_back,
