@@ -10,11 +10,13 @@ class MukGenTextField extends StatefulWidget {
     required this.fontSize,
     required this.isPwdTextField,
     required this.maxLength,
+    this.height,
     this.hintText,
     this.helperText,
   }) : super(key: key);
 
   final double width;
+  final double? height;
 
   final int? maxLength;
   final int fontSize;
@@ -35,6 +37,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
     return widget.isPwdTextField
         ? SizedBox(
             width: widget.width.w,
+            height: widget.height != null ? widget.height!.h : null,
             child: TextFormField(
               controller: widget.controller,
               onChanged: (value) => setState(() {}),
@@ -90,6 +93,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
           )
         : SizedBox(
             width: widget.width.w,
+            height: widget.height != null ? widget.height!.h : null,
             child: TextFormField(
               controller: widget.controller,
               onChanged: (value) => setState(() {}),
