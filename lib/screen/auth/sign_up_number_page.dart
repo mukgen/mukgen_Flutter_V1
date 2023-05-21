@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
-import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 
 class SignUpNumberPage extends StatefulWidget {
   const SignUpNumberPage({Key? key}) : super(key: key);
@@ -13,34 +13,48 @@ class SignUpNumberPage extends StatefulWidget {
 }
 
 class _SignUpNumberPageState extends State<SignUpNumberPage> {
-  late FocusNode _firstFocusNode;
-  late FocusNode _secondFocusNode;
-  late FocusNode _thirdFocusNode;
+  // late FocusNode _firstFocusNode;
+  // late FocusNode _secondFocusNode;
+  // late FocusNode _thirdFocusNode;
+  //포커스는 나중에 구현해보도록 할께;;
 
   late TextEditingController _firstController;
   late TextEditingController _secondController;
   late TextEditingController _thirdController;
 
+  bool _isButtonEnabled = false;
+
   @override
   void initState() {
     super.initState();
-    _firstFocusNode = FocusNode();
-    _secondFocusNode = FocusNode();
-    _thirdFocusNode = FocusNode();
+    // _firstFocusNode = FocusNode();
+    // _secondFocusNode = FocusNode();
+    // _thirdFocusNode = FocusNode();
     _firstController = TextEditingController();
+    _firstController.addListener(_updateButtonState);
     _secondController = TextEditingController();
+    _secondController.addListener(_updateButtonState);
     _thirdController = TextEditingController();
+    _thirdController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _firstFocusNode.dispose();
-    _secondFocusNode.dispose();
-    _thirdFocusNode.dispose();
+    // _firstFocusNode.dispose();
+    // _secondFocusNode.dispose();
+    // _thirdFocusNode.dispose();
     _firstController.dispose();
     _secondController.dispose();
     _thirdController.dispose();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      _isButtonEnabled = _firstController.text.length == 3 &&
+          _secondController.text.length == 4 &&
+          _thirdController.text.length == 4;
+    });
   }
 
   @override
@@ -53,9 +67,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
         leading: IconButton(
           padding: EdgeInsets.only(left: 10.0.w),
           onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
+            Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.arrow_back,
@@ -96,41 +108,16 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
           Row(
             children: [
               SizedBox(width: 20.0.w),
-              SizedBox(
-                height: 56.0.h,
-                width: 98.0.w,
-                child: TextFormField(
-                  onChanged: (value) {
-                    if (value.length == 3) {
-                      _secondFocusNode.requestFocus();
-                    }
-                    setState(() {});
-                  },
-                  autofocus: true,
-                  focusNode: _firstFocusNode,
-                  controller: _firstController,
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0.sp,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'MukgenSemiBold',
-                  ),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    enabledBorder: _firstController.text.isEmpty
-                        ? UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: MukGenColor.primaryLight2, width: 2))
-                        : UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: MukGenColor.black, width: 2)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: MukGenColor.pointBase, width: 2)),
-                  ),
-                ),
+              MukGenTextField(
+                width: 98,
+                height: 56,
+                autofocus: true,
+                controller: _firstController,
+                fontSize: 20,
+                textInputType: TextInputType.number,
+                textAlign: TextAlign.center,
+                isPwdTextField: false,
+                maxLength: 3,
               ),
               SizedBox(width: 10.0.w),
               Text(
@@ -142,40 +129,16 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                 ),
               ),
               SizedBox(width: 10.0.w),
-              SizedBox(
-                height: 56.0.h,
-                width: 98.0.w,
-                child: TextFormField(
-                  onChanged: (value) {
-                    if (value.length == 4) {
-                      _thirdFocusNode.requestFocus();
-                    }
-                    setState(() {});
-                  },
-                  focusNode: _secondFocusNode,
-                  controller: _secondController,
-                  maxLength: 4,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0.sp,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'MukgenSemiBold',
-                  ),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    enabledBorder: _secondController.text.isEmpty
-                        ? UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: MukGenColor.primaryLight2, width: 2))
-                        : UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: MukGenColor.black, width: 2)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: MukGenColor.pointBase, width: 2)),
-                  ),
-                ),
+              MukGenTextField(
+                width: 98,
+                height: 56,
+                controller: _secondController,
+                autofocus: false,
+                fontSize: 20,
+                textInputType: TextInputType.number,
+                textAlign: TextAlign.center,
+                isPwdTextField: false,
+                maxLength: 4,
               ),
               SizedBox(width: 10.0.w),
               Text(
@@ -187,36 +150,16 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                 ),
               ),
               SizedBox(width: 10.0.w),
-              SizedBox(
-                height: 56.0.h,
-                width: 98.0.w,
-                child: TextFormField(
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  focusNode: _thirdFocusNode,
-                  controller: _thirdController,
-                  maxLength: 4,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20.0.sp,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'MukgenSemiBold'),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    enabledBorder: _thirdController.text.isEmpty
-                        ? UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: MukGenColor.primaryLight2, width: 2))
-                        : UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: MukGenColor.black, width: 2)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: MukGenColor.pointBase, width: 2)),
-                  ),
-                ),
+              MukGenTextField(
+                width: 98,
+                height: 56,
+                controller: _thirdController,
+                fontSize: 20,
+                textAlign: TextAlign.center,
+                textInputType: TextInputType.number,
+                isPwdTextField: false,
+                autofocus: false,
+                maxLength: 4,
               ),
             ],
           ),
@@ -225,17 +168,12 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             text: "완료",
             width: 352,
             height: 55,
-            backgroundColor: _firstController.text.length == 3 &&
-                    _secondController.text.length == 4 &&
-                    _thirdController.text.length == 4
-                ? MukGenColor.grey
-                : MukGenColor.primaryLight2,
+            backgroundColor:
+                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
-              if (_firstController.text.length == 3 &&
-                  _secondController.text.length == 4 &&
-                  _thirdController.text.length == 4) {
+              if (_isButtonEnabled) {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => StartingPage()));
               }
