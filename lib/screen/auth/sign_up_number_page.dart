@@ -13,9 +13,10 @@ class SignUpNumberPage extends StatefulWidget {
 }
 
 class _SignUpNumberPageState extends State<SignUpNumberPage> {
-  late FocusNode _firstFocusNode;
-  late FocusNode _secondFocusNode;
-  late FocusNode _thirdFocusNode;
+  // late FocusNode _firstFocusNode;
+  // late FocusNode _secondFocusNode;
+  // late FocusNode _thirdFocusNode;
+  //포커스는 나중에 구현해보도록 할께;;
 
   late TextEditingController _firstController;
   late TextEditingController _secondController;
@@ -26,9 +27,9 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
   @override
   void initState() {
     super.initState();
-    _firstFocusNode = FocusNode();
-    _secondFocusNode = FocusNode();
-    _thirdFocusNode = FocusNode();
+    // _firstFocusNode = FocusNode();
+    // _secondFocusNode = FocusNode();
+    // _thirdFocusNode = FocusNode();
     _firstController = TextEditingController();
     _firstController.addListener(_updateButtonState);
     _secondController = TextEditingController();
@@ -40,9 +41,9 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
   @override
   void dispose() {
     super.dispose();
-    _firstFocusNode.dispose();
-    _secondFocusNode.dispose();
-    _thirdFocusNode.dispose();
+    // _firstFocusNode.dispose();
+    // _secondFocusNode.dispose();
+    // _thirdFocusNode.dispose();
     _firstController.dispose();
     _secondController.dispose();
     _thirdController.dispose();
@@ -108,15 +109,16 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             children: [
               SizedBox(width: 20.0.w),
               MukGenTextField(
-                  width: 98,
-                  height: 56,
-                  autofocus: true,
-                  controller: _firstController,
-                  fontSize: 20,
-                  textInputType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  isPwdTextField: false,
-                  maxLength: 3),
+                width: 98,
+                height: 56,
+                autofocus: true,
+                controller: _firstController,
+                fontSize: 20,
+                textInputType: TextInputType.number,
+                textAlign: TextAlign.center,
+                isPwdTextField: false,
+                maxLength: 3,
+              ),
               SizedBox(width: 10.0.w),
               Text(
                 '-',
@@ -128,15 +130,16 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
               ),
               SizedBox(width: 10.0.w),
               MukGenTextField(
-                  width: 98,
-                  height: 56,
-                  controller: _secondController,
-                  autofocus: false,
-                  fontSize: 20,
-                  textInputType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  isPwdTextField: false,
-                  maxLength: 4),
+                width: 98,
+                height: 56,
+                controller: _secondController,
+                autofocus: false,
+                fontSize: 20,
+                textInputType: TextInputType.number,
+                textAlign: TextAlign.center,
+                isPwdTextField: false,
+                maxLength: 4,
+              ),
               SizedBox(width: 10.0.w),
               Text(
                 '-',
@@ -148,15 +151,16 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
               ),
               SizedBox(width: 10.0.w),
               MukGenTextField(
-                  width: 98,
-                  height: 56,
-                  controller: _thirdController,
-                  fontSize: 20,
-                  textAlign: TextAlign.center,
-                  textInputType: TextInputType.number,
-                  isPwdTextField: false,
-                  autofocus: false,
-                  maxLength: 4),
+                width: 98,
+                height: 56,
+                controller: _thirdController,
+                fontSize: 20,
+                textAlign: TextAlign.center,
+                textInputType: TextInputType.number,
+                isPwdTextField: false,
+                autofocus: false,
+                maxLength: 4,
+              ),
             ],
           ),
           const Spacer(),
@@ -164,17 +168,12 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             text: "완료",
             width: 352,
             height: 55,
-            backgroundColor: _firstController.text.length == 3 &&
-                    _secondController.text.length == 4 &&
-                    _thirdController.text.length == 4
-                ? MukGenColor.grey
-                : MukGenColor.primaryLight2,
+            backgroundColor:
+                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
-              if (_firstController.text.length == 3 &&
-                  _secondController.text.length == 4 &&
-                  _thirdController.text.length == 4) {
+              if (_isButtonEnabled) {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => StartingPage()));
               }
