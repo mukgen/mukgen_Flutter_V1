@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
+import 'package:mukgen_flutter_v1/service/get_today_meals_info.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -10,6 +12,14 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
+  Future<TodayMeal>? todayMeal;
+
+  @override
+  void initState() {
+    super.initState();
+    todayMeal = getTodayMealInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,29 +66,44 @@ class _MainHomePageState extends State<MainHomePage> {
           SizedBox(
             width: 353.0.w,
             height: 220.0.h,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  width: 353.0.w,
-                  height: 220.0.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: MukGenColor.primaryLight3,
-                  ),
-                ),
-                SizedBox(width: 7.0.w),
-                Container(
-                  alignment: Alignment.center,
-                  width: 353.0.w,
-                  height: 220.0.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: MukGenColor.black,
-                  ),
-                ),
-              ],
+            child: FutureBuilder(
+              future: todayMeal,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.responseList!.length,
+                    itemBuilder: (context, index) {
+                      final itemList = _parseItemList(
+                          snapshot.data!.responseList![index].item.toString());
+                      return Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: 353.0.w,
+                            height: 220.0.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: MukGenColor.primaryLight3,
+                            ),
+                            child: ListView.builder(
+                              itemCount: itemList.length,
+                              itemBuilder: (context, itemIndex) {
+                                return Text(itemList[itemIndex]);
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 7.0.w),
+                        ],
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
             ),
           ),
           SizedBox(height: 32.0.h),
@@ -159,4 +184,9 @@ class _MainHomePageState extends State<MainHomePage> {
       ),
     );
   }
+}
+
+List<String> _parseItemList(String itemData) {
+  final itemListString = itemData.substring(1, itemData.length - 1);
+  return itemListString.split(', ');
 }
