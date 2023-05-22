@@ -10,8 +10,7 @@ Future<TodayMeal> getTodayMealInfo() async {
     headers: <String, String>{"Authorization": token},
   );
   if (response.statusCode == 200) {
-    print(response.body);
-    return TodayMeal.fromJson(jsonDecode(response.body));
+    return TodayMeal.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception(response.body);
   }
