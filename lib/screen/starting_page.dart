@@ -60,7 +60,7 @@ class _StartingPageState extends State<StartingPage> {
                   MukGenButton(
                     width: 353,
                     height: 55,
-                    backgroundColor: MukGenColor.primaryLight1,
+                    backgroundColor: MukGenColor.pointLight1,
                     text: "시작하기",
                     fontSize: 16,
                     textColor: MukGenColor.white,

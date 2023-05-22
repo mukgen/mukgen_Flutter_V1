@@ -44,7 +44,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
         backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
-          padding: EdgeInsets.only(left: 10.0.w),
+          padding: EdgeInsets.only(left: 20.0.w),
           onPressed: () => Navigator.of(context).pop(),
           icon: Icon(
             Icons.arrow_back,
@@ -95,7 +95,6 @@ class _SignupNamePageState extends State<SignUpNamePage> {
               }
             },
           ),
-          SizedBox(height: 20.0.h),
         ],
       ),
     );
