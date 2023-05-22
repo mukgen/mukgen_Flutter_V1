@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.8.1
   transition: ^2.0.2
   intl: ^0.18.1
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
