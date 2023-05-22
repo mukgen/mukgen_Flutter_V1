@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          padding: EdgeInsets.only(left: 10.0.w),
+          padding: EdgeInsets.only(left: 20.0.w),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -149,22 +149,25 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             actions: <Widget>[
-                              MukGenButton(
-                                text: "확인",
-                                width: 280,
-                                height: 50,
-                                backgroundColor: MukGenColor.primaryLight1,
-                                fontSize: 14,
-                                textColor: MukGenColor.white,
-                                onPressed: () {
-                                  if (_isButtonEnabled) {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MainNavigator()),
-                                        (route) => false);
-                                  }
-                                },
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 10.0.h, left: 4.0.w),
+                                child: MukGenButton(
+                                  text: "확인",
+                                  width: 285,
+                                  height: 50,
+                                  backgroundColor: MukGenColor.primaryLight1,
+                                  fontSize: 14,
+                                  textColor: MukGenColor.white,
+                                  onPressed: () {
+                                    if (_isButtonEnabled) {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MainNavigator()),
+                                          (route) => false);
+                                    }
+                                  },
+                                ),
                               ),
                               SizedBox(height: 3.0.h)
                             ],
