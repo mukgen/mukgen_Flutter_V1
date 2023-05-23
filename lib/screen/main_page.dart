@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
+import 'package:mukgen_flutter_v1/service/get_today_meals_info.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -10,6 +12,17 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
+  Future<TodayMeal>? todayMeal;
+
+  final PageController pageController =
+      PageController(initialPage: 0, viewportFraction: 0.9);
+
+  @override
+  void initState() {
+    super.initState();
+    todayMeal = getTodayMealInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,31 +67,93 @@ class _MainHomePageState extends State<MainHomePage> {
           ),
           SizedBox(height: 12.0.w),
           SizedBox(
-            width: 353.0.w,
+            width: double.infinity,
             height: 220.0.h,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  width: 353.0.w,
-                  height: 220.0.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: MukGenColor.primaryLight3,
-                  ),
-                ),
-                SizedBox(width: 7.0.w),
-                Container(
-                  alignment: Alignment.center,
-                  width: 353.0.w,
-                  height: 220.0.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: MukGenColor.black,
-                  ),
-                ),
-              ],
+            child: FutureBuilder(
+              future: todayMeal,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return PageView.builder(
+                    pageSnapping: true,
+                    controller: pageController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.responseList!.length,
+                    itemBuilder: (context, index) {
+                      final itemList = _parseItemList(
+                          snapshot.data!.responseList![index].item.toString());
+                      return Container(
+                        margin: EdgeInsets.only(right: 10.0.w),
+                        alignment: Alignment.center,
+                        width: 353.0.w,
+                        height: 220.0.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: MukGenColor.primaryLight3,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(24.0.r),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 100.0.w,
+                                height: 172.0.h,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 32.5.h),
+                                    Text(
+                                      index % 2 != 0
+                                          ? "점심"
+                                          : index == 0
+                                              ? "아침"
+                                              : "저녁",
+                                      style: TextStyle(
+                                          fontSize: 16.0.sp,
+                                          color: MukGenColor.pointBase),
+                                    ),
+                                    SizedBox(height: 24.0.h),
+                                    Image.asset(
+                                      index % 2 != 0
+                                          ? "assets/images/lunch.png"
+                                          : "assets/images/morning.png",
+                                      width: 64.0.r,
+                                      height: 64.0.r,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 181.0.w,
+                                height: 172.0.h,
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  itemCount: itemList.length,
+                                  itemBuilder: (context, itemIndex) {
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          itemList[itemIndex],
+                                          style: TextStyle(fontSize: 14.0.sp),
+                                        ),
+                                        SizedBox(height: 6.0.h),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
             ),
           ),
           SizedBox(height: 32.0.h),
@@ -159,4 +234,9 @@ class _MainHomePageState extends State<MainHomePage> {
       ),
     );
   }
+}
+
+List<String> _parseItemList(String itemData) {
+  final itemListString = itemData.substring(1, itemData.length - 1);
+  return itemListString.split(', ');
 }

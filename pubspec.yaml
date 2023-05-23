@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.8.1
   transition: ^2.0.2
   intl: ^0.18.1
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,8 @@ flutter:
     - assets/images/signupmukgen.png
     - assets/images/MukgenMainHomeAppBar.png
     - assets/images/MUKGEN.png
+    - assets/images/morning.png
+    - assets/images/lunch.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
