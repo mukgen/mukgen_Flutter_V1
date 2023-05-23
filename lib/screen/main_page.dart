@@ -14,6 +14,9 @@ class MainHomePage extends StatefulWidget {
 class _MainHomePageState extends State<MainHomePage> {
   Future<TodayMeal>? todayMeal;
 
+  final PageController pageController =
+      PageController(initialPage: 0, viewportFraction: 0.9);
+
   @override
   void initState() {
     super.initState();
@@ -64,37 +67,58 @@ class _MainHomePageState extends State<MainHomePage> {
           ),
           SizedBox(height: 12.0.w),
           SizedBox(
-            width: 353.0.w,
+            width: double.infinity,
             height: 220.0.h,
             child: FutureBuilder(
               future: todayMeal,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
+                  return PageView.builder(
+                    pageSnapping: true,
+                    controller: pageController,
                     scrollDirection: Axis.horizontal,
                     itemCount: snapshot.data!.responseList!.length,
                     itemBuilder: (context, index) {
                       final itemList = _parseItemList(
                           snapshot.data!.responseList![index].item.toString());
-                      return Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: 353.0.w,
-                            height: 220.0.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: MukGenColor.primaryLight3,
+                      return Container(
+                        margin: EdgeInsets.only(right: 10.0.w),
+                        alignment: Alignment.center,
+                        width: 353.0.w,
+                        height: 220.0.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: MukGenColor.primaryLight3,
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              index % 2 != 0
+                                  ? "assets/images/lunch.png"
+                                  : "assets/images/morning.png",
+                              width: 64.0.w,
+                              height: 64.0.h,
                             ),
-                            child: ListView.builder(
-                              itemCount: itemList.length,
-                              itemBuilder: (context, itemIndex) {
-                                return Text(itemList[itemIndex]);
-                              },
+                            SizedBox(
+                              width: 181.0.w,
+                              height: 172.0.h,
+                              child: ListView.builder(
+                                itemCount: itemList.length,
+                                itemBuilder: (context, itemIndex) {
+                                  return Column(
+                                    children: [
+                                      Text(
+                                        itemList[itemIndex],
+                                        style: TextStyle(fontSize: 14.0.sp),
+                                      ),
+                                      SizedBox(height: 6.0.h),
+                                    ],
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 7.0.w),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   );
