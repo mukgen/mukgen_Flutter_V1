@@ -13,7 +13,6 @@ class MainHomePage extends StatefulWidget {
 
 class _MainHomePageState extends State<MainHomePage> {
   Future<TodayMeal>? todayMeal;
-
   final PageController pageController =
       PageController(initialPage: 0, viewportFraction: 0.9);
 
@@ -101,11 +100,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                   children: [
                                     SizedBox(height: 32.5.h),
                                     Text(
-                                      index % 2 != 0
-                                          ? "점심"
-                                          : index == 0
-                                              ? "아침"
-                                              : "저녁",
+                                      snapshot.data!.responseList![index].riceType.toString(),
                                       style: TextStyle(
                                           fontSize: 16.0.sp,
                                           color: MukGenColor.pointBase),
