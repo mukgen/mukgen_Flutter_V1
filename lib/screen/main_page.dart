@@ -93,7 +93,6 @@ class _MainHomePageState extends State<MainHomePage> {
                         child: Padding(
                           padding: EdgeInsets.all(24.0.r),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SizedBox(
                                 width: 100.0.w,
@@ -116,8 +115,8 @@ class _MainHomePageState extends State<MainHomePage> {
                                       index % 2 != 0
                                           ? "assets/images/lunch.png"
                                           : "assets/images/morning.png",
-                                      width: 64.0.w,
-                                      height: 64.0.h,
+                                      width: 64.0.r,
+                                      height: 64.0.r,
                                     ),
                                   ],
                                 ),
