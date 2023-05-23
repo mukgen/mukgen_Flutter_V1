@@ -90,34 +90,61 @@ class _MainHomePageState extends State<MainHomePage> {
                           borderRadius: BorderRadius.circular(10),
                           color: MukGenColor.primaryLight3,
                         ),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              index % 2 != 0
-                                  ? "assets/images/lunch.png"
-                                  : "assets/images/morning.png",
-                              width: 64.0.w,
-                              height: 64.0.h,
-                            ),
-                            SizedBox(
-                              width: 181.0.w,
-                              height: 172.0.h,
-                              child: ListView.builder(
-                                itemCount: itemList.length,
-                                itemBuilder: (context, itemIndex) {
-                                  return Column(
-                                    children: [
-                                      Text(
-                                        itemList[itemIndex],
-                                        style: TextStyle(fontSize: 14.0.sp),
-                                      ),
-                                      SizedBox(height: 6.0.h),
-                                    ],
-                                  );
-                                },
+                        child: Padding(
+                          padding: EdgeInsets.all(24.0.r),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: 100.0.w,
+                                height: 172.0.h,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 32.5.h),
+                                    Text(
+                                      index % 2 != 0
+                                          ? "점심"
+                                          : index == 0
+                                              ? "아침"
+                                              : "저녁",
+                                      style: TextStyle(
+                                          fontSize: 16.0.sp,
+                                          color: MukGenColor.pointBase),
+                                    ),
+                                    SizedBox(height: 24.0.h),
+                                    Image.asset(
+                                      index % 2 != 0
+                                          ? "assets/images/lunch.png"
+                                          : "assets/images/morning.png",
+                                      width: 64.0.w,
+                                      height: 64.0.h,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 181.0.w,
+                                height: 172.0.h,
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  itemCount: itemList.length,
+                                  itemBuilder: (context, itemIndex) {
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          itemList[itemIndex],
+                                          style: TextStyle(fontSize: 14.0.sp),
+                                        ),
+                                        SizedBox(height: 6.0.h),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
