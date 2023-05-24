@@ -16,6 +16,12 @@ class _MainHomePageState extends State<MainHomePage> {
   final PageController pageController =
       PageController(initialPage: 0, viewportFraction: 0.9);
 
+  Map<String, String> s = {
+    "아침": "morning.png",
+    "점심": "lunch.png",
+    "저녁": "dinner.png"
+  };
+
   @override
   void initState() {
     super.initState();
@@ -100,16 +106,16 @@ class _MainHomePageState extends State<MainHomePage> {
                                   children: [
                                     SizedBox(height: 32.5.h),
                                     Text(
-                                      snapshot.data!.responseList![index].riceType.toString(),
+                                      snapshot
+                                          .data!.responseList![index].riceType
+                                          .toString(),
                                       style: TextStyle(
                                           fontSize: 16.0.sp,
                                           color: MukGenColor.pointBase),
                                     ),
                                     SizedBox(height: 24.0.h),
                                     Image.asset(
-                                      index % 2 != 0
-                                          ? "assets/images/lunch.png"
-                                          : "assets/images/morning.png",
+                                      "assets/images/${s[snapshot.data!.responseList![index].riceType].toString()}",
                                       width: 64.0.r,
                                       height: 64.0.r,
                                     ),

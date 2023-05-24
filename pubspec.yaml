@@ -70,6 +70,7 @@ flutter:
     - assets/images/MUKGEN.png
     - assets/images/morning.png
     - assets/images/lunch.png
+    - assets/images/dinner.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
