@@ -90,7 +90,8 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             onPressed: () {
               if (nameController.text.isNotEmpty) {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SignUpIdPwPage()),
+                  MaterialPageRoute(builder: (context) => SignUpIdPwPage(name: nameController.text)
+                  ),
                 );
               }
             },
