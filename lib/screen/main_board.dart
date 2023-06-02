@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/model/board/total_board.dart';
+import 'package:mukgen_flutter_v1/service/get_total_board_info.dart';
 
 class MainBoardPage extends StatefulWidget {
   const MainBoardPage({Key? key}) : super(key: key);
@@ -20,6 +22,16 @@ class _MainBoardPageState extends State<MainBoardPage> {
     daily = false;
     weekly = false;
     all = false;
+  }
+
+  Future<BoardResponse>? totalBoard;
+  final PageController pageController =
+  PageController(initialPage: 0, viewportFraction: 0.9);
+
+  @override
+  void initState() {
+    super.initState();
+    totalBoard = getTotalBoardInfo();
   }
 
   @override
@@ -115,7 +127,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                           style: TextStyle(
                             color: daily
                                 ? MukGenColor.white
-                                : MukGenColor.pointLight1,
+                                : MukGenColor.primaryLight1,
                             fontFamily:
                             daily ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
@@ -168,24 +180,40 @@ class _MainBoardPageState extends State<MainBoardPage> {
                 SizedBox(
                   width: double.infinity,
                   height: 500.0.h,
-                  child: ListView.builder(
-                    itemCount: 7,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            width: 353.0.w,
-                            height: 144.0.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: MukGenColor.primaryLight3),
-                          ),
-                          SizedBox(height: 8.0.h),
-                        ],
-                      );
-                    },
+                    child: FutureBuilder(
+                      future: totalBoard,
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData) {
+                          return Expanded(
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: snapshot.data!.boardListResponse!.boardMinimumResponseList!.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    Container(
+                                      width: 353.0.w,
+                                      height: 144.0.h,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          color: MukGenColor.primaryLight3),
+                                      child: Text(snapshot.data!.boardListResponse!.boardMinimumResponseList![index].content.toString()),
+                                    ),
+                                    SizedBox(height: 8.0.h),
+                                  ],
+                                );
+                              },
+                            ),
+                          );
+                        }
+                        else if (snapshot.hasError) {
+                          return Center(child: Text(snapshot.error.toString()));
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
           ),
