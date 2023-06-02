@@ -6,7 +6,9 @@ import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpIdPwPage extends StatefulWidget {
-  const SignUpIdPwPage({Key? key}) : super(key: key);
+  const SignUpIdPwPage({Key? key, required this.name}) : super(key: key);
+
+  final String name;
 
   @override
   State<SignUpIdPwPage> createState() => _SignUpIdPwPageState();
@@ -123,7 +125,7 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             onPressed: () {
               _isButtonEnabled
                   ? Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SignUpNumberPage()))
+                      builder: (context) => SignUpNumberPage(name: widget.name, id: idController.text, pwd: pwdController.text, pwdcheck: pwdCheckController.text)))
                   : null;
             },
           ),
