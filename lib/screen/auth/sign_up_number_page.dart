@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
+import 'package:mukgen_flutter_v1/service/post_general_signup_info.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 
 class SignUpNumberPage extends StatefulWidget {
-  const SignUpNumberPage({Key? key}) : super(key: key);
-
+  const SignUpNumberPage({Key? key, required this.name, required this.id, required this.pwd, required this.pwdcheck}) : super(key: key);
+  final String name, id, pwd, pwdcheck;
   @override
   State<SignUpNumberPage> createState() => _SignUpNumberPageState();
 }
@@ -174,8 +175,14 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             textColor: MukGenColor.white,
             onPressed: () {
               if (_isButtonEnabled) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => StartingPage()));
+                String phone = "";
+                phone += _firstController.text + _secondController.text + _thirdController.text;
+                postGeneralSignup(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone).then((value){
+                  if(value == 1) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => StartingPage()));
+                  }
+                });
               }
             },
           ),
