@@ -260,15 +260,13 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                   ),
                                                 ),
                                                 SizedBox(width: 4.0.w),
-                                                Container(
-                                                  child: Text(
-                                                    snapshot.data!.boardListResponse!.boardMinimumResponseList![index].likeCount.toString(),
-                                                    style: TextStyle(
-                                                      fontFamily: 'MukgenRegular',
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: MukGenColor.primaryLight2,
-                                                    ),
+                                                Text(
+                                                  snapshot.data!.boardListResponse!.boardMinimumResponseList![index].likeCount.toString(),
+                                                  style: TextStyle(
+                                                    fontFamily: 'MukgenRegular',
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: MukGenColor.primaryLight2,
                                                   ),
                                                 ),
                                                 Container(
@@ -280,15 +278,13 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                   ),
                                                 ),
                                                 SizedBox(width: 4.0.w),
-                                                Container(
-                                                  child: Text(
-                                                    snapshot.data!.boardListResponse!.boardMinimumResponseList![index].commentCount.toString(),
-                                                    style: TextStyle(
-                                                      fontFamily: 'MukgenRegular',
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: MukGenColor.primaryLight2,
-                                                    ),
+                                                Text(
+                                                  snapshot.data!.boardListResponse!.boardMinimumResponseList![index].commentCount.toString(),
+                                                  style: TextStyle(
+                                                    fontFamily: 'MukgenRegular',
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: MukGenColor.primaryLight2,
                                                   ),
                                                 ),
                                                 Container(
@@ -300,15 +296,13 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                   ),
                                                 ),
                                                 SizedBox(width: 4.0.w),
-                                                Container(
-                                                  child: Text(
-                                                    snapshot.data!.boardListResponse!.boardMinimumResponseList![index].viewCount.toString(),
-                                                    style: TextStyle(
-                                                      fontFamily: 'MukgenRegular',
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: MukGenColor.primaryLight2,
-                                                    ),
+                                                Text(
+                                                  snapshot.data!.boardListResponse!.boardMinimumResponseList![index].viewCount.toString(),
+                                                  style: TextStyle(
+                                                    fontFamily: 'MukgenRegular',
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: MukGenColor.primaryLight2,
                                                   ),
                                                 ),
                                               ],
