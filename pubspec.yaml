@@ -113,8 +113,5 @@ flutter:
     - family: Customicons
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
-    - family: CommentIcon
-      fonts:
-            - asset: assets/fonts/CommentIcon.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
