@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_how_many.dart';
+import 'package:mukgen_flutter_v1/screen/delivery/delivery_how_many_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:transition/transition.dart';
@@ -14,26 +14,26 @@ class DeliveryWhatFoodPage extends StatefulWidget {
 }
 
 class _DeliveryWhatFoodPageState extends State<DeliveryWhatFoodPage> {
-  late TextEditingController WhatfoodController;
+  late TextEditingController whatfoodController;
 
   bool _isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    WhatfoodController = TextEditingController();
-    WhatfoodController.addListener(_updateButtonState);
+    whatfoodController = TextEditingController();
+    whatfoodController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WhatfoodController.dispose();
+    whatfoodController.dispose();
   }
 
   void _updateButtonState() {
     setState(() {
-      _isButtonEnabled = WhatfoodController.text.isNotEmpty;
+      _isButtonEnabled = whatfoodController.text.isNotEmpty;
     });
   }
 
@@ -99,16 +99,14 @@ class _DeliveryWhatFoodPageState extends State<DeliveryWhatFoodPage> {
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
-            child: MukGenTextField(
-              width: 353,
-              controller: WhatfoodController,
-              fontSize: 20,
-              isPwdTextField: false,
-              autofocus: true,
-              maxLength: null,
-              hintText: "음식 이름",
-            ),
+          MukGenTextField(
+            width: 353,
+            controller: whatfoodController,
+            fontSize: 20,
+            isPwdTextField: false,
+            autofocus: true,
+            maxLength: null,
+            hintText: "음식 이름",
           ),
           const Spacer(),
           MukGenButton(
@@ -125,7 +123,7 @@ class _DeliveryWhatFoodPageState extends State<DeliveryWhatFoodPage> {
                   ? Navigator.push(
                       context,
                       Transition(
-                        child: DeliveryHowManyPage(),
+                        child: DeliveryHowManyPage(menu: whatfoodController.text),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     )
