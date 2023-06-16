@@ -77,7 +77,7 @@ class _SignupStartPageState extends State<SignupStartPage> {
             textColor: MukGenColor.white,
             fontSize: 16,
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => SignUpNamePage()),
+              MaterialPageRoute(builder: (context) => const SignUpNamePage()),
             ),
           ),
         ],
