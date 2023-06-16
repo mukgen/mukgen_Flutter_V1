@@ -2,29 +2,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_time.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_where_meet.dart';
+import 'package:mukgen_flutter_v1/screen/delivery/delivery_where_meet_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 
 class DeliveryHowManyPage extends StatefulWidget {
-  const DeliveryHowManyPage({Key? key}) : super(key: key);
+  const DeliveryHowManyPage({Key? key, required this.menu}) : super(key: key);
+
+  final String menu;
 
   @override
   State<DeliveryHowManyPage> createState() => _DeliveryHowManyPageState();
 }
 
 class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
-  int _selectedIndex = 0;
-  FixedExtentScrollController HowmanyscrollController =
+  late FixedExtentScrollController howmanyscrollController =
       FixedExtentScrollController();
   bool _isButtonEnabled = true;
+
+  int howmanyValue = 1; // 컨트롤러에 있는 값을 옮겨주는 변수임., 픽커를 움직여주지 않고 1명을 지정하였을 때 변수의 초기값인 0으로 되기 때문에 1로 설정함.
 
   @override
   void initState() {
     super.initState();
-    HowmanyscrollController = FixedExtentScrollController(initialItem: 0);
+    howmanyscrollController = FixedExtentScrollController(initialItem: 0);
   }
 
   @override
@@ -89,17 +90,15 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
+          SizedBox(
                 height: 240.0.h,
                 width: 353.0.w,
                 child: CupertinoPicker(
                     itemExtent: 56.0.h, // 각 항목의 높이
                     onSelectedItemChanged: (index) {
-                      // 선택된 항목이 변경될 때 호출되는 콜백 함수
-                      // index에 선택된 항목의 인덱스가 전달됩니다.
-                      // 원하는 동작을 수행할 수 있습니다.
+                      howmanyValue = index + 1;
                     },
-                    scrollController: HowmanyscrollController,
+                    scrollController: howmanyscrollController,
                     children: List<Widget>.generate(10, (index) {
                       return Center(
                         child: Text(
@@ -125,6 +124,8 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                 backgroundColor: MukGenColor.primaryLight3,
                 textColor: MukGenColor.pointBase,
                 fontSize: 16.sp,
+                outlineColor: MukGenColor.pointBase,
+                outlineWidth: 1.0,
                 onPressed: () {
                   setState(() {
                     Navigator.of(context).pop();
@@ -146,7 +147,7 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                       ? Navigator.push(
                     context,
                     Transition(
-                      child: DeliveryWhereMeetPage(),
+                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue),
                       transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                     ),
                   )
