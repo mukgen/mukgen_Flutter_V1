@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 20,
               hintText: "아이디",
               isPwdTextField: false,
-              autofocus: false,
+              autofocus: true,
               maxLength: null,
             ),
             SizedBox(height: 24.0.h),
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 20,
               hintText: "비밀번호",
               isPwdTextField: true,
-              autofocus: false,
+              autofocus: true,
               maxLength: null,
             ),
             const Expanded(
@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  MainNavigator()),
+                                                  const MainNavigator()),
                                           (route) => false);
                                     }
                                   },
