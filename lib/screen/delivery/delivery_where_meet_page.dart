@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_how_many.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_time.dart';
+import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_time_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:transition/transition.dart';
 
 class DeliveryWhereMeetPage extends StatefulWidget {
-  const DeliveryWhereMeetPage({Key? key}) : super(key: key);
+  const DeliveryWhereMeetPage({Key? key, required this.menu, required this.participantNumber}) : super(key: key);
 
+  final String menu;
+  final int participantNumber;
   @override
   State<DeliveryWhereMeetPage> createState() => _DeliveryWhereMeetPageState();
 }
 
 class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
-  late TextEditingController WheremeetController;
+  late TextEditingController wheremeetController;
 
   bool _isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    WheremeetController = TextEditingController();
-    WheremeetController.addListener(_updateButtonState);
+    wheremeetController = TextEditingController();
+    wheremeetController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WheremeetController.dispose();
+    wheremeetController.dispose();
   }
 
   void _updateButtonState() {
     setState(() {
-      _isButtonEnabled = WheremeetController.text.isNotEmpty;
+      _isButtonEnabled = wheremeetController.text.isNotEmpty;
     });
   }
   @override
@@ -99,16 +100,14 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
             ),
           ),
           SizedBox(height: 24.0.h),
-          Container(
-            child: MukGenTextField(
-              width: 353,
-              controller: WheremeetController,
-              fontSize: 20,
-              isPwdTextField: false,
-              autofocus: true,
-              maxLength: null,
-              hintText: "장소",
-            ),
+          MukGenTextField(
+            width: 353,
+            controller: wheremeetController,
+            fontSize: 20,
+            isPwdTextField: false,
+            autofocus: true,
+            maxLength: null,
+            hintText: "장소",
           ),
           const Spacer(),
           Row(
@@ -121,6 +120,8 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
                 backgroundColor: MukGenColor.primaryLight3,
                 textColor: MukGenColor.pointBase,
                 fontSize: 16.sp,
+                outlineColor: MukGenColor.pointBase,
+                outlineWidth: 1.0,
                 onPressed: () {
                   setState(() {
                     Navigator.of(context).pop();
@@ -142,7 +143,7 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
                       ? Navigator.push(
                     context,
                     Transition(
-                      child: DeliveryWhatTimePage(),
+                      child: DeliveryWhatTimePage(menu: widget.menu, participantNumber: widget.participantNumber, place: wheremeetController.text,),
                       transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                     ),
                   )
