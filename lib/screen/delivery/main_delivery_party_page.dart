@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food.dart';
+import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food_page.dart';
 import 'package:transition/transition.dart';
 
 class MainDeliveryPartyPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _MainDeliveryPartyPageState extends State<MainDeliveryPartyPage> {
               Navigator.push(
                 context,
                 Transition(
-                  child: DeliveryWhatFoodPage(),
+                  child: const DeliveryWhatFoodPage(),
                   transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                 ),
               );
