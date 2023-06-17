@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:mukgen_flutter_v1/service/post_login_info.dart';
 import 'package:mukgen_flutter_v1/widget/main_navigator.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +21,9 @@ class _LoginPageState extends State<LoginPage> {
 
   late TextEditingController idController;
   late TextEditingController pwdController;
+
+  final storage = const FlutterSecureStorage();
+  dynamic userInfo = '';
 
   @override
   void initState() {
@@ -96,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 20,
               hintText: "비밀번호",
               isPwdTextField: true,
-              autofocus: true,
+              autofocus: false,
               maxLength: null,
             ),
             const Expanded(
@@ -112,69 +117,75 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 16.0.sp,
               textColor: MukGenColor.white,
               onPressed: () {
-                _isButtonEnabled
-                    ? showDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(9.16),
-                            ),
-                            content: SizedBox(
-                              width: 280.0.w,
-                              height: 45.0.h,
-                              child: SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(top: 10.0.h),
-                                          child: Text(
-                                            '(사용자 ID)님 환영합니다!',
-                                            style: TextStyle(
-                                              fontFamily: 'MukgenSemiBold',
-                                              fontSize: 24.0.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                postLogin(idController.text, pwdController.text).then((value) {
+                  if (value.message!.isNotEmpty) {
+                    storage.write(key: 'accessToken',
+                        value: value.tokenResponse!.accessToken);
+                    storage.write(key: 'refreshToken',
+                        value: value.tokenResponse!.refreshToken);
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.16),
+                          ),
+                          content: SizedBox(
+                            width: 280.0.w,
+                            height: 45.0.h,
+                            child: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(top: 10.0.h),
+                                        child: Text(
+                                          value.message.toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'MukgenSemiBold',
+                                            fontSize: 24.0.sp,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                            actions: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 10.0.h, left: 4.0.w),
-                                child: MukGenButton(
-                                  text: "확인",
-                                  width: 285,
-                                  height: 50,
-                                  backgroundColor: MukGenColor.primaryLight1,
-                                  fontSize: 14,
-                                  textColor: MukGenColor.white,
-                                  onPressed: () {
-                                    if (_isButtonEnabled) {
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const MainNavigator()),
-                                          (route) => false);
-                                    }
-                                  },
-                                ),
+                          ),
+                          actions: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 10.0.h, left: 4.0.w),
+                              child: MukGenButton(
+                                text: "확인",
+                                width: 285,
+                                height: 50,
+                                backgroundColor: MukGenColor.primaryLight1,
+                                fontSize: 14,
+                                textColor: MukGenColor.white,
+                                onPressed: () {
+                                  if (_isButtonEnabled) {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const MainNavigator()),
+                                            (route) => false);
+                                  }
+                                },
                               ),
-                              SizedBox(height: 3.0.h)
-                            ],
-                          );
-                        },
-                      )
-                    : null;
+                            ),
+                            SizedBox(height: 3.0.h)
+                          ],
+                        );
+                      },
+                    );
+                  }
+                });
                 SizedBox(height: 20.0.h);
               },
             ),
