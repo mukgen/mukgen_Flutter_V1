@@ -180,7 +180,7 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
                 postGeneralSignup(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone).then((value){
                   if(value == 1) {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => StartingPage()));
+                        MaterialPageRoute(builder: (context) => const StartingPage()));
                   }
                 });
               }

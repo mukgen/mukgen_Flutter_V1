@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/main_review_otherdays.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/main_page.dart';
-import 'package:mukgen_flutter_v1/screen/main_board.dart';
-import 'package:mukgen_flutter_v1/screen/main_delivery_party.dart';
-import 'package:mukgen_flutter_v1/screen/main_review.dart';
+import 'package:mukgen_flutter_v1/screen/board/main_board_page.dart';
+import 'package:mukgen_flutter_v1/screen/delivery/main_delivery_party_page.dart';
+import 'package:mukgen_flutter_v1/screen/review/main_review_page.dart';
 import 'package:mukgen_flutter_v1/screen/main_suggestion.dart';
 import 'package:flutter/widgets.dart';
 
@@ -101,7 +100,7 @@ class _MainNavigatorState extends State<MainNavigator> {
             ),
             selectedItemColor: MukGenColor.pointBase,
             unselectedItemColor: MukGenColor.primaryLight2,
-            iconSize: 30,
+            iconSize: 30.sp,
             elevation: 0,
           ),
         ),

@@ -11,6 +11,7 @@ class MukGenButton extends StatelessWidget {
     required this.fontSize,
     required this.textColor,
     this.outlineColor,
+    this.outlineWidth,
     this.onPressed,
   }) : super(key: key);
 
@@ -19,6 +20,7 @@ class MukGenButton extends StatelessWidget {
   final Color backgroundColor, textColor;
   final Color? outlineColor;
   final VoidCallback? onPressed;
+  final double? outlineWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,10 @@ class MukGenButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          side: outlineColor != null // 외곽선 색상이 지정된 경우에만 설정
+          side: outlineColor != null && outlineWidth != null
               ? BorderSide(
                   color: outlineColor!,
-                  width: 2.0,
+                  width: outlineWidth!.w,
                 )
               : BorderSide.none,
         ),
