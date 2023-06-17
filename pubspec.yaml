@@ -39,6 +39,7 @@ dependencies:
   transition: ^2.0.2
   intl: ^0.18.1
   http: ^0.13.6
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:
