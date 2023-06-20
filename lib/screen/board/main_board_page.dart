@@ -46,7 +46,6 @@ class _MainBoardPageState extends State<MainBoardPage> {
       body: Center(
         child: SingleChildScrollView(
           child: SizedBox(
-            width: MediaQuery.of(context).size.width - 20.0.w,
             child: Column(
               children: [
                 SizedBox(height: 32.0.h),
@@ -193,194 +192,315 @@ class _MainBoardPageState extends State<MainBoardPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Expanded(
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: snapshot.data!.boardListResponse!
-                                  .boardMinimumResponseList!.length,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          boardId = snapshot.data!.boardListResponse!.boardMinimumResponseList![index].boardId!.toInt();
-                                          Navigator.push(
-                                            context,
-                                            Transition(
-                                              child: MainBoardDetailPage(boardId: boardId,),
-                                              transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                                            ),
-                                          );
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 353.0.w,
-                                        height: 144.0.h,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 32.0.h),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: snapshot.data!.boardListResponse!
+                                    .boardMinimumResponseList!.length,
+                                itemBuilder: (context, index) {
+                                  if(index < snapshot.data!.boardPopularListResponse!.boardPopularResponseList!.length) {
+                                    return Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              boardId = snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].boardId!.toInt();
+                                              Navigator.push(
+                                                context,
+                                                Transition(
+                                                  child: MainBoardDetailPage(
+                                                    boardId: boardId,),
+                                                  transitionEffect: TransitionEffect
+                                                      .RIGHT_TO_LEFT,
+                                                ),
+                                              );
+                                            });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              SizedBox(width: 20.0.w),
+                                              Container(
+                                                width: 353.0.w,
+                                                height: 51.0.h,
+                                                decoration: BoxDecoration(
+                                                  color: MukGenColor.primaryLight3,
+                                                  borderRadius: BorderRadius.circular(10)
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    SizedBox(width: 24.0.w),
+                                                    Container(
+                                                      alignment: Alignment.center,
+                                                      width: 32.0.w,
+                                                      height: 14.0.h,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(100),
+                                                        border: Border.all(
+                                                          color: MukGenColor.pointLight1,
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'HOT',
+                                                        style: TextStyle(
+                                                          color: MukGenColor.pointLight1,
+                                                          fontSize: 9.sp,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: 'InterBold',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 6.0.w),
+                                                    SizedBox(
+                                                      width: 165.0.w,
+                                                      height: 19.0.h,
+                                                      child: Text(
+                                                        snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].title.toString(),
+                                                        style: TextStyle(
+                                                          color: MukGenColor.black,
+                                                          fontFamily: 'MukgenSemiBold',
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 16.sp,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 6.0.w),
+                                                    Icon(
+                                                      CommentIcon
+                                                          .commentCount,
+                                                      size: 13.sp,
+                                                      color: MukGenColor
+                                                          .primaryLight2,
+                                                    ),
+                                                    SizedBox(width: 4.0.h),
+                                                    SizedBox(
+                                                      width: 26.0.w,
+                                                      height: 17.0.h,
+                                                      child: Text(
+                                                        snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].commentCount.toString(),
+                                                        style: TextStyle(
+                                                          color: MukGenColor.primaryLight2,
+                                                          fontSize: 14.sp,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: 'MukgenRegular'
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    Icon(
+                                                      Icons.remove_red_eye_rounded,
+                                                      size: 16.sp,
+                                                      color: MukGenColor
+                                                          .primaryLight2,
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    SizedBox(
+                                                      width: 26.0.w,
+                                                      height: 17.0.h,
+                                                      child: Text(
+                                                        snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].viewCount.toString(),
+                                                        style: TextStyle(
+                                                            color: MukGenColor.primaryLight2,
+                                                            fontSize: 14.sp,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily: 'MukgenRegular'
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: 8.0.h),
+                                      ],
+                                    );
+                                  } else {
+                                    return Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              boardId = snapshot.data!
+                                                  .boardListResponse!
+                                                  .boardMinimumResponseList![index]
+                                                  .boardId!.toInt();
+                                              Navigator.push(
+                                                context,
+                                                Transition(
+                                                  child: MainBoardDetailPage(
+                                                    boardId: boardId,),
+                                                  transitionEffect: TransitionEffect
+                                                      .RIGHT_TO_LEFT,
+                                                ),
+                                              );
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 353.0.w,
+                                            height: 144.0.h,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
                                                 BorderRadius.circular(10.0),
-                                            color: MukGenColor.primaryLight3),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 24.0.h),
-                                            Container(
-                                              alignment: Alignment.centerLeft,
-                                              padding:
-                                                  EdgeInsets.only(left: 24.0.w),
-                                              child: Text(
-                                                snapshot
-                                                    .data!
-                                                    .boardListResponse!
-                                                    .boardMinimumResponseList![
-                                                        index]
-                                                    .title
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color: MukGenColor.black,
-                                                  fontFamily: 'MukgenSemiBold',
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 6.0.h),
-                                            Container(
-                                              alignment: Alignment.centerLeft,
-                                              padding:
-                                                  EdgeInsets.only(left: 24.0.w),
-                                              child: Text(
-                                                snapshot
-                                                    .data!
-                                                    .boardListResponse!
-                                                    .boardMinimumResponseList![
-                                                        index]
-                                                    .content
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color: MukGenColor.black,
-                                                  fontFamily: 'MukgenRegular',
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 6.0.h),
-                                            Container(
-                                              alignment: Alignment.centerLeft,
-                                              padding:
-                                                  EdgeInsets.only(left: 24.0.w),
-                                              child: Text(
-                                                snapshot
-                                                    .data!
-                                                    .boardListResponse!
-                                                    .boardMinimumResponseList![
-                                                        index]
-                                                    .userName
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color:
-                                                      MukGenColor.primaryLight1,
-                                                  fontFamily: 'MukgenBody',
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 12.0.h),
-                                            Row(
+                                                color: MukGenColor
+                                                    .primaryLight3),
+                                            child: Column(
                                               children: [
+                                                SizedBox(height: 24.0.h),
                                                 Container(
-                                                  padding: EdgeInsets.only(
-                                                      left: 24.0.w),
-                                                  child: Icon(
-                                                    Icons.favorite_rounded,
-                                                    size: 16.sp,
-                                                    color: MukGenColor
-                                                        .primaryLight2,
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  padding:
+                                                  EdgeInsets.only(left: 24.0.w),
+                                                  child: Text(
+                                                    snapshot.data!
+                                                        .boardListResponse!
+                                                        .boardMinimumResponseList![index]
+                                                        .title.toString(),
+                                                    style: TextStyle(
+                                                      color: MukGenColor.black,
+                                                      fontFamily: 'MukgenSemiBold',
+                                                      fontSize: 16.sp,
+                                                      fontWeight: FontWeight
+                                                          .w600,
+                                                    ),
                                                   ),
                                                 ),
-                                                SizedBox(width: 4.0.w),
-                                                Text(
-                                                  snapshot
-                                                      .data!
-                                                      .boardListResponse!
-                                                      .boardMinimumResponseList![
-                                                          index]
-                                                      .likeCount
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    fontFamily: 'MukgenRegular',
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: MukGenColor
-                                                        .primaryLight2,
-                                                  ),
-                                                ),
+                                                SizedBox(height: 6.0.h),
                                                 Container(
-                                                  padding: EdgeInsets.only(
-                                                      left: 24.0.w),
-                                                  child: Icon(
-                                                    CommentIcon.commentCount,
-                                                    size: 13.sp,
-                                                    color: MukGenColor
-                                                        .primaryLight2,
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  padding:
+                                                  EdgeInsets.only(left: 24.0.w),
+                                                  child: Text(
+                                                    snapshot.data!
+                                                        .boardListResponse!
+                                                        .boardMinimumResponseList![index]
+                                                        .content.toString(),
+                                                    style: TextStyle(
+                                                      color: MukGenColor.black,
+                                                      fontFamily: 'MukgenRegular',
+                                                      fontSize: 16.sp,
+                                                      fontWeight: FontWeight
+                                                          .w400,
+                                                    ),
                                                   ),
                                                 ),
-                                                SizedBox(width: 4.0.w),
-                                                Text(
-                                                  snapshot
-                                                      .data!
-                                                      .boardListResponse!
-                                                      .boardMinimumResponseList![
-                                                          index]
-                                                      .commentCount
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    fontFamily: 'MukgenRegular',
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: MukGenColor
-                                                        .primaryLight2,
-                                                  ),
-                                                ),
+                                                SizedBox(height: 6.0.h),
                                                 Container(
-                                                  padding: EdgeInsets.only(
-                                                      left: 24.0.w),
-                                                  child: Icon(
-                                                    Icons
-                                                        .remove_red_eye_rounded,
-                                                    size: 16.sp,
-                                                    color: MukGenColor
-                                                        .primaryLight2,
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  padding:
+                                                  EdgeInsets.only(left: 24.0.w),
+                                                  child: Text(
+                                                    snapshot.data!
+                                                        .boardListResponse!
+                                                        .boardMinimumResponseList![index]
+                                                        .userName.toString(),
+                                                    style: TextStyle(
+                                                      color:
+                                                      MukGenColor.primaryLight1,
+                                                      fontFamily: 'MukgenBody',
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight
+                                                          .w400,
+                                                    ),
                                                   ),
                                                 ),
-                                                SizedBox(width: 4.0.w),
-                                                Text(
-                                                  snapshot
-                                                      .data!
-                                                      .boardListResponse!
-                                                      .boardMinimumResponseList![
-                                                          index]
-                                                      .viewCount
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    fontFamily: 'MukgenRegular',
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: MukGenColor
-                                                        .primaryLight2,
-                                                  ),
+                                                SizedBox(height: 12.0.h),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 24.0.w),
+                                                      child: Icon(
+                                                        Icons.favorite_rounded,
+                                                        size: 16.sp,
+                                                        color: MukGenColor
+                                                            .primaryLight2,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    Text(
+                                                      snapshot.data!
+                                                          .boardListResponse!
+                                                          .boardMinimumResponseList![index]
+                                                          .likeCount.toString(),
+                                                      style: TextStyle(
+                                                        fontFamily: 'MukgenRegular',
+                                                        fontSize: 14.sp,
+                                                        fontWeight: FontWeight
+                                                            .w400,
+                                                        color: MukGenColor
+                                                            .primaryLight2,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 24.0.w),
+                                                      child: Icon(
+                                                        CommentIcon
+                                                            .commentCount,
+                                                        size: 13.sp,
+                                                        color: MukGenColor
+                                                            .primaryLight2,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    Text(
+                                                      snapshot.data!
+                                                          .boardListResponse!
+                                                          .boardMinimumResponseList![index]
+                                                          .commentCount
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        fontFamily: 'MukgenRegular',
+                                                        fontSize: 14.sp,
+                                                        fontWeight: FontWeight
+                                                            .w400,
+                                                        color: MukGenColor
+                                                            .primaryLight2,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 24.0.w),
+                                                      child: Icon(
+                                                        Icons
+                                                            .remove_red_eye_rounded,
+                                                        size: 16.sp,
+                                                        color: MukGenColor
+                                                            .primaryLight2,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    Text(
+                                                      snapshot.data!
+                                                          .boardListResponse!
+                                                          .boardMinimumResponseList![index]
+                                                          .viewCount.toString(),
+                                                      style: TextStyle(
+                                                        fontFamily: 'MukgenRegular',
+                                                        fontSize: 14.sp,
+                                                        fontWeight: FontWeight
+                                                            .w400,
+                                                        color: MukGenColor
+                                                            .primaryLight2,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 8.0.h),
-                                  ],
-                                );
-                              },
+                                        SizedBox(height: 8.0.h),
+                                      ],
+                                    );
+                                  };
+                                },
+                              ),
                             ),
                           );
                         } else if (snapshot.hasError) {
