@@ -116,6 +116,9 @@ flutter:
         - asset: assets/fonts/CustomIcons.ttf
     - family: CommentIcon
       fonts:
-            - asset: assets/fonts/CommentIcon.ttf
+        - asset: assets/fonts/CommentIcon.ttf
+    - family: InterBold
+      fonts:
+        - asset: assets/fonts/Inter-Bold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
