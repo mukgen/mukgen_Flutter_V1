@@ -172,7 +172,11 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                   childCount: hour.length,
                   onSelectedItemChanged: (index) {
                     if(timeValues == true) {
-                      hourValues = (index + 1) + 12;
+                      if(index == 11) {
+                        hourValues = index + 1;
+                      } else {
+                        hourValues = (index + 1) + 12;
+                      }
                     } else {
                       hourValues = index + 1;
                     }
@@ -244,6 +248,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
               DateTime customDateTime = DateTime(now.year, now.month, now.day, hourValues, minuteValues, 0);
               String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(customDateTime);
               postDeliveryParty(widget.menu, widget.participantNumber, widget.place, formattedDateTime);
+              print(formattedDateTime);
               Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainDeliveryPartyPage'); // Main 페이지로 갈 때 까지 pop
             },
           ),
