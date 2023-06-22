@@ -147,7 +147,7 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                       ? Navigator.push(
                     context,
                     Transition(
-                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue),
+                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue + 1),
                       transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                     ),
                   )
