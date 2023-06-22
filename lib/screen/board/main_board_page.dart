@@ -199,20 +199,30 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                 itemCount: snapshot.data!.boardListResponse!
                                     .boardMinimumResponseList!.length,
                                 itemBuilder: (context, index) {
-                                  if(index < snapshot.data!.boardPopularListResponse!.boardPopularResponseList!.length) {
+                                  if (index <
+                                      snapshot.data!.boardPopularListResponse!
+                                          .boardPopularResponseList!.length) {
                                     return Column(
                                       children: [
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              boardId = snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].boardId!.toInt();
+                                              boardId = snapshot
+                                                  .data!
+                                                  .boardPopularListResponse!
+                                                  .boardPopularResponseList![
+                                                      index]
+                                                  .boardId!
+                                                  .toInt();
                                               Navigator.push(
                                                 context,
                                                 Transition(
                                                   child: MainBoardDetailPage(
-                                                    boardId: boardId,),
-                                                  transitionEffect: TransitionEffect
-                                                      .RIGHT_TO_LEFT,
+                                                    boardId: boardId,
+                                                  ),
+                                                  transitionEffect:
+                                                      TransitionEffect
+                                                          .RIGHT_TO_LEFT,
                                                 ),
                                               );
                                             });
@@ -224,29 +234,38 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                 width: 353.0.w,
                                                 height: 51.0.h,
                                                 decoration: BoxDecoration(
-                                                  color: MukGenColor.primaryLight3,
-                                                  borderRadius: BorderRadius.circular(10)
-                                                ),
+                                                    color: MukGenColor
+                                                        .primaryLight3,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
                                                 child: Row(
                                                   children: [
                                                     SizedBox(width: 24.0.w),
                                                     Container(
-                                                      alignment: Alignment.center,
+                                                      alignment:
+                                                          Alignment.center,
                                                       width: 32.0.w,
                                                       height: 14.0.h,
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(100),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(100),
                                                         border: Border.all(
-                                                          color: MukGenColor.pointLight1,
+                                                          color: MukGenColor
+                                                              .pointLight1,
                                                         ),
                                                       ),
                                                       child: Text(
                                                         'HOT',
                                                         style: TextStyle(
-                                                          color: MukGenColor.pointLight1,
+                                                          color: MukGenColor
+                                                              .pointLight1,
                                                           fontSize: 9.sp,
-                                                          fontWeight: FontWeight.w600,
-                                                          fontFamily: 'InterBold',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontFamily:
+                                                              'InterBold',
                                                         ),
                                                       ),
                                                     ),
@@ -255,19 +274,27 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                       width: 165.0.w,
                                                       height: 19.0.h,
                                                       child: Text(
-                                                        snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].title.toString(),
+                                                        snapshot
+                                                            .data!
+                                                            .boardPopularListResponse!
+                                                            .boardPopularResponseList![
+                                                                index]
+                                                            .title
+                                                            .toString(),
                                                         style: TextStyle(
-                                                          color: MukGenColor.black,
-                                                          fontFamily: 'MukgenSemiBold',
-                                                          fontWeight: FontWeight.w600,
+                                                          color:
+                                                              MukGenColor.black,
+                                                          fontFamily:
+                                                              'MukgenSemiBold',
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                           fontSize: 16.sp,
                                                         ),
                                                       ),
                                                     ),
                                                     SizedBox(width: 6.0.w),
                                                     Icon(
-                                                      CommentIcon
-                                                          .commentCount,
+                                                      CommentIcon.commentCount,
                                                       size: 13.sp,
                                                       color: MukGenColor
                                                           .primaryLight2,
@@ -277,18 +304,27 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                       width: 26.0.w,
                                                       height: 17.0.h,
                                                       child: Text(
-                                                        snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].commentCount.toString(),
+                                                        snapshot
+                                                            .data!
+                                                            .boardPopularListResponse!
+                                                            .boardPopularResponseList![
+                                                                index]
+                                                            .commentCount
+                                                            .toString(),
                                                         style: TextStyle(
-                                                          color: MukGenColor.primaryLight2,
-                                                          fontSize: 14.sp,
-                                                          fontWeight: FontWeight.w400,
-                                                          fontFamily: 'MukgenRegular'
-                                                        ),
+                                                            color: MukGenColor
+                                                                .primaryLight2,
+                                                            fontSize: 14.sp,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontFamily:
+                                                                'MukgenRegular'),
                                                       ),
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     Icon(
-                                                      Icons.remove_red_eye_rounded,
+                                                      Icons
+                                                          .remove_red_eye_rounded,
                                                       size: 16.sp,
                                                       color: MukGenColor
                                                           .primaryLight2,
@@ -298,13 +334,21 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                       width: 26.0.w,
                                                       height: 17.0.h,
                                                       child: Text(
-                                                        snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].viewCount.toString(),
+                                                        snapshot
+                                                            .data!
+                                                            .boardPopularListResponse!
+                                                            .boardPopularResponseList![
+                                                                index]
+                                                            .viewCount
+                                                            .toString(),
                                                         style: TextStyle(
-                                                            color: MukGenColor.primaryLight2,
+                                                            color: MukGenColor
+                                                                .primaryLight2,
                                                             fontSize: 14.sp,
-                                                            fontWeight: FontWeight.w400,
-                                                            fontFamily: 'MukgenRegular'
-                                                        ),
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontFamily:
+                                                                'MukgenRegular'),
                                                       ),
                                                     ),
                                                   ],
@@ -322,17 +366,22 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              boardId = snapshot.data!
+                                              boardId = snapshot
+                                                  .data!
                                                   .boardListResponse!
-                                                  .boardMinimumResponseList![index]
-                                                  .boardId!.toInt();
+                                                  .boardMinimumResponseList![
+                                                      index]
+                                                  .boardId!
+                                                  .toInt();
                                               Navigator.push(
                                                 context,
                                                 Transition(
                                                   child: MainBoardDetailPage(
-                                                    boardId: boardId,),
-                                                  transitionEffect: TransitionEffect
-                                                      .RIGHT_TO_LEFT,
+                                                    boardId: boardId,
+                                                  ),
+                                                  transitionEffect:
+                                                      TransitionEffect
+                                                          .RIGHT_TO_LEFT,
                                                 ),
                                               );
                                             });
@@ -342,69 +391,80 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                             height: 144.0.h,
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                color: MukGenColor
-                                                    .primaryLight3),
+                                                    BorderRadius.circular(10.0),
+                                                color:
+                                                    MukGenColor.primaryLight3),
                                             child: Column(
                                               children: [
                                                 SizedBox(height: 24.0.h),
                                                 Container(
-                                                  alignment: Alignment
-                                                      .centerLeft,
-                                                  padding:
-                                                  EdgeInsets.only(left: 24.0.w),
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  padding: EdgeInsets.only(
+                                                      left: 24.0.w),
                                                   child: Text(
-                                                    snapshot.data!
+                                                    snapshot
+                                                        .data!
                                                         .boardListResponse!
-                                                        .boardMinimumResponseList![index]
-                                                        .title.toString(),
+                                                        .boardMinimumResponseList![
+                                                            index]
+                                                        .title
+                                                        .toString(),
                                                     style: TextStyle(
                                                       color: MukGenColor.black,
-                                                      fontFamily: 'MukgenSemiBold',
+                                                      fontFamily:
+                                                          'MukgenSemiBold',
                                                       fontSize: 16.sp,
-                                                      fontWeight: FontWeight
-                                                          .w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
                                                   ),
                                                 ),
                                                 SizedBox(height: 6.0.h),
                                                 Container(
-                                                  alignment: Alignment
-                                                      .centerLeft,
-                                                  padding:
-                                                  EdgeInsets.only(left: 24.0.w),
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  padding: EdgeInsets.only(
+                                                      left: 24.0.w),
                                                   child: Text(
-                                                    snapshot.data!
+                                                    snapshot
+                                                        .data!
                                                         .boardListResponse!
-                                                        .boardMinimumResponseList![index]
-                                                        .content.toString(),
+                                                        .boardMinimumResponseList![
+                                                            index]
+                                                        .content
+                                                        .toString(),
                                                     style: TextStyle(
                                                       color: MukGenColor.black,
-                                                      fontFamily: 'MukgenRegular',
+                                                      fontFamily:
+                                                          'MukgenRegular',
                                                       fontSize: 16.sp,
-                                                      fontWeight: FontWeight
-                                                          .w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 ),
                                                 SizedBox(height: 6.0.h),
                                                 Container(
-                                                  alignment: Alignment
-                                                      .centerLeft,
-                                                  padding:
-                                                  EdgeInsets.only(left: 24.0.w),
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  padding: EdgeInsets.only(
+                                                      left: 24.0.w),
                                                   child: Text(
-                                                    snapshot.data!
+                                                    snapshot
+                                                        .data!
                                                         .boardListResponse!
-                                                        .boardMinimumResponseList![index]
-                                                        .userName.toString(),
+                                                        .boardMinimumResponseList![
+                                                            index]
+                                                        .userName
+                                                        .toString(),
                                                     style: TextStyle(
-                                                      color:
-                                                      MukGenColor.primaryLight1,
+                                                      color: MukGenColor
+                                                          .primaryLight1,
                                                       fontFamily: 'MukgenBody',
                                                       fontSize: 14.sp,
-                                                      fontWeight: FontWeight
-                                                          .w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 ),
@@ -423,15 +483,19 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     Text(
-                                                      snapshot.data!
+                                                      snapshot
+                                                          .data!
                                                           .boardListResponse!
-                                                          .boardMinimumResponseList![index]
-                                                          .likeCount.toString(),
+                                                          .boardMinimumResponseList![
+                                                              index]
+                                                          .likeCount
+                                                          .toString(),
                                                       style: TextStyle(
-                                                        fontFamily: 'MukgenRegular',
+                                                        fontFamily:
+                                                            'MukgenRegular',
                                                         fontSize: 14.sp,
-                                                        fontWeight: FontWeight
-                                                            .w400,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                         color: MukGenColor
                                                             .primaryLight2,
                                                       ),
@@ -449,16 +513,19 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     Text(
-                                                      snapshot.data!
+                                                      snapshot
+                                                          .data!
                                                           .boardListResponse!
-                                                          .boardMinimumResponseList![index]
+                                                          .boardMinimumResponseList![
+                                                              index]
                                                           .commentCount
                                                           .toString(),
                                                       style: TextStyle(
-                                                        fontFamily: 'MukgenRegular',
+                                                        fontFamily:
+                                                            'MukgenRegular',
                                                         fontSize: 14.sp,
-                                                        fontWeight: FontWeight
-                                                            .w400,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                         color: MukGenColor
                                                             .primaryLight2,
                                                       ),
@@ -476,15 +543,19 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     Text(
-                                                      snapshot.data!
+                                                      snapshot
+                                                          .data!
                                                           .boardListResponse!
-                                                          .boardMinimumResponseList![index]
-                                                          .viewCount.toString(),
+                                                          .boardMinimumResponseList![
+                                                              index]
+                                                          .viewCount
+                                                          .toString(),
                                                       style: TextStyle(
-                                                        fontFamily: 'MukgenRegular',
+                                                        fontFamily:
+                                                            'MukgenRegular',
                                                         fontSize: 14.sp,
-                                                        fontWeight: FontWeight
-                                                            .w400,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                         color: MukGenColor
                                                             .primaryLight2,
                                                       ),
@@ -498,7 +569,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                         SizedBox(height: 8.0.h),
                                       ],
                                     );
-                                  };
+                                  }
                                 },
                               ),
                             ),
@@ -526,7 +597,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
             onPressed: null,
             elevation: 0,
             backgroundColor: MukGenColor.pointBase,
-            child: Icon(Icons.add, size: 30, color: MukGenColor.white),
+            child: Icon(Icons.add, size: 30.0.sp, color: MukGenColor.white),
           ),
         ),
       ),
