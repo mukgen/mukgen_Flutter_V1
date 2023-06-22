@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 
-class OtherDaysPage extends StatefulWidget {
-  const OtherDaysPage({Key? key}) : super(key: key);
+class MainReviewOtherDaysPage extends StatefulWidget {
+  const MainReviewOtherDaysPage({Key? key}) : super(key: key);
 
   @override
-  State<OtherDaysPage> createState() => _OtherDaysPageState();
+  State<MainReviewOtherDaysPage> createState() => _MainReviewOtherDaysPageState();
 }
 
-class _OtherDaysPageState extends State<OtherDaysPage> {
+class _MainReviewOtherDaysPageState extends State<MainReviewOtherDaysPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _OtherDaysPageState extends State<OtherDaysPage> {
         backgroundColor: MukGenColor.white,
         elevation: 0,
         leading: IconButton(
-          padding: EdgeInsets.only(left: 10.0.w),
+          padding: EdgeInsets.only(left: 20.0.w),
           onPressed: () {
             setState(() {
               Navigator.of(context).pop();
@@ -41,7 +41,7 @@ class _OtherDaysPageState extends State<OtherDaysPage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(),
+      body: const SingleChildScrollView(),
       floatingActionButton: SizedBox(
         width: 70.0.w,
         height: 70.0.h,
