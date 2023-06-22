@@ -10,7 +10,7 @@ Future<TodayMeal> getTodayMealInfo() async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/meal/today"),
-    headers: <String, String>{"Authorization": accessToken},
+    headers: <String, String>{"Authorization": "Bearer $accessToken"},
   );
   if (response.statusCode == 200) {
     return TodayMeal.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
