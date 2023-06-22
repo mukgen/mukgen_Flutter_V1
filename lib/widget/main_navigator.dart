@@ -6,7 +6,7 @@ import 'package:mukgen_flutter_v1/screen/main_page.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_page.dart';
 import 'package:mukgen_flutter_v1/screen/delivery/main_delivery_party_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_page.dart';
-import 'package:mukgen_flutter_v1/screen/main_suggestion.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion.dart';
 import 'package:flutter/widgets.dart';
 
 class MainNavigator extends StatefulWidget {
