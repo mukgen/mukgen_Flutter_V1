@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                                 text: "확인",
                                 width: 285,
                                 height: 50,
-                                backgroundColor: MukGenColor.primaryLight1,
+                                backgroundColor: MukGenColor.pointLight1,
                                 fontSize: 14,
                                 textColor: MukGenColor.white,
                                 onPressed: () {
