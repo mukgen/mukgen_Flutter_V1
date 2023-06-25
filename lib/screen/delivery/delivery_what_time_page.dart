@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/post_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/post/delivery/post_delivery-party_info.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 
 class DeliveryWhatTimePage extends StatefulWidget {
@@ -132,26 +132,26 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                 height: 70.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
-                    itemExtent: 49.0.h,
-                    childCount: time.length,
-                    onSelectedItemChanged: (index) {
-                      if(time[index] == "오후") {
-                        timeValues = true;
-                      }
-                    },
-                    scrollController: timeController,
-                    itemBuilder: (context, index) {
-                      return Center(
-                        child: Text(
-                          time[index],
-                          style: TextStyle(
-                            color: MukGenColor.black,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'MukgenSemiBold',
-                            fontSize: 24.sp,
-                          ),
+                  itemExtent: 49.0.h,
+                  childCount: time.length,
+                  onSelectedItemChanged: (index) {
+                    if(time[index] == "오후") {
+                      timeValues = true;
+                    }
+                  },
+                  scrollController: timeController,
+                  itemBuilder: (context, index) {
+                    return Center(
+                      child: Text(
+                        time[index],
+                        style: TextStyle(
+                          color: MukGenColor.black,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'MukgenSemiBold',
+                          fontSize: 24.sp,
                         ),
-                      );
+                      ),
+                    );
                   },
                 ),
               ),
@@ -172,7 +172,11 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                   childCount: hour.length,
                   onSelectedItemChanged: (index) {
                     if(timeValues == true) {
-                      hourValues = (index + 1) + 12;
+                      if(index == 11) {
+                        hourValues = index + 1;
+                      } else {
+                        hourValues = (index + 1) + 12;
+                      }
                     } else {
                       hourValues = index + 1;
                     }
@@ -244,6 +248,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
               DateTime customDateTime = DateTime(now.year, now.month, now.day, hourValues, minuteValues, 0);
               String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(customDateTime);
               postDeliveryParty(widget.menu, widget.participantNumber, widget.place, formattedDateTime);
+              print(formattedDateTime);
               Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainDeliveryPartyPage'); // Main 페이지로 갈 때 까지 pop
             },
           ),
