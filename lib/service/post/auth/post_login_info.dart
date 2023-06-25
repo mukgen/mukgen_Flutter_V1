@@ -6,7 +6,7 @@ import 'package:mukgen_flutter_v1/secret.dart';
 
 Future<LoginResponse> postLogin(String accountId, String password) async {
 
-  Map data = {
+  Map<String, dynamic> data = {
     "accountId" : accountId,
     "password" : password,
   };
