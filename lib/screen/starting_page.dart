@@ -21,19 +21,15 @@ class _StartingPageState extends State<StartingPage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: 199.0.h),
-                  child: Image(
-                    image: const AssetImage('assets/images/startingmukgen.png'),
-                    width: 160.0.w,
-                    height: 189.0.w,
-                  ),
-                ),
+            Container(
+              padding: EdgeInsets.only(top: 235.5.h),
+              child: Image(
+                image: const AssetImage('assets/images/startingmukgen.png'),
+                width: 160.0.w,
+                height: 189.0.w,
               ),
             ),
-            SizedBox(height: 199.0.h),
+            const Spacer(),
             Container(
               alignment: Alignment.bottomCenter,
               color: MukGenColor.white,
