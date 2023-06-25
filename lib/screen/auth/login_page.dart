@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mukgen_flutter_v1/service/post_login_info.dart';
+import 'package:mukgen_flutter_v1/service/post/auth/post_login_info.dart';
 import 'package:mukgen_flutter_v1/widget/main_navigator.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                                 text: "확인",
                                 width: 285,
                                 height: 50,
-                                backgroundColor: MukGenColor.primaryLight1,
+                                backgroundColor: MukGenColor.pointLight1,
                                 fontSize: 14,
                                 textColor: MukGenColor.white,
                                 onPressed: () {
