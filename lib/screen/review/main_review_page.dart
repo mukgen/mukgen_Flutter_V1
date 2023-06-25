@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/review/main_review_select_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
-import 'package:mukgen_flutter_v1/screen/main_review_otherdays.dart';
+import 'package:mukgen_flutter_v1/screen/review/main_review_otherdays_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transition/transition.dart';
 
@@ -20,6 +21,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MukGenColor.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -48,11 +50,14 @@ class _MainReviewPageState extends State<MainReviewPage> {
                   ),
                 ],
               ),
-              IconButton(
-                icon: const Icon(Icons.person),
-                iconSize: 28,
-                color: MukGenColor.primaryLight2,
-                onPressed: null,
+              Container(
+                padding: EdgeInsets.only(right: 10.0.w),
+                child: IconButton(
+                  icon: const Icon(Icons.person),
+                  iconSize: 28,
+                  color: MukGenColor.primaryLight2,
+                  onPressed: null,
+                ),
               ),
             ],
           ),
@@ -66,8 +71,37 @@ class _MainReviewPageState extends State<MainReviewPage> {
                   color: MukGenColor.primaryLight3,
                   borderRadius: BorderRadius.circular(10),
                 ),
+                child: Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.0.h),
+                      Text(
+                        '리뷰 작성자 순위',
+                        style: TextStyle(
+                          color: MukGenColor.black,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'MukgenSemiBold',
+                          fontSize: 24.sp,
+                        ),
+                      ),
+                      SizedBox(height: 4.0.h),
+                      Row(
+                        children: [
+                          SizedBox(width: 16.5.w),
+                          Container(
+                            child: Column(
+                              children: [
+
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              SizedBox(height: 25.0.h),
+              SizedBox(height: 30.0.h),
             ],
           ),
           Row(
@@ -85,8 +119,8 @@ class _MainReviewPageState extends State<MainReviewPage> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 5.0.h, left: 140.0.w),
+              SizedBox(
+                width: 76.0.w,
                 child: TextButton(
                   child: Text(
                     '다른날 보러가기',
@@ -101,7 +135,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                     Navigator.push(
                       context,
                       Transition(
-                        child: OtherDaysPage(),
+                        child: MainReviewOtherDaysPage(),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     );
@@ -110,27 +144,17 @@ class _MainReviewPageState extends State<MainReviewPage> {
               ),
             ],
           ),
-          SizedBox(
-            width: double.infinity,
-            height: 300.0.h,
-            child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Container(
-                      width: 353.0.w,
-                      height: 92.0.h,
-                      decoration: BoxDecoration(
-                        color: MukGenColor.primaryLight3,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    SizedBox(height: 10.0.h),
-                  ],
-                );
-              },
-            ),
+          Column(
+            children: [
+              Container(
+                width: 353.0.w,
+                height: 92.0.h,
+                decoration: BoxDecoration(
+                  color: MukGenColor.primaryLight3,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -139,7 +163,15 @@ class _MainReviewPageState extends State<MainReviewPage> {
         height: 70.0.h,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                Transition(
+                  child: MainReviewSelectPage(),
+                  transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                ),
+              );
+            },
             elevation: 0,
             backgroundColor: MukGenColor.pointBase,
             child: Icon(Icons.add, size: 30.0.sp, color: MukGenColor.white),
