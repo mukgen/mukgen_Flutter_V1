@@ -5,7 +5,7 @@ import 'package:mukgen_flutter_v1/secret.dart';
 
 Future<int> postGeneralSignup(String name, String accountId, String password, String passwordCheck, String phoneNumber) async {
 
-  Map data = {"name": name,
+  Map<String, dynamic> data = {"name": name,
               "accountId" : accountId,
               "password" : password,
               "passwordCheck" : passwordCheck,

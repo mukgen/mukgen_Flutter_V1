@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:transition/transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
@@ -15,6 +16,13 @@ class MainSuggestionPage extends StatefulWidget {
 class _MainSuggestionPageState extends State<MainSuggestionPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: MukGenColor.white,
+      body: Column(
+        children: [
+
+        ],
+      ),
+    );
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/main_page.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_page.dart';
 import 'package:mukgen_flutter_v1/screen/delivery/main_delivery_party_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_page.dart';
-import 'package:mukgen_flutter_v1/screen/main_suggestion.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
 import 'package:flutter/widgets.dart';
 
 class MainNavigator extends StatefulWidget {
@@ -32,7 +33,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     return WillPopScope(
       onWillPop: () async {
         final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[_selectedIndex].currentState!.maybePop();
+        !await _navigatorKeys[_selectedIndex].currentState!.maybePop();
 
         print(
             'isFirstRouteInCurrentTab: ' + isFirstRouteInCurrentTab.toString());

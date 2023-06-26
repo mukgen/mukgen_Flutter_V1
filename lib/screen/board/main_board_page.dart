@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_detail_page.dart';
-import 'package:mukgen_flutter_v1/service/get_total_board_info.dart';
+import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
 import 'package:mukgen_flutter_v1/widget/comment_icon.dart';
 import 'package:transition/transition.dart';
 
@@ -31,7 +31,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
 
   Future<BoardResponse>? totalBoard;
   final PageController pageController =
-      PageController(initialPage: 0, viewportFraction: 0.9);
+  PageController(initialPage: 0, viewportFraction: 0.9);
 
   @override
   void initState() {
@@ -93,7 +93,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                 ? MukGenColor.white
                                 : MukGenColor.primaryLight1,
                             fontFamily:
-                                all ? 'MukgenSemiBold' : 'MukgenRegular',
+                            all ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
                             fontWeight: all ? FontWeight.w600 : FontWeight.w400,
                           ),
@@ -107,7 +107,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color:
-                            daily ? MukGenColor.pointBase : MukGenColor.white,
+                        daily ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: daily
                               ? MukGenColor.pointBase
@@ -130,10 +130,10 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                 ? MukGenColor.white
                                 : MukGenColor.primaryLight1,
                             fontFamily:
-                                daily ? 'MukgenSemiBold' : 'MukgenRegular',
+                            daily ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
                             fontWeight:
-                                daily ? FontWeight.w600 : FontWeight.w400,
+                            daily ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ),
@@ -145,7 +145,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color:
-                            weekly ? MukGenColor.pointBase : MukGenColor.white,
+                        weekly ? MukGenColor.pointBase : MukGenColor.white,
                         border: Border.all(
                           color: weekly
                               ? MukGenColor.pointBase
@@ -168,10 +168,10 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                 ? MukGenColor.white
                                 : MukGenColor.primaryLight1,
                             fontFamily:
-                                weekly ? 'MukgenSemiBold' : 'MukgenRegular',
+                            weekly ? 'MukgenSemiBold' : 'MukgenRegular',
                             fontSize: 16.0.sp,
                             fontWeight:
-                                weekly ? FontWeight.w600 : FontWeight.w400,
+                            weekly ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ),
@@ -224,8 +224,8 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                 width: 353.0.w,
                                                 height: 51.0.h,
                                                 decoration: BoxDecoration(
-                                                  color: MukGenColor.primaryLight3,
-                                                  borderRadius: BorderRadius.circular(10)
+                                                    color: MukGenColor.primaryLight3,
+                                                    borderRadius: BorderRadius.circular(10)
                                                 ),
                                                 child: Row(
                                                   children: [
@@ -279,10 +279,10 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                       child: Text(
                                                         snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].commentCount.toString(),
                                                         style: TextStyle(
-                                                          color: MukGenColor.primaryLight2,
-                                                          fontSize: 14.sp,
-                                                          fontWeight: FontWeight.w400,
-                                                          fontFamily: 'MukgenRegular'
+                                                            color: MukGenColor.primaryLight2,
+                                                            fontSize: 14.sp,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily: 'MukgenRegular'
                                                         ),
                                                       ),
                                                     ),

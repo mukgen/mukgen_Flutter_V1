@@ -17,7 +17,7 @@ class DeliveryHowManyPage extends StatefulWidget {
 
 class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
   late FixedExtentScrollController howmanyscrollController =
-      FixedExtentScrollController();
+  FixedExtentScrollController();
   bool _isButtonEnabled = true;
 
   int howmanyValue = 1; // 컨트롤러에 있는 값을 옮겨주는 변수임., 픽커를 움직여주지 않고 1명을 지정하였을 때 변수의 초기값인 0으로 되기 때문에 1로 설정함.
@@ -91,28 +91,28 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
           ),
           SizedBox(height: 24.0.h),
           SizedBox(
-                height: 240.0.h,
-                width: 353.0.w,
-                child: CupertinoPicker(
-                    itemExtent: 56.0.h, // 각 항목의 높이
-                    onSelectedItemChanged: (index) {
-                      howmanyValue = index + 1;
-                    },
-                    scrollController: howmanyscrollController,
-                    children: List<Widget>.generate(10, (index) {
-                      return Center(
-                        child: Text(
-                          (index + 1).toString(), // 1부터 10까지의 숫자를 생성
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            fontFamily: 'MukgenSemiBold',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      );
-                    })
-                ),
-              ),
+            height: 240.0.h,
+            width: 353.0.w,
+            child: CupertinoPicker(
+                itemExtent: 56.0.h, // 각 항목의 높이
+                onSelectedItemChanged: (index) {
+                  howmanyValue = index + 1;
+                },
+                scrollController: howmanyscrollController,
+                children: List<Widget>.generate(10, (index) {
+                  return Center(
+                    child: Text(
+                      (index + 1).toString(), // 1부터 10까지의 숫자를 생성
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontFamily: 'MukgenSemiBold',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  );
+                })
+            ),
+          ),
           const Spacer(),
           Row(
             children: [
@@ -147,7 +147,7 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                       ? Navigator.push(
                     context,
                     Transition(
-                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue),
+                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue + 1),
                       transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                     ),
                   )

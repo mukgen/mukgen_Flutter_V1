@@ -1,22 +1,22 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<int> postDeliveryParty(
-    String menu, int participantNumber, String place, String meetTime) async {
-  Map data = {
-    "menu": menu,
-    "participantNumber": participantNumber,
-    "place": place,
-    "meetTime": meetTime,
+Future<int> postBoardComment(int boardId, String content) async {
+  const storage = FlutterSecureStorage();
+  dynamic accessToken = await storage.read(key: 'accessToken');
+  Map<String, dynamic> data = {
+    "boardId" : boardId,
+    "content" : content,
   };
 
   var body = json.encode(data);
 
-  final response = await http.post(Uri.parse("$baseUrl/delivery-party"),
+  final response = await http.post(Uri.parse("$baseUrl/board-comment"),
       headers: <String, String>{
-        "Authorization": token,
+        "Authorization": "Bearer $accessToken",
         "Content-Type": "application/json"
       },
       body: body);
