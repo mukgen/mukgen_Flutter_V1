@@ -7,7 +7,7 @@ import 'package:mukgen_flutter_v1/secret.dart';
 Future<int> postBoard(String title, String content) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
-  Map<String, dynamic> data = {
+  Map<String, String> data = {
     "title" : title,
     "content" : content,
   };
