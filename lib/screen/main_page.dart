@@ -31,11 +31,11 @@ class _MainHomePageState extends State<MainHomePage> {
 
   int boardId = 0;
 
-  Map<String, String> s = {
-    "아침": "morning.png",
-    "점심": "lunch.png",
-    "저녁": "dinner.png"
-  };
+  List<String> foodList = [
+    'MORNING.png',
+    'Sun.png',
+    'Moon.png'
+  ];
 
   @override
   void initState() {
@@ -127,11 +127,13 @@ class _MainHomePageState extends State<MainHomePage> {
                                       SizedBox(height: 24.0.h),
                                       Padding(
                                         padding: EdgeInsets.only(bottom: 25.0.h),
-                                        child: Image.asset(
-                                          "assets/images/${s[snapshot.data!.responseList![index].riceType].toString()}",
+                                        child: Image(
+                                          image: AssetImage(
+                                            "assets/images/${foodList[index]}",
+                                          ),
                                           width: 64.0.r,
                                           height: 64.0.r,
-                                        ),
+                                        )
                                       ),
                                     ],
                                   ),
@@ -160,7 +162,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                                       fontWeight: FontWeight.w400,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 8.0),
+                                                  const SizedBox(height: 8.0),
                                                 ],
                                               ),).toList(),
                                             ),
