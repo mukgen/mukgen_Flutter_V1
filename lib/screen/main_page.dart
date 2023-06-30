@@ -31,10 +31,16 @@ class _MainHomePageState extends State<MainHomePage> {
 
   int boardId = 0;
 
-  List<String> foodList = [
+  List<String> foodImage = [
     'MORNING.png',
     'Sun.png',
     'Moon.png'
+  ];
+
+  List<String> foodText = [
+    '아침',
+    '점심',
+    '저녁',
   ];
 
   @override
@@ -124,16 +130,22 @@ class _MainHomePageState extends State<MainHomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      Text(
+                                        foodText[index],
+                                        style: TextStyle(
+                                          color: MukGenColor.pointBase,
+                                          fontFamily: 'MukgenSemiBold',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.sp,
+                                        ),
+                                      ),
                                       SizedBox(height: 24.0.h),
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 25.0.h),
-                                        child: Image(
-                                          image: AssetImage(
-                                            "assets/images/${foodList[index]}",
-                                          ),
-                                          width: 64.0.r,
-                                          height: 64.0.r,
-                                        )
+                                      Image(
+                                        image: AssetImage(
+                                          "assets/images/${foodImage[index]}",
+                                        ),
+                                        width: 64.0.r,
+                                        height: 64.0.r,
                                       ),
                                     ],
                                   ),
