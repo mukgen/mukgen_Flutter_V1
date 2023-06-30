@@ -33,8 +33,8 @@ class _MainHomePageState extends State<MainHomePage> {
 
   List<String> foodImage = [
     'MORNING.png',
-    'Sun.png',
-    'Moon.png'
+    'LUNCH.png',
+    'DINNER.png'
   ];
 
   List<String> foodText = [
