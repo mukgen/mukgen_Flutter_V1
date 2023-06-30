@@ -31,11 +31,17 @@ class _MainHomePageState extends State<MainHomePage> {
 
   int boardId = 0;
 
-  Map<String, String> s = {
-    "아침": "morning.png",
-    "점심": "lunch.png",
-    "저녁": "dinner.png"
-  };
+  List<String> foodImage = [
+    'MORNING.png',
+    'LUNCH.png',
+    'DINNER.png'
+  ];
+
+  List<String> foodText = [
+    '아침',
+    '점심',
+    '저녁',
+  ];
 
   @override
   void initState() {
@@ -124,14 +130,22 @@ class _MainHomePageState extends State<MainHomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SizedBox(height: 24.0.h),
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 25.0.h),
-                                        child: Image.asset(
-                                          "assets/images/${s[snapshot.data!.responseList![index].riceType].toString()}",
-                                          width: 64.0.r,
-                                          height: 64.0.r,
+                                      Text(
+                                        foodText[index],
+                                        style: TextStyle(
+                                          color: MukGenColor.pointBase,
+                                          fontFamily: 'MukgenSemiBold',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.sp,
                                         ),
+                                      ),
+                                      SizedBox(height: 24.0.h),
+                                      Image(
+                                        image: AssetImage(
+                                          "assets/images/${foodImage[index]}",
+                                        ),
+                                        width: 64.0.r,
+                                        height: 64.0.r,
                                       ),
                                     ],
                                   ),
@@ -160,7 +174,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                                       fontWeight: FontWeight.w400,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 8.0),
+                                                  const SizedBox(height: 8.0),
                                                 ],
                                               ),).toList(),
                                             ),

@@ -69,9 +69,10 @@ flutter:
     - assets/images/signupmukgen.png
     - assets/images/MukgenMainHomeAppBar.png
     - assets/images/MUKGEN.png
-    - assets/images/morning.png
-    - assets/images/lunch.png
-    - assets/images/dinner.png
+    - assets/images/DINNER.png
+    - assets/images/MORNING.png
+    - assets/images/LUNCH.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
