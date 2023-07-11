@@ -99,10 +99,10 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                   howmanyValue = index + 1;
                 },
                 scrollController: howmanyscrollController,
-                children: List<Widget>.generate(10, (index) {
+                children: List<Widget>.generate(9, (index) {
                   return Center(
                     child: Text(
-                      (index + 1).toString(), // 1부터 10까지의 숫자를 생성
+                      (index + 1).toString(), // 1부터 9까지의 숫자를 생성
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontFamily: 'MukgenSemiBold',
