@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
 import 'package:mukgen_flutter_v1/service/get/delivery/get_list_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/post/delivery/post_join_delivery-party_info.dart';
 
 class DeliveryPartyCheck extends StatefulWidget {
   const DeliveryPartyCheck({Key? key}) : super(key: key);
@@ -81,6 +82,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                 onRefresh: () async {
                   setState(() {
                     listDeliveryParty = getListDeliveryPartyInfo();
+
                   });
                 },
                 child: Column(
@@ -225,7 +227,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                   width: 321.0.w,
                                                   child: ListView.builder(
                                                     scrollDirection: Axis.horizontal,
-                                                    itemCount: 1,
+                                                    itemCount: snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList!.length - 1,
                                                     itemBuilder: (context, index1) {
                                                       return Row(
                                                         children: [
@@ -237,28 +239,33 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                                 SizedBox(
                                                                   height: 30.0.h,
                                                                   width: 30.0.w,
-                                                                  child: CircleAvatar(
+                                                                  child: snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl != null
+                                                                      ? CircleAvatar(
                                                                     radius: 100.r,
-                                                                    backgroundImage: NetworkImage(
-                                                                      snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].profileUrl.toString(),
-                                                                    ),
+                                                                    backgroundImage: NetworkImage(snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl.toString()),
+                                                                  )
+                                                                      : CircleAvatar(
+                                                                    radius: 100.r,
+                                                                    backgroundImage: const AssetImage('assets/images/defaultProfile.png'),
+                                                                    backgroundColor: MukGenColor.primaryLight2,
                                                                   ),
+
                                                                 ),
-                                                                Padding(
-                                                                  padding: EdgeInsets.only(top: 1.0.h),
-                                                                  child: Text(
-                                                                    snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name.toString(),
-                                                                    style: TextStyle(
-                                                                      color: MukGenColor.black,
-                                                                      fontSize: 12.sp,
-                                                                      fontWeight: FontWeight.w400,
-                                                                      fontFamily: 'MukgenRegular',
-                                                                    ),
+                                                                Text(
+                                                                  snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.length > 3 ? '${snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.substring(0, 3)}...' : snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name.toString(),
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  maxLines: 1,
+                                                                  style: TextStyle(
+                                                                    color: MukGenColor.black,
+                                                                    fontSize: 12.sp,
+                                                                    fontWeight: FontWeight.w400,
+                                                                    fontFamily: 'MukgenRegular',
                                                                   ),
                                                                 )
                                                               ],
                                                             ),
                                                           ),
+                                                          SizedBox(width: 6.0.w),
                                                         ],
                                                       );
                                                     },
@@ -271,7 +278,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                             left: 16.0.w,
                                             child: GestureDetector(
                                               onTap: () {
-
+                                                postJoinDeliveryParty(snapshot.data!.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
                                               },
                                               child: AnimatedOpacity(
                                                 duration: const Duration(milliseconds: 200),
