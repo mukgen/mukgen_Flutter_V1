@@ -81,7 +81,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
           children: [
             SizedBox(height: 10.0.h),
             SizedBox(
-              height: 600.0.h,
+              height: 700.0.h,
               width: double.infinity,
               child: RefreshIndicator(
                 onRefresh: () async {
