@@ -135,8 +135,20 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                   itemExtent: 49.0.h,
                   childCount: time.length,
                   onSelectedItemChanged: (index) {
-                    if(time[index] == "오후") {
-                      timeValues = true;
+                    if(timeController.selectedItem == 1) {
+                      setState(() {
+                        if(hourValues == 0 || hourValues == 1) {
+                          hourValues = 13;
+                          timeValues = true;
+                        } else {
+                          hourValues += 12;
+                          timeValues = true;
+                        }
+                      });
+                    } else {
+                      setState(() {
+                        timeValues = false;
+                      });
                     }
                   },
                   scrollController: timeController,
@@ -171,15 +183,21 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                   itemExtent: 49.0.h,
                   childCount: hour.length,
                   onSelectedItemChanged: (index) {
-                    if(timeValues == true) {
-                      if(index == 11) {
-                        hourValues = index + 1;
+                      print(timeValues);
+                      print(hourValues);
+                      if(timeValues == true) {
+                        if(index == 11) {
+                          hourValues = 12;
+                        } else {
+                          hourValues = (index + 1) + 12;
+                        }
                       } else {
-                        hourValues = (index + 1) + 12;
+                        if(index == 11) {
+                          hourValues = 0;
+                        } else {
+                          hourValues = index + 1;
+                        }
                       }
-                    } else {
-                      hourValues = index + 1;
-                    }
                   },
                   scrollController: hourController,
                   itemBuilder: (context, index) {
