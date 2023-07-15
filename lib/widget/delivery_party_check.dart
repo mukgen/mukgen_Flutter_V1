@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
+import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
 import 'package:mukgen_flutter_v1/service/get/delivery/get_list_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/get/user/get_user_profile_info.dart';
 import 'package:mukgen_flutter_v1/service/post/delivery/post_join_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/post/delivery/post_leave_delivery-party_info.dart';
 
 class DeliveryPartyCheck extends StatefulWidget {
   const DeliveryPartyCheck({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class DeliveryPartyCheck extends StatefulWidget {
 
 class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTickerProviderStateMixin {
   Future<ListDeliveryParty>? listDeliveryParty;
+  Future<UserProfile>? userProfile;
 
   bool isExpanded = false;
   bool isEntered = false;
@@ -27,6 +31,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
   void initState() {
     super.initState();
     listDeliveryParty = getListDeliveryPartyInfo();
+    userProfile = getUserProfileInfo();
     animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
@@ -82,25 +87,34 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                 onRefresh: () async {
                   setState(() {
                     listDeliveryParty = getListDeliveryPartyInfo();
-
+                    userProfile = getUserProfileInfo();
                   });
                 },
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: listDeliveryParty,
+                      future: Future.wait([listDeliveryParty, userProfile].cast<Future<dynamic>>()),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
+                          final listDeliveryParty = snapshot.data![0] as ListDeliveryParty;
+                          final userProfile = snapshot.data![1] as UserProfile;
                           return Expanded(
                             child: ListView.builder(
-                              itemCount: snapshot.data!.deliveryPartyResponseList!.length,
+                              itemCount: listDeliveryParty.deliveryPartyResponseList!.length,
                               itemBuilder: (context, index) {
                                 final bool isSelected = selectedContainerIndex == index;
+                                bool entered = false;
+                                for (var userInfo in listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList!) {
+                                  if (userInfo.accountId == userProfile.accountId) {
+                                    entered = true;
+                                    break;
+                                  }
+                                }
                                 return Column(
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        if (!isEntered) {
+                                        if(!entered) {
                                           toggleExpansion(index);
                                         }
                                       },
@@ -109,10 +123,10 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                           AnimatedContainer(
                                             duration: const Duration(milliseconds: 200),
                                             curve: Curves.easeInOut,
-                                            height: isSelected ? 191.0.h : 90.0.h,
+                                            height: entered ? 187.0.h : isSelected ? 187.0.h : 90.0.h,
                                             width: 353.0.w,
                                             decoration: BoxDecoration(
-                                              color: isEntered ? MukGenColor.pointLight1 : MukGenColor.primaryLight3,
+                                              color: entered ? MukGenColor.pointLight1 : MukGenColor.primaryLight3,
                                               borderRadius: BorderRadius.circular(10.r),
                                             ),
                                             child: Column(
@@ -129,11 +143,15 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                             margin: EdgeInsets.only(left: 16.0.w),
                                                             height: 60.0.h,
                                                             width: 60.0.w,
-                                                            child: CircleAvatar(
+                                                            child: listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].profileUrl != null
+                                                                ? CircleAvatar(
                                                               radius: 100.r,
-                                                              backgroundImage: NetworkImage(
-                                                                snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index].profileUrl.toString(),
-                                                              ),
+                                                              backgroundImage: NetworkImage(listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].profileUrl.toString()),
+                                                            )
+                                                                : CircleAvatar(
+                                                              radius: 100.r,
+                                                              backgroundImage: const AssetImage('assets/images/defaultProfile.png'),
+                                                              backgroundColor: MukGenColor.primaryLight2,
                                                             ),
                                                           ),
                                                         ],
@@ -148,9 +166,9 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                               children: [
                                                                 SizedBox(width: 5.0.w),
                                                                 Text(
-                                                                  snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index].name.toString(),
+                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].name.toString(),
                                                                   style: TextStyle(
-                                                                    color: MukGenColor.black,
+                                                                    color: entered ? MukGenColor.pointLight4 : MukGenColor.black,
                                                                     fontSize: 12.sp,
                                                                     fontWeight: FontWeight.w600,
                                                                     fontFamily: 'InterBold',
@@ -158,9 +176,9 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                                 ),
                                                                 const Spacer(),
                                                                 Text(
-                                                                  '${snapshot.data!.deliveryPartyResponseList![index].curParticipantNumber.toString()} / ${snapshot.data!.deliveryPartyResponseList![index].participantNumber.toString()}',
+                                                                  '${listDeliveryParty.deliveryPartyResponseList![index].curParticipantNumber.toString()} / ${listDeliveryParty.deliveryPartyResponseList![index].participantNumber.toString()}',
                                                                   style: TextStyle(
-                                                                    color: MukGenColor.black,
+                                                                    color: entered ? MukGenColor.pointLight4 : MukGenColor.black,
                                                                     fontSize: 12.sp,
                                                                     fontFamily: 'InterBold',
                                                                     fontWeight: FontWeight.w600,
@@ -177,9 +195,9 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                               children: [
                                                                 SizedBox(width: 5.0.w),
                                                                 Text(
-                                                                  snapshot.data!.deliveryPartyResponseList![index].menu.toString(),
+                                                                  listDeliveryParty.deliveryPartyResponseList![index].menu.toString(),
                                                                   style: TextStyle(
-                                                                    color: MukGenColor.black,
+                                                                    color: entered ? MukGenColor.white : MukGenColor.black,
                                                                     fontSize: 14.sp,
                                                                     fontWeight: FontWeight.w400,
                                                                     fontFamily: 'MukgenRegular',
@@ -195,9 +213,9 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                               children: [
                                                                 SizedBox(width: 5.0.w),
                                                                 Text(
-                                                                  '${snapshot.data!.deliveryPartyResponseList![index].place.toString()}ㅣ${meetTime(snapshot.data!.deliveryPartyResponseList![index].meetTime.toString())}',
+                                                                  '${listDeliveryParty.deliveryPartyResponseList![index].place.toString()}ㅣ${meetTime(listDeliveryParty.deliveryPartyResponseList![index].meetTime.toString())}',
                                                                   style: TextStyle(
-                                                                    color: MukGenColor.primaryBase,
+                                                                    color: entered ? MukGenColor.white : MukGenColor.primaryBase,
                                                                     fontSize: 12.sp,
                                                                     fontWeight: FontWeight.w400,
                                                                     fontFamily: 'MukgenRegular',
@@ -214,20 +232,20 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                               ],
                                             ),
                                           ),
-                                          if (isSelected)
+                                          if (entered == true || isSelected == true)
                                             Positioned(
                                               bottom: 53.0.h,
                                               left: 16.0.w,
                                               child: AnimatedOpacity(
                                                 duration: const Duration(milliseconds: 200),
-                                                opacity: isSelected ? 1.0 : 0.0,
+                                                opacity: entered ? 1.0 : isSelected ? 1.0 : 0.0,
                                                 curve: Curves.easeInOut,
                                                 child: SizedBox(
-                                                  height: isSelected ? 46.0.h : 0.0.h,
+                                                  height: entered ? 46.0.h : isSelected ? 46.0.h : 0.0.h,
                                                   width: 321.0.w,
                                                   child: ListView.builder(
                                                     scrollDirection: Axis.horizontal,
-                                                    itemCount: snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList!.length - 1,
+                                                    itemCount: listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList!.length - 1,
                                                     itemBuilder: (context, index1) {
                                                       return Row(
                                                         children: [
@@ -236,27 +254,33 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                             height: 46.0.h,
                                                             child: Column(
                                                               children: [
-                                                                SizedBox(
+                                                                Container(
                                                                   height: 30.0.h,
                                                                   width: 30.0.w,
-                                                                  child: snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl != null
+                                                                  decoration: BoxDecoration(
+                                                                      shape: BoxShape.circle,
+                                                                      border: Border.all(
+                                                                        color: entered ? MukGenColor.pointLight2 : MukGenColor.primaryLight2,
+                                                                        width: 1.0.w,
+                                                                      )
+                                                                  ),
+                                                                  child: listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl != null
                                                                       ? CircleAvatar(
                                                                     radius: 100.r,
-                                                                    backgroundImage: NetworkImage(snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl.toString()),
+                                                                    backgroundImage: NetworkImage(listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl.toString()),
                                                                   )
                                                                       : CircleAvatar(
                                                                     radius: 100.r,
                                                                     backgroundImage: const AssetImage('assets/images/defaultProfile.png'),
                                                                     backgroundColor: MukGenColor.primaryLight2,
                                                                   ),
-
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.length > 3 ? '${snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.substring(0, 3)}...' : snapshot.data!.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name.toString(),
+                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.length > 3 ? '${listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.substring(0, 3)}...' : listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name.toString(),
                                                                   overflow: TextOverflow.ellipsis,
                                                                   maxLines: 1,
                                                                   style: TextStyle(
-                                                                    color: MukGenColor.black,
+                                                                    color: entered ? MukGenColor.white : MukGenColor.black,
                                                                     fontSize: 12.sp,
                                                                     fontWeight: FontWeight.w400,
                                                                     fontFamily: 'MukgenRegular',
@@ -278,24 +302,24 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                             left: 16.0.w,
                                             child: GestureDetector(
                                               onTap: () {
-                                                postJoinDeliveryParty(snapshot.data!.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
+                                                entered == true ? postLeaveDeliveryParty(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt()) : postJoinDeliveryParty(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
                                               },
                                               child: AnimatedOpacity(
                                                 duration: const Duration(milliseconds: 200),
-                                                opacity: isSelected ? 1.0 : 0.0,
+                                                opacity: entered ? 1.0 : isSelected ? 1.0 : 0.0,
                                                 curve: Curves.easeInOut,
                                                 child: Container(
-                                                  height: isSelected ? 39.0.h : 0.0.h,
+                                                  height: entered ? 39.0.h : isSelected ? 39.0.h : 0.0.h,
                                                   width: 321.0.w,
                                                   decoration: BoxDecoration(
-                                                    color: MukGenColor.pointLight1,
+                                                    color: entered ? MukGenColor.pointLight4 : MukGenColor.pointLight1,
                                                     borderRadius: BorderRadius.circular(10.r),
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      '참여하기',
+                                                      entered ? '떠나기' : '참여하기',
                                                       style: TextStyle(
-                                                        color: MukGenColor.white,
+                                                        color: entered ? MukGenColor.pointBase : MukGenColor.white,
                                                         fontSize: 16.sp,
                                                         fontFamily: 'MukgenSemiBold',
                                                         fontWeight: FontWeight.w600,
