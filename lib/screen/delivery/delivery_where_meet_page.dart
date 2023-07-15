@@ -99,7 +99,7 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
               ),
             ),
           ),
-          SizedBox(height: 24.0.h),
+          SizedBox(height: 40.0.h),
           MukGenTextField(
             width: 353,
             controller: wheremeetController,

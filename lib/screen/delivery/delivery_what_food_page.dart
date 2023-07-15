@@ -98,7 +98,7 @@ class _DeliveryWhatFoodPageState extends State<DeliveryWhatFoodPage> {
               ),
             ),
           ),
-          SizedBox(height: 24.0.h),
+          SizedBox(height: 40.0.h),
           MukGenTextField(
             width: 353,
             controller: whatfoodController,
