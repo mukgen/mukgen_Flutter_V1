@@ -98,6 +98,8 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                 onSelectedItemChanged: (index) {
                   howmanyValue = index + 1;
                 },
+                squeeze: 0.9.h,
+                diameterRatio: 3.r,
                 scrollController: howmanyscrollController,
                 children: List<Widget>.generate(9, (index) {
                   return Center(

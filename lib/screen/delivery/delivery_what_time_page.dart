@@ -129,7 +129,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 70.0.h,
+                height: 200.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
                   itemExtent: 49.0.h,
@@ -151,6 +151,8 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                       });
                     }
                   },
+                  squeeze: 0.95.h,
+                  diameterRatio: 2.0.r,
                   scrollController: timeController,
                   itemBuilder: (context, index) {
                     return Center(
@@ -177,7 +179,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                 ),
               ),
               SizedBox(
-                height: 70.0.h,
+                height: 200.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
                   itemExtent: 49.0.h,
@@ -199,6 +201,8 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                         }
                       }
                   },
+                  squeeze: 0.95.h,
+                  diameterRatio: 2.0.r,
                   scrollController: hourController,
                   itemBuilder: (context, index) {
                     return Center(
@@ -225,7 +229,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                 ),
               ),
               SizedBox(
-                height: 70.0.h,
+                height: 200.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
                   itemExtent: 49.0.h,
@@ -235,6 +239,8 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                       minuteValues = index * 10;
                     });
                   },
+                  squeeze: 0.95.h,
+                  diameterRatio: 2.0.r,
                   scrollController: minuteController,
                   itemBuilder: (context, index) {
                     return Center(
