@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food_page.dart';
-import 'package:mukgen_flutter_v1/service/get/delivery/get_list_delivery-party_info.dart';
 import 'package:mukgen_flutter_v1/widget/delivery_party_check.dart';
-import 'package:transition/transition.dart';
 
 class MainDeliveryPartyPage extends StatefulWidget {
-  const MainDeliveryPartyPage({Key? key}) : super(key: key);
+  const MainDeliveryPartyPage({Key? key, required this.onFood}) : super(key: key);
+
+  final VoidCallback onFood;
 
   @override
   State<MainDeliveryPartyPage> createState() => _MainDeliveryPartyPageState();
@@ -39,14 +36,9 @@ class _MainDeliveryPartyPageState extends State<MainDeliveryPartyPage> with Sing
         height: 70.0.h,
         child: FittedBox(
           child: FloatingActionButton(
+            heroTag: 'adddelivery',
             onPressed: () {
-              Navigator.push(
-                context,
-                Transition(
-                  child: const DeliveryWhatFoodPage(),
-                  transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                ),
-              );
+              widget.onFood();
             },
             elevation: 0,
             backgroundColor: MukGenColor.pointBase,
