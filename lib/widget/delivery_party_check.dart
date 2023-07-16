@@ -18,7 +18,7 @@ class DeliveryPartyCheck extends StatefulWidget {
 
 class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTickerProviderStateMixin {
   Future<ListDeliveryParty>? listDeliveryParty;
-  Future<UserProfile>? userProfile;
+  Future<ProfileUser>? userProfile;
 
   bool isExpanded = false;
   bool isEntered = false;
@@ -97,7 +97,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           final listDeliveryParty = snapshot.data![0] as ListDeliveryParty;
-                          final userProfile = snapshot.data![1] as UserProfile;
+                          final profileUser = snapshot.data![1] as ProfileUser;
                           return Expanded(
                             child: ListView.builder(
                               itemCount: listDeliveryParty.deliveryPartyResponseList!.length,
@@ -105,7 +105,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                 final bool isSelected = selectedContainerIndex == index;
                                 bool entered = false;
                                 for (var userInfo in listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList!) {
-                                  if (userInfo.accountId == userProfile.accountId) {
+                                  if (userInfo.accountId == profileUser.accountId) {
                                     entered = true;
                                     break;
                                   }
