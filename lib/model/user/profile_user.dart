@@ -1,12 +1,12 @@
-class UserProfile {
+class ProfileUser {
   String? accountId;
   String? name;
   String? phoneNumber;
   String? profileUrl;
 
-  UserProfile({this.accountId, this.name, this.phoneNumber, this.profileUrl});
+  ProfileUser({this.accountId, this.name, this.phoneNumber, this.profileUrl});
 
-  UserProfile.fromJson(Map<String, dynamic> json) {
+  ProfileUser.fromJson(Map<String, dynamic> json) {
     accountId = json['accountId'];
     name = json['name'];
     phoneNumber = json['phoneNumber'];
