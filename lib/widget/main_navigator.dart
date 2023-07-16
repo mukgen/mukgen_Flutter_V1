@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/board/main_board_detail_page.dart';
+import 'package:mukgen_flutter_v1/screen/board/main_board_posting_page.dart';
+import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food_page.dart';
 import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +10,6 @@ import 'package:mukgen_flutter_v1/screen/main_page.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_page.dart';
 import 'package:mukgen_flutter_v1/screen/delivery/main_delivery_party_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_page.dart';
-import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
-import 'package:flutter/widgets.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class MainNavigator extends StatefulWidget {
 class _MainNavigatorState extends State<MainNavigator> {
   int _selectedIndex = 0;
 
-  List<GlobalKey<NavigatorState>> _navigatorKeys = [
+  final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -34,10 +35,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       onWillPop: () async {
         final isFirstRouteInCurrentTab =
         !await _navigatorKeys[_selectedIndex].currentState!.maybePop();
-
-        print(
-            'isFirstRouteInCurrentTab: ' + isFirstRouteInCurrentTab.toString());
-
         return isFirstRouteInCurrentTab;
       },
       child: Scaffold(
@@ -90,13 +87,13 @@ class _MainNavigatorState extends State<MainNavigator> {
             unselectedLabelStyle: TextStyle(
               color: MukGenColor.primaryLight2,
               fontWeight: FontWeight.w600,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontFamily: 'MukgenSemiBold',
             ),
             selectedLabelStyle: TextStyle(
               color: MukGenColor.pointBase,
               fontWeight: FontWeight.w600,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontFamily: 'MukgenSemiBold',
             ),
             selectedItemColor: MukGenColor.pointBase,
@@ -109,15 +106,35 @@ class _MainNavigatorState extends State<MainNavigator> {
     );
   }
 
+
+  void onNext(Widget page){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+  }
+
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
         return [
-          const MainHomePage(),
-          const MainBoardPage(),
+          MainHomePage(
+            onDetail: (int boardId) {
+              onNext(MainBoardDetailPage(boardId: boardId));
+            }
+          ),
+          MainBoardPage(
+            onPosting: () {
+              onNext(const MainBoardPostingPage());
+            },
+            onDetail: (int boardId) {
+              onNext(MainBoardDetailPage(boardId: boardId));
+            },
+          ),
           const MainSuggestionPage(),
           const MainReviewPage(),
-          const MainDeliveryPartyPage(),
+          MainDeliveryPartyPage(
+            onFood: () {
+              onNext(const DeliveryWhatFoodPage());
+            }
+          ),
         ].elementAt(index);
       },
     };
