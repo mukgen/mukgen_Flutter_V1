@@ -129,16 +129,30 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 70.0.h,
+                height: 200.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
                   itemExtent: 49.0.h,
                   childCount: time.length,
                   onSelectedItemChanged: (index) {
-                    if(time[index] == "오후") {
-                      timeValues = true;
+                    if(timeController.selectedItem == 1) {
+                      setState(() {
+                        if(hourValues == 0 || hourValues == 1) {
+                          hourValues = 13;
+                          timeValues = true;
+                        } else {
+                          hourValues += 12;
+                          timeValues = true;
+                        }
+                      });
+                    } else {
+                      setState(() {
+                        timeValues = false;
+                      });
                     }
                   },
+                  squeeze: 0.95.h,
+                  diameterRatio: 2.0.r,
                   scrollController: timeController,
                   itemBuilder: (context, index) {
                     return Center(
@@ -165,22 +179,30 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                 ),
               ),
               SizedBox(
-                height: 70.0.h,
+                height: 200.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
                   itemExtent: 49.0.h,
                   childCount: hour.length,
                   onSelectedItemChanged: (index) {
-                    if(timeValues == true) {
-                      if(index == 11) {
-                        hourValues = index + 1;
+                      print(timeValues);
+                      print(hourValues);
+                      if(timeValues == true) {
+                        if(index == 11) {
+                          hourValues = 12;
+                        } else {
+                          hourValues = (index + 1) + 12;
+                        }
                       } else {
-                        hourValues = (index + 1) + 12;
+                        if(index == 11) {
+                          hourValues = 0;
+                        } else {
+                          hourValues = index + 1;
+                        }
                       }
-                    } else {
-                      hourValues = index + 1;
-                    }
                   },
+                  squeeze: 0.95.h,
+                  diameterRatio: 2.0.r,
                   scrollController: hourController,
                   itemBuilder: (context, index) {
                     return Center(
@@ -207,7 +229,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                 ),
               ),
               SizedBox(
-                height: 70.0.h,
+                height: 200.0.h,
                 width: 100.0.w,
                 child: CupertinoPicker.builder(
                   itemExtent: 49.0.h,
@@ -217,6 +239,8 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                       minuteValues = index * 10;
                     });
                   },
+                  squeeze: 0.95.h,
+                  diameterRatio: 2.0.r,
                   scrollController: minuteController,
                   itemBuilder: (context, index) {
                     return Center(
