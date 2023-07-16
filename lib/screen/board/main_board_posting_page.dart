@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_board_info.dart';
@@ -199,7 +200,7 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
           Center(
             child: Container(
               width: 352.0.w,
-              height: 396.0.h, // 원래는 496.0.h이지만 바텀 네비게이션 바 때문에 일시적으로 396으로 설정할게요.
+              height: 496.0.h,
               decoration: BoxDecoration(
                 color: MukGenColor.primaryLight3,
                 borderRadius: BorderRadius.circular(10.r),
