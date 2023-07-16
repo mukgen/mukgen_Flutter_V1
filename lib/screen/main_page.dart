@@ -16,7 +16,9 @@ import 'package:transition/transition.dart';
 import '../widget/comment_icon.dart';
 
 class MainHomePage extends StatefulWidget {
-  const MainHomePage({Key? key}) : super(key: key);
+  const MainHomePage({Key? key, required this.onDetail}) : super(key: key);
+
+  final Function(int) onDetail;
 
   @override
   State<MainHomePage> createState() => _MainHomePageState();
@@ -163,21 +165,19 @@ class _MainHomePageState extends State<MainHomePage> {
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: itemList[itemIndex].split(',').map<Widget>((text) => Column(
                                                 children: [
                                                   Text(
-                                                    text,
+                                                    snapshot.data!.responseList![index].item.toString().replaceAll(',', '\n'),
                                                     style: TextStyle(
                                                       fontSize: 14.0.sp,
                                                       fontFamily: 'MukgenRegular',
                                                       fontWeight: FontWeight.w400,
+                                                      height: 1.6.h,
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 8.0),
+                                                  SizedBox(height: 8.0.h),
                                                 ],
-                                              ),).toList(),
-                                            ),
+                                              ),
                                             SizedBox(height: 6.0.h),
                                           ],
                                         );
@@ -341,14 +341,7 @@ class _MainHomePageState extends State<MainHomePage> {
                               onTap: () {
                                 setState(() {
                                   boardId = snapshot.data!.boardPopularResponseList![index].boardId!.toInt();
-                                  Navigator.push(
-                                    context,
-                                    Transition(
-                                      child: MainBoardDetailPage(boardId: boardId,),
-                                      transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-
-                                    ),
-                                  );
+                                  widget.onDetail(boardId);
                                 });
                               },
                               child: Container(

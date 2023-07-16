@@ -8,8 +8,7 @@ import 'package:mukgen_flutter_v1/service/post/board/post_board_comment_info.dar
 import 'package:mukgen_flutter_v1/service/post/board/post_like_board_info.dart';
 
 class MainBoardDetailPage extends StatefulWidget {
-  const MainBoardDetailPage({Key? key, required this.boardId})
-      : super(key: key);
+  const MainBoardDetailPage({Key? key, required this.boardId}) : super(key: key);
 
   final int boardId;
 
