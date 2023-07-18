@@ -35,7 +35,7 @@ class ReviewRankResponseList {
     profileUrl = json['profileUrl'];
     userName = json['userName'];
     reviewCount = json['reviewCount'];
-    averageReview = json['averageReview'];
+    averageReview = json['averageReview'].toString();
   }
 
   Map<String, dynamic> toJson() {
