@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/service/post/review/post_review_info.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
-import 'package:transition/transition.dart';
 
 class MainReviewPostingPage extends StatefulWidget {
-  const MainReviewPostingPage({Key? key}) : super(key: key);
+  const MainReviewPostingPage({Key? key, required this.riceId, required this.riceType}) : super(key: key);
+
+  final int? riceId;
+  final String? riceType;
 
   @override
   State<MainReviewPostingPage> createState() => _MainReviewPostingPageState();
@@ -42,20 +45,24 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
   }
 
   Widget _starChange (int index){
-    return IconButton(
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         setState(() {
           starIndex = index;
         });
       },
-      icon: starIndex >= index ? Icon(
-        Icons.star_rounded,
-        size: 48.sp,
-        color: MukGenColor.pointLight1,
-      ) : Icon(
-        Icons.star_outline_rounded,
-        size: 48.sp,
-        color: MukGenColor.pointLight1,
+      child: starIndex >= index ? Image(
+        image: AssetImage(
+          'assets/images/Star.png',
+        ),
+        width: 48.0.w,
+        height: 48.0.h,
+      ) : Image(
+        image: AssetImage(
+          'assets/images/Star_outlined.png',
+        ),
+        width: 48.0.w,
+        height: 48.0.h,
       ),
     );
   }
@@ -68,17 +75,19 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
         backgroundColor: MukGenColor.white,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
+        leading: Padding(
           padding: EdgeInsets.only(left: 20.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: MukGenColor.primaryLight1,
-            size: 24.0.sp,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                Navigator.of(context).pop();
+              });
+            },
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: MukGenColor.primaryLight1,
+              size: 20.0.sp,
+            ),
           ),
         ),
         title: Text(
@@ -108,7 +117,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
               ),
               SizedBox(width: 10.0.w),
               Text(
-                '몰러',
+                widget.riceType.toString(),
                 style: TextStyle(
                   color: MukGenColor.pointLight1,
                   fontSize: 20.sp,
@@ -126,7 +135,6 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
               _starChange(3),
               _starChange(4),
               _starChange(5),
-              SizedBox(width: 22.5.w),
             ],
           ),
           SizedBox(height: 16.0.h),
@@ -138,6 +146,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                 borderRadius: BorderRadius.circular(10)
             ),
             child: TextFormField(
+              controller: reviewController,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 20.sp,
@@ -163,7 +172,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
           Row(
             children: [
               SizedBox(width: 20.0.w),
-              Container(
+              SizedBox(
                 width: 80.0.w,
                 height: 80.0.h,
                 child: OutlinedButton(
@@ -244,7 +253,10 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                 : MukGenColor.primaryLight2,
             textColor: MukGenColor.white,
             fontSize: 16.sp,
-            onPressed: () {},
+            onPressed: () {
+              print('yes');
+              postReviewInfo(starIndex, reviewController.text, widget.riceId!);
+            },
           ),
           SizedBox(height: 20.0.h),
         ],
