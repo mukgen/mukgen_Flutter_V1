@@ -19,9 +19,12 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
   final String now = DateTime.now().toString();
   String formattedDate = DateFormat('MM월 dd일').format(DateTime.now());
 
+  FocusNode _focusNode = FocusNode();
+
   int starIndex = 0;
 
   late TextEditingController reviewController;
+  late int reviewCharacterCount;
 
   bool _isButtonEnabled = false;
 
@@ -30,17 +33,20 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
     super.initState();
     reviewController = TextEditingController();
     reviewController.addListener(_updateButtonState);
+    reviewCharacterCount = 0;
   }
 
   @override
   void dispose() {
     super.dispose();
+    _focusNode.dispose();
     reviewController.dispose();
   }
 
   void _updateButtonState() {
     setState(() {
       _isButtonEnabled = reviewController.text.isNotEmpty;
+      reviewCharacterCount = reviewController.text.length;
     });
   }
 
@@ -142,10 +148,15 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
             width: 353.0.w,
             height: 200.0.h,
             decoration: BoxDecoration(
-                color: MukGenColor.primaryLight3,
-                borderRadius: BorderRadius.circular(10)
+              color: MukGenColor.primaryLight3,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: _focusNode.hasFocus ? MukGenColor.pointBase : MukGenColor.primaryLight3,
+                width: 2.0.w
+              ),
             ),
             child: TextFormField(
+              focusNode: _focusNode,
               controller: reviewController,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -154,6 +165,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
               ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: 16.0.w, top: 16.0.h),
+                counterText: '',
                 hintText : '내용을 입력해주세요.',
                 hintStyle: TextStyle(
                   color: MukGenColor.primaryLight2,
@@ -162,13 +174,28 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                   fontFamily: 'MukgenSemiBold',
                 ),
                 border: InputBorder.none,
-
               ),
               maxLines: null,
               maxLength: 100,
             ),
           ),
-          SizedBox(height: 17.0.h),
+          Padding(
+            padding: EdgeInsets.only(top: 4.0.h, right: 20.0.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  '$reviewCharacterCount/100',
+                  style: TextStyle(
+                    color: MukGenColor.primaryLight2,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'MukgenRegular',
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Row(
             children: [
               SizedBox(width: 20.0.w),
