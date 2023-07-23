@@ -158,13 +158,13 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                 child: FutureBuilder(
                   future: detailReview,
                   builder: (context, snapshot) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
+                    if(snapshot.hasData) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
                               '${snapshot.data!.count.toString()}.0',
                               style: TextStyle(
                                 color: MukGenColor.primaryLight1,
@@ -173,29 +173,109 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 4.0.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List<Widget>.generate(5, (index1) {
-                            return index1 < snapshot.data!.count! ? Image.asset(
-                              'assets/images/Star.png',
-                              width: 24.0.w,
-                              height: 24.0.h,
-                            ) : Image.asset(
-                              'assets/images/Star_outlined.png',
-                              width: 24.0.w,
-                              height: 24.0.h,
-                            );
-                          }),
-                        )
-                      ],
-                    );
+                          ),
+                          SizedBox(height: 4.0.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List<Widget>.generate(5, (index1) {
+                              return index1 < snapshot.data!.count! ? Image.asset(
+                                'assets/images/Star.png',
+                                width: 24.0.w,
+                                height: 24.0.h,
+                              ) : Image.asset(
+                                'assets/images/Star_outlined.png',
+                                width: 24.0.w,
+                                height: 24.0.h,
+                              );
+                            }),
+                          )
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
                   },
                 ),
               ),
             ],
+          ),
+          SizedBox(height: 10.0.h),
+          Container(
+            width: 353.0.w,
+            height: 265.0.h,
+            decoration: BoxDecoration(
+              color: MukGenColor.primaryLight3,
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: FutureBuilder(
+              future: detailReview,
+              builder:(context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      SizedBox(height: 15.0.h),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0.w),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            snapshot.data!.userName.toString(),
+                            style: TextStyle(
+                              color: MukGenColor.primaryDark2,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'MukgenSemiBold',
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5.0.h),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0.w),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            /*DateFormat('yy.MM.dd HH:mm')
+                                .format(DateTime.parse(
+                                snapshot.data!..toString()))
+                                .toString(),*/
+                            '23.05.07 10:32',
+                            style: TextStyle(
+                              color: MukGenColor.primaryLight2,
+                              fontSize: 12.sp,
+                              fontFamily: 'MukgenRegular',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5.0.h),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0.w),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            snapshot.data!.content!,
+                            style: TextStyle(
+                              color: MukGenColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'MukgenRegular',
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
           )
         ],
       ),
