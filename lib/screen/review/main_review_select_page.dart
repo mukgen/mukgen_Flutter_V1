@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
+import 'package:mukgen_flutter_v1/screen/review/main_review_posting_page.dart';
 import 'package:mukgen_flutter_v1/service/get/meals/get_today_meals_info.dart';
+import 'package:transition/transition.dart';
 
 class MainReviewSelectPage extends StatefulWidget {
   const MainReviewSelectPage({Key? key}) : super(key: key);
@@ -17,6 +19,12 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
   Future<TodayMeal>? todayMeal;
   final PageController pageController =
   PageController(initialPage: 0, viewportFraction: 0.9);
+
+  List<String> foodImage = [
+    'MORNING.png',
+    'LUNCH.png',
+    'DINNER.png'
+  ];
 
   @override
   void initState() {
@@ -32,17 +40,19 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
         backgroundColor: MukGenColor.white,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
+        leading: Padding(
           padding: EdgeInsets.only(left: 20.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: MukGenColor.primaryLight1,
-            size: 24.0.sp,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                Navigator.of(context).pop();
+              });
+            },
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: MukGenColor.primaryLight1,
+              size: 20.0.sp,
+            ),
           ),
         ),
         title: Text(
@@ -72,54 +82,102 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
             ),
           ),
           SizedBox(height: 16.0.h),
-          FutureBuilder(
-            future: todayMeal,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.responseList!.length,
-                  itemBuilder: (context, index) {
-                    final itemList = _parseItemList(
-                        snapshot.data!.responseList![index].item.toString());
-                    return Container(
-                      width: 353.0.w,
-                      height: 198.0.h,
-                      decoration: BoxDecoration(
-                        color: MukGenColor.primaryLight3,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextButton(
-                        child: Row(
-                          children: [
-                            SizedBox(width: 24.0.w),
-                            Column(
-                              children: [
-
-                              ],
-                            )
-                          ],
-                        ),
-                        onPressed: () {
-
-                        },
-                      ),
-                    );
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Center(child: Text(snapshot.error.toString()));
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
+          SizedBox(
+            height: 626.0.h,
+            child: FutureBuilder(
+              future: todayMeal,
+              builder: (context, snapshot) {
+                if(snapshot.hasData) {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.responseList!.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                Transition(
+                                  child: MainReviewPostingPage(riceId: snapshot.data!.responseList![index].riceId, riceType: snapshot.data!.responseList![index].riceType),
+                                  transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 198.0.h,
+                              width: 353.0.w,
+                              decoration: BoxDecoration(
+                                color: MukGenColor.primaryLight3,
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 24.0.w),
+                                  SizedBox(
+                                    width: 100.0.w,
+                                    height: 150.0.h,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          snapshot.data!.responseList![index].riceType.toString(),
+                                          style: TextStyle(
+                                            color: MukGenColor.pointBase,
+                                            fontSize: 16.sp,
+                                            fontFamily: 'MukgenSemiBold',
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(height: 24.0.h),
+                                        Image(
+                                          image: AssetImage(
+                                            "assets/images/${foodImage[index]}",
+                                          ),
+                                          width: 55.0.r,
+                                          height: 55.0.r,
+                                        ),
+                                        SizedBox(height: 24.0.h),
+                                        Text(
+                                          formattedDate,
+                                          style: TextStyle(
+                                            color: MukGenColor.primaryBase,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'MukgenRegular',
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 24.0.w),
+                                  Text(
+                                    snapshot.data!.responseList![index].item.toString().replaceAll(',', '\n'),
+                                    style: TextStyle(
+                                      fontSize: 14.0.sp,
+                                      fontFamily: 'MukgenRegular',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.6.h,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16.0.h),
+                        ],
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
           ),
         ],
       ),
     );
   }
-}
-
-List<String> _parseItemList(String itemData) {
-  final itemListString = itemData.substring(1, itemData.length - 1);
-  return itemListString.split(', ');
 }
