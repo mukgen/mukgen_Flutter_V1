@@ -3,6 +3,8 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_detail_page.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_posting_page.dart';
 import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food_page.dart';
+import 'package:mukgen_flutter_v1/screen/review/main_review_detail_page.dart';
+import 'package:mukgen_flutter_v1/screen/review/main_review_select_page.dart';
 import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -118,7 +120,7 @@ class _MainNavigatorState extends State<MainNavigator> {
           MainHomePage(
             onDetail: (int boardId) {
               onNext(MainBoardDetailPage(boardId: boardId));
-            }
+            },
           ),
           MainBoardPage(
             onPosting: () {
@@ -129,7 +131,14 @@ class _MainNavigatorState extends State<MainNavigator> {
             },
           ),
           const MainSuggestionPage(),
-          const MainReviewPage(),
+          MainReviewPage(
+            onReview: () {
+              onNext(const MainReviewSelectPage());
+            },
+            onDetail: (String riceType, int reviewId) {
+              onNext(MainReviewDetailPage(riceType: riceType, reviewId: reviewId,));
+            }
+          ),
           MainDeliveryPartyPage(
             onFood: () {
               onNext(const DeliveryWhatFoodPage());
