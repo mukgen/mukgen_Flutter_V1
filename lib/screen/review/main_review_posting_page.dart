@@ -281,8 +281,8 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
             textColor: MukGenColor.white,
             fontSize: 16.sp,
             onPressed: () {
-              print('yes');
               postReviewInfo(starIndex, reviewController.text, widget.riceId!);
+              Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainReviewPage');
             },
           ),
           SizedBox(height: 20.0.h),
