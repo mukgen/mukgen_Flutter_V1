@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/model/review/rank_review.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<ReviewRank> getReviewRankInfo() async {
+Future<RankReview> getRankReviewInfo() async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
@@ -13,7 +13,7 @@ Future<ReviewRank> getReviewRankInfo() async {
     headers: <String, String>{"Authorization": "Bearer $accessToken"},
   );
   if (response.statusCode == 200) {
-    return ReviewRank.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return RankReview.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception(response.body);
   }
