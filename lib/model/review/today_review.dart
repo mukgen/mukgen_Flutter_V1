@@ -27,6 +27,7 @@ class ReviewResponseList {
   int? count;
   String? review;
   String? userName;
+  String? createdAt;
   String? riceType;
   int? reviewId;
 
@@ -35,6 +36,7 @@ class ReviewResponseList {
         this.count,
         this.review,
         this.userName,
+        this.createdAt,
         this.riceType,
         this.reviewId});
 
@@ -43,6 +45,7 @@ class ReviewResponseList {
     count = json['count'];
     review = json['review'];
     userName = json['userName'];
+    createdAt = json['createdAt'];
     riceType = json['riceType'];
     reviewId = json['reviewId'];
   }
@@ -53,6 +56,7 @@ class ReviewResponseList {
     data['count'] = count;
     data['review'] = review;
     data['userName'] = userName;
+    data['createdAt'] = createdAt;
     data['riceType'] = riceType;
     data['reviewId'] = reviewId;
     return data;
