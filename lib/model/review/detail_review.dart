@@ -2,18 +2,21 @@ class DetailReview {
   int? count;
   String? userName;
   String? content;
+  String? createdAt;
   List<ReviewCommentResponseList>? reviewCommentResponseList;
 
   DetailReview(
       {this.count,
         this.userName,
         this.content,
+        this.createdAt,
         this.reviewCommentResponseList});
 
   DetailReview.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     userName = json['userName'];
     content = json['content'];
+    createdAt = json['createdAt'];
     if (json['reviewCommentResponseList'] != null) {
       reviewCommentResponseList = <ReviewCommentResponseList>[];
       json['reviewCommentResponseList'].forEach((v) {
@@ -28,6 +31,7 @@ class DetailReview {
     data['count'] = count;
     data['userName'] = userName;
     data['content'] = content;
+    data['createdAt'] = createdAt;
     if (reviewCommentResponseList != null) {
       data['reviewCommentResponseList'] =
           reviewCommentResponseList!.map((v) => v.toJson()).toList();
