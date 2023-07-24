@@ -237,11 +237,7 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            /*DateFormat('yy.MM.dd HH:mm')
-                                .format(DateTime.parse(
-                                snapshot.data!..toString()))
-                                .toString(),*/
-                            '23.05.07 10:32',
+                            DateFormat('yy.MM.dd HH:mm').format(DateTime.parse(snapshot.data!.createdAt!)).toString(),
                             style: TextStyle(
                               color: MukGenColor.primaryLight2,
                               fontSize: 12.sp,
@@ -252,21 +248,20 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                         ),
                       ),
                       SizedBox(height: 5.0.h),
-                      Padding(
-                        padding: EdgeInsets.only(left: 15.0.w),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            snapshot.data!.content!,
-                            style: TextStyle(
-                              color: MukGenColor.black,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'MukgenRegular',
-                              fontSize: 14.sp,
-                            ),
+                      SizedBox(
+                        width: 323.0.w,
+                        height: 187.0.h,
+                        child: Text(
+                          snapshot.data!.content!,
+                          style: TextStyle(
+                            color: MukGenColor.black,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'MukgenRegular',
+                            fontSize: 14.sp,
                           ),
                         ),
                       ),
+
                     ],
                   );
                 } else if (snapshot.hasError) {
