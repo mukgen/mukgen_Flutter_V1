@@ -356,7 +356,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            '23.05.08ㅣ11:00',
+                                            DateFormat('yy.MM.dd HH:mm').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
                                             style: TextStyle(
                                               color: MukGenColor.black,
                                               fontSize: 12.sp,
