@@ -5,7 +5,6 @@ import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/model/meal/mukgen_pick.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
-import 'package:mukgen_flutter_v1/screen/board/main_board_detail_page.dart';
 import 'package:mukgen_flutter_v1/screen/board/mukgen_pick_page.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_hot_board_info.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
@@ -39,12 +38,6 @@ class _MainHomePageState extends State<MainHomePage> {
     'DINNER.png'
   ];
 
-  List<String> foodText = [
-    '아침',
-    '점심',
-    '저녁',
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -63,7 +56,7 @@ class _MainHomePageState extends State<MainHomePage> {
         children: [
           SizedBox(height: 50.0.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 padding: EdgeInsets.only(left: 20.0.w),
@@ -74,7 +67,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 210.0.w),
+                padding: EdgeInsets.only(right: 21.5.w),
                 child: IconButton(
                   icon: const Icon(Icons.person),
                   iconSize: 28,
@@ -111,7 +104,7 @@ class _MainHomePageState extends State<MainHomePage> {
                     itemCount: snapshot.data!.responseList!.length,
                     itemBuilder: (context, index) {
                       final itemList = _parseItemList(
-                          snapshot.data!.responseList![index].item.toString());
+                          snapshot.data!.responseList![index].items.toString());
                       return Center(
                         child: Container(
                           margin: EdgeInsets.only(right: 10.0.w),
@@ -133,7 +126,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        foodText[index],
+                                        snapshot.data!.responseList![index].riceType.toString(),
                                         style: TextStyle(
                                           color: MukGenColor.pointBase,
                                           fontFamily: 'MukgenSemiBold',
@@ -152,37 +145,28 @@ class _MainHomePageState extends State<MainHomePage> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 20.0.h, left: 10.0.w),
-                                  child: SizedBox(
-                                    width: 181.0.w,
-                                    height: 172.0.h,
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      itemCount: itemList.length,
-                                      itemBuilder: (context, itemIndex) {
-                                        return Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Column(
-                                                children: [
-                                                  Text(
-                                                    snapshot.data!.responseList![index].item.toString().replaceAll(',', '\n'),
-                                                    style: TextStyle(
-                                                      fontSize: 14.0.sp,
-                                                      fontFamily: 'MukgenRegular',
-                                                      fontWeight: FontWeight.w400,
-                                                      height: 1.6.h,
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 8.0.h),
-                                                ],
-                                              ),
-                                            SizedBox(height: 6.0.h),
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                SizedBox(width: 24.0.w),
+                                SizedBox(
+                                  width: 170.0.w,
+                                  height: 170.0.h,
+                                  child: ListView.builder(
+                                    itemCount: snapshot.data!.responseList![index].items!.length,
+                                    itemBuilder: (context, itemIndex) {
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            itemList[itemIndex],
+                                            style: TextStyle(
+                                              fontSize: 14.0.sp,
+                                              fontFamily: 'MukgenRegular',
+                                              fontWeight: FontWeight.w400,
+                                              height: 1.6.h,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ),
                               ],
@@ -291,7 +275,7 @@ class _MainHomePageState extends State<MainHomePage> {
           ),
           SizedBox(height: 32.0.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 padding: EdgeInsets.only(left: 20.0.w),
@@ -303,18 +287,21 @@ class _MainHomePageState extends State<MainHomePage> {
                       fontFamily: 'MukgenSemiBold'),
                 ),
               ),
-              SizedBox(width: 262.0.w),
-              InkWell(
+              GestureDetector(
                 onTap: () {
 
                 },
-                child: Text(
-                  '더보기',
-                  style: TextStyle(
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20.0.w),
+                  child: Text(
+                    '더보기',
+                    style: TextStyle(
                       fontSize: 14.0.sp,
                       fontWeight: FontWeight.w400,
                       fontFamily: 'MukgenRegular',
-                      color: MukGenColor.pointLight1),
+                      color: MukGenColor.pointLight1,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -360,6 +347,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                       width: 209.0.w,
                                       child: Text(
                                         snapshot.data!.boardPopularResponseList![index].title.toString(),
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: MukGenColor.black,
                                           fontSize: 14.sp,
@@ -433,7 +421,6 @@ class _MainHomePageState extends State<MainHomePage> {
     );
   }
 }
-
 List<String> _parseItemList(String itemData) {
   final itemListString = itemData.substring(1, itemData.length - 1);
   return itemListString.split(', ');
