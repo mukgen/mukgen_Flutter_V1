@@ -92,6 +92,8 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: snapshot.data!.responseList!.length,
                     itemBuilder: (context, index) {
+                      final itemList = _parseItemList(
+                          snapshot.data!.responseList![index].items.toString());
                       return Column(
                         children: [
                           GestureDetector(
@@ -150,13 +152,27 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
                                     ),
                                   ),
                                   SizedBox(width: 24.0.w),
-                                  Text(
-                                    snapshot.data!.responseList![index].item.toString().replaceAll(',', '\n'),
-                                    style: TextStyle(
-                                      fontSize: 14.0.sp,
-                                      fontFamily: 'MukgenRegular',
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.6.h,
+                                  SizedBox(
+                                    width: 181.0.w,
+                                    height: 140.0.h,
+                                    child: ListView.builder(
+                                      itemCount: snapshot.data!.responseList![index].items!.length,
+                                      itemBuilder: (context, itemIndex) {
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              itemList[itemIndex],
+                                              style: TextStyle(
+                                                fontSize: 14.0.sp,
+                                                fontFamily: 'MukgenRegular',
+                                                fontWeight: FontWeight.w400,
+                                                height: 1.6.h,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
@@ -180,4 +196,8 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
       ),
     );
   }
+}
+List<String> _parseItemList(String itemData) {
+  final itemListString = itemData.substring(1, itemData.length - 1);
+  return itemListString.split(', ');
 }
