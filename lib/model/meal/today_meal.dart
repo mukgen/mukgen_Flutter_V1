@@ -22,23 +22,23 @@ class TodayMeal {
 }
 
 class ResponseList {
-  String? item;
-  int? riceId;
   String? riceType;
+  List<String>? items;
+  int? riceId;
 
-  ResponseList({this.item, this.riceId, this.riceType});
+  ResponseList({this.riceType, this.items, this.riceId});
 
   ResponseList.fromJson(Map<String, dynamic> json) {
-    item = json['item'];
-    riceId = json['riceId'];
     riceType = json['riceType'];
+    items = json['items'].cast<String>();
+    riceId = json['riceId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['item'] = item;
-    data['riceId'] = riceId;
     data['riceType'] = riceType;
+    data['items'] = items;
+    data['riceId'] = riceId;
     return data;
   }
 }
