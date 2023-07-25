@@ -70,210 +70,145 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
             ],
           ),
           SizedBox(height: 10.0.h),
-          Row(
-            children: [
-              SizedBox(width: 20.0.w),
-              Container(
-                height: 150.0.h,
-                width: 171.0.w,
-                decoration: BoxDecoration(
-                  color: MukGenColor.primaryLight3,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: FutureBuilder(
-                  future: todayMeal,
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData) {
-                          return Column(
-                            children: [
-                              SizedBox(height: 4.0.h),
-                              Row(
-                                children: [
-                                  SizedBox(width: 10.0.w),
-                                  SizedBox(
-                                    width: 91.0.w,
-                                    height: 142.0.h,
-                                    child: ListView(
-                                      padding: EdgeInsets.zero,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10.0.h),
-                                          child: Center(
-                                            child: Text(
-                                              widget.riceType == "BREAKFAST"
-                                                  ? snapshot.data!.responseList![0].item.toString().replaceAll(',', '\n')
-                                                  : widget.riceType == "LUNCH"
-                                                  ? snapshot.data!.responseList![1].item.toString().replaceAll(',', '\n')
-                                                  : snapshot.data!.responseList![2].item.toString().replaceAll(',', '\n'),
-                                              style: TextStyle(
-                                                color: MukGenColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'MukgenRegular',
-                                                fontSize: 12.sp,
-                                                height: 1.8,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: 24.0.w),
-                                  SizedBox(
-                                    width: 36.5.w,
-                                    height: 142.0.h,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 8.0.h),
-                                        SizedBox(
-                                          width: 25.0.w,
-                                          height: 25.0.h,
-                                          child: widget.riceType == "BREAKFAST" ? Image.asset("assets/images/MORNING.png")
-                                                : widget.riceType == "LUNCH" ? Image.asset("assets/images/LUNCH.png")
-                                                : Image.asset("assets/images/DINNER.png"),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                          ],
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text(snapshot.error.toString()));
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ),
-              SizedBox(width: 10.0.w),
-              Container(
-                height: 150.0.h,
-                width: 171.0.w,
-                decoration: BoxDecoration(
-                  color: MukGenColor.primaryLight3,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: FutureBuilder(
-                  future: detailReview,
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '${snapshot.data!.count.toString()}.0',
-                              style: TextStyle(
-                                color: MukGenColor.primaryLight1,
-                                fontSize: 48.sp,
-                                fontFamily: 'MukgenSemiBold',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 4.0.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List<Widget>.generate(5, (index1) {
-                              return index1 < snapshot.data!.count! ? Image.asset(
-                                'assets/images/Star.png',
-                                width: 24.0.w,
-                                height: 24.0.h,
-                              ) : Image.asset(
-                                'assets/images/Star_outlined.png',
-                                width: 24.0.w,
-                                height: 24.0.h,
-                              );
-                            }),
-                          )
-                        ],
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text(snapshot.error.toString()));
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10.0.h),
-          Container(
-            width: 353.0.w,
-            height: 265.0.h,
-            decoration: BoxDecoration(
-              color: MukGenColor.primaryLight3,
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            child: FutureBuilder(
-              future: detailReview,
-              builder:(context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: [
-                      SizedBox(height: 15.0.h),
-                      Padding(
-                        padding: EdgeInsets.only(left: 15.0.w),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            snapshot.data!.userName.toString(),
-                            style: TextStyle(
-                              color: MukGenColor.primaryDark2,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'MukgenSemiBold',
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5.0.h),
-                      Padding(
-                        padding: EdgeInsets.only(left: 15.0.w),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            DateFormat('yy.MM.dd HH:mm').format(DateTime.parse(snapshot.data!.createdAt!)).toString(),
-                            style: TextStyle(
-                              color: MukGenColor.primaryLight2,
-                              fontSize: 12.sp,
-                              fontFamily: 'MukgenRegular',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5.0.h),
-                      SizedBox(
-                        width: 323.0.w,
-                        height: 187.0.h,
-                        child: Text(
-                          snapshot.data!.content!,
-                          style: TextStyle(
-                            color: MukGenColor.black,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'MukgenRegular',
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      ),
-
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-          )
+          FutureBuilder(
+             future: Future.wait([todayMeal, detailReview].cast<Future<dynamic>>()),
+             builder: (context, snapshot) {
+               int mealIndex = widget.riceType == "BREAKFAST" ? 0 : widget.riceType == "LUNCH" ? 1 : 2;
+               if(snapshot.hasData) {
+                 final todayMeal = snapshot.data![0] as TodayMeal;
+                 final detailReview = snapshot.data![1] as DetailReview;
+                     return Column(
+                       children: [
+                         SizedBox(height: 4.0.h),
+                         Row(
+                           children: [
+                             SizedBox(width: 20.0.w),
+                             Container(
+                               height: 150.0.h,
+                               width: 171.0.w,
+                               decoration: BoxDecoration(
+                                 color: MukGenColor.primaryLight3,
+                                 borderRadius: BorderRadius.circular(10.r),
+                               ),
+                               child: Row(
+                                 children: [
+                                   SizedBox(width: 10.0.w),
+                                   SizedBox(
+                                     width: 91.0.w,
+                                     height: 142.0.h,
+                                     child: ListView.builder(
+                                       padding: EdgeInsets.zero,
+                                       itemCount: todayMeal.responseList![mealIndex].items!.length,
+                                       itemBuilder: (context, index) {
+                                         final itemList = _parseItemList(
+                                             todayMeal.responseList![mealIndex].items.toString());
+                                         return Row(
+                                           children: [
+                                             Padding(
+                                               padding: EdgeInsets.only(left: 10.0.w),
+                                               child: Text(
+                                                 itemList[index],
+                                                 style: TextStyle(
+                                                   color: MukGenColor.black,
+                                                   fontSize: 12.sp,
+                                                   fontFamily: 'MukgenRegular',
+                                                   fontWeight: FontWeight.w400,
+                                                   height: 1.8.h,
+                                                 ),
+                                               ),
+                                             ),
+                                           ],
+                                         );
+                                       },
+                                     ),
+                                   ),
+                                   SizedBox(width: 24.0.w),
+                                   SizedBox(
+                                     width: 36.5.w,
+                                     height: 142.0.h,
+                                     child: Column(
+                                       children: [
+                                         SizedBox(height: 8.0.h),
+                                         SizedBox(
+                                           width: 25.0.w,
+                                           height: 25.0.h,
+                                           child: widget.riceType == "BREAKFAST" ? Image.asset("assets/images/MORNING.png")
+                                               : widget.riceType == "LUNCH" ? Image.asset("assets/images/LUNCH.png")
+                                               : Image.asset("assets/images/DINNER.png"),
+                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                             SizedBox(width: 10.0.w),
+                             Container(
+                               height: 150.0.h,
+                               width: 171.0.w,
+                               decoration: BoxDecoration(
+                                 color: MukGenColor.primaryLight3,
+                                 borderRadius: BorderRadius.circular(10.r),
+                               ),
+                               child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   Align(
+                                     alignment: Alignment.center,
+                                     child: Text(
+                                       '${detailReview.count.toString()}.0',
+                                       style: TextStyle(
+                                         color: MukGenColor.primaryLight1,
+                                         fontSize: 48.sp,
+                                         fontFamily: 'MukgenSemiBold',
+                                         fontWeight: FontWeight.w600,
+                                       ),
+                                     ),
+                                   ),
+                                   SizedBox(height: 4.0.h),
+                                   Row(
+                                     mainAxisAlignment: MainAxisAlignment.center,
+                                     children: List<Widget>.generate(5, (index1) {
+                                       return index1 < detailReview.count! ? Image.asset(
+                                         'assets/images/Star.png',
+                                         width: 24.0.w,
+                                         height: 24.0.h,
+                                       ) : Image.asset(
+                                         'assets/images/Star_outlined.png',
+                                         width: 24.0.w,
+                                         height: 24.0.h,
+                                       );
+                                     }),
+                                   )
+                                 ],
+                               ),
+                             ),
+                           ],
+                         ),
+                         SizedBox(height: 10.0.h),
+                         Container(
+                           width: 353.0.w,
+                           height: 265.0.h,
+                           decoration: BoxDecoration(
+                             color: MukGenColor.primaryLight3,
+                             borderRadius: BorderRadius.circular(10.r),
+                           ),
+                         ),
+                     ],
+                 );
+               } else if (snapshot.hasError) {
+                 return Center(child: Text(snapshot.error.toString()));
+               } else {
+                 return const Center(child: CircularProgressIndicator());
+               }
+             },
+           ),
         ],
       ),
     );
   }
+}
+List<String> _parseItemList(String itemData) {
+  final itemListString = itemData.substring(1, itemData.length - 1);
+  return itemListString.split(', ');
 }
