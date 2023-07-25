@@ -193,6 +193,164 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                              color: MukGenColor.primaryLight3,
                              borderRadius: BorderRadius.circular(10.r),
                            ),
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               SizedBox(height: 15.0.h),
+                               Padding(
+                                 padding: EdgeInsets.only(left: 15.0.w),
+                                 child: Text(
+                                   detailReview.userName.toString(),
+                                   style: TextStyle(
+                                     color: MukGenColor.primaryDark2,
+                                     fontWeight: FontWeight.w600,
+                                     fontFamily: 'MukgenSemiBold',
+                                     fontSize: 20.sp,
+                                   ),
+                                 ),
+                               ),
+                               SizedBox(height: 5.0.h),
+                               Padding(
+                                 padding: EdgeInsets.only(left: 15.0.w),
+                                 child: Text(
+                                   DateFormat('yy.MM.dd HH:mm').format(DateTime.parse(detailReview.createdAt!)).toString(),
+                                   style: TextStyle(
+                                     color: MukGenColor.primaryLight2,
+                                     fontSize: 12.sp,
+                                     fontFamily: 'MukgenRegular',
+                                     fontWeight: FontWeight.w400,
+                                   ),
+                                 ),
+                               ),
+                               SizedBox(height: 5.0.h),
+                               Padding(
+                                 padding: EdgeInsets.only(left: 15.0.w),
+                                 child: SizedBox(
+                                   width: 323.0.w,
+                                   height: 187.0.h,
+                                   child: Padding(
+                                     padding: EdgeInsets.only(top: 4.0.h),
+                                     child: Text(
+                                       detailReview.content!.toString(),
+                                       style: TextStyle(
+                                         color: MukGenColor.black,
+                                         fontWeight: FontWeight.w400,
+                                         fontFamily: 'MukgenRegular',
+                                         fontSize: 14.sp,
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                               ),
+                             ],
+                           ),
+                         ),
+                         SizedBox(height: 10.0.h),
+                         SizedBox(
+                           width: 353.0.w,
+                           height: 288.0.h,
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               SizedBox(height: 10.0.h),
+                               Padding(
+                                 padding: EdgeInsets.only(left: 10.0.w),
+                                 child: Text(
+                                   '댓글',
+                                   style: TextStyle(
+                                     color: MukGenColor.black,
+                                     fontSize: 20.sp,
+                                     fontFamily: 'MukgenSemiBold',
+                                     fontWeight: FontWeight.w600,
+                                   ),
+                                 ),
+                               ),
+                               SizedBox(height: 24.0.h),
+                               SizedBox(
+                                 width: 333.0.w,
+                                 height: 220.0.h,
+                                 child: ListView.builder(
+                                   padding: EdgeInsets.zero,
+                                   itemCount: detailReview.reviewCommentResponseList!.length,
+                                   itemBuilder: (context, reviewIndex) {
+                                     DateTime postTime = DateTime.parse(detailReview.reviewCommentResponseList![reviewIndex].createdAt.toString());
+                                     DateTime currentTime = DateTime.now();
+                                     Duration difference = currentTime.difference(postTime);
+                                     int minutesDifference = difference.inMinutes; // 올린 시간과 현재 시간의 차이 (분 단위)
+                                     int hoursDifference = difference.inHours; // 올린 시간과 현재 시간의 차이 (시간 단위)
+                                     int daysDifference = difference.inDays; // 올린 시간과 현재 시간의 차이 (일 단위)
+                                     int monthsDifference = (currentTime.year - postTime.year) * 12 + currentTime.month - postTime.month; // 올린 시간과 현재 시간의 차이 (달 단위)
+                                     int yearsDifference = currentTime.year - postTime.year; // 올린 시간과 현재 시간의 차이 (년도 단위)
+                                     String timeAgo;
+                                     if (minutesDifference < 1) {
+                                       timeAgo = '방금 전';
+                                     } else if (minutesDifference < 60) {
+                                       timeAgo = '$minutesDifference분 전';
+                                     } else if (hoursDifference < 24) {
+                                       timeAgo = '$hoursDifference시간 전';
+                                     } else if (daysDifference < 30) {
+                                       timeAgo = '$daysDifference일 전';
+                                     } else if (monthsDifference < 12) {
+                                       timeAgo = '$monthsDifference달 전';
+                                     } else {
+                                       timeAgo = '$yearsDifference년 전';
+                                     }
+                                     return Column(
+                                       children: [
+                                         Row(
+                                           children: [
+                                             SizedBox(width: 10.0.w),
+                                             Text(
+                                               '영양사 선생님',
+                                               style: TextStyle(
+                                                 color: MukGenColor.primaryLight1,
+                                                 fontSize: 14.sp,
+                                                 fontWeight: FontWeight.w400,
+                                                 fontFamily: 'MukgenRegular',
+                                               ),
+                                             ),
+                                             Text(
+                                               'ㅣ',
+                                               style: TextStyle(
+                                                 color: MukGenColor.primaryLight2,
+                                                 fontSize: 14.sp,
+                                                 fontWeight: FontWeight.w400,
+                                                 fontFamily: 'MukgenRegular',
+                                               ),
+                                             ),
+                                             Text(
+                                               timeAgo,
+                                               style: TextStyle(
+                                                 color: MukGenColor.primaryLight2,
+                                                 fontSize: 14.sp,
+                                                 fontWeight: FontWeight.w400,
+                                                 fontFamily: 'MukgenRegular',
+                                               ),
+                                             ),
+                                           ],
+                                         ),
+                                         SizedBox(height: 8.0.h),
+                                         Row(
+                                           children: [
+                                             SizedBox(width: 10.0.w),
+                                             Text(
+                                               detailReview.reviewCommentResponseList![reviewIndex].content.toString(),
+                                               style: TextStyle(
+                                                 color: MukGenColor.black,
+                                                 fontSize: 14.sp,
+                                                 fontWeight: FontWeight.w400,
+                                                 fontFamily: 'MukgenRegular',
+                                               ),
+                                             ),
+                                           ],
+                                         )
+                                       ],
+                                     );
+                                   },
+                                 ),
+                               ),
+                             ],
+                           ),
                          ),
                      ],
                  );
