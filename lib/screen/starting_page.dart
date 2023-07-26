@@ -24,7 +24,7 @@ class _StartingPageState extends State<StartingPage> {
             Container(
               padding: EdgeInsets.only(top: 235.5.h),
               child: Image(
-                image: const AssetImage('assets/images/startingmukgen.png'),
+                image: const AssetImage('assets/images/StartingPage.png'),
                 width: 160.0.w,
                 height: 189.0.w,
               ),
