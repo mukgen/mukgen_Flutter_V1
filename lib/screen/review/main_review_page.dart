@@ -151,7 +151,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                                 )
                                                     : CircleAvatar(
                                                   radius: 100.r,
-                                                  backgroundImage: const AssetImage('assets/images/defaultProfile.png'),
+                                                  backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
                                                   backgroundColor: MukGenColor.primaryLight2,
                                                 ),
                                               ),
@@ -309,7 +309,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                               width: 24.0.w,
                                               height: 24.0.h,
                                             ) : Image.asset(
-                                              'assets/images/Star_outlined.png',
+                                              'assets/images/StarOutlined.png',
                                               width: 24.0.w,
                                                height: 24.0.h,
                                             );

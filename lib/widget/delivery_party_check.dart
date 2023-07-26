@@ -150,7 +150,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                             )
                                                                 : CircleAvatar(
                                                               radius: 100.r,
-                                                              backgroundImage: const AssetImage('assets/images/defaultProfile.png'),
+                                                              backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
                                                               backgroundColor: MukGenColor.primaryLight2,
                                                             ),
                                                           ),
@@ -271,7 +271,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                                   )
                                                                       : CircleAvatar(
                                                                     radius: 100.r,
-                                                                    backgroundImage: const AssetImage('assets/images/defaultProfile.png'),
+                                                                    backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
                                                                     backgroundColor: MukGenColor.primaryLight2,
                                                                   ),
                                                                 ),

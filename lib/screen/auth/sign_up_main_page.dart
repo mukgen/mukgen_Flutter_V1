@@ -62,7 +62,7 @@ class _SignupStartPageState extends State<SignupStartPage> {
             child: Transform.translate(
               offset: const Offset(0, 120),
               child: Image(
-                image: const AssetImage('assets/images/signupmukgen.png'),
+                image: const AssetImage('assets/images/SignUpMukgen.png'),
                 width: 160.0.w,
                 height: 160.0.h,
               ),

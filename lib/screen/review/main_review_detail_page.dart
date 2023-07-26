@@ -174,7 +174,7 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                          width: 24.0.w,
                                          height: 24.0.h,
                                        ) : Image.asset(
-                                         'assets/images/Star_outlined.png',
+                                         'assets/images/StarOutlined.png',
                                          width: 24.0.w,
                                          height: 24.0.h,
                                        );
