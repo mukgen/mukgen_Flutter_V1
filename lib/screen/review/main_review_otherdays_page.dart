@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 
 class MainReviewOtherDaysPage extends StatefulWidget {
   const MainReviewOtherDaysPage({Key? key}) : super(key: key);
@@ -10,6 +12,9 @@ class MainReviewOtherDaysPage extends StatefulWidget {
 }
 
 class _MainReviewOtherDaysPageState extends State<MainReviewOtherDaysPage> {
+  final String now = DateTime.now().toString();
+  String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  bool calendarChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,17 +22,19 @@ class _MainReviewOtherDaysPageState extends State<MainReviewOtherDaysPage> {
       appBar: AppBar(
         backgroundColor: MukGenColor.white,
         elevation: 0,
-        leading: IconButton(
+        leading: Padding(
           padding: EdgeInsets.only(left: 20.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: MukGenColor.primaryLight1,
-            size: 24.0.sp,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                Navigator.of(context).pop();
+              });
+            },
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: MukGenColor.primaryLight1,
+              size: 20.0.sp,
+            ),
           ),
         ),
         centerTitle: true,
@@ -41,7 +48,40 @@ class _MainReviewOtherDaysPageState extends State<MainReviewOtherDaysPage> {
           ),
         ),
       ),
-      body: const SingleChildScrollView(),
+      body: Column(
+        children: [
+          SizedBox(height: 24.0.h),
+          Row(
+            children: [
+              SizedBox(width: 20.0.w),
+              Text(
+                formattedDate,
+                style: TextStyle(
+                  color: MukGenColor.primaryBase,
+                  fontSize: 20.sp,
+                  fontFamily: 'MukgenSemiBold',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(width: 8.0.w),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    !calendarChecked;
+                    if(calendarChecked) {
+
+                    }
+                  });
+                },
+                child: Icon(
+                  CustomIcons.calendar,
+                  color: MukGenColor.primaryLight2,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
       floatingActionButton: SizedBox(
         width: 70.0.w,
         height: 70.0.h,
