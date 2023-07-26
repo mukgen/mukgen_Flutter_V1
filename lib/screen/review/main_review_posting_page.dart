@@ -19,7 +19,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
   final String now = DateTime.now().toString();
   String formattedDate = DateFormat('MM월 dd일').format(DateTime.now());
 
-  FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
 
   int starIndex = 0;
 
@@ -58,13 +58,13 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
         });
       },
       child: starIndex >= index ? Image(
-        image: AssetImage(
+        image: const AssetImage(
           'assets/images/Star.png',
         ),
         width: 48.0.w,
         height: 48.0.h,
       ) : Image(
-        image: AssetImage(
+        image: const AssetImage(
           'assets/images/Star_outlined.png',
         ),
         width: 48.0.w,
