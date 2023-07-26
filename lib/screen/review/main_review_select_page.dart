@@ -44,9 +44,7 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
           padding: EdgeInsets.only(left: 20.0.w),
           child: GestureDetector(
             onTap: () {
-              setState(() {
-                Navigator.of(context).pop();
-              });
+              Navigator.of(context).pop();
             },
             child: Icon(
               Icons.arrow_back_ios_new,
