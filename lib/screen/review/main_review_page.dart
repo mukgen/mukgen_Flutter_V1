@@ -175,7 +175,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                                     color: MukGenColor.primaryLight2,
                                                   ),
                                                   Text(
-                                                    snapshot.data!.reviewRankResponseList![index].averageReview as String,
+                                                    snapshot.data!.reviewRankResponseList![index].averageReview.toString(),
                                                     style: TextStyle(
                                                       color: MukGenColor.primaryLight2,
                                                       fontSize: 12.sp,
