@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
-import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/model/meal/mukgen_pick.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
 import 'package:mukgen_flutter_v1/screen/board/mukgen_pick_page.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_hot_board_info.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
 import 'package:mukgen_flutter_v1/service/get/meals/get_mukgen_pick_info.dart';
 import 'package:mukgen_flutter_v1/service/get/meals/get_today_meals_info.dart';
 import 'package:transition/transition.dart';
@@ -25,7 +23,6 @@ class MainHomePage extends StatefulWidget {
 
 class _MainHomePageState extends State<MainHomePage> {
   Future<TodayMeal>? todayMeal;
-  Future<BoardResponse>? popularBoard;
   Future<HotBoard>? hotBoard;
   Future<MukGenPickBoard>? mukgenPick;
   final PageController pageController = PageController(initialPage: 0, viewportFraction: 0.9);
@@ -33,22 +30,16 @@ class _MainHomePageState extends State<MainHomePage> {
   int boardId = 0;
 
   List<String> foodImage = [
-    'MORNING.png',
+    'BREAKFAST.png',
     'LUNCH.png',
     'DINNER.png'
   ];
 
   @override
-  void initState() {
-    super.initState();
-    todayMeal = getTodayMealInfo();
-    popularBoard = getTotalBoardInfo();
-    hotBoard = getHotBoardInfo();
-    mukgenPick = getMukGenPickInfo();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    hotBoard = getHotBoardInfo();
+    todayMeal = getTodayMealInfo();
+    mukgenPick = getMukGenPickInfo();
     return Scaffold(
       backgroundColor: MukGenColor.white,
       body: Column(
@@ -62,7 +53,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 padding: EdgeInsets.only(left: 20.0.w),
                 child: Image(
                   image: const AssetImage(
-                      'assets/images/MukgenMainHomeAppBar.png'),
+                      'assets/images/MainPageMukgen.png'),
                   width: 104.0.w,
                 ),
               ),
@@ -388,7 +379,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                     SizedBox(
                                       width: 26.0.w,
                                       child: Text(
-                                        snapshot.data!.boardPopularResponseList![index].commentCount.toString(),
+                                        snapshot.data!.boardPopularResponseList![index].viewCount.toString(),
                                         style: TextStyle(
                                           fontFamily: 'MukgenRegular',
                                           fontSize: 14.sp,
