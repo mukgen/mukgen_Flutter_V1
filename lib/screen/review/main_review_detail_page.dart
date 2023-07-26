@@ -91,10 +91,10 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                  borderRadius: BorderRadius.circular(10.r),
                                ),
                                child: Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  children: [
-                                   SizedBox(width: 10.0.w),
                                    SizedBox(
-                                     width: 91.0.w,
+                                     width: 120.0.w,
                                      height: 142.0.h,
                                      child: ListView.builder(
                                        padding: EdgeInsets.zero,
@@ -122,7 +122,6 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                        },
                                      ),
                                    ),
-                                   SizedBox(width: 24.0.w),
                                    SizedBox(
                                      width: 36.5.w,
                                      height: 142.0.h,
@@ -139,6 +138,7 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                        ],
                                      ),
                                    ),
+                                   SizedBox(width: 10.0.w),
                                  ],
                                ),
                              ),
