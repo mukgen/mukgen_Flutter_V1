@@ -42,6 +42,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   convex_bottom_bar: ^3.2.0
   dio: ^5.2.1+1
+  calendar_date_picker2: ^0.5.2
 
 dev_dependencies:
   flutter_test:
