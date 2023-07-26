@@ -28,14 +28,9 @@ class _MainReviewPageState extends State<MainReviewPage> {
   Future<TodayReview>? todayReview;
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
     rankReview = getRankReviewInfo();
     todayReview = getTodayReviewInfo();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MukGenColor.white,
       body: Column(
@@ -353,21 +348,43 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                           ),
                                         ),
                                         SizedBox(height: 8.0.h),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            DateFormat('yy.MM.dd HH:mm').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
-                                            style: TextStyle(
-                                              color: MukGenColor.black,
-                                              fontSize: 12.sp,
-                                              fontFamily: 'MukgenRegular',
-                                              fontWeight: FontWeight.w400,
+                                        Row(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                DateFormat('yy.MM.dd').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
+                                                style: TextStyle(
+                                                  color: MukGenColor.primaryLight2,
+                                                  fontSize: 12.sp,
+                                                  fontFamily: 'MukgenRegular',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            Text(
+                                              'ㅣ',
+                                              style: TextStyle(
+                                                color: MukGenColor.primaryLight2,
+                                                fontSize: 12.sp,
+                                                fontFamily: 'MukgenRegular',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            Text(
+                                              DateFormat('HH.mm').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
+                                              style: TextStyle(
+                                                color: MukGenColor.primaryLight1,
+                                                fontSize: 12.sp,
+                                                fontFamily: 'MukgenRegular',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
