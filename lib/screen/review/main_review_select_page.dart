@@ -21,7 +21,7 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
   PageController(initialPage: 0, viewportFraction: 0.9);
 
   List<String> foodImage = [
-    'MORNING.png',
+    'BREAKFAST.png',
     'LUNCH.png',
     'DINNER.png'
   ];
