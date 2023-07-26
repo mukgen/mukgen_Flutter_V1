@@ -65,7 +65,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
         height: 48.0.h,
       ) : Image(
         image: const AssetImage(
-          'assets/images/Star_outlined.png',
+          'assets/images/StarOutlined.png',
         ),
         width: 48.0.w,
         height: 48.0.h,
