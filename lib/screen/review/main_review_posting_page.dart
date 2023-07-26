@@ -57,15 +57,9 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
           starIndex = index;
         });
       },
-      child: starIndex >= index ? Image(
-        image: const AssetImage(
-          'assets/images/Star.png',
-        ),
-        width: 48.0.w,
-        height: 48.0.h,
-      ) : Image(
-        image: const AssetImage(
-          'assets/images/StarOutlined.png',
+      child: Image(
+        image: AssetImage(
+          starIndex >= index ? 'assets/images/Star.png' : 'assets/images/StarOutlined.png',
         ),
         width: 48.0.w,
         height: 48.0.h,
