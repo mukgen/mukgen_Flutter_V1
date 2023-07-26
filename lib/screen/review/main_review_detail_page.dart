@@ -22,6 +22,12 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
   final String now = DateTime.now().toString();
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
+  final Map<String, String> riceTypeToImage = {
+    "BREAKFAST": "assets/images/BREAKFAST.png",
+    "LUNCH": "assets/images/LUNCH.png",
+    "DINNER": "assets/images/DINNER.png",
+  };
+
   Future<TodayMeal>? todayMeal;
   Future<DetailReview>? detailReview;
 
@@ -131,9 +137,7 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                          SizedBox(
                                            width: 25.0.w,
                                            height: 25.0.h,
-                                           child: widget.riceType == "BREAKFAST" ? Image.asset("assets/images/MORNING.png")
-                                               : widget.riceType == "LUNCH" ? Image.asset("assets/images/LUNCH.png")
-                                               : Image.asset("assets/images/DINNER.png"),
+                                           child: Image.asset(riceTypeToImage[widget.riceType]!),
                                          ),
                                        ],
                                      ),
