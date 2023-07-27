@@ -66,6 +66,26 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                               ),
                               itemCount: snapshot.data!.mealSuggestionResponseList!.length,
                               itemBuilder: (context, index) {
+                                String formatCount(int count) {
+                                  double countDouble = count.toDouble();
+                                  String countFormatted = count.toString();
+
+                                  if (countFormatted.length > 7) {
+                                    countDouble /= 1000000;
+                                    countFormatted = '${countDouble.toStringAsFixed(1)}M';
+                                  } else if (countFormatted.length > 4) {
+                                    countDouble /= 1000;
+                                    countFormatted = '${countDouble.toStringAsFixed(1)}K';
+                                  }
+
+                                  return countFormatted;
+                                }
+
+                                String likeCounts = snapshot.data!.mealSuggestionResponseList![index].likeCount.toString();
+                                String like = formatCount(int.parse(likeCounts));
+
+                                String dislikeCounts = snapshot.data!.mealSuggestionResponseList![index].dislikeCount.toString();
+                                String dislike = formatCount(int.parse(dislikeCounts));
                                 return Container(
                                   decoration: BoxDecoration(
                                     color: MukGenColor.postIt1,
@@ -109,6 +129,91 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                             fontWeight: FontWeight.w400,
                                             fontFamily: 'MukgenRegular',
                                           ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 6.0.h),
+                                      SizedBox(
+                                        width: 140.0.w,
+                                        height: 20.0.h,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  postLikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
+                                                });
+                                              },
+                                              child: Container(
+                                                width: like.length == 6 ? 71.0.w : like.length == 5 ? 63.0.w : like.length == 4 ? 62.0.w : like.length == 3 ? 54.18 : like.length == 2 ? 44.0.w : 40.0.w,
+                                                height: 20.0.h,
+                                                decoration: BoxDecoration(
+                                                  color: MukGenColor.white,
+                                                  borderRadius: BorderRadius.circular(8.07.r),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.favorite_rounded,
+                                                      size: 14.sp,
+                                                      color: MukGenColor.pointLight1,
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    StatefulBuilder(
+                                                      builder: (context, likeIndex) {
+                                                        return Text(
+                                                          like.toString(),
+                                                          style: TextStyle(
+                                                            color: MukGenColor.primaryLight1,
+                                                            fontSize: 12.11.sp,
+                                                            fontFamily: 'InterBold',
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 4.0.w),
+                                            GestureDetector(
+                                              onTap: () {
+                                                postDislikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
+                                              },
+                                              child: Container(
+                                                width: dislike.length == 6 ? 71.0.w : dislike.length == 5 ? 63.0.w : dislike.length == 4 ? 62.0.w : dislike.length == 3 ? 54.18 : dislike.length == 2 ? 44.0.w : 40.0.w,
+                                                height: 20.0.h,
+                                                decoration: BoxDecoration(
+                                                  color: MukGenColor.white,
+                                                  borderRadius: BorderRadius.circular(8.07.r),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.close_rounded,
+                                                      size: 14.sp,
+                                                      color: MukGenColor.pointLight1,
+                                                    ),
+                                                    SizedBox(width: 4.0.w),
+                                                    StatefulBuilder(
+                                                      builder: (context,dislikeIndex) {
+                                                        return Text(
+                                                          dislike.toString(),
+                                                          style: TextStyle(
+                                                            color: MukGenColor.primaryLight1,
+                                                            fontSize: 12.11.sp,
+                                                            fontFamily: 'InterBold',
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
