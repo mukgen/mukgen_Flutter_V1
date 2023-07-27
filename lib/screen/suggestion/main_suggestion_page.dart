@@ -171,7 +171,9 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                             SizedBox(width: 4.0.w),
                                             GestureDetector(
                                               onTap: () {
-                                                postDislikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
+                                                setState(() {
+                                                  postDislikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
+                                                });
                                               },
                                               child: Container(
                                                 width: dislike.length == 4 ? 65.0.w : dislike.length == 3 ? 52 : dislike.length == 2 ? 46.0.w : 40.0.w,
@@ -190,7 +192,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     StatefulBuilder(
-                                                      builder: (context,dislikeIndex) {
+                                                      builder: (context, dislikeIndex) {
                                                         return Text(
                                                           dislike.toString(),
                                                           style: TextStyle(
