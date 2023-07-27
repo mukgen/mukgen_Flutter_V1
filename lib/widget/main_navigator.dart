@@ -6,6 +6,7 @@ import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_detail_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_select_page.dart';
 import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_posting_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/main_page.dart';
@@ -130,7 +131,11 @@ class _MainNavigatorState extends State<MainNavigator> {
               onNext(MainBoardDetailPage(boardId: boardId));
             },
           ),
-          const MainSuggestionPage(),
+          MainSuggestionPage(
+            onPosting: () {
+              onNext(const MainSuggestionPostingPage());
+            },
+          ),
           MainReviewPage(
             onReview: () {
               onNext(const MainReviewSelectPage());
