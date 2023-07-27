@@ -40,7 +40,46 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            
+            SizedBox(height: 10.0.h),
+            SizedBox(
+              height: 658.0.h,
+              width: double.infinity,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  setState(() {
+                    totalSuggestion = getTotalSuggestionInfo();
+                  });
+                },
+                child: FutureBuilder(
+                  future: totalSuggestion,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 353.0.w,
+                          child: GridView.builder(
+                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 171.5.w,
+                                mainAxisSpacing: 10.0.h,
+                                crossAxisSpacing: 10.0.w,
+                                childAspectRatio: 171.5.w / 150.0.h,
+                              ),
+                              itemCount: snapshot.data!.mealSuggestionResponseList!.length,
+                              itemBuilder: (context, index) {
+                                
+                              }
+                          ),
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),
