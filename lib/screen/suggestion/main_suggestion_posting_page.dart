@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/service/post/review/post_review_info.dart';
+import 'package:mukgen_flutter_v1/service/post/suggestion/post_suggestion_info.dart';
 
 class MainSuggestionPostingPage extends StatefulWidget {
   const MainSuggestionPostingPage({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class MainSuggestionPostingPage extends StatefulWidget {
 
 class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
   bool _isButtonEnabled = false;
+
+  final FocusNode _focusNode = FocusNode();
 
   late TextEditingController contentController;
   late int contentCharacterCount;
@@ -26,6 +30,7 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
   @override
   void dispose() {
     super.dispose();
+    _focusNode.dispose();
     contentController.dispose();
   }
 
@@ -75,9 +80,8 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
               padding: EdgeInsets.only(right: 20.0.w),
               child: GestureDetector(
                 onTap: (){
-                  setState(() {
-
-                  });
+                  postSuggestionInfo(contentController.text);
+                  Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainSuggestionPage');
                 },
                 child: Text(
                   '등록',
@@ -103,6 +107,10 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
               decoration: BoxDecoration(
                 color: MukGenColor.postIt1,
                 borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(
+                  color: _focusNode.hasFocus ? MukGenColor.pointLight3 : MukGenColor.postIt1,
+                  width: 2.0.w
+                )
               ),
               child: Column(
                 children: [
@@ -127,9 +135,11 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
                     width: 313.0.w,
                     height: 200.0.h,
                     child: TextFormField(
+                      focusNode: _focusNode,
                       onChanged: (value) => setState(() {}),
                       controller: contentController,
-                      maxLength: 30,
+                      maxLength: 60,
+                      maxLines: 10,
                       style: TextStyle(
                         color: MukGenColor.black,
                         fontSize: 20.sp,
@@ -139,11 +149,35 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         counterText: '',
+                        hintText: '내용을 입력해주세요',
+                        hintStyle: TextStyle(
+                          color: MukGenColor.pointLight3,
+                          fontSize: 20.sp,
+                          fontFamily: 'MukgenSemiBold',
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 4.0.h, right: 20.0.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  '$contentCharacterCount/60',
+                  style: TextStyle(
+                    color: MukGenColor.primaryLight2,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'MukgenRegular',
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
