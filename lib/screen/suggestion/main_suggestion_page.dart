@@ -67,18 +67,11 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                               itemCount: snapshot.data!.mealSuggestionResponseList!.length,
                               itemBuilder: (context, index) {
                                 String formatCount(int count) {
-                                  double countDouble = count.toDouble();
-                                  String countFormatted = count.toString();
-
-                                  if (countFormatted.length > 7) {
-                                    countDouble /= 1000000;
-                                    countFormatted = '${countDouble.toStringAsFixed(1)}M';
-                                  } else if (countFormatted.length > 4) {
-                                    countDouble /= 1000;
-                                    countFormatted = '${countDouble.toStringAsFixed(1)}K';
+                                  String countString = '';
+                                  if (count >= 999) {
+                                    countString = '999+';
                                   }
-
-                                  return countFormatted;
+                                  return countString;
                                 }
 
                                 String likeCounts = snapshot.data!.mealSuggestionResponseList![index].likeCount.toString();
@@ -145,7 +138,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                                 });
                                               },
                                               child: Container(
-                                                width: like.length == 6 ? 71.0.w : like.length == 5 ? 63.0.w : like.length == 4 ? 62.0.w : like.length == 3 ? 54.18 : like.length == 2 ? 44.0.w : 40.0.w,
+                                                width: like.length == 4 ? 65.0.w : like.length == 3 ? 52 : like.length == 2 ? 46.0.w : 40.0.w,
                                                 height: 20.0.h,
                                                 decoration: BoxDecoration(
                                                   color: MukGenColor.white,
@@ -182,7 +175,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                                 postDislikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
                                               },
                                               child: Container(
-                                                width: dislike.length == 6 ? 71.0.w : dislike.length == 5 ? 63.0.w : dislike.length == 4 ? 62.0.w : dislike.length == 3 ? 54.18 : dislike.length == 2 ? 44.0.w : 40.0.w,
+                                                width: dislike.length == 4 ? 65.0.w : dislike.length == 3 ? 52 : dislike.length == 2 ? 46.0.w : 40.0.w,
                                                 height: 20.0.h,
                                                 decoration: BoxDecoration(
                                                   color: MukGenColor.white,
