@@ -66,7 +66,41 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                               ),
                               itemCount: snapshot.data!.mealSuggestionResponseList!.length,
                               itemBuilder: (context, index) {
-                                
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: MukGenColor.postIt1,
+                                    borderRadius: BorderRadius.circular(16.r),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 12.0.h),
+                                      SizedBox(
+                                        width: 139.5.w,
+                                        height: 24.0.h,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'ㅇㅇ',
+                                              style: TextStyle(
+                                                color: MukGenColor.primaryLight1,
+                                                fontSize: 14.sp,
+                                                fontFamily: 'MukgenSemiBold',
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.check_circle_rounded,
+                                              color: snapshot.data!.mealSuggestionResponseList![index].checked! ? MukGenColor.pointBase : MukGenColor.primaryLight1,
+                                              size: 24.sp,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 6.0.h),
+                                    ],
+                                  ),
+                                );
                               }
                           ),
                         ),
