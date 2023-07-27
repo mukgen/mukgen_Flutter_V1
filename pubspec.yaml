@@ -78,6 +78,7 @@ flutter:
     - assets/images/Star.png
     - assets/images/StarOutlined.png
     - assets/images/DefaultProfile.png
+    - assets/images/ReviewEventBanner.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
