@@ -104,21 +104,45 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
                 color: MukGenColor.primaryLight3,
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16.0.w),
-                  child: TextFormField(
-                    onChanged: (value) => setState(() {}),
-                    controller: contentController,
-                    maxLength: 30,
-                    style: TextStyle(
-                      color: MukGenColor.black,
-                      fontSize: 20.sp,
-                      fontFamily: 'MukgenSemiBold',
-                      fontWeight: FontWeight.w600,
+              child: Column(
+                children: [
+                  SizedBox(height: 20.0.h),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0.w),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'ㅇㅇ',
+                        style: TextStyle(
+                          color: MukGenColor.primaryLight1,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'MukgenSemiBold',
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 4.0.h),
+                  SizedBox(
+                    width: 313.0.w,
+                    height: 200.0.h,
+                    child: TextFormField(
+                      onChanged: (value) => setState(() {}),
+                      controller: contentController,
+                      maxLength: 30,
+                      style: TextStyle(
+                        color: MukGenColor.black,
+                        fontSize: 20.sp,
+                        fontFamily: 'MukgenSemiBold',
+                        fontWeight: FontWeight.w600,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        counterText: '',
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
