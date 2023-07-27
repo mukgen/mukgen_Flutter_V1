@@ -173,12 +173,8 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                    Row(
                                      mainAxisAlignment: MainAxisAlignment.center,
                                      children: List<Widget>.generate(5, (index1) {
-                                       return index1 < detailReview.count! ? Image.asset(
-                                         'assets/images/Star.png',
-                                         width: 24.0.w,
-                                         height: 24.0.h,
-                                       ) : Image.asset(
-                                         'assets/images/StarOutlined.png',
+                                       return Image.asset(
+                                         index1 < detailReview.count! ? 'assets/images/Star.png' : 'assets/images/StarOutlined.png',
                                          width: 24.0.w,
                                          height: 24.0.h,
                                        );
