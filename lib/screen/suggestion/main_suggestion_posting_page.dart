@@ -10,9 +10,36 @@ class MainSuggestionPostingPage extends StatefulWidget {
 }
 
 class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
+  bool _isButtonEnabled = false;
+
+  late TextEditingController contentController;
+  late int contentCharacterCount;
+
+  @override
+  void initState() {
+    super.initState();
+    contentController = TextEditingController();
+    contentController.addListener(_updateButtonState);
+    contentCharacterCount = 0;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    contentController.dispose();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      _isButtonEnabled = contentController.text.isNotEmpty;
+      contentCharacterCount = contentController.text.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MukGenColor.white,
       appBar: AppBar(
         toolbarHeight: 61.0.h,
         backgroundColor: MukGenColor.white,
@@ -59,6 +86,37 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
                       fontSize: 16.sp
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 8.0.h),
+          Center(
+            child: Container(
+              width: 353.0.w,
+              height: 261.0.h,
+              decoration: BoxDecoration(
+                color: MukGenColor.primaryLight3,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0.w),
+                  child: TextFormField(
+                    onChanged: (value) => setState(() {}),
+                    controller: contentController,
+                    maxLength: 30,
+                    style: TextStyle(
+                      color: MukGenColor.black,
+                      fontSize: 20.sp,
+                      fontFamily: 'MukgenSemiBold',
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
