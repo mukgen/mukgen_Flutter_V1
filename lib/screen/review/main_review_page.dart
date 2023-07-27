@@ -372,7 +372,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                               ),
                                             ),
                                             Text(
-                                              DateFormat('HH.mm').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
+                                              DateFormat('HH:mm').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
                                               style: TextStyle(
                                                 color: MukGenColor.primaryLight1,
                                                 fontSize: 12.sp,
