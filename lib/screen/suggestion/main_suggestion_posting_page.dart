@@ -101,8 +101,8 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
               width: 353.0.w,
               height: 261.0.h,
               decoration: BoxDecoration(
-                color: MukGenColor.primaryLight3,
-                borderRadius: BorderRadius.circular(10.r),
+                color: MukGenColor.postIt1,
+                borderRadius: BorderRadius.circular(16.r),
               ),
               child: Column(
                 children: [
