@@ -1,13 +1,13 @@
-class ReviewRank {
-  List<ReviewRankResponseList>? reviewRankResponseList;
+class RankReview {
+  List<RankReviewResponseList>? reviewRankResponseList;
 
-  ReviewRank({this.reviewRankResponseList});
+  RankReview({this.reviewRankResponseList});
 
-  ReviewRank.fromJson(Map<String, dynamic> json) {
+  RankReview.fromJson(Map<String, dynamic> json) {
     if (json['reviewRankResponseList'] != null) {
-      reviewRankResponseList = <ReviewRankResponseList>[];
+      reviewRankResponseList = <RankReviewResponseList>[];
       json['reviewRankResponseList'].forEach((v) {
-        reviewRankResponseList!.add(ReviewRankResponseList.fromJson(v));
+        reviewRankResponseList!.add(RankReviewResponseList.fromJson(v));
       });
     }
   }
@@ -22,24 +22,28 @@ class ReviewRank {
   }
 }
 
-class ReviewRankResponseList {
+class RankReviewResponseList {
+  String? profileUrl;
   String? userName;
-  String? reviewCount;
-  String? averageReveiw;
+  int? reviewCount;
+  String? averageReview;
 
-  ReviewRankResponseList({this.userName, this.reviewCount, this.averageReveiw});
+  RankReviewResponseList(
+      {this.profileUrl, this.userName, this.reviewCount, this.averageReview});
 
-  ReviewRankResponseList.fromJson(Map<String, dynamic> json) {
+  RankReviewResponseList.fromJson(Map<String, dynamic> json) {
+    profileUrl = json['profileUrl'];
     userName = json['userName'];
     reviewCount = json['reviewCount'];
-    averageReveiw = json['averageReveiw'];
+    averageReview = json['averageReview'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['profileUrl'] = profileUrl;
     data['userName'] = userName;
     data['reviewCount'] = reviewCount;
-    data['averageReveiw'] = averageReveiw;
+    data['averageReview'] = averageReview;
     return data;
   }
 }

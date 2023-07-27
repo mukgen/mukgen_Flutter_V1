@@ -41,6 +41,8 @@ dependencies:
   http: ^0.13.6
   flutter_secure_storage: ^8.0.0
   convex_bottom_bar: ^3.2.0
+  dio: ^5.2.1+1
+  calendar_date_picker2: ^0.5.2
 
 dev_dependencies:
   flutter_test:
@@ -66,14 +68,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/startingmukgen.png
-    - assets/images/signupmukgen.png
-    - assets/images/MukgenMainHomeAppBar.png
-    - assets/images/MUKGEN.png
-    - assets/images/DINNER.png
-    - assets/images/MORNING.png
+    - assets/images/StartingPage.png
+    - assets/images/SignUpMukgen.png
+    - assets/images/BREAKFAST.png
     - assets/images/LUNCH.png
-    - assets/images/defaultProfile.png
+    - assets/images/DINNER.png
+    - assets/images/MainPageMukgen.png
+    - assets/images/MUKGEN.png
+    - assets/images/Star.png
+    - assets/images/StarOutlined.png
+    - assets/images/DefaultProfile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

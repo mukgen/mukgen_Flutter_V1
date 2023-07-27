@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/detail_board.dart';
+import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_detail_board_info.dart';
+import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_board_comment_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_like_board_info.dart';
 
@@ -26,6 +28,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
   bool _isButtonEnabled = false;
 
   Future<DetailBoard>? detailBoard;
+  Future<BoardResponse>? totalBoard;
   final PageController pageController =
   PageController(initialPage: 0, viewportFraction: 0.9);
 
@@ -64,17 +67,20 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
       appBar: AppBar(
         backgroundColor: MukGenColor.white,
         elevation: 0,
-        leading: IconButton(
+        leading: Padding(
           padding: EdgeInsets.only(left: 20.0.w),
-          onPressed: () {
-            setState(() {
-              Navigator.of(context).pop();
-            });
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: MukGenColor.primaryLight1,
-            size: 24.0.sp,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                totalBoard = getTotalBoardInfo();
+                Navigator.of(context).pop();
+              });
+            },
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: MukGenColor.primaryLight1,
+              size: 20.0.sp,
+            ),
           ),
         ),
         centerTitle: true,
@@ -98,7 +104,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                   children: [
                     Container(
                       width: 353.0.w,
-                      height: 292.0.h,
+                      height: 330.0.h,
                       decoration: BoxDecoration(
                         color: MukGenColor.primaryLight3,
                         borderRadius: BorderRadius.circular(10.r),
@@ -186,8 +192,9 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                             ),
                           ),
                           SizedBox(height: 5.0.h),
+                          const Spacer(),
                           Container(
-                            padding: EdgeInsets.only(left: 21.0.w),
+                            padding: EdgeInsets.only(left: 15.0.w),
                             child: Row(
                               children: [
                                 InkWell(
@@ -225,6 +232,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                               ],
                             ),
                           ),
+                          SizedBox(height: 15.0.h),
                         ],
                       ),
                     ),
@@ -247,90 +255,88 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                     ),
                     SizedBox(
                       height: 240.0.h,
-                      child: Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 30.0.w),
-                          child: ListView.builder(
-                            itemCount: snapshot.data!.commentCount!,
-                            itemBuilder: (context, index) {
-                              DateTime postTime = DateTime.parse(snapshot.data!.boardCommentList![index].createdAt.toString());
-                              DateTime currentTime = DateTime.now();
-                              Duration difference = currentTime.difference(postTime);
-                              int minutesDifference = difference.inMinutes; // 올린 시간과 현재 시간의 차이 (분 단위)
-                              int hoursDifference = difference.inHours; // 올린 시간과 현재 시간의 차이 (시간 단위)
-                              int daysDifference = difference.inDays; // 올린 시간과 현재 시간의 차이 (일 단위)
-                              int monthsDifference = (currentTime.year - postTime.year) * 12 + currentTime.month - postTime.month; // 올린 시간과 현재 시간의 차이 (달 단위)
-                              int yearsDifference = currentTime.year - postTime.year; // 올린 시간과 현재 시간의 차이 (년도 단위)
-                              String timeAgo;
-                              if (minutesDifference < 1) {
-                                timeAgo = '방금 전';
-                              } else if (minutesDifference < 60) {
-                                timeAgo = '$minutesDifference분 전';
-                              } else if (hoursDifference < 24) {
-                                timeAgo = '$hoursDifference시간 전';
-                              } else if (daysDifference < 30) {
-                                timeAgo = '$daysDifference일 전';
-                              } else if (monthsDifference < 12) {
-                                timeAgo = '$monthsDifference달 전';
-                              } else {
-                                timeAgo = '$yearsDifference년 전';
-                              }
-                              return Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        snapshot.data!
-                                            .boardCommentList![index].writer
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: MukGenColor.primaryLight1,
-                                          fontFamily: 'MukgenRegular',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 30.0.w),
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.commentCount!,
+                          itemBuilder: (context, index) {
+                            DateTime postTime = DateTime.parse(snapshot.data!.boardCommentList![index].createdAt.toString());
+                            DateTime currentTime = DateTime.now();
+                            Duration difference = currentTime.difference(postTime);
+                            int minutesDifference = difference.inMinutes; // 올린 시간과 현재 시간의 차이 (분 단위)
+                            int hoursDifference = difference.inHours; // 올린 시간과 현재 시간의 차이 (시간 단위)
+                            int daysDifference = difference.inDays; // 올린 시간과 현재 시간의 차이 (일 단위)
+                            int monthsDifference = (currentTime.year - postTime.year) * 12 + currentTime.month - postTime.month; // 올린 시간과 현재 시간의 차이 (달 단위)
+                            int yearsDifference = currentTime.year - postTime.year; // 올린 시간과 현재 시간의 차이 (년도 단위)
+                            String timeAgo;
+                            if (minutesDifference < 1) {
+                              timeAgo = '방금 전';
+                            } else if (minutesDifference < 60) {
+                              timeAgo = '$minutesDifference분 전';
+                            } else if (hoursDifference < 24) {
+                              timeAgo = '$hoursDifference시간 전';
+                            } else if (daysDifference < 30) {
+                              timeAgo = '$daysDifference일 전';
+                            } else if (monthsDifference < 12) {
+                              timeAgo = '$monthsDifference달 전';
+                            } else {
+                              timeAgo = '$yearsDifference년 전';
+                            }
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      snapshot.data!
+                                          .boardCommentList![index].writer
+                                          .toString(),
+                                      style: TextStyle(
+                                        color: MukGenColor.primaryLight1,
+                                        fontFamily: 'MukgenRegular',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                      Text(
-                                        'ㅣ',
-                                        style: TextStyle(
-                                          color: MukGenColor.primaryLight2,
-                                          fontFamily: 'MukgenRegular',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                    ),
+                                    Text(
+                                      'ㅣ',
+                                      style: TextStyle(
+                                        color: MukGenColor.primaryLight2,
+                                        fontFamily: 'MukgenRegular',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                      Text(
-                                        timeAgo,
-                                        style: TextStyle(
-                                          color: MukGenColor.primaryLight2,
-                                          fontFamily: 'MukgenRegular',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(height: 8.0.h),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        snapshot.data!
-                                            .boardCommentList![index].content
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: MukGenColor.black,
-                                          fontFamily: 'MukgenRegular',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                    ),
+                                    Text(
+                                      timeAgo,
+                                      style: TextStyle(
+                                        color: MukGenColor.primaryLight2,
+                                        fontFamily: 'MukgenRegular',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 18.0.h),
-                                ],
-                              );
-                            },
-                          ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 8.0.h),
+                                Row(
+                                  children: [
+                                    Text(
+                                      snapshot.data!
+                                          .boardCommentList![index].content
+                                          .toString(),
+                                      style: TextStyle(
+                                        color: MukGenColor.black,
+                                        fontFamily: 'MukgenRegular',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 18.0.h),
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ),

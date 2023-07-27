@@ -41,9 +41,9 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
     setState(() {
       _isButtonEnabled = titleController.text.isNotEmpty && contentController.text.isNotEmpty;
       titleCharacterCount = titleController.text.length;
+      contentCharacterCount = contentController.text.length;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
