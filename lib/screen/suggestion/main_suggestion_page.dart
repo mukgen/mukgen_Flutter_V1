@@ -98,6 +98,19 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                         ),
                                       ),
                                       SizedBox(height: 6.0.h),
+                                      SizedBox(
+                                        width: 139.5.w,
+                                        height: 70.0.h,
+                                        child: Text(
+                                          snapshot.data!.mealSuggestionResponseList![index].content!.toString(),
+                                          style: TextStyle(
+                                            color: MukGenColor.black,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'MukgenRegular',
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 );
