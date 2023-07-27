@@ -70,15 +70,14 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                   String countString = '';
                                   if (count >= 999) {
                                     countString = '999+';
+                                  } else {
+                                    countString = '${count}';
                                   }
                                   return countString;
                                 }
 
-                                String likeCounts = snapshot.data!.mealSuggestionResponseList![index].likeCount.toString();
-                                String like = formatCount(int.parse(likeCounts));
-
-                                String dislikeCounts = snapshot.data!.mealSuggestionResponseList![index].dislikeCount.toString();
-                                String dislike = formatCount(int.parse(dislikeCounts));
+                                String like = formatCount(snapshot.data!.mealSuggestionResponseList![index].likeCount!);
+                                String dislike = formatCount(snapshot.data!.mealSuggestionResponseList![index].dislikeCount!);
                                 return Container(
                                   decoration: BoxDecoration(
                                     color: MukGenColor.postIt1,
