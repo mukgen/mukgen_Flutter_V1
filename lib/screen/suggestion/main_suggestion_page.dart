@@ -18,6 +18,20 @@ class MainSuggestionPage extends StatefulWidget {
 class _MainSuggestionPageState extends State<MainSuggestionPage> {
   Future<TotalSuggestion>? totalSuggestion;
 
+  double lengthContainer(int length) {
+    Map<int, double> widthMap = {
+      4: 65.0.w,
+      3: 52.0.w,
+      2: 46.0.w,
+    };
+
+    return widthMap[length] ?? 40.0.w;
+  }
+
+  String formatCount(int count) {
+    return count >= 999 ? '999+' : '$count';
+  }
+
   @override
   Widget build(BuildContext context) {
     totalSuggestion = getTotalSuggestionInfo();
@@ -66,16 +80,6 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                               ),
                               itemCount: snapshot.data!.mealSuggestionResponseList!.length,
                               itemBuilder: (context, index) {
-                                String formatCount(int count) {
-                                  String countString = '';
-                                  if (count >= 999) {
-                                    countString = '999+';
-                                  } else {
-                                    countString = '${count}';
-                                  }
-                                  return countString;
-                                }
-
                                 String like = formatCount(snapshot.data!.mealSuggestionResponseList![index].likeCount!);
                                 String dislike = formatCount(snapshot.data!.mealSuggestionResponseList![index].dislikeCount!);
                                 return Container(
@@ -137,7 +141,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                                 });
                                               },
                                               child: Container(
-                                                width: like.length == 4 ? 65.0.w : like.length == 3 ? 52 : like.length == 2 ? 46.0.w : 40.0.w,
+                                                width: lengthContainer(like.length),
                                                 height: 20.0.h,
                                                 decoration: BoxDecoration(
                                                   color: MukGenColor.white,
@@ -176,7 +180,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                                 });
                                               },
                                               child: Container(
-                                                width: dislike.length == 4 ? 65.0.w : dislike.length == 3 ? 52 : dislike.length == 2 ? 46.0.w : 40.0.w,
+                                                width: lengthContainer(dislike.length),
                                                 height: 20.0.h,
                                                 decoration: BoxDecoration(
                                                   color: MukGenColor.white,
