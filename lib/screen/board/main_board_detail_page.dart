@@ -7,14 +7,19 @@ import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_detail_board_info.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_hot_board_info.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
+import 'package:mukgen_flutter_v1/service/get/board/get_board_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_board_comment_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_like_board_info.dart';
 
 class MainBoardDetailPage extends StatefulWidget {
-  const MainBoardDetailPage({Key? key, required this.boardId}) : super(key: key);
+  const MainBoardDetailPage({
+    Key? key,
+    required this.boardId,
+    required this.query,
+  }) : super(key: key);
 
   final int boardId;
+  final String query;
 
   @override
   State<MainBoardDetailPage> createState() => _MainBoardDetailPageState();
@@ -77,7 +82,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
             onTap: () {
               setState(() {
                 Navigator.of(context).pop();
-                totalBoard = getTotalBoardInfo();
+                totalBoard = getBoardInfo(widget.query);
                 hotBoard = getHotBoardInfo();
               });
             },
