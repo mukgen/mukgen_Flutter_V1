@@ -12,8 +12,8 @@ class MainBoardPage extends StatefulWidget {
       {Key? key, required this.onPosting, required this.onDetail})
       : super(key: key);
 
-  final VoidCallback onPosting;
-  final Function(int) onDetail;
+  final Function(String) onPosting;
+  final Function(int, String) onDetail;
 
   @override
   State<MainBoardPage> createState() => _MainBoardPageState();
@@ -227,8 +227,11 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                                 index]
                                                             .boardId!
                                                             .toInt();
-                                                        widget
-                                                            .onDetail(boardId);
+                                                        widget.onDetail(
+                                                            boardId,
+                                                            buttonState[
+                                                                    buttonStateNum]
+                                                                .toString());
                                                       },
                                                       child: Row(
                                                         children: [
@@ -421,8 +424,11 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                                 adjustedIndex]
                                                             .boardId!
                                                             .toInt();
-                                                        widget
-                                                            .onDetail(boardId);
+                                                        widget.onDetail(
+                                                            boardId,
+                                                            buttonState[
+                                                                    buttonStateNum]
+                                                                .toString());
                                                       });
                                                     },
                                                     child: Container(
@@ -689,7 +695,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
           child: FloatingActionButton(
             heroTag: 'addboard',
             onPressed: () {
-              widget.onPosting();
+              widget.onPosting(buttonState[buttonStateNum].toString());
             },
             elevation: 0,
             backgroundColor: MukGenColor.pointBase,
