@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/model/board/total_board.dart';
+import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_board_info.dart';
 
 class MainBoardPostingPage extends StatefulWidget {
@@ -18,6 +19,8 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
   late TextEditingController contentController;
   late int titleCharacterCount;
   late int contentCharacterCount;
+
+  Future<BoardResponse>? totalBoard;
 
   @override
   void initState() {
@@ -53,15 +56,18 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
         backgroundColor: MukGenColor.white,
         centerTitle: true,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.keyboard_arrow_left,
-            color: MukGenColor.black,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20.0.w),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: MukGenColor.primaryLight1,
+              size: 20.0.sp,
+            ),
           ),
-          iconSize: 24.sp,
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
         ),
         title: Text(
           '글쓰기',
@@ -81,6 +87,7 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                   setState(() {
                     if(titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
                       postBoard(titleController.text, contentController.text);
+                      totalBoard = getTotalBoardInfo();
                       Navigator.of(context).pop();
                     }
                   });
@@ -137,7 +144,7 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                   child: TextFormField(
                     onChanged: (value) => setState(() {}),
                     controller: titleController,
-                    maxLength: 60,
+                    maxLength: 30,
                     style: TextStyle(
                       color: MukGenColor.black,
                       fontSize: 20.sp,
@@ -166,7 +173,7 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  '$titleCharacterCount/60',
+                  '$titleCharacterCount/30',
                   style: TextStyle(
                     color: MukGenColor.primaryLight2,
                     fontWeight: FontWeight.w400,

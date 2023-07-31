@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/detail_board.dart';
+import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_detail_board_info.dart';
+import 'package:mukgen_flutter_v1/service/get/board/get_hot_board_info.dart';
 import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_board_comment_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_like_board_info.dart';
@@ -29,6 +31,8 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
 
   Future<DetailBoard>? detailBoard;
   Future<BoardResponse>? totalBoard;
+  Future<HotBoard>? hotBoard;
+
   final PageController pageController =
   PageController(initialPage: 0, viewportFraction: 0.9);
 
@@ -72,8 +76,9 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
           child: GestureDetector(
             onTap: () {
               setState(() {
-                totalBoard = getTotalBoardInfo();
                 Navigator.of(context).pop();
+                totalBoard = getTotalBoardInfo();
+                hotBoard = getHotBoardInfo();
               });
             },
             child: Icon(

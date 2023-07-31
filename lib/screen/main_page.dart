@@ -315,82 +315,86 @@ class _MainHomePageState extends State<MainHomePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  boardId = snapshot.data!.boardPopularResponseList![index].boardId!.toInt();
-                                  widget.onDetail(boardId);
-                                });
+                            StatefulBuilder(
+                              builder: (context, hotIndex) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      boardId = snapshot.data!.boardPopularResponseList![index].boardId!.toInt();
+                                      widget.onDetail(boardId);
+                                    });
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.only(left: 16.0.w),
+                                    width: 353.0.w,
+                                    height: 49.0.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: MukGenColor.primaryLight3,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          height: 17.0.h,
+                                          width: 209.0.w,
+                                          child: Text(
+                                            snapshot.data!.boardPopularResponseList![index].title.toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: MukGenColor.black,
+                                              fontSize: 14.sp,
+                                              fontFamily: 'MukgenRegular',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 12.0.w),
+                                        Container(
+                                          padding: EdgeInsets.only(top: 2.0.h),
+                                          child: Icon(
+                                            CommentIcon.commentCount,
+                                            size: 14.sp,
+                                            color: MukGenColor.primaryLight2,
+                                          ),
+                                        ),
+                                        SizedBox(width: 4.0.w),
+                                        SizedBox(
+                                          width: 26.0.w,
+                                          child: Text(
+                                            snapshot.data!.boardPopularResponseList![index].commentCount.toString(),
+                                            style: TextStyle(
+                                              fontFamily: 'MukgenRegular',
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: MukGenColor.primaryLight2,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 8.0.w),
+                                        Icon(
+                                          Icons.remove_red_eye_rounded,
+                                          size: 18.sp,
+                                          color: MukGenColor.primaryLight2,
+                                        ),
+                                        SizedBox(width: 4.0.w),
+                                        SizedBox(
+                                          width: 26.0.w,
+                                          child: Text(
+                                            snapshot.data!.boardPopularResponseList![index].viewCount.toString(),
+                                            style: TextStyle(
+                                              fontFamily: 'MukgenRegular',
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: MukGenColor.primaryLight2,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
                               },
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 16.0.w),
-                                width: 353.0.w,
-                                height: 49.0.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: MukGenColor.primaryLight3,
-                                ),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 17.0.h,
-                                      width: 209.0.w,
-                                      child: Text(
-                                        snapshot.data!.boardPopularResponseList![index].title.toString(),
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: MukGenColor.black,
-                                          fontSize: 14.sp,
-                                          fontFamily: 'MukgenRegular',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 12.0.w),
-                                    Container(
-                                      padding: EdgeInsets.only(top: 2.0.h),
-                                      child: Icon(
-                                        CommentIcon.commentCount,
-                                        size: 14.sp,
-                                        color: MukGenColor.primaryLight2,
-                                      ),
-                                    ),
-                                    SizedBox(width: 4.0.w),
-                                    SizedBox(
-                                      width: 26.0.w,
-                                      child: Text(
-                                        snapshot.data!.boardPopularResponseList![index].commentCount.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'MukgenRegular',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: MukGenColor.primaryLight2,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 8.0.w),
-                                    Icon(
-                                      Icons.remove_red_eye_rounded,
-                                      size: 18.sp,
-                                      color: MukGenColor.primaryLight2,
-                                    ),
-                                    SizedBox(width: 4.0.w),
-                                    SizedBox(
-                                      width: 26.0.w,
-                                      child: Text(
-                                        snapshot.data!.boardPopularResponseList![index].viewCount.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'MukgenRegular',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: MukGenColor.primaryLight2,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
                             ),
                             SizedBox(height: 8.0.h),
                           ],

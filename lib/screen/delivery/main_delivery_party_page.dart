@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
+import 'package:mukgen_flutter_v1/service/get/delivery/get_list_delivery-party_info.dart';
 import 'package:mukgen_flutter_v1/widget/delivery_party_check.dart';
 
 class MainDeliveryPartyPage extends StatefulWidget {
@@ -13,15 +15,17 @@ class MainDeliveryPartyPage extends StatefulWidget {
 }
 
 class _MainDeliveryPartyPageState extends State<MainDeliveryPartyPage> with SingleTickerProviderStateMixin {
+  Future<ListDeliveryParty>? listDeliveryParty;
   @override
   Widget build(BuildContext context) {
+    listDeliveryParty = getListDeliveryPartyInfo();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MukGenColor.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
-          '배달파티',
+          '배달 파티',
           style: TextStyle(
             color: MukGenColor.primaryLight1,
             fontSize: 20.sp,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/delivery/delivery_where_meet_page.dart';
@@ -96,6 +97,7 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
             child: CupertinoPicker(
                 itemExtent: 56.0.h, // 각 항목의 높이
                 onSelectedItemChanged: (index) {
+                  HapticFeedback.mediumImpact();
                   howmanyValue = index + 1;
                 },
                 squeeze: 0.9.h,

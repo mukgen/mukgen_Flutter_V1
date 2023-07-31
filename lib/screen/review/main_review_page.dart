@@ -402,6 +402,12 @@ class _MainReviewPageState extends State<MainReviewPage> {
               },
             ),
           ),
+          SizedBox(height: 10.0.h),
+          Image.asset(
+            'assets/images/ReviewEventBanner.png',
+            width: 353.0.w,
+            height: 57.0.h,
+          ),
         ],
       ),
       floatingActionButton: SizedBox(
