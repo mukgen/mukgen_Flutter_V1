@@ -38,13 +38,14 @@ class _MainBoardPageState extends State<MainBoardPage> {
       PageController(initialPage: 0, viewportFraction: 0.9);
 
   @override
-  void initState() {
-    super.initState();
-    totalBoard = getTotalBoardInfo();
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    totalBoard = getTotalBoardInfo();
     return Scaffold(
       backgroundColor: MukGenColor.white,
       body: Center(
@@ -82,24 +83,26 @@ class _MainBoardPageState extends State<MainBoardPage> {
                         width: 1.0.w, // 외곽선 두께
                       ),
                     ),
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         setState(() {
                           changeState();
                           all = !all;
                         });
                       },
-                      child: Text(
-                        '전체',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: all
-                              ? MukGenColor.white
-                              : MukGenColor.primaryLight1,
-                          fontFamily:
-                              all ? 'MukgenSemiBold' : 'MukgenRegular',
-                          fontSize: 16.0.sp,
-                          fontWeight: all ? FontWeight.w600 : FontWeight.w400,
+                      child: Center(
+                        child: Text(
+                          '전체',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: all
+                                ? MukGenColor.white
+                                : MukGenColor.primaryLight1,
+                            fontFamily:
+                                all ? 'MukgenSemiBold' : 'MukgenRegular',
+                            fontSize: 16.0.sp,
+                            fontWeight: all ? FontWeight.w600 : FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -119,25 +122,27 @@ class _MainBoardPageState extends State<MainBoardPage> {
                         width: 1.0.w, // 외곽선 두께
                       ),
                     ),
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         setState(() {
                           changeState();
                           daily = !daily;
                         });
                       },
-                      child: Text(
-                        '일간',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: daily
-                              ? MukGenColor.white
-                              : MukGenColor.primaryLight1,
-                          fontFamily:
-                              daily ? 'MukgenSemiBold' : 'MukgenRegular',
-                          fontSize: 16.0.sp,
-                          fontWeight:
-                              daily ? FontWeight.w600 : FontWeight.w400,
+                      child: Center(
+                        child: Text(
+                          '일간',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: daily
+                                ? MukGenColor.white
+                                : MukGenColor.primaryLight1,
+                            fontFamily:
+                                daily ? 'MukgenSemiBold' : 'MukgenRegular',
+                            fontSize: 16.0.sp,
+                            fontWeight:
+                                daily ? FontWeight.w600 : FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -157,25 +162,27 @@ class _MainBoardPageState extends State<MainBoardPage> {
                         width: 1.0.w, // 외곽선 두께
                       ),
                     ),
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         setState(() {
                           changeState();
                           weekly = !weekly;
                         });
                       },
-                      child: Text(
-                        '주간',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: weekly
-                              ? MukGenColor.white
-                              : MukGenColor.primaryLight1,
-                          fontFamily:
-                              weekly ? 'MukgenSemiBold' : 'MukgenRegular',
-                          fontSize: 16.0.sp,
-                          fontWeight:
-                              weekly ? FontWeight.w600 : FontWeight.w400,
+                      child: Center(
+                        child: Text(
+                          '주간',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: weekly
+                                ? MukGenColor.white
+                                : MukGenColor.primaryLight1,
+                            fontFamily:
+                                weekly ? 'MukgenSemiBold' : 'MukgenRegular',
+                            fontSize: 16.0.sp,
+                            fontWeight:
+                                weekly ? FontWeight.w600 : FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -255,6 +262,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                                 height: 19.0.h,
                                                                 child: Text(
                                                                   snapshot.data!.boardPopularListResponse!.boardPopularResponseList![index].title.toString(),
+                                                                  overflow: TextOverflow.ellipsis,
                                                                   style: TextStyle(
                                                                     color: MukGenColor.black,
                                                                     fontFamily: 'MukgenSemiBold',
@@ -335,25 +343,33 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                     child: Column(
                                                       children: [
                                                         SizedBox(height: 24.0.h),
-                                                        Container(
-                                                          alignment: Alignment.centerLeft,
-                                                          padding: EdgeInsets.only(left: 24.0.w),
-                                                          child: Text(
-                                                            snapshot.data!.boardListResponse!.boardMinimumResponseList![adjustedIndex].title.toString(),
-                                                            style: TextStyle(
-                                                              color: MukGenColor.black,
-                                                              fontFamily: 'MukgenSemiBold',
-                                                              fontSize: 16.sp,
-                                                              fontWeight: FontWeight.w600,
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            SizedBox(width: 24.0.w),
+                                                            Container(
+                                                              width: 260.0.w ,
+                                                              alignment: Alignment.centerLeft,
+                                                              child: Text(
+                                                                snapshot.data!.boardListResponse!.boardMinimumResponseList![adjustedIndex].title.toString(),
+                                                                overflow: TextOverflow.ellipsis,
+                                                                style: TextStyle(
+                                                                  color: MukGenColor.black,
+                                                                  fontFamily: 'MukgenSemiBold',
+                                                                  fontSize: 16.sp,
+                                                                  fontWeight: FontWeight.w600,
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
+                                                          ],
                                                         ),
                                                         SizedBox(height: 6.0.h),
                                                         Container(
+                                                          width: 305.0.w,
                                                           alignment: Alignment.centerLeft,
-                                                          padding: EdgeInsets.only(left: 24.0.w),
                                                           child: Text(
                                                             snapshot.data!.boardListResponse!.boardMinimumResponseList![adjustedIndex].content.toString(),
+                                                            overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
                                                               color: MukGenColor.black,
                                                               fontFamily: 'MukgenRegular',
@@ -482,7 +498,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
             },
             elevation: 0,
             backgroundColor: MukGenColor.pointBase,
-            child: Icon(Icons.add, size: 30, color: MukGenColor.white),
+            child: Icon(Icons.add, size: 30.sp, color: MukGenColor.white),
           ),
         ),
       ),
