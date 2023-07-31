@@ -13,6 +13,7 @@ import 'package:mukgen_flutter_v1/screen/main_page.dart';
 import 'package:mukgen_flutter_v1/screen/board/main_board_page.dart';
 import 'package:mukgen_flutter_v1/screen/delivery/main_delivery_party_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_page.dart';
+import 'package:transition/transition.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({Key? key}) : super(key: key);
@@ -110,8 +111,14 @@ class _MainNavigatorState extends State<MainNavigator> {
   }
 
 
-  void onNext(Widget page){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+  void onNext(Widget page) {
+    Navigator.push(
+      context,
+      Transition(
+        child: page,
+        transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+      ),
+    );
   }
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
