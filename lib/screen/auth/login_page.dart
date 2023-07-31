@@ -55,15 +55,17 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
+        leading: Padding(
           padding: EdgeInsets.only(left: 20.0.w),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: MukGenColor.primaryLight1,
-            size: 24.0.sp,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: MukGenColor.primaryLight1,
+              size: 24.0.sp,
+            ),
           ),
         ),
       ),
