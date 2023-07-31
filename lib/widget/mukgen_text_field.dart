@@ -85,14 +85,15 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                 focusedBorder: UnderlineInputBorder(
                     borderSide:
                         BorderSide(color: MukGenColor.pointBase, width: 2)),
-                suffixIcon: IconButton(
-                  color: _isClicked
-                      ? MukGenColor.pointLight1
-                      : MukGenColor.primaryLight1,
-                  icon: const Icon(Icons.remove_red_eye_rounded),
-                  onPressed: () {
-                    setState(
-                      () {
+                suffixIcon: GestureDetector(
+                  child: Icon(
+                    Icons.remove_red_eye_rounded,
+                    color: _isClicked
+                        ? MukGenColor.pointLight1
+                        : MukGenColor.primaryLight1,
+                  ),
+                  onTap: () {
+                    setState(() {
                         _isClicked ? _isClicked = false : _isClicked = true;
                       },
                     );
