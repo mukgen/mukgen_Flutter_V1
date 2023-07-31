@@ -127,15 +127,18 @@ class _MainNavigatorState extends State<MainNavigator> {
         return [
           MainHomePage(
             onDetail: (int boardId) {
-              onNext(MainBoardDetailPage(boardId: boardId));
+              onNext(MainBoardDetailPage(
+                boardId: boardId,
+                query: "total",
+              ));
             },
           ),
           MainBoardPage(
-            onPosting: () {
-              onNext(const MainBoardPostingPage());
+            onPosting: (String query) {
+              onNext(MainBoardPostingPage(query: query));
             },
-            onDetail: (int boardId) {
-              onNext(MainBoardDetailPage(boardId: boardId));
+            onDetail: (int boardId, String query) {
+              onNext(MainBoardDetailPage(boardId: boardId, query: query));
             },
           ),
           MainSuggestionPage(
@@ -143,19 +146,17 @@ class _MainNavigatorState extends State<MainNavigator> {
               onNext(const MainSuggestionPostingPage());
             },
           ),
-          MainReviewPage(
-            onReview: () {
-              onNext(const MainReviewSelectPage());
-            },
-            onDetail: (String riceType, int reviewId) {
-              onNext(MainReviewDetailPage(riceType: riceType, reviewId: reviewId,));
-            }
-          ),
-          MainDeliveryPartyPage(
-            onFood: () {
-              onNext(const DeliveryWhatFoodPage());
-            }
-          ),
+          MainReviewPage(onReview: () {
+            onNext(const MainReviewSelectPage());
+          }, onDetail: (String riceType, int reviewId) {
+            onNext(MainReviewDetailPage(
+              riceType: riceType,
+              reviewId: reviewId,
+            ));
+          }),
+          MainDeliveryPartyPage(onFood: () {
+            onNext(const DeliveryWhatFoodPage());
+          }),
         ].elementAt(index);
       },
     };

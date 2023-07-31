@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_total_board_info.dart';
+import 'package:mukgen_flutter_v1/service/get/board/get_board_info.dart';
 import 'package:mukgen_flutter_v1/service/post/board/post_board_info.dart';
 
 class MainBoardPostingPage extends StatefulWidget {
-  const MainBoardPostingPage({Key? key}) : super(key: key);
+  const MainBoardPostingPage({Key? key, required this.query}) : super(key: key);
 
+  final String query;
   @override
   State<MainBoardPostingPage> createState() => _MainBoardPostingPageState();
 }
@@ -83,11 +84,12 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
             child: Padding(
               padding: EdgeInsets.only(right: 20.0.w),
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   setState(() {
-                    if(titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
+                    if (titleController.text.isNotEmpty &&
+                        contentController.text.isNotEmpty) {
                       postBoard(titleController.text, contentController.text);
-                      totalBoard = getTotalBoardInfo();
+                      totalBoard = getBoardInfo(widget.query);
                       Navigator.of(context).pop();
                     }
                   });
