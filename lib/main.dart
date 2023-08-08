@@ -31,8 +31,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initialization() async {
-    await Future.delayed(const Duration(seconds: 1000));
-    FlutterNativeSplash.remove(); //스플래시 스크린 제거
+    await Future.delayed(const Duration(milliseconds: 1000));
+    FlutterNativeSplash.remove();
   }
 
   @override
