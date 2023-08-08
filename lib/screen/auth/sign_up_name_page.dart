@@ -4,6 +4,7 @@ import 'package:mukgen_flutter_v1/screen/auth/sign_up_id_pw_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
+import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
 
 class SignUpNamePage extends StatefulWidget {
   const SignUpNamePage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   late TextEditingController nameController;
 
   bool _isButtonEnabled = false;
-  bool _isValid = false;
+  bool _validState = false;
 
   @override
   void initState() {
@@ -34,7 +35,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   void _updateState() {
     setState(() {
       _isButtonEnabled = nameController.text.isNotEmpty;
-      _isValid = nameController.text.isEmpty;
+      _validState = nameController.text.isEmpty;
     });
   }
 
@@ -83,8 +84,8 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             autofocus: true,
             maxLength: 4,
             hintText: "별명",
-            color: _isValid ? MukGenColor.primaryLight2 : MukGenColor.green,
-            helperText: _isValid ? "최대 4자" : "사용 가능한 별명입니다.",
+            color: Validation.getFieldColor(nameController.text, 1, 4),
+            helperText: Validation.getValidation(nameController.text, "최대 4자", 1, 4, "별명"),
           ),
           const Spacer(),
           MukGenButton(
@@ -96,7 +97,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
-              if (!_isValid) {
+              if (!_validState) {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => SignUpIdPwPage(name: nameController.text)
                   ),
