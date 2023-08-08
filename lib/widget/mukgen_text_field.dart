@@ -76,7 +76,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'MukgenRegular',
-                  color: MukGenColor.primaryLight2,
+                  color: widget.color,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(
