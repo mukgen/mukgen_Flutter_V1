@@ -4,6 +4,7 @@ import 'package:mukgen_flutter_v1/screen/auth/sign_up_number_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
 
 class SignUpIdPwPage extends StatefulWidget {
   const SignUpIdPwPage({Key? key, required this.name}) : super(key: key);
@@ -20,23 +21,22 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
   late TextEditingController pwdCheckController;
 
   bool _isButtonEnabled = false;
+  bool _validState = false;
 
   @override
   void initState() {
     super.initState();
     idController = TextEditingController();
-    idController.addListener(_updateButtonState);
+    idController.addListener(_updateState);
     pwdController = TextEditingController();
-    pwdController.addListener(_updateButtonState);
+    pwdController.addListener(_updateState);
     pwdCheckController = TextEditingController();
-    pwdCheckController.addListener(_updateButtonState);
+    pwdCheckController.addListener(_updateState);
   }
 
-  void _updateButtonState() {
+  void _updateState() {
     setState(() {
-      _isButtonEnabled = idController.text.isNotEmpty &&
-          pwdController.text.isNotEmpty &&
-          pwdCheckController.text.isNotEmpty;
+      _isButtonEnabled = idController.text.isNotEmpty && pwdController.text.isNotEmpty && pwdCheckController.text.isNotEmpty;
     });
   }
 
@@ -94,10 +94,11 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             autofocus: true,
             maxLength: 15,
             hintText: "아이디",
-            helperText: "최소 5자, 최대 15자",
+            color: Validation.getFieldColor(idController.text, 5, 15),
+            helperText: Validation.getValidation(idController.text, "최소 5자, 최대 15자", 5, 15, "아이디"),
           ),
           SizedBox(height: 24.0.h),
-          MukGenTextField(
+          MukGenTextField(  
             width: 352,
             controller: pwdController,
             fontSize: 20,
