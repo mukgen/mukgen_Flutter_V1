@@ -17,7 +17,6 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   late TextEditingController nameController;
 
   bool _isButtonEnabled = false;
-  bool _validState = false;
 
   @override
   void initState() {
@@ -35,7 +34,6 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   void _updateState() {
     setState(() {
       _isButtonEnabled = nameController.text.isNotEmpty;
-      _validState = nameController.text.isEmpty;
     });
   }
 
@@ -97,7 +95,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
-              if (!_validState) {
+              if (_isButtonEnabled) {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => SignUpIdPwPage(name: nameController.text)
                   ),
