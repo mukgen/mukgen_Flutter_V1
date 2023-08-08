@@ -65,7 +65,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 20.0.w),
             child: Text(
-              '이름을 입력해주세요.',
+              '별명을 입력해주세요.',
               style: TextStyle(
                   fontSize: 24.0.sp,
                   fontWeight: FontWeight.w600,
@@ -80,7 +80,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             isPwdTextField: false,
             autofocus: true,
             maxLength: null,
-            hintText: "이름",
+            hintText: "별명",
           ),
           const Spacer(),
           MukGenButton(
