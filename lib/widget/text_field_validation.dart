@@ -23,6 +23,8 @@ class Validation {
       return "조건에 맞지 않습니다.";
     } else if (confirmPassword != null && password != confirmPassword) {
       return "비밀번호가 일치하지 않습니다.";
+    } else if (confirmPassword != null && password == confirmPassword){
+      return "비밀번호가 일치합니다.";
     } else {
       return "사용 가능한 비밀번호입니다.";
     }
@@ -47,7 +49,7 @@ class Validation {
 
     if (password.isEmpty) {
       return MukGenColor.primaryLight2;
-    } else if (passwordRegex.hasMatch(password)) {
+    } else if (passwordRegex.hasMatch(password) || (confirmPassword != null && password == confirmPassword)) {
       return MukGenColor.green;
     } else {
       return MukGenColor.red;
