@@ -16,12 +16,13 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   late TextEditingController nameController;
 
   bool _isButtonEnabled = false;
+  bool _isValid = false;
 
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController();
-    nameController.addListener(_updateButtonState);
+    nameController.addListener(_updateState);
   }
 
   @override
@@ -30,9 +31,10 @@ class _SignupNamePageState extends State<SignUpNamePage> {
     nameController.dispose();
   }
 
-  void _updateButtonState() {
+  void _updateState() {
     setState(() {
       _isButtonEnabled = nameController.text.isNotEmpty;
+      _isValid = nameController.text.isEmpty;
     });
   }
 
@@ -79,8 +81,10 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 20,
             isPwdTextField: false,
             autofocus: true,
-            maxLength: null,
+            maxLength: 4,
             hintText: "별명",
+            color: _isValid ? MukGenColor.primaryLight2 : MukGenColor.green,
+            helperText: _isValid ? "최대 4자" : "사용 가능한 별명입니다.",
           ),
           const Spacer(),
           MukGenButton(
@@ -92,7 +96,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
-              if (nameController.text.isNotEmpty) {
+              if (!_isValid) {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => SignUpIdPwPage(name: nameController.text)
                   ),
