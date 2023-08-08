@@ -19,10 +19,10 @@ class Validation {
 
     if (password.isEmpty) {
       return "특수문자 최소 1자 포함, 최대 20자";
-    } else if (!passwordRegex.hasMatch(password)) {
-      return "조건에 맞지 않습니다.";
     } else if (confirmPassword != null && password != confirmPassword) {
       return "비밀번호가 일치하지 않습니다.";
+    } else if (!passwordRegex.hasMatch(password)) {
+      return "조건에 맞지 않습니다.";
     } else if (confirmPassword != null && password == confirmPassword){
       return "비밀번호가 일치합니다.";
     } else {
@@ -45,12 +45,17 @@ class Validation {
   }
 
   static Color getPwdFieldColor(String password, {String? confirmPassword}) {
-    RegExp passwordRegex = RegExp(r'^(?=.*[!@#$%^&*])(?=.{8,20}$)'); // 비밀번호 정규식
+    RegExp passwordRegex =
+    RegExp(r'^(?=.*[!@#$%^&*])(?=.{1,20}$).*'); // 비밀번호 정규식
 
     if (password.isEmpty) {
       return MukGenColor.primaryLight2;
-    } else if (passwordRegex.hasMatch(password) || (confirmPassword != null && password == confirmPassword)) {
-      return MukGenColor.green;
+    } else if (passwordRegex.hasMatch(password)) {
+      if (confirmPassword != null && password != confirmPassword) {
+        return MukGenColor.red; // 빨간색
+      } else {
+        return MukGenColor.green; // 초록색
+      }
     } else {
       return MukGenColor.red;
     }
