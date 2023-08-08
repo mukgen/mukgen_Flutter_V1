@@ -16,10 +16,13 @@ class MukGenTextField extends StatefulWidget {
     this.helperText,
     this.textAlign,
     this.textInputType,
+    this.color
   }) : super(key: key);
 
   final double width;
   final double? height;
+
+  final Color? color;
 
   final int? maxLength;
   final int fontSize;
@@ -133,7 +136,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'MukgenRegular',
-                  color: MukGenColor.primaryLight2,
+                  color: widget.color,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(
