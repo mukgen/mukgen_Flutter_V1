@@ -13,7 +13,7 @@ class Validation {
     }
   }
 
-  static String getPwdValidation(String password) {
+  static String getPwdValidation(String password, {String? confirmPassword}) {
     RegExp passwordRegex =
     RegExp(r'^(?=.*[!@#$%^&*])(?=.{1,20}$).*'); // 비밀번호 정규식
 
@@ -21,13 +21,15 @@ class Validation {
       return "특수문자 최소 1자 포함, 최대 20자";
     } else if (!passwordRegex.hasMatch(password)) {
       return "조건에 맞지 않습니다.";
+    } else if (confirmPassword != null && password != confirmPassword) {
+      return "비밀번호가 일치하지 않습니다.";
     } else {
       return "사용 가능한 비밀번호입니다.";
     }
   }
 
   static bool _getValidationColor(String input, int minLength, int maxLength) {
-    return input.isEmpty || (input.length >= (minLength ?? 0) && input.length <= maxLength);
+    return input.isEmpty || (input.length >= minLength && input.length <= maxLength);
   }
 
   static Color getFieldColor(String input, int minLength, int maxLength) {
@@ -40,7 +42,7 @@ class Validation {
     }
   }
 
-  static Color getPwdFieldColor(String password) {
+  static Color getPwdFieldColor(String password, {String? confirmPassword}) {
     RegExp passwordRegex = RegExp(r'^(?=.*[!@#$%^&*])(?=.{8,20}$)'); // 비밀번호 정규식
 
     if (password.isEmpty) {
