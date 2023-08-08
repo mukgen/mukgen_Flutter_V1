@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -13,8 +15,24 @@ void main() {
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    Future.delayed(const Duration(milliseconds: 1000)).then((_) => FlutterNativeSplash.remove());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,63 +45,9 @@ class MyApp extends StatelessWidget {
               child: child!,
           );
         },
-        home: SplashPage(),
+        home: StartingPage(),
         debugShowCheckedModeBanner: false,
       ),
-    );
-  }
-}
-
-class SplashPage extends StatefulWidget {
-  @override
-  _SplashPageState createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(milliseconds: 1100), () {
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          transitionDuration: Duration(milliseconds: 575),
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              StartingPage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          },
-        ),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // 전체 화면을 덮는 색상 지정
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-          child: Image(
-        image: AssetImage(
-          'assets/images/MUKGEN.png',
-        ),
-        width: 169.0.w,
-        height: 48.0.h,
-      )),
     );
   }
 }
