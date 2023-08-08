@@ -98,7 +98,7 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             helperText: Validation.getValidation(idController.text, "최소 5자, 최대 15자", 5, 15, "아이디"),
           ),
           SizedBox(height: 24.0.h),
-          MukGenTextField(  
+          MukGenTextField(
             width: 352,
             controller: pwdController,
             fontSize: 20,
@@ -106,7 +106,8 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             autofocus: false,
             maxLength: 20,
             hintText: "비밀번호",
-            helperText: "특수문자 최소 1자 포함, 최대 20자",
+            color: Validation.getPwdFieldColor(pwdController.text),
+            helperText: Validation.getPwdValidation(pwdController.text),
           ),
           SizedBox(height: 24.0.h),
           MukGenTextField(
@@ -117,6 +118,8 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             autofocus: false,
             maxLength: 20,
             hintText: "비밀번호 확인",
+            color: Validation.getPwdFieldColor(pwdCheckController.text, confirmPassword: pwdController.text),
+            helperText: Validation.getPwdValidation(pwdCheckController.text, confirmPassword: pwdController.text),
           ),
           const Spacer(),
           MukGenButton(
