@@ -21,7 +21,6 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
   late TextEditingController pwdCheckController;
 
   bool _isButtonEnabled = false;
-  bool _validState = false;
 
   @override
   void initState() {
@@ -36,7 +35,9 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
 
   void _updateState() {
     setState(() {
-      _isButtonEnabled = idController.text.isNotEmpty && pwdController.text.isNotEmpty && pwdCheckController.text.isNotEmpty;
+      _isButtonEnabled = Validation.getValidation(idController.text, "최소 5자, 최대 15자", 5, 15, "아이디").contains("사용 가능한") &&
+          Validation.getPwdValidation(pwdController.text).contains("사용 가능한") &&
+          Validation.getPwdValidation(pwdCheckController.text, confirmPassword: pwdController.text).contains("일치");
     });
   }
 
