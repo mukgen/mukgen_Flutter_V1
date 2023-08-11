@@ -6,14 +6,14 @@ import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 
-class SignUpNumberPage extends StatefulWidget {
-  const SignUpNumberPage({Key? key, required this.name, required this.id, required this.pwd, required this.pwdcheck}) : super(key: key);
-  final String name, id, pwd, pwdcheck;
+class SignupNumberPage extends StatefulWidget {
+  const SignupNumberPage({Key? key, required this.email, required this.name, required this.id, required this.pwd, required this.pwdcheck}) : super(key: key);
+  final String email, name, id, pwd, pwdcheck;
   @override
-  State<SignUpNumberPage> createState() => _SignUpNumberPageState();
+  State<SignupNumberPage> createState() => _SignupNumberPageState();
 }
 
-class _SignUpNumberPageState extends State<SignUpNumberPage> {
+class _SignupNumberPageState extends State<SignupNumberPage> {
   // late FocusNode _firstFocusNode;
   // late FocusNode _secondFocusNode;
   // late FocusNode _thirdFocusNode;
@@ -172,14 +172,14 @@ class _SignUpNumberPageState extends State<SignUpNumberPage> {
             width: 352,
             height: 55,
             backgroundColor:
-                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
+                _isButtonEnabled ? MukGenColor.grey : MukGenColor.pointLight1,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
               if (_isButtonEnabled) {
                 String phone = "";
                 phone += _firstController.text + _secondController.text + _thirdController.text;
-                postGeneralSignup(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone).then((value){
+                postGeneralSignup(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone, widget.email).then((value){
                   if(value == 1) {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const StartingPage()));
