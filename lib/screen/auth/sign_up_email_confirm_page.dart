@@ -232,7 +232,7 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
             width: 352,
             height: 55,
             backgroundColor:
-                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
+                _isButtonEnabled ? MukGenColor.pointLight1 : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () async {
