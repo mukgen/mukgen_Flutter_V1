@@ -118,6 +118,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   : TextAlign.start,
               onChanged: (value) => setState(() {}),
               maxLength: widget.maxLength,
+              cursorColor: MukGenColor.black,
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
