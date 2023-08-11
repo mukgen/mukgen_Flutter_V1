@@ -1,44 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_number_page.dart';
+import 'package:mukgen_flutter_v1/service/get/auth/get_duplicate_info.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/widget/text_field_duplicate.dart';
+import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
 
-class SignUpIdPwPage extends StatefulWidget {
-  const SignUpIdPwPage({Key? key, required this.name}) : super(key: key);
+class SignupIdPwPage extends StatefulWidget {
+  const SignupIdPwPage({Key? key, required this.email, required this.name})
+      : super(key: key);
 
+  final String email;
   final String name;
 
   @override
-  State<SignUpIdPwPage> createState() => _SignUpIdPwPageState();
+  State<SignupIdPwPage> createState() => _SignupIdPwPageState();
 }
 
-class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
+class _SignupIdPwPageState extends State<SignupIdPwPage> {
   late TextEditingController idController;
   late TextEditingController pwdController;
   late TextEditingController pwdCheckController;
 
   bool _isButtonEnabled = false;
 
+  String idValid = '최소 5자, 최대 15자';
+
+  Color? idColor = MukGenColor.primaryLight2;
+
   @override
   void initState() {
     super.initState();
     idController = TextEditingController();
-    idController.addListener(_updateButtonState);
+    idController.addListener(_updateState);
     pwdController = TextEditingController();
-    pwdController.addListener(_updateButtonState);
+    pwdController.addListener(_updateState);
     pwdCheckController = TextEditingController();
-    pwdCheckController.addListener(_updateButtonState);
+    pwdCheckController.addListener(_updateState);
   }
 
-  void _updateButtonState() {
+  String _previousIdValue = "";
+
+  void _updateState() {
+    final currentIdValue = idController.text;
+
+    if (currentIdValue != _previousIdValue) {
+      setState(() {
+        DuplicateResult.isDuplicate = false;
+        idValid = Validation.getIdValidation(currentIdValue);
+        idColor = Validation.getIdFieldColor(currentIdValue);
+      });
+
+      _previousIdValue = currentIdValue;
+    }
     setState(() {
-      _isButtonEnabled = idController.text.isNotEmpty &&
-          pwdController.text.isNotEmpty &&
-          pwdCheckController.text.isNotEmpty;
+      _isButtonEnabled = idValid.contains("사용 가능한") &&
+          Validation.getPwdValidation(pwdController.text).contains("사용 가능한") &&
+          Validation.getPwdValidation(pwdCheckController.text, confirmPassword: pwdController.text)
+              .contains("일치");
     });
   }
+
 
   @override
   void dispose() {
@@ -86,15 +110,94 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             ),
           ),
           SizedBox(height: 24.0.h),
-          MukGenTextField(
-            width: 352,
-            controller: idController,
-            fontSize: 20,
-            isPwdTextField: false,
-            autofocus: true,
-            maxLength: 15,
-            hintText: "아이디",
-            helperText: "최소 5자, 최대 15자",
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  SizedBox(
+                    width: 352.0.w,
+                    child: TextFormField(
+                      controller: idController,
+                      cursorColor: MukGenColor.black,
+                      style: TextStyle(
+                        color: MukGenColor.black,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'MukgenSemiBold',
+                      ),
+                      decoration: InputDecoration(
+                        helperText: idValid,
+                        helperStyle: TextStyle(
+                          color: idColor,
+                          fontSize: 16.sp,
+                          fontFamily: 'MukgenRegular',
+                          fontWeight: FontWeight.w400,
+                        ),
+                        hintText: "아이디",
+                        hintStyle: TextStyle(
+                          color: MukGenColor.primaryLight2,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'MukgenSemiBold',
+                        ),
+                        enabledBorder: idController.text.isEmpty
+                            ? UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: MukGenColor.primaryLight2,
+                                  width: 2,
+                                ),
+                              )
+                            : UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: MukGenColor.black,
+                                  width: 2,
+                                ),
+                              ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: MukGenColor.pointBase,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      DuplicateResult.duplicateState =
+                      await getDuplicateInfo(idController.text);
+                      DuplicateResult.isDuplicate = true;
+                      idValid = Validation.getIdValidation(idController.text);
+                      idColor = Validation.getIdFieldColor(idController.text);
+                      setState(() {});
+                    },
+                    child: Container(
+                      width: 84.0.w,
+                      height: 37.0.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6.r),
+                          border: Border.all(
+                            color: MukGenColor.primaryLight2,
+                          ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '중복 확인',
+                          style: TextStyle(
+                            color: MukGenColor.primaryDark2,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                            fontFamily: 'MukgenSemiBold',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           SizedBox(height: 24.0.h),
           MukGenTextField(
@@ -105,7 +208,8 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             autofocus: false,
             maxLength: 20,
             hintText: "비밀번호",
-            helperText: "특수문자 최소 1자 포함, 최대 20자",
+            color: Validation.getPwdFieldColor(pwdController.text),
+            helperText: Validation.getPwdValidation(pwdController.text),
           ),
           SizedBox(height: 24.0.h),
           MukGenTextField(
@@ -116,6 +220,10 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             autofocus: false,
             maxLength: 20,
             hintText: "비밀번호 확인",
+            color: Validation.getPwdFieldColor(pwdCheckController.text,
+                confirmPassword: pwdController.text),
+            helperText: Validation.getPwdValidation(pwdCheckController.text,
+                confirmPassword: pwdController.text),
           ),
           const Spacer(),
           MukGenButton(
@@ -129,7 +237,12 @@ class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
             onPressed: () {
               _isButtonEnabled
                   ? Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SignUpNumberPage(name: widget.name, id: idController.text, pwd: pwdController.text, pwdcheck: pwdCheckController.text)))
+                      builder: (context) => SignupNumberPage(
+                          email: widget.email,
+                          name: widget.name,
+                          id: idController.text,
+                          pwd: pwdController.text,
+                          pwdcheck: pwdCheckController.text)))
                   : null;
             },
           ),

@@ -11,15 +11,20 @@ class MukGenTextField extends StatefulWidget {
     required this.isPwdTextField,
     required this.maxLength,
     required this.autofocus,
+    this.nextFocusNode,
+    this.focusNode,
     this.height,
     this.hintText,
     this.helperText,
     this.textAlign,
     this.textInputType,
+    this.color
   }) : super(key: key);
 
   final double width;
   final double? height;
+
+  final Color? color;
 
   final int? maxLength;
   final int fontSize;
@@ -29,6 +34,9 @@ class MukGenTextField extends StatefulWidget {
   final TextAlign? textAlign;
   final bool isPwdTextField;
   final bool autofocus;
+
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
 
   @override
   State<MukGenTextField> createState() => _MukGenTextFieldState();
@@ -52,6 +60,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   ? widget.textAlign!
                   : TextAlign.start,
               keyboardType: widget.textInputType,
+              cursorColor: MukGenColor.black,
               obscureText: !_isClicked,
               obscuringCharacter: '*',
               style: TextStyle(
@@ -73,7 +82,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'MukgenRegular',
-                  color: MukGenColor.primaryLight2,
+                  color: widget.color,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(
@@ -109,11 +118,19 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               controller: widget.controller,
               autofocus: widget.autofocus,
               keyboardType: widget.textInputType,
+              focusNode: widget.focusNode,
               textAlign: widget.textAlign != null
                   ? widget.textAlign!
                   : TextAlign.start,
-              onChanged: (value) => setState(() {}),
+              onChanged: (value) => setState(() {
+                if (widget.nextFocusNode == null && widget.controller.text.length == widget.maxLength){
+                  FocusScope.of(context).unfocus();
+                } else if (value.length == widget.maxLength) {
+                  widget.nextFocusNode?.requestFocus();
+                }
+              }),
               maxLength: widget.maxLength,
+              cursorColor: MukGenColor.black,
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
@@ -133,7 +150,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'MukgenRegular',
-                  color: MukGenColor.primaryLight2,
+                  color: widget.color,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(

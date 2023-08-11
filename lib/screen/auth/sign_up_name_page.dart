@@ -4,15 +4,18 @@ import 'package:mukgen_flutter_v1/screen/auth/sign_up_id_pw_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
+import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
 
-class SignUpNamePage extends StatefulWidget {
-  const SignUpNamePage({Key? key}) : super(key: key);
+class SignupNamePage extends StatefulWidget {
+  const SignupNamePage({Key? key, required this.email}) : super(key: key);
+
+  final String email;
 
   @override
-  State<SignUpNamePage> createState() => _SignupNamePageState();
+  State<SignupNamePage> createState() => _SignupNamePageState();
 }
 
-class _SignupNamePageState extends State<SignUpNamePage> {
+class _SignupNamePageState extends State<SignupNamePage> {
   late TextEditingController nameController;
 
   bool _isButtonEnabled = false;
@@ -21,7 +24,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
   void initState() {
     super.initState();
     nameController = TextEditingController();
-    nameController.addListener(_updateButtonState);
+    nameController.addListener(_updateState);
   }
 
   @override
@@ -30,7 +33,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
     nameController.dispose();
   }
 
-  void _updateButtonState() {
+  void _updateState() {
     setState(() {
       _isButtonEnabled = nameController.text.isNotEmpty;
     });
@@ -65,7 +68,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 20.0.w),
             child: Text(
-              '이름을 입력해주세요.',
+              '별명을 입력해주세요.',
               style: TextStyle(
                   fontSize: 24.0.sp,
                   fontWeight: FontWeight.w600,
@@ -79,8 +82,10 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 20,
             isPwdTextField: false,
             autofocus: true,
-            maxLength: null,
-            hintText: "이름",
+            maxLength: 8,
+            hintText: "별명",
+            color: Validation.getFieldColor(nameController.text, 1, 8),
+            helperText: Validation.getValidation(nameController.text, "최대 8자", 1, 8, "별명"),
           ),
           const Spacer(),
           MukGenButton(
@@ -92,9 +97,9 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
-              if (nameController.text.isNotEmpty) {
+              if (_isButtonEnabled) {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SignUpIdPwPage(name: nameController.text)
+                  MaterialPageRoute(builder: (context) => SignupIdPwPage(email: widget.email, name: nameController.text)
                   ),
                 );
               }

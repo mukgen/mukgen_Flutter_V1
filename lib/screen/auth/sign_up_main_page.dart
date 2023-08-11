@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/auth/sign_up_name_page.dart';
+import 'package:mukgen_flutter_v1/screen/auth/sign_up_email_input_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -81,7 +81,7 @@ class _SignupStartPageState extends State<SignupStartPage> {
             textColor: MukGenColor.white,
             fontSize: 16,
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const SignUpNamePage()),
+              MaterialPageRoute(builder: (context) => const SignupEmailInputPage()),
             ),
           ),
         ],
