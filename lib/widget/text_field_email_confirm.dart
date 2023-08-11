@@ -10,11 +10,11 @@ class EmailConfirmTextField extends StatefulWidget {
     this.nextFocusNode,
     this.autofocus,
   })  : _focusNode = focusNode,
-        _firstController = controller;
+        _controller = controller;
 
   final FocusNode _focusNode;
   final FocusNode? nextFocusNode;
-  final TextEditingController _firstController;
+  final TextEditingController _controller;
   final bool? autofocus;
 
   @override
@@ -32,21 +32,21 @@ class _EmailConfirmTextFieldState extends State<EmailConfirmTextField> {
           color: widget._focusNode.hasFocus ? MukGenColor.pointLight4 : null,
           border: Border.all(
               color: widget._focusNode.hasFocus ||
-                      widget._firstController.text.isNotEmpty
+                      widget._controller.text.isNotEmpty
                   ? MukGenColor.pointBase
                   : MukGenColor.primaryLight2),
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: TextFormField(
           focusNode: widget._focusNode,
-          controller: widget._firstController,
+          controller: widget._controller,
           autofocus: widget.autofocus ?? false,
           maxLength: 1,
           textAlign: TextAlign.center,
           cursorColor: MukGenColor.black,
           keyboardType: TextInputType.number,
           onChanged: (value) {
-            if (widget.nextFocusNode == null) {
+            if (widget.nextFocusNode == null && widget._controller.text.isNotEmpty) {
               FocusScope.of(context).unfocus();
             } else if (value.isNotEmpty) {
               widget.nextFocusNode?.requestFocus();
