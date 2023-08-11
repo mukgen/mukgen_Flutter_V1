@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
+import 'package:mukgen_flutter_v1/screen/auth/sign_up_name_page.dart';
+import 'package:mukgen_flutter_v1/service/post/mail/post_authenticate_mail_info.dart';
+import 'package:mukgen_flutter_v1/service/post/mail/post_send_mail_info.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_email_confirm.dart';
 
 class SignupEmailConfirmPage extends StatefulWidget {
@@ -30,6 +33,8 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
   final FocusNode _sixthFocusNode = FocusNode();
 
   bool _isButtonEnabled = false;
+
+  String _isConfirm = '';
 
   @override
   void initState() {
@@ -61,12 +66,13 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
 
   void _updateState() {
     setState(() {
-      _isButtonEnabled = _firstController.text.isEmpty &&
-          _secondController.text.isEmpty &&
-          _thirdController.text.isEmpty &&
-          _fourthController.text.isEmpty &&
-          _fifthController.text.isEmpty &&
-          _sixthController.text.isEmpty;
+      _isConfirm = '';
+      _isButtonEnabled = _firstController.text.isNotEmpty &&
+          _secondController.text.isNotEmpty &&
+          _thirdController.text.isNotEmpty &&
+          _fourthController.text.isNotEmpty &&
+          _fifthController.text.isNotEmpty &&
+          _sixthController.text.isNotEmpty;
     });
   }
 
@@ -173,6 +179,84 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
                 controller: _sixthController,
               ),
             ],
+          ),
+          SizedBox(height: 10.0.h),
+          Padding(
+            padding: EdgeInsets.only(left: 20.0.w),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                _isConfirm,
+                style: TextStyle(
+                  color: MukGenColor.red,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'MukgenRegular',
+                ),
+              ),
+            ),
+          ),
+          const Spacer(),
+          Row(
+            children: [
+              SizedBox(width: 20.0.w),
+              Text(
+                '이메일을 받지 못하셨나요?',
+                style: TextStyle(
+                  color: MukGenColor.primaryDark1,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'MukgenRegular',
+                ),
+              ),
+              SizedBox(width: 10.0.w),
+              GestureDetector(
+                onTap: () {
+                  postSendMailInfo(widget.email);
+                },
+                child: Text(
+                  '재전송하기',
+                  style: TextStyle(
+                    color: MukGenColor.pointBase,
+                    fontSize: 16.sp,
+                    fontFamily: 'MukgenSemiBold',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10.0.h),
+          MukGenButton(
+            text: "확인",
+            width: 352,
+            height: 55,
+            backgroundColor:
+                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
+            fontSize: 16,
+            textColor: MukGenColor.white,
+            onPressed: () async {
+              String code = _firstController.text +
+                  _secondController.text +
+                  _thirdController.text +
+                  _fourthController.text +
+                  _fifthController.text +
+                  _sixthController.text;
+              if (_isButtonEnabled) {
+                bool confirmState = await postAuthenticateMailInfo(widget.email, code);
+                if (confirmState == false) {
+                  setState(() {
+                    _isConfirm = "인증번호가 일치하지 않습니다.";
+                  });
+                } else {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => SignupNamePage(email: widget.email,)),
+                    (route) => false,
+                  );
+                }
+              }
+            },
           ),
         ],
       ),
