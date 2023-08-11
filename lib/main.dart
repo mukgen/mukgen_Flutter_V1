@@ -1,3 +1,4 @@
+import 'package:flarelane_flutter/flarelane_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -7,6 +8,7 @@ import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlareLane.shared.initialize("69fd408c-75cb-4e90-ae68-6e5bfd84fcbc");
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
