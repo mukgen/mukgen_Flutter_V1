@@ -55,6 +55,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   ? widget.textAlign!
                   : TextAlign.start,
               keyboardType: widget.textInputType,
+              cursorColor: MukGenColor.black,
               obscureText: !_isClicked,
               obscuringCharacter: '*',
               style: TextStyle(
