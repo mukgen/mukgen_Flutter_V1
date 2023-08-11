@@ -6,14 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
 
-class SignUpNamePage extends StatefulWidget {
-  const SignUpNamePage({Key? key}) : super(key: key);
+class SignupNamePage extends StatefulWidget {
+  const SignupNamePage({Key? key, required this.email}) : super(key: key);
+
+  final String email;
 
   @override
-  State<SignUpNamePage> createState() => _SignupNamePageState();
+  State<SignupNamePage> createState() => _SignupNamePageState();
 }
 
-class _SignupNamePageState extends State<SignUpNamePage> {
+class _SignupNamePageState extends State<SignupNamePage> {
   late TextEditingController nameController;
 
   bool _isButtonEnabled = false;
@@ -80,10 +82,10 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             fontSize: 20,
             isPwdTextField: false,
             autofocus: true,
-            maxLength: 4,
+            maxLength: 8,
             hintText: "별명",
-            color: Validation.getFieldColor(nameController.text, 1, 4),
-            helperText: Validation.getValidation(nameController.text, "최대 4자", 1, 4, "별명"),
+            color: Validation.getFieldColor(nameController.text, 1, 8),
+            helperText: Validation.getValidation(nameController.text, "최대 8자", 1, 8, "별명"),
           ),
           const Spacer(),
           MukGenButton(
@@ -97,7 +99,7 @@ class _SignupNamePageState extends State<SignUpNamePage> {
             onPressed: () {
               if (_isButtonEnabled) {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SignUpIdPwPage(name: nameController.text)
+                  MaterialPageRoute(builder: (context) => SignupIdPwPage(email: widget.email, name: nameController.text)
                   ),
                 );
               }
