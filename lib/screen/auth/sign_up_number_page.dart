@@ -14,10 +14,9 @@ class SignupNumberPage extends StatefulWidget {
 }
 
 class _SignupNumberPageState extends State<SignupNumberPage> {
-  // late FocusNode _firstFocusNode;
-  // late FocusNode _secondFocusNode;
-  // late FocusNode _thirdFocusNode;
-  //포커스는 나중에 구현해보도록 할께;;
+  late FocusNode _firstFocusNode;
+  late FocusNode _secondFocusNode;
+  late FocusNode _thirdFocusNode;
 
   late TextEditingController _firstController;
   late TextEditingController _secondController;
@@ -28,9 +27,9 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
   @override
   void initState() {
     super.initState();
-    // _firstFocusNode = FocusNode();
-    // _secondFocusNode = FocusNode();
-    // _thirdFocusNode = FocusNode();
+    _firstFocusNode = FocusNode();
+    _secondFocusNode = FocusNode();
+    _thirdFocusNode = FocusNode();
     _firstController = TextEditingController();
     _firstController.addListener(_updateButtonState);
     _secondController = TextEditingController();
@@ -42,9 +41,9 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
   @override
   void dispose() {
     super.dispose();
-    // _firstFocusNode.dispose();
-    // _secondFocusNode.dispose();
-    // _thirdFocusNode.dispose();
+    _firstFocusNode.dispose();
+    _secondFocusNode.dispose();
+    _thirdFocusNode.dispose();
     _firstController.dispose();
     _secondController.dispose();
     _thirdController.dispose();
@@ -120,6 +119,8 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
                 textInputType: TextInputType.number,
                 textAlign: TextAlign.center,
                 isPwdTextField: false,
+                focusNode: _firstFocusNode,
+                nextFocusNode: _secondFocusNode,
                 maxLength: 3,
               ),
               SizedBox(width: 10.0.w),
@@ -141,6 +142,8 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
                 textInputType: TextInputType.number,
                 textAlign: TextAlign.center,
                 isPwdTextField: false,
+                focusNode: _secondFocusNode,
+                nextFocusNode: _thirdFocusNode,
                 maxLength: 4,
               ),
               SizedBox(width: 10.0.w),
@@ -162,6 +165,7 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
                 textInputType: TextInputType.number,
                 isPwdTextField: false,
                 autofocus: false,
+                focusNode: _thirdFocusNode,
                 maxLength: 4,
               ),
             ],
@@ -172,7 +176,7 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
             width: 352,
             height: 55,
             backgroundColor:
-                _isButtonEnabled ? MukGenColor.grey : MukGenColor.pointLight1,
+                _isButtonEnabled ? MukGenColor.pointLight1 : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
