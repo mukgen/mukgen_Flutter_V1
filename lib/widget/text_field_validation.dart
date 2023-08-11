@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/get/auth/get_duplicate_info.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_duplicate.dart';
 
 class Validation {
@@ -16,7 +15,7 @@ class Validation {
   }
 
   static String getEmailValidation(String input) {
-    RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+$');
+    RegExp emailRegex = RegExp(r'^[a-zA-Z\d._%+-]+$');
     if (input.isNotEmpty) {
       if (!emailRegex.hasMatch(input)) {
         return "잘못된 유형의 이메일 주소입니다.";
@@ -92,7 +91,7 @@ class Validation {
   }
 
   static Color? getEmailFieldColor(String input) {
-    RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+$');
+    RegExp emailRegex = RegExp(r'^[a-zA-Z\d._%+-]+$');
     if (!emailRegex.hasMatch(input)) {
       return MukGenColor.red;
     }
