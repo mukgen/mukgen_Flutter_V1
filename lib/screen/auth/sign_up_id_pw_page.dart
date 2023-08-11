@@ -26,9 +26,9 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
 
   bool _isButtonEnabled = false;
 
-  String idValid = '';
+  String idValid = '최소 5자, 최대 15자';
 
-  Color? idColor;
+  Color? idColor = MukGenColor.primaryLight2;
 
   @override
   void initState() {
@@ -54,7 +54,7 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
       });
 
       _previousIdValue = currentIdValue;
-    } 
+    }
     setState(() {
       _isButtonEnabled = idValid.contains("사용 가능한") &&
           Validation.getPwdValidation(pwdController.text).contains("사용 가능한") &&
@@ -120,6 +120,7 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
                     width: 352.0.w,
                     child: TextFormField(
                       controller: idController,
+                      cursorColor: MukGenColor.black,
                       style: TextStyle(
                         color: MukGenColor.black,
                         fontSize: 20.sp,
