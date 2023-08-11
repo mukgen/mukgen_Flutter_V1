@@ -1,12 +1,16 @@
+import 'package:flarelane_flutter/flarelane_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
+import 'package:mukgen_flutter_v1/secret.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  String flareLaneKey = getFlareLaneKey(); // 별도의 함수를 사용해 키를 가져옴
+  FlareLane.shared.initialize(flareLaneKey);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
