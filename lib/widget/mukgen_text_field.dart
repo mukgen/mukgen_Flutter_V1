@@ -11,6 +11,8 @@ class MukGenTextField extends StatefulWidget {
     required this.isPwdTextField,
     required this.maxLength,
     required this.autofocus,
+    this.nextFocusNode,
+    this.focusNode,
     this.height,
     this.hintText,
     this.helperText,
@@ -32,6 +34,9 @@ class MukGenTextField extends StatefulWidget {
   final TextAlign? textAlign;
   final bool isPwdTextField;
   final bool autofocus;
+
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
 
   @override
   State<MukGenTextField> createState() => _MukGenTextFieldState();
@@ -113,10 +118,17 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               controller: widget.controller,
               autofocus: widget.autofocus,
               keyboardType: widget.textInputType,
+              focusNode: widget.focusNode,
               textAlign: widget.textAlign != null
                   ? widget.textAlign!
                   : TextAlign.start,
-              onChanged: (value) => setState(() {}),
+              onChanged: (value) => setState(() {
+                if (widget.nextFocusNode == null && widget.controller.text.length == widget.maxLength){
+                  FocusScope.of(context).unfocus();
+                } else if (value.length == widget.maxLength) {
+                  widget.nextFocusNode?.requestFocus();
+                }
+              }),
               maxLength: widget.maxLength,
               cursorColor: MukGenColor.black,
               style: TextStyle(
