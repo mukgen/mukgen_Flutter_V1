@@ -65,7 +65,7 @@ class _MainReviewOtherDaysPageState extends State<MainReviewOtherDaysPage> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    !calendarChecked;
+                    calendarChecked = !calendarChecked;
                     if(calendarChecked) {
 
                     }
@@ -73,7 +73,7 @@ class _MainReviewOtherDaysPageState extends State<MainReviewOtherDaysPage> {
                 },
                 child: Icon(
                   CustomIcons.calendar,
-                  color: MukGenColor.primaryLight2,
+                  color: calendarChecked ? MukGenColor.pointLight1 : MukGenColor.primaryLight2,
                 ),
               ),
             ],
