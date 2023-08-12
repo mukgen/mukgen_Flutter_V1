@@ -52,7 +52,7 @@ class _MainNavigatorState extends State<MainNavigator> {
           ],
         ),
         bottomNavigationBar: SizedBox(
-          height: 86.0.h,
+          height: 100.0.h,
           child: BottomNavigationBar(
             backgroundColor: MukGenColor.white,
             type: BottomNavigationBarType.fixed,
