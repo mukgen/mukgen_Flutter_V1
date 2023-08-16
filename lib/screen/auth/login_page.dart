@@ -6,6 +6,7 @@ import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
+import 'package:mukgen_flutter_v1/widget/validate_login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -43,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _updateButtonState() {
     setState(() {
+      ValidateLogin.loginValue = '';
       _isButtonEnabled =
           idController.text.isNotEmpty && pwdController.text.isNotEmpty;
     });
@@ -105,6 +107,8 @@ class _LoginPageState extends State<LoginPage> {
               isPwdTextField: true,
               autofocus: false,
               maxLength: null,
+              helperText: ValidateLogin.loginValue,
+              color: MukGenColor.red,
             ),
             const Expanded(
               child: SizedBox(), // 빈 컨테이너 또는 원하는 위젯을 추가하세요
@@ -119,76 +123,86 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 16.0.sp,
               textColor: MukGenColor.white,
               onPressed: () {
-                postLogin(idController.text, pwdController.text).then((value) {
-                  if (value.message!.isNotEmpty) {
-                    storage.write(key: 'accessToken',
-                        value: value.tokenResponse!.accessToken);
-                    storage.write(key: 'refreshToken',
-                        value: value.tokenResponse!.refreshToken);
-                    showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9.16),
-                          ),
-                          content: SizedBox(
-                            width: 280.0.w,
-                            height: 45.0.h,
-                            child: SingleChildScrollView(
-                              child: ListBody(
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(top: 10.0.h),
-                                        child: Text(
-                                          value.message.toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'MukgenSemiBold',
-                                            fontSize: 24.0.sp,
-                                            fontWeight: FontWeight.w600,
+                postLogin(idController.text, pwdController.text).then(
+                  (value) {
+                    if (value.message!.isNotEmpty) {
+                      storage.write(
+                          key: 'accessToken',
+                          value: value.tokenResponse!.accessToken);
+                      storage.write(
+                          key: 'refreshToken',
+                          value: value.tokenResponse!.refreshToken);
+                      showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9.16),
+                            ),
+                            content: SizedBox(
+                              width: 280.0.w,
+                              height: 45.0.h,
+                              child: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(top: 10.0.h),
+                                          child: Text(
+                                            value.message.toString(),
+                                            style: TextStyle(
+                                              fontFamily: 'MukgenSemiBold',
+                                              fontSize: 24.0.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          actions: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 10.0.h, left: 4.0.w),
-                              child: MukGenButton(
-                                text: "확인",
-                                width: 285,
-                                height: 50,
-                                backgroundColor: MukGenColor.pointLight1,
-                                fontSize: 14,
-                                textColor: MukGenColor.white,
-                                onPressed: () {
-                                  if (_isButtonEnabled) {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            const MainNavigator()),
-                                            (route) => false);
-                                  }
-                                },
+                            actions: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: 10.0.h, left: 4.0.w),
+                                child: MukGenButton(
+                                  text: "확인",
+                                  width: 285,
+                                  height: 50,
+                                  backgroundColor: MukGenColor.pointLight1,
+                                  fontSize: 14,
+                                  textColor: MukGenColor.white,
+                                  onPressed: () {
+                                    if (_isButtonEnabled) {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const MainNavigator()),
+                                          (route) => false);
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 3.0.h)
-                          ],
-                        );
-                      },
-                    );
-                  }
-                });
-                SizedBox(height: 20.0.h);
+                              SizedBox(height: 3.0.h)
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  },
+                ).catchError(
+                  (error) {
+                    setState(() {
+                      ValidateLogin.loginValue = '아이디나 비밀번호가 맞지 않습니다.';
+                    });
+                  },
+                );
               },
             ),
           ],
