@@ -36,7 +36,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 65.0.h),
+          SizedBox(height: 50.0.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
