@@ -7,6 +7,7 @@ import 'package:mukgen_flutter_v1/screen/review/main_review_detail_page.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_select_page.dart';
 import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
 import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_posting_page.dart';
+import 'package:mukgen_flutter_v1/screen/user/my_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/screen/main_page.dart';
@@ -126,6 +127,9 @@ class _MainNavigatorState extends State<MainNavigator> {
       '/': (context) {
         return [
           MainHomePage(
+            onMyPage: () {
+              onNext(const MyPage());
+            },
             onDetail: (int boardId) {
               onNext(MainBoardDetailPage(
                 boardId: boardId,
