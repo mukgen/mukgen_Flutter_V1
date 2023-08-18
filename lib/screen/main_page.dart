@@ -13,9 +13,11 @@ import 'package:transition/transition.dart';
 import '../widget/comment_icon.dart';
 
 class MainHomePage extends StatefulWidget {
-  const MainHomePage({Key? key, required this.onDetail}) : super(key: key);
+  const MainHomePage({Key? key, required this.onDetail, required this.onMyPage})
+      : super(key: key);
 
   final Function(int) onDetail;
+  final VoidCallback onMyPage;
 
   @override
   State<MainHomePage> createState() => _MainHomePageState();
@@ -25,15 +27,12 @@ class _MainHomePageState extends State<MainHomePage> {
   Future<TodayMeal>? todayMeal;
   Future<HotBoard>? hotBoard;
   Future<MukGenPickBoard>? mukgenPick;
-  final PageController pageController = PageController(initialPage: 0, viewportFraction: 0.9);
+  final PageController pageController =
+      PageController(initialPage: 0, viewportFraction: 0.9);
 
   int boardId = 0;
 
-  List<String> foodImage = [
-    'BREAKFAST.png',
-    'LUNCH.png',
-    'DINNER.png'
-  ];
+  List<String> foodImage = ['BREAKFAST.png', 'LUNCH.png', 'DINNER.png'];
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +51,21 @@ class _MainHomePageState extends State<MainHomePage> {
               Container(
                 padding: EdgeInsets.only(left: 20.0.w),
                 child: Image(
-                  image: const AssetImage(
-                      'assets/images/MainPageMukgen.png'),
+                  image: const AssetImage('assets/images/MainPageMukgen.png'),
                   width: 104.0.w,
                 ),
               ),
-              Container(
+              Padding(
                 padding: EdgeInsets.only(right: 21.5.w),
-                child: IconButton(
-                  icon: const Icon(Icons.person),
-                  iconSize: 28,
-                  color: MukGenColor.primaryLight2,
-                  onPressed: null,
+                child: GestureDetector(
+                  onTap: () {
+                    widget.onMyPage();
+                  },
+                  child: Icon(
+                    Icons.person,
+                    size: 28.sp,
+                    color: MukGenColor.primaryLight2,
+                  ),
                 ),
               ),
             ],
@@ -117,7 +119,9 @@ class _MainHomePageState extends State<MainHomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        snapshot.data!.responseList![index].riceType.toString(),
+                                        snapshot
+                                            .data!.responseList![index].riceType
+                                            .toString(),
                                         style: TextStyle(
                                           color: MukGenColor.pointBase,
                                           fontFamily: 'MukgenSemiBold',
@@ -141,10 +145,12 @@ class _MainHomePageState extends State<MainHomePage> {
                                   width: 170.0.w,
                                   height: 170.0.h,
                                   child: ListView.builder(
-                                    itemCount: snapshot.data!.responseList![index].items!.length,
+                                    itemCount: snapshot.data!
+                                        .responseList![index].items!.length,
                                     itemBuilder: (context, itemIndex) {
                                       return Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
                                             itemList[itemIndex],
@@ -197,12 +203,12 @@ class _MainHomePageState extends State<MainHomePage> {
                     width: 353.0.w,
                     height: 69.0.h,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: MukGenColor.primaryLight3,
-                        border: Border.all(
-                          color: MukGenColor.pointLight4,
-                          width: 2.0.w,
-                        ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: MukGenColor.primaryLight3,
+                      border: Border.all(
+                        color: MukGenColor.pointLight4,
+                        width: 2.0.w,
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -279,9 +285,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-
-                },
+                onTap: () {},
                 child: Padding(
                   padding: EdgeInsets.only(right: 20.0.w),
                   child: Text(
@@ -311,7 +315,8 @@ class _MainHomePageState extends State<MainHomePage> {
                     child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
-                      itemCount: snapshot.data!.boardPopularResponseList!.length,
+                      itemCount:
+                          snapshot.data!.boardPopularResponseList!.length,
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
@@ -320,7 +325,11 @@ class _MainHomePageState extends State<MainHomePage> {
                                 return GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      boardId = snapshot.data!.boardPopularResponseList![index].boardId!.toInt();
+                                      boardId = snapshot
+                                          .data!
+                                          .boardPopularResponseList![index]
+                                          .boardId!
+                                          .toInt();
                                       widget.onDetail(boardId);
                                     });
                                   },
@@ -339,7 +348,12 @@ class _MainHomePageState extends State<MainHomePage> {
                                           height: 17.0.h,
                                           width: 209.0.w,
                                           child: Text(
-                                            snapshot.data!.boardPopularResponseList![index].title.toString(),
+                                            snapshot
+                                                .data!
+                                                .boardPopularResponseList![
+                                                    index]
+                                                .title
+                                                .toString(),
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               color: MukGenColor.black,
@@ -362,7 +376,12 @@ class _MainHomePageState extends State<MainHomePage> {
                                         SizedBox(
                                           width: 26.0.w,
                                           child: Text(
-                                            snapshot.data!.boardPopularResponseList![index].commentCount.toString(),
+                                            snapshot
+                                                .data!
+                                                .boardPopularResponseList![
+                                                    index]
+                                                .commentCount
+                                                .toString(),
                                             style: TextStyle(
                                               fontFamily: 'MukgenRegular',
                                               fontSize: 14.sp,
@@ -381,7 +400,12 @@ class _MainHomePageState extends State<MainHomePage> {
                                         SizedBox(
                                           width: 26.0.w,
                                           child: Text(
-                                            snapshot.data!.boardPopularResponseList![index].viewCount.toString(),
+                                            snapshot
+                                                .data!
+                                                .boardPopularResponseList![
+                                                    index]
+                                                .viewCount
+                                                .toString(),
                                             style: TextStyle(
                                               fontFamily: 'MukgenRegular',
                                               fontSize: 14.sp,
@@ -416,6 +440,7 @@ class _MainHomePageState extends State<MainHomePage> {
     );
   }
 }
+
 List<String> _parseItemList(String itemData) {
   final itemListString = itemData.substring(1, itemData.length - 1);
   return itemListString.split(', ');
