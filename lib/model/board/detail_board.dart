@@ -1,7 +1,7 @@
 class DetailBoard {
   String? title;
   String? content;
-  String? userName;
+  String? userNickname;
   int? likeCount;
   int? commentCount;
   List<LikeResponseList>? likeResponseList;
@@ -14,7 +14,7 @@ class DetailBoard {
   DetailBoard(
       {this.title,
         this.content,
-        this.userName,
+        this.userNickname,
         this.likeCount,
         this.commentCount,
         this.likeResponseList,
@@ -27,19 +27,19 @@ class DetailBoard {
   DetailBoard.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     content = json['content'];
-    userName = json['userName'];
+    userNickname = json['userNickname'];
     likeCount = json['likeCount'];
     commentCount = json['commentCount'];
     if (json['likeResponseList'] != null) {
       likeResponseList = <LikeResponseList>[];
       json['likeResponseList'].forEach((v) {
-        likeResponseList!.add(new LikeResponseList.fromJson(v));
+        likeResponseList!.add(LikeResponseList.fromJson(v));
       });
     }
     if (json['boardCommentList'] != null) {
       boardCommentList = <BoardCommentList>[];
       json['boardCommentList'].forEach((v) {
-        boardCommentList!.add(new BoardCommentList.fromJson(v));
+        boardCommentList!.add(BoardCommentList.fromJson(v));
       });
     }
     viewCount = json['viewCount'];
@@ -49,40 +49,40 @@ class DetailBoard {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['content'] = this.content;
-    data['userName'] = this.userName;
-    data['likeCount'] = this.likeCount;
-    data['commentCount'] = this.commentCount;
-    if (this.likeResponseList != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['content'] = content;
+    data['userNickname'] = userNickname;
+    data['likeCount'] = likeCount;
+    data['commentCount'] = commentCount;
+    if (likeResponseList != null) {
       data['likeResponseList'] =
-          this.likeResponseList!.map((v) => v.toJson()).toList();
+          likeResponseList!.map((v) => v.toJson()).toList();
     }
-    if (this.boardCommentList != null) {
+    if (boardCommentList != null) {
       data['boardCommentList'] =
-          this.boardCommentList!.map((v) => v.toJson()).toList();
+          boardCommentList!.map((v) => v.toJson()).toList();
     }
-    data['viewCount'] = this.viewCount;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['liked'] = this.liked;
+    data['viewCount'] = viewCount;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['liked'] = liked;
     return data;
   }
 }
 
 class LikeResponseList {
-  String? userName;
+  String? userNickname;
 
-  LikeResponseList({this.userName});
+  LikeResponseList({this.userNickname});
 
   LikeResponseList.fromJson(Map<String, dynamic> json) {
-    userName = json['userName'];
+    userNickname = json['userNickname'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userName'] = this.userName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userNickname'] = userNickname;
     return data;
   }
 }
@@ -104,11 +104,11 @@ class BoardCommentList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['writer'] = this.writer;
-    data['content'] = this.content;
-    data['createdAt'] = this.createdAt;
-    data['boardCommentId'] = this.boardCommentId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['writer'] = writer;
+    data['content'] = content;
+    data['createdAt'] = createdAt;
+    data['boardCommentId'] = boardCommentId;
     return data;
   }
 }
