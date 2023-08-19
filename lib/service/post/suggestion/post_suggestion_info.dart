@@ -19,7 +19,7 @@ Future<int> postSuggestionInfo(String content) async {
         "Content-Type": "application/json"
       },
       body: body);
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     print("성공");
     return 1;
   } else {
