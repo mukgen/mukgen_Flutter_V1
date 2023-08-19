@@ -140,7 +140,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                             alignment: Alignment.centerLeft,
                             padding: EdgeInsets.only(left: 15.0.w),
                             child: Text(
-                              snapshot.data!.userName.toString(),
+                              snapshot.data!.userNickname.toString(),
                               style: TextStyle(
                                 fontFamily: 'MukgenSemiBold',
                                 fontSize: 12.sp,
