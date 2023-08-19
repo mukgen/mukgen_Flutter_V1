@@ -24,16 +24,16 @@ class RankReview {
 
 class RankReviewResponseList {
   String? profileUrl;
-  String? userName;
+  String? userNickname;
   int? reviewCount;
   String? averageReview;
 
   RankReviewResponseList(
-      {this.profileUrl, this.userName, this.reviewCount, this.averageReview});
+      {this.profileUrl, this.userNickname, this.reviewCount, this.averageReview});
 
   RankReviewResponseList.fromJson(Map<String, dynamic> json) {
     profileUrl = json['profileUrl'];
-    userName = json['userName'];
+    userNickname = json['userNickname'];
     reviewCount = json['reviewCount'];
     averageReview = json['averageReview'];
   }
@@ -41,7 +41,7 @@ class RankReviewResponseList {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['profileUrl'] = profileUrl;
-    data['userName'] = userName;
+    data['userNickname'] = userNickname;
     data['reviewCount'] = reviewCount;
     data['averageReview'] = averageReview;
     return data;
