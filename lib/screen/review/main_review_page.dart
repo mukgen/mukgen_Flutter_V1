@@ -157,7 +157,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                               ),
                                               SizedBox(height: 4.0.h),
                                               Text(
-                                                snapshot.data!.reviewRankResponseList![index].userName.toString(),
+                                                snapshot.data!.reviewRankResponseList![index].userNickname.toString(),
                                                 style: TextStyle(
                                                   color: MukGenColor.black,
                                                   fontSize: 16.sp,
@@ -319,7 +319,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                       Padding(
                                         padding: EdgeInsets.only(right: 21.0.w, top: 1.0.h),
                                         child: Text(
-                                          snapshot.data!.reviewResponseList![index].userName.toString(),
+                                          snapshot.data!.reviewResponseList![index].userNickname.toString(),
                                           style: TextStyle(
                                             color: MukGenColor.primaryLight2,
                                             fontWeight: FontWeight.w600,
