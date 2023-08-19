@@ -200,7 +200,7 @@ class _MainReviewDetailPageState extends State<MainReviewDetailPage> {
                                Padding(
                                  padding: EdgeInsets.only(left: 15.0.w),
                                  child: Text(
-                                   detailReview.userName.toString(),
+                                   detailReview.userNickname.toString(),
                                    style: TextStyle(
                                      color: MukGenColor.primaryDark2,
                                      fontWeight: FontWeight.w600,
