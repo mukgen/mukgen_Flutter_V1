@@ -302,7 +302,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                             left: 16.0.w,
                                             child: GestureDetector(
                                               onTap: () {
-                                                entered == true ? postLeaveDeliveryParty(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt()) : postJoinDeliveryParty(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
+                                                entered == true ? postLeaveDeliveryPartyInfo(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt()) : postJoinDeliveryPartyInfo(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
                                               },
                                               child: AnimatedOpacity(
                                                 duration: const Duration(milliseconds: 200),
