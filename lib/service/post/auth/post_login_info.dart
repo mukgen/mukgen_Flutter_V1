@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/model/auth/login_response.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<LoginResponse> postLogin(String accountId, String password) async {
+Future<LoginResponse> postLoginInfo(String accountId, String password) async {
 
   Map<String, dynamic> data = {
     "accountId" : accountId,
