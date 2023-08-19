@@ -412,7 +412,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                   onTap: () {
                     if (_isButtonEnabled) {
                       setState(() {
-                        postBoardComment(
+                        postBoardCommentInfo(
                             widget.boardId, commentController.text);
                         commentController.clear();
                       });
