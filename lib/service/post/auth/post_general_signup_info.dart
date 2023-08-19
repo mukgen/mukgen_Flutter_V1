@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<int> postGeneralSignup(String name, String accountId, String password,
+Future<int> postGeneralSignupInfo(String nickname, String accountId, String password,
     String passwordCheck, String phoneNumber, String mail) async {
   Map<String, dynamic> data = {
-    "name": name,
+    "nickname": nickname,
     "accountId": accountId,
     "password": password,
     "passwordCheck": passwordCheck,
@@ -23,7 +23,7 @@ Future<int> postGeneralSignup(String name, String accountId, String password,
     },
     body: body,
   );
-  if (response.statusCode == 201) {
+  if (response.statusCode == 200) {
     return 1;
   } else {
     print(body);

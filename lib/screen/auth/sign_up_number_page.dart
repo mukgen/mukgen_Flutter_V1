@@ -183,7 +183,7 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
               if (_isButtonEnabled) {
                 String phone = "";
                 phone += _firstController.text + _secondController.text + _thirdController.text;
-                postGeneralSignup(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone, widget.email).then((value){
+                postGeneralSignupInfo(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone, widget.email).then((value){
                   if(value == 1) {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const StartingPage()));
