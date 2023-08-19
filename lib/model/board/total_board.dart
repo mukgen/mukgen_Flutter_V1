@@ -6,22 +6,22 @@ class BoardResponse {
 
   BoardResponse.fromJson(Map<String, dynamic> json) {
     boardListResponse = json['boardListResponse'] != null
-        ? new BoardListResponse.fromJson(json['boardListResponse'])
+        ? BoardListResponse.fromJson(json['boardListResponse'])
         : null;
     boardPopularListResponse = json['boardPopularListResponse'] != null
-        ? new BoardPopularListResponse.fromJson(
+        ? BoardPopularListResponse.fromJson(
         json['boardPopularListResponse'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.boardListResponse != null) {
-      data['boardListResponse'] = this.boardListResponse!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (boardListResponse != null) {
+      data['boardListResponse'] = boardListResponse!.toJson();
     }
-    if (this.boardPopularListResponse != null) {
+    if (boardPopularListResponse != null) {
       data['boardPopularListResponse'] =
-          this.boardPopularListResponse!.toJson();
+          boardPopularListResponse!.toJson();
     }
     return data;
   }
@@ -36,16 +36,16 @@ class BoardListResponse {
     if (json['boardMinimumResponseList'] != null) {
       boardMinimumResponseList = <BoardMinimumResponseList>[];
       json['boardMinimumResponseList'].forEach((v) {
-        boardMinimumResponseList!.add(new BoardMinimumResponseList.fromJson(v));
+        boardMinimumResponseList!.add(BoardMinimumResponseList.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.boardMinimumResponseList != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (boardMinimumResponseList != null) {
       data['boardMinimumResponseList'] =
-          this.boardMinimumResponseList!.map((v) => v.toJson()).toList();
+          boardMinimumResponseList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -55,7 +55,7 @@ class BoardMinimumResponseList {
   int? boardId;
   String? title;
   String? content;
-  String? userName;
+  String? userNickname;
   int? likeCount;
   int? commentCount;
   int? viewCount;
@@ -67,7 +67,7 @@ class BoardMinimumResponseList {
       {this.boardId,
         this.title,
         this.content,
-        this.userName,
+        this.userNickname,
         this.likeCount,
         this.commentCount,
         this.viewCount,
@@ -79,7 +79,7 @@ class BoardMinimumResponseList {
     boardId = json['boardId'];
     title = json['title'];
     content = json['content'];
-    userName = json['userName'];
+    userNickname = json['userNickname'];
     likeCount = json['likeCount'];
     commentCount = json['commentCount'];
     viewCount = json['viewCount'];
@@ -89,17 +89,17 @@ class BoardMinimumResponseList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['boardId'] = this.boardId;
-    data['title'] = this.title;
-    data['content'] = this.content;
-    data['userName'] = this.userName;
-    data['likeCount'] = this.likeCount;
-    data['commentCount'] = this.commentCount;
-    data['viewCount'] = this.viewCount;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['updated'] = this.updated;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['boardId'] = boardId;
+    data['title'] = title;
+    data['content'] = content;
+    data['userNickname'] = userNickname;
+    data['likeCount'] = likeCount;
+    data['commentCount'] = commentCount;
+    data['viewCount'] = viewCount;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['updated'] = updated;
     return data;
   }
 }
@@ -113,16 +113,16 @@ class BoardPopularListResponse {
     if (json['boardPopularResponseList'] != null) {
       boardPopularResponseList = <BoardPopularResponseList>[];
       json['boardPopularResponseList'].forEach((v) {
-        boardPopularResponseList!.add(new BoardPopularResponseList.fromJson(v));
+        boardPopularResponseList!.add(BoardPopularResponseList.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.boardPopularResponseList != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (boardPopularResponseList != null) {
       data['boardPopularResponseList'] =
-          this.boardPopularResponseList!.map((v) => v.toJson()).toList();
+          boardPopularResponseList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -145,11 +145,11 @@ class BoardPopularResponseList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['boardId'] = this.boardId;
-    data['title'] = this.title;
-    data['commentCount'] = this.commentCount;
-    data['viewCount'] = this.viewCount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['boardId'] = boardId;
+    data['title'] = title;
+    data['commentCount'] = commentCount;
+    data['viewCount'] = viewCount;
     return data;
   }
 }
