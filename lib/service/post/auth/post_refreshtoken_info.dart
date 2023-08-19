@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/model/auth/refreshToken_response.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<RefreshTokenResponse> postRefreshToken(String accessToken, String refreshToken) async {
+Future<RefreshTokenResponse> postRefreshTokenInfo(String accessToken, String refreshToken) async {
 
   Map<String, dynamic> data = {
     "accessToken" : accessToken,
