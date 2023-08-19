@@ -271,7 +271,7 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
               DateTime now = DateTime.now();
               DateTime customDateTime = DateTime(now.year, now.month, now.day, hourValues, minuteValues, 0);
               String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(customDateTime);
-              postDeliveryParty(widget.menu, widget.participantNumber, widget.place, formattedDateTime);
+              postDeliveryPartyInfo(widget.menu, widget.participantNumber, widget.place, formattedDateTime);
               print(formattedDateTime);
               Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainDeliveryPartyPage'); // Main 페이지로 갈 때 까지 pop
             },
