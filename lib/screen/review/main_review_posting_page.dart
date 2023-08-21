@@ -58,8 +58,9 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
         });
       },
       child: Image(
+        color: starIndex >= index ? MukGenColor.pointLight1 : MukGenColor.primaryLight2,
         image: AssetImage(
-          starIndex >= index ? 'assets/images/Star.png' : 'assets/images/StarOutlined.png',
+          'assets/images/Star.png',
         ),
         width: 48.0.w,
         height: 48.0.h,
