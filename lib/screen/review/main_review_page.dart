@@ -157,7 +157,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                               ),
                                               SizedBox(height: 4.0.h),
                                               Text(
-                                                snapshot.data!.reviewRankResponseList![index].userNickname.toString(),
+                                                snapshot.data!.reviewRankResponseList![index].userName.toString(),
                                                 style: TextStyle(
                                                   color: MukGenColor.black,
                                                   fontSize: 16.sp,
