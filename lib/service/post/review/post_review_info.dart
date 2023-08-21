@@ -1,23 +1,38 @@
-import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
+import 'package:mukgen_flutter_v1/widget/review/review_posting_image.dart';
+import 'package:path/path.dart';
 
 Future<void> postReviewInfo(int count, String review, int riceId) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
 
-  final response = await http.post(Uri.parse("$baseUrl/review/$riceId"+"?count="+count.toString()+"&review="+review),
-      headers: <String, String>{
-        "Authorization": "Bearer $accessToken",
-        "Content-Type": "application/json"
-      });
-  if (response.statusCode == 201) {
-    print("성공");
-  } else {
-    print("실패");
-    print(response.statusCode.toString()); // 오류 코드 출력
-    print(utf8.decode(response.bodyBytes)); // 서버에서 주는 오류 메시지 출력
+  final dio = Dio();
+  dio.options.headers["Authorization"] = "Bearer $accessToken";
+  const url = "$baseUrl/user/profile/upload?";
+  final fileName = basename(ReviewPostingImage.image!.path);
+  final formData = FormData.fromMap({
+    'images': await MultipartFile.fromFile(ReviewPostingImage.image!.path, filename: fileName),
+  });
+
+  final Response response;
+
+  try {
+    if (ReviewPostingImage.image != null) {
+      response = await dio.post(url, data: formData);
+    } else {
+      response = await dio.post(url);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.data);
+    } else {
+      throw Exception(response.statusMessage);
+    }
+  } catch (e) {
+    print(e);
+    throw Exception();
   }
 }
