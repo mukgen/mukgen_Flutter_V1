@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/model/user/profile_upload.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
 import 'package:mukgen_flutter_v1/screen/user/user_info_page.dart';
 import 'package:mukgen_flutter_v1/service/get/user/get_user_profile_info.dart';
+import 'package:mukgen_flutter_v1/service/post/user/post_upload_profile_info.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mukgen_flutter_v1/widget/user/my_widget.dart';
 import 'package:transition/transition.dart';
+
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -17,6 +21,19 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   Future<ProfileUser>? profileUser;
+
+  Future<ProfileUpload?> _pickImage(ImageSource imageSource) async {
+    final picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: imageSource);
+
+    if (pickedFile == null) {
+      return null;
+    }
+
+    return postUploadProfileInfo(pickedFile);
+  }
+
+
 
   @override
   void initState() {
@@ -78,9 +95,11 @@ class _MyPageState extends State<MyPage> {
                                 width: 80.0.h,
                                 height: 80.0.h,
                                 child: profileUser.profileUrl == null
-                                    ? const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/SpoonProfile.png'),
+                                    ? CircleAvatar(
+                                  backgroundImage: const AssetImage(
+                                      'assets/images/DefaultProfile.png'),
+                                  backgroundColor:
+                                  MukGenColor.primaryLight2,
                                 )
                                     : CircleAvatar(
                                   backgroundImage: NetworkImage(
@@ -91,26 +110,81 @@ class _MyPageState extends State<MyPage> {
                               Positioned(
                                 bottom: 0.h,
                                 right: 0.w,
-                                child: Container(
-                                  height: 25.33.h,
-                                  width: 25.33.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      width: 2.0.w,
-                                      color: MukGenColor.white,
-                                    ),
-                                  ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          height: 100.0.h,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    _pickImage(ImageSource.camera);
+                                                  },
+                                                  child: Container(
+                                                    color:
+                                                    MukGenColor.pointLight1,
+                                                    height: 50.h,
+                                                    width: 70.0.w,
+                                                    child: const Center(
+                                                      child: Text(
+                                                        '카메라',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    _pickImage(ImageSource.gallery);
+                                                  },
+                                                  child: Container(
+                                                    color:
+                                                    MukGenColor.pointLight1,
+                                                    height: 50.h,
+                                                    width: 70.0.w,
+                                                    child: const Center(
+                                                      child: Text(
+                                                        '갤러리',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                                   child: Container(
+                                    height: 25.33.h,
+                                    width: 25.33.w,
                                     decoration: BoxDecoration(
-                                      color: MukGenColor.pointLight1,
                                       shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.edit,
-                                        size: 10.sp,
+                                      border: Border.all(
+                                        width: 2.0.w,
                                         color: MukGenColor.white,
+                                      ),
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: MukGenColor.pointLight1,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.edit,
+                                          size: 10.sp,
+                                          color: MukGenColor.white,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -120,7 +194,7 @@ class _MyPageState extends State<MyPage> {
                           ),
                           SizedBox(width: 20.0.w),
                           Text(
-                            profileUser.name.toString(),
+                            profileUser.nickname.toString(),
                             style: TextStyle(
                               color: MukGenColor.black,
                               fontSize: 20.sp,
@@ -164,10 +238,9 @@ class _MyPageState extends State<MyPage> {
                   ),
                 ),
                 SizedBox(height: 10.0.h),
-                Container(
+                Divider(
                   color: MukGenColor.primaryLight3,
-                  height: 6.0.h,
-                  width: 393.0.w,
+                  thickness: 6.h,
                 ),
                 SizedBox(height: 10.0.h),
                 Column(

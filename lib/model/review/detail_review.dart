@@ -1,20 +1,20 @@
 class DetailReview {
   int? count;
-  String? userName;
+  String? userNickname;
   String? content;
   String? createdAt;
   List<ReviewCommentResponseList>? reviewCommentResponseList;
 
   DetailReview(
       {this.count,
-        this.userName,
+        this.userNickname,
         this.content,
         this.createdAt,
         this.reviewCommentResponseList});
 
   DetailReview.fromJson(Map<String, dynamic> json) {
     count = json['count'];
-    userName = json['userName'];
+    userNickname = json['userNickname'];
     content = json['content'];
     createdAt = json['createdAt'];
     if (json['reviewCommentResponseList'] != null) {
@@ -29,7 +29,7 @@ class DetailReview {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['count'] = count;
-    data['userName'] = userName;
+    data['userNickname'] = userNickname;
     data['content'] = content;
     data['createdAt'] = createdAt;
     if (reviewCommentResponseList != null) {

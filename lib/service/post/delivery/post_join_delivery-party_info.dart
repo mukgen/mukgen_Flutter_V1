@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<int> postJoinDeliveryParty(int deliveryId) async {
+Future<int> postJoinDeliveryPartyInfo(int deliveryId) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.post(Uri.parse("$baseUrl/delivery-party/join/$deliveryId"),

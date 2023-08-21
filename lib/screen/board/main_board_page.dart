@@ -529,7 +529,7 @@ class _MainBoardPageState extends State<MainBoardPage> {
                                                                   .boardListResponse!
                                                                   .boardMinimumResponseList![
                                                                       adjustedIndex]
-                                                                  .userName
+                                                                  .userNickname
                                                                   .toString(),
                                                               style: TextStyle(
                                                                 color: MukGenColor

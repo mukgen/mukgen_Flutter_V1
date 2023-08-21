@@ -10,9 +10,9 @@ class LikeBoard {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['boardLike'] = this.boardLike;
-    data['liked'] = this.liked;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['boardLike'] = boardLike;
+    data['liked'] = liked;
     return data;
   }
 }

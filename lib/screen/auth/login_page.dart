@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 16.0.sp,
               textColor: MukGenColor.white,
               onPressed: () {
-                postLogin(idController.text, pwdController.text).then(
+                postLoginInfo(idController.text, pwdController.text).then(
                   (value) {
                     if (value.message!.isNotEmpty) {
                       storage.write(

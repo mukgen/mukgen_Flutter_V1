@@ -88,7 +88,7 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                   setState(() {
                     if (titleController.text.isNotEmpty &&
                         contentController.text.isNotEmpty) {
-                      postBoard(titleController.text, contentController.text);
+                      postBoardInfo(titleController.text, contentController.text);
                       totalBoard = getBoardInfo(widget.query);
                       Navigator.of(context).pop();
                     }

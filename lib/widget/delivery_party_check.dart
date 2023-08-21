@@ -166,7 +166,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                               children: [
                                                                 SizedBox(width: 5.0.w),
                                                                 Text(
-                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].name.toString(),
+                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].nickname.toString(),
                                                                   style: TextStyle(
                                                                     color: entered ? MukGenColor.pointLight4 : MukGenColor.black,
                                                                     fontSize: 12.sp,
@@ -276,7 +276,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.length > 3 ? '${listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name!.substring(0, 3)}...' : listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].name.toString(),
+                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].nickname!.length > 3 ? '${listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].nickname!.substring(0, 3)}...' : listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].nickname.toString(),
                                                                   overflow: TextOverflow.ellipsis,
                                                                   maxLines: 1,
                                                                   style: TextStyle(
@@ -302,7 +302,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                             left: 16.0.w,
                                             child: GestureDetector(
                                               onTap: () {
-                                                entered == true ? postLeaveDeliveryParty(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt()) : postJoinDeliveryParty(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
+                                                entered == true ? postLeaveDeliveryPartyInfo(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt()) : postJoinDeliveryPartyInfo(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
                                               },
                                               child: AnimatedOpacity(
                                                 duration: const Duration(milliseconds: 200),

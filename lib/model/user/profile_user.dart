@@ -1,20 +1,20 @@
 class ProfileUser {
   String? accountId;
-  String? name;
+  String? nickname;
   String? profileUrl;
   String? phoneNumber;
   String? mail;
 
   ProfileUser(
       {this.accountId,
-        this.name,
+        this.nickname,
         this.profileUrl,
         this.phoneNumber,
         this.mail});
 
   ProfileUser.fromJson(Map<String, dynamic> json) {
     accountId = json['accountId'];
-    name = json['name'];
+    nickname = json['nickname'];
     profileUrl = json['profileUrl'];
     phoneNumber = json['phoneNumber'];
     mail = json['mail'];
@@ -23,7 +23,7 @@ class ProfileUser {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['accountId'] = accountId;
-    data['name'] = name;
+    data['nickname'] = nickname;
     data['profileUrl'] = profileUrl;
     data['phoneNumber'] = phoneNumber;
     data['mail'] = mail;

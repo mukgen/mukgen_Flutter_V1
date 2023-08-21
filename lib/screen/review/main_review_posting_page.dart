@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/service/post/review/post_review_info.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
+import 'package:mukgen_flutter_v1/widget/review/review_posting_image.dart';
 
 class MainReviewPostingPage extends StatefulWidget {
-  const MainReviewPostingPage({Key? key, required this.riceId, required this.riceType}) : super(key: key);
+  const MainReviewPostingPage(
+      {Key? key, required this.riceId, required this.riceType})
+      : super(key: key);
 
   final int? riceId;
   final String? riceType;
@@ -28,6 +34,20 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
 
   bool _isButtonEnabled = false;
 
+  Future<XFile?> _pickImage(ImageSource imageSource) async {
+    final picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: imageSource);
+
+    if (pickedFile == null) {
+      return ReviewPostingImage.image = null;
+    } else {
+      setState(() {
+        ReviewPostingImage.image = pickedFile;
+      });
+    }
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -45,21 +65,25 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
 
   void _updateButtonState() {
     setState(() {
-      _isButtonEnabled = reviewController.text.isNotEmpty;
+      _isButtonEnabled = reviewController.text.isNotEmpty && starIndex != 0;
       reviewCharacterCount = reviewController.text.length;
     });
   }
 
-  Widget _starChange (int index){
+  Widget _starChange(int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
           starIndex = index;
+          _updateButtonState();
         });
       },
       child: Image(
-        image: AssetImage(
-          starIndex >= index ? 'assets/images/Star.png' : 'assets/images/StarOutlined.png',
+        color: starIndex >= index
+            ? MukGenColor.pointLight1
+            : MukGenColor.primaryLight2,
+        image: const AssetImage(
+          'assets/images/Star.png',
         ),
         width: 48.0.w,
         height: 48.0.h,
@@ -143,9 +167,10 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
               color: MukGenColor.primaryLight3,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: _focusNode.hasFocus ? MukGenColor.pointBase : MukGenColor.primaryLight3,
-                width: 2.0.w
-              ),
+                  color: _focusNode.hasFocus
+                      ? MukGenColor.pointBase
+                      : MukGenColor.primaryLight3,
+                  width: 2.0.w),
             ),
             child: TextFormField(
               focusNode: _focusNode,
@@ -158,7 +183,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: 16.0.w, top: 16.0.h),
                 counterText: '',
-                hintText : '내용을 입력해주세요.',
+                hintText: '내용을 입력해주세요.',
                 hintStyle: TextStyle(
                   color: MukGenColor.primaryLight2,
                   fontWeight: FontWeight.w600,
@@ -188,6 +213,40 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
               ],
             ),
           ),
+          SizedBox(height: 20.0.h),
+          SizedBox(
+            width: 353.0.w,
+            height: 24.0.h,
+            child: Row(
+              children: [
+                Text(
+                  '사진',
+                  style: TextStyle(
+                    color: MukGenColor.black,
+                    fontSize: 20.sp,
+                    fontFamily: 'MukgenSemiBold',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(width: 6.0.w),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      '최대 1장',
+                      style: TextStyle(
+                        color: MukGenColor.primaryLight2,
+                        fontSize: 14.sp,
+                        fontFamily: 'MukgenSemiBold',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10.0.h),
           Row(
             children: [
               SizedBox(width: 20.0.w),
@@ -204,8 +263,55 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  onPressed: (){
-
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          height: 100.0.h,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    _pickImage(ImageSource.camera);
+                                  },
+                                  child: Container(
+                                    color: MukGenColor.pointLight1,
+                                    height: 50.h,
+                                    width: 70.0.w,
+                                    child: const Center(
+                                      child: Text(
+                                        '카메라',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    _pickImage(ImageSource.gallery);
+                                  },
+                                  child: Container(
+                                    color: MukGenColor.pointLight1,
+                                    height: 50.h,
+                                    width: 70.0.w,
+                                    child: const Center(
+                                      child: Text(
+                                        '갤러리',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Icon(
                     Icons.add,
@@ -214,6 +320,50 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                   ),
                 ),
               ),
+              SizedBox(width: 10.0.w),
+              if (ReviewPostingImage.image != null)
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      width: 80.0.w,
+                      height: 80.0.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: FileImage(File(ReviewPostingImage.image!.path)),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: -7.0.h,
+                      right: -7.0.w,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            ReviewPostingImage.image = null;
+                          });
+                        },
+                        child: Container(
+                          width: 24.0.w,
+                          height: 24.0.h,
+                          decoration: BoxDecoration(
+                            color: MukGenColor.primaryLight2,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.close,
+                              color: MukGenColor.white,
+                              size: 15.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
             ],
           ),
           SizedBox(height: 16.0.h),
@@ -233,8 +383,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                       color: MukGenColor.black,
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
-                      fontFamily: 'MukgenSemiBold'
-                  ),
+                      fontFamily: 'MukgenSemiBold'),
                 ),
                 Container(
                     height: 55.0.h,
@@ -245,9 +394,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: (){
-
-                      },
+                      onPressed: () {},
                       child: Text(
                         '급식 건의',
                         style: TextStyle(
@@ -257,8 +404,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           ),
@@ -274,7 +420,8 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
             fontSize: 16.sp,
             onPressed: () {
               postReviewInfo(starIndex, reviewController.text, widget.riceId!);
-              Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainReviewPage');
+              Navigator.of(context).popUntil((route) =>
+                  route.isFirst || route.settings.name == '/MainReviewPage');
             },
           ),
           SizedBox(height: 20.0.h),

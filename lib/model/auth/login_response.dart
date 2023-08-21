@@ -6,17 +6,17 @@ class LoginResponse {
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
     tokenResponse = json['tokenResponse'] != null
-        ? new TokenResponse.fromJson(json['tokenResponse'])
+        ? TokenResponse.fromJson(json['tokenResponse'])
         : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.tokenResponse != null) {
-      data['tokenResponse'] = this.tokenResponse!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (tokenResponse != null) {
+      data['tokenResponse'] = tokenResponse!.toJson();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -33,9 +33,9 @@ class TokenResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['accessToken'] = this.accessToken;
-    data['refreshToken'] = this.refreshToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['accessToken'] = accessToken;
+    data['refreshToken'] = refreshToken;
     return data;
   }
 }

@@ -74,16 +74,16 @@ class DeliveryPartyResponseList {
 
 class UserInfoResponseList {
   String? accountId;
-  String? name;
+  String? nickname;
   String? phoneNumber;
   String? profileUrl;
 
   UserInfoResponseList(
-      {this.accountId, this.name, this.phoneNumber, this.profileUrl});
+      {this.accountId, this.nickname, this.phoneNumber, this.profileUrl});
 
   UserInfoResponseList.fromJson(Map<String, dynamic> json) {
     accountId = json['accountId'];
-    name = json['name'];
+    nickname = json['nickname'];
     phoneNumber = json['phoneNumber'];
     profileUrl = json['profileUrl'];
   }
@@ -91,7 +91,7 @@ class UserInfoResponseList {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['accountId'] = accountId;
-    data['name'] = name;
+    data['nickname'] = nickname;
     data['phoneNumber'] = phoneNumber;
     data['profileUrl'] = profileUrl;
     return data;
