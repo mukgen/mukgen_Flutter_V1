@@ -11,9 +11,9 @@ import 'package:mukgen_flutter_v1/model/review/rank_review.dart';
 import 'package:transition/transition.dart';
 
 class MainReviewPage extends StatefulWidget {
-  const MainReviewPage({Key? key, required this.onReview, required this.onDetail}) : super(key: key);
+  const MainReviewPage({Key? key, required this.onReview, required this.onDetail, required this.onMyPage}) : super(key: key);
 
-  final VoidCallback onReview;
+  final VoidCallback onReview, onMyPage;
   final Function(String, int) onDetail;
 
   @override
@@ -69,7 +69,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                 padding: EdgeInsets.only(right: 23.0.w),
                 child: GestureDetector(
                   onTap: () {
-
+                    widget.onMyPage();
                   },
                   child: Icon(
                     Icons.person,
@@ -148,8 +148,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                                     ? CircleAvatar(
                                                   radius: 100.r,
                                                   backgroundImage: NetworkImage(snapshot.data!.reviewRankResponseList![index].profileUrl.toString()),
-                                                )
-                                                    : CircleAvatar(
+                                                ) : CircleAvatar(
                                                   radius: 100.r,
                                                   backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
                                                   backgroundColor: MukGenColor.primaryLight2,
@@ -259,7 +258,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                     Navigator.push(
                       context,
                       Transition(
-                        child: const MainReviewOtherDaysPage(),
+                        child: MainReviewOtherDaysPage(),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     );
