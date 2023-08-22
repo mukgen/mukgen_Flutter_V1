@@ -39,7 +39,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     return WillPopScope(
       onWillPop: () async {
         final isFirstRouteInCurrentTab =
-        !await _navigatorKeys[_selectedIndex].currentState!.maybePop();
+            !await _navigatorKeys[_selectedIndex].currentState!.maybePop();
         return isFirstRouteInCurrentTab;
       },
       child: Scaffold(
@@ -111,7 +111,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     );
   }
 
-
   void onNext(Widget page) {
     Navigator.push(
       context,
@@ -150,14 +149,22 @@ class _MainNavigatorState extends State<MainNavigator> {
               onNext(const MainSuggestionPostingPage());
             },
           ),
-          MainReviewPage(onReview: () {
-            onNext(const MainReviewSelectPage());
-          }, onDetail: (String riceType, int reviewId) {
-            onNext(MainReviewDetailPage(
-              riceType: riceType,
-              reviewId: reviewId,
-            ));
-          }),
+          MainReviewPage(
+            onReview: () {
+              onNext(const MainReviewSelectPage());
+            },
+            onDetail: (String riceType, int reviewId) {
+              onNext(
+                MainReviewDetailPage(
+                  riceType: riceType,
+                  reviewId: reviewId,
+                ),
+              );
+            },
+            onMyPage: () {
+              onNext(const MyPage());
+            },
+          ),
           MainDeliveryPartyPage(onFood: () {
             onNext(const DeliveryWhatFoodPage());
           }),

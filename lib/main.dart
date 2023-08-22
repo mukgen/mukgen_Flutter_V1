@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
 
 void main() {
@@ -11,11 +13,14 @@ void main() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   String flareLaneKey = getFlareLaneKey(); // 별도의 함수를 사용해 키를 가져옴
   FlareLane.shared.initialize(flareLaneKey);
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(MyApp());
+  initializeDateFormatting().then((_) {
+    Intl.defaultLocale = 'ko_KR';
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]).then((_) {
+      runApp(const MyApp());
+    });
   });
 }
 
@@ -41,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(393, 852),
+      designSize: const Size(393, 852),
       builder: (context, child) => MaterialApp(
         builder: (context, child) {
           return MediaQuery(
@@ -49,7 +54,7 @@ class _MyAppState extends State<MyApp> {
               child: child!,
           );
         },
-        home: StartingPage(),
+        home: const StartingPage(),
         debugShowCheckedModeBanner: false,
       ),
     );

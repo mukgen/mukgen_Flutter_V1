@@ -7,8 +7,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 
 class SignupNumberPage extends StatefulWidget {
-  const SignupNumberPage({Key? key, required this.email, required this.name, required this.id, required this.pwd, required this.pwdcheck}) : super(key: key);
+  const SignupNumberPage(
+      {Key? key,
+      required this.email,
+      required this.name,
+      required this.id,
+      required this.pwd,
+      required this.pwdcheck})
+      : super(key: key);
   final String email, name, id, pwd, pwdcheck;
+
   @override
   State<SignupNumberPage> createState() => _SignupNumberPageState();
 }
@@ -175,20 +183,29 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
             text: "완료",
             width: 352,
             height: 55,
-            backgroundColor:
-                _isButtonEnabled ? MukGenColor.pointLight1 : MukGenColor.primaryLight2,
+            backgroundColor: _isButtonEnabled
+                ? MukGenColor.pointLight1
+                : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
               if (_isButtonEnabled) {
                 String phone = "";
-                phone += _firstController.text + _secondController.text + _thirdController.text;
-                postGeneralSignupInfo(widget.name, widget.id, widget.pwd, widget.pwdcheck, phone, widget.email).then((value){
-                  if(value == 1) {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const StartingPage()));
-                  }
-                });
+                phone += _firstController.text +
+                    _secondController.text +
+                    _thirdController.text;
+                postGeneralSignupInfo(widget.name, widget.id, widget.pwd,
+                        widget.pwdcheck, phone, widget.email)
+                    .then(
+                  (value) {
+                    if (value) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => const StartingPage()),
+                        (route) => false
+                      );
+                    }
+                  },
+                );
               }
             },
           ),
