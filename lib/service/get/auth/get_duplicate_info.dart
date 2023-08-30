@@ -1,18 +1,17 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mukgen_flutter_v1/model/auth/duplicate_response.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<bool> getDuplicateInfo(String accountId) async {
+Future<DuplicateResponse> getDuplicateInfo(String accountId) async {
   final response = await http.get(
     Uri.parse("$baseUrl/auth/duplicate?accountId=$accountId"),
-    headers: {"Content-Type": "application/json",},
+    headers: {"Content-Type": "application/json"},
   );
   if (response.statusCode == 200) {
-    print(response.body);
-    return jsonDecode(response.body);
+    return DuplicateResponse.fromJson(jsonDecode(response.body));
   } else {
-    print('실패');
-    return false;
+    throw Exception(response.body);
   }
 }
