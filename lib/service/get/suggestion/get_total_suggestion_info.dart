@@ -10,10 +10,14 @@ Future<TotalSuggestion> getTotalSuggestionInfo() async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/meal-suggestion/list"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
-    return TotalSuggestion.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return TotalSuggestion.fromJson(
+        jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception(response.body);
   }

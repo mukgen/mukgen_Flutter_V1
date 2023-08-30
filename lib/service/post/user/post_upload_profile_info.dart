@@ -11,6 +11,7 @@ Future<ProfileUpload> postUploadProfileInfo(XFile imageFile) async {
 
   final dio = Dio();
   dio.options.headers["Authorization"] = "Bearer $accessToken";
+  dio.options.headers["X-Not-Using-Xquare-Auth"] = "true";
   const url = "$baseUrl/user/profile/upload?";
   final fileName = basename(imageFile.path);
   final formData = FormData.fromMap({

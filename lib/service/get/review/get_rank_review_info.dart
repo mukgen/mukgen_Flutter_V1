@@ -10,7 +10,10 @@ Future<RankReview> getRankReviewInfo() async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/review/rank"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     return RankReview.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));

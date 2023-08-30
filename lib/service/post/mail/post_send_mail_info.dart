@@ -5,14 +5,17 @@ import 'package:mukgen_flutter_v1/secret.dart';
 
 Future<int> postSendMailInfo(String mail) async {
   Map<String, dynamic> data = {
-    "mail" : mail,
+    "mail": mail,
   };
 
   var body = json.encode(data);
 
   final response = await http.post(
     Uri.parse("$baseUrl/mail/send"),
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
     body: body,
   );
 

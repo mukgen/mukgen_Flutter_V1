@@ -20,6 +20,7 @@ Future<bool> postGeneralSignupInfo(String nickname, String accountId, String pas
     Uri.parse("$baseUrl/auth/signup/general"),
     headers: {
       "Content-Type": "application/json",
+      "X-Not-Using-Xquare-Auth": "true",
     },
     body: body,
   );

@@ -10,7 +10,10 @@ Future<ProfileUser> getUserProfileInfo() async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/user/profile"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     return ProfileUser.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));

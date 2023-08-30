@@ -7,7 +7,10 @@ Future<void> postDislikeSuggestionInfo(int mealSuggestionId) async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.post(
     Uri.parse("$baseUrl/meal-suggestion/dislike/$mealSuggestionId"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 201) {
     print('성공');

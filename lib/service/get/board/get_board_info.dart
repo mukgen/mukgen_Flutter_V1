@@ -11,7 +11,10 @@ Future<BoardResponse> getBoardInfo(String query) async {
   print(accessToken);
   final response = await http.get(
     Uri.parse("$baseUrl/board/$query"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     return BoardResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));

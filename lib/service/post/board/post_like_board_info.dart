@@ -10,7 +10,10 @@ Future<LikeBoard> postLikeBoardInfo(int boardId) async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.post(
     Uri.parse("$baseUrl/like/${boardId.toString()}"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     return LikeBoard.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));

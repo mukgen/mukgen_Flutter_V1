@@ -5,15 +5,18 @@ import 'package:mukgen_flutter_v1/secret.dart';
 
 Future<bool> postAuthenticateMailInfo(String mail, String code) async {
   Map<String, dynamic> data = {
-    "mail" : mail,
-    "code" : code,
+    "mail": mail,
+    "code": code,
   };
 
   var body = json.encode(data);
 
   final response = await http.post(
     Uri.parse("$baseUrl/mail/authenticate"),
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
     body: body,
   );
 

@@ -10,7 +10,10 @@ Future<DetailBoard> getDetailBoardInfo(int boardId) async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/board/${boardId.toString()}"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     return DetailBoard.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
