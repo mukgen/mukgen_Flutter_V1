@@ -58,11 +58,11 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
     setState(() {
       _isButtonEnabled = idValid.contains("사용 가능한") &&
           Validation.getPwdValidation(pwdController.text).contains("사용 가능한") &&
-          Validation.getPwdValidation(pwdCheckController.text, confirmPassword: pwdController.text)
+          Validation.getPwdValidation(pwdCheckController.text,
+                  confirmPassword: pwdController.text)
               .contains("일치");
     });
   }
-
 
   @override
   void dispose() {
@@ -166,8 +166,8 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      DuplicateResult.duplicateState =
-                      await getDuplicateInfo(idController.text);
+                      await getDuplicateInfo(idController.text).then((value) =>
+                          DuplicateResult.duplicateState = value.duplicate!);
                       DuplicateResult.isDuplicate = true;
                       idValid = Validation.getIdValidation(idController.text);
                       idColor = Validation.getIdFieldColor(idController.text);
@@ -177,10 +177,10 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
                       width: 84.0.w,
                       height: 37.0.h,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6.r),
-                          border: Border.all(
-                            color: MukGenColor.primaryLight2,
-                          ),
+                        borderRadius: BorderRadius.circular(6.r),
+                        border: Border.all(
+                          color: MukGenColor.primaryLight2,
+                        ),
                       ),
                       child: Center(
                         child: Text(
