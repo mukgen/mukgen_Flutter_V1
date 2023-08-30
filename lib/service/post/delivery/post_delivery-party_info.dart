@@ -4,7 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/secret.dart';
 
-Future<int> postDeliveryPartyInfo(String menu, int participantNumber, String place, String meetTime) async {
+Future<int> postDeliveryPartyInfo(
+    String menu, int participantNumber, String place, String meetTime) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
   Map<String, dynamic> data = {
@@ -19,7 +20,8 @@ Future<int> postDeliveryPartyInfo(String menu, int participantNumber, String pla
   final response = await http.post(Uri.parse("$baseUrl/delivery-party"),
       headers: <String, String>{
         "Authorization": "Bearer $accessToken",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Not-Using-Xquare-Auth": "true",
       },
       body: body);
   if (response.statusCode == 201) {

@@ -7,10 +7,12 @@ import 'package:mukgen_flutter_v1/secret.dart';
 Future<int> postJoinDeliveryPartyInfo(int deliveryId) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
-  final response = await http.post(Uri.parse("$baseUrl/delivery-party/join/$deliveryId"),
-      headers: <String, String>{
-        "Authorization": "Bearer $accessToken",
-      },
+  final response = await http.post(
+    Uri.parse("$baseUrl/delivery-party/join/$deliveryId"),
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     print("성공");

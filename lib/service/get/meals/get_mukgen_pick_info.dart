@@ -11,10 +11,14 @@ Future<MukGenPickBoard> getMukGenPickInfo() async {
   print(accessToken);
   final response = await http.get(
     Uri.parse("$baseUrl/mukgen-pick"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true"
+    },
   );
   if (response.statusCode == 200) {
-    return MukGenPickBoard.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return MukGenPickBoard.fromJson(
+        jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception(response.body);
   }

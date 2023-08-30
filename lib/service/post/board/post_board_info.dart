@@ -8,8 +8,8 @@ Future<int> postBoardInfo(String title, String content) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
   Map<String, String> data = {
-    "title" : title,
-    "content" : content,
+    "title": title,
+    "content": content,
   };
 
   var body = json.encode(data);
@@ -17,7 +17,8 @@ Future<int> postBoardInfo(String title, String content) async {
   final response = await http.post(Uri.parse("$baseUrl/board"),
       headers: <String, String>{
         "Authorization": "Bearer $accessToken",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Not-Using-Xquare-Auth": "true",
       },
       body: body);
   if (response.statusCode == 201) {

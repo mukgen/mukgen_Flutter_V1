@@ -10,7 +10,10 @@ Future<TodayReview> getTodayReviewInfo() async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/review/today"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
     return TodayReview.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));

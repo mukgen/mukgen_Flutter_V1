@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
@@ -11,10 +10,12 @@ Future<void> postReviewInfo(int count, String review, int riceId) async {
 
   final dio = Dio();
   dio.options.headers["Authorization"] = "Bearer $accessToken";
+  dio.options.headers["X-Not-Using-Xquare-Auth"] = "true";
   const url = "$baseUrl/user/profile/upload?";
   final fileName = basename(ReviewPostingImage.image!.path);
   final formData = FormData.fromMap({
-    'images': await MultipartFile.fromFile(ReviewPostingImage.image!.path, filename: fileName),
+    'images': await MultipartFile.fromFile(ReviewPostingImage.image!.path,
+        filename: fileName),
   });
 
   final Response response;

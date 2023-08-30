@@ -8,7 +8,7 @@ Future<int> postSuggestionInfo(String content) async {
   const storage = FlutterSecureStorage();
   dynamic accessToken = await storage.read(key: 'accessToken');
   Map<String, String> data = {
-    "content" : content,
+    "content": content,
   };
 
   var body = json.encode(data);
@@ -16,7 +16,8 @@ Future<int> postSuggestionInfo(String content) async {
   final response = await http.post(Uri.parse("$baseUrl/meal-suggestion"),
       headers: <String, String>{
         "Authorization": "Bearer $accessToken",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Not-Using-Xquare-Auth": "true",
       },
       body: body);
   if (response.statusCode == 201) {

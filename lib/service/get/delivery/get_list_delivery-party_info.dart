@@ -10,10 +10,14 @@ Future<ListDeliveryParty> getListDeliveryPartyInfo() async {
   dynamic accessToken = await storage.read(key: 'accessToken');
   final response = await http.get(
     Uri.parse("$baseUrl/delivery-party/list"),
-    headers: <String, String>{"Authorization": "Bearer $accessToken"},
+    headers: <String, String>{
+      "Authorization": "Bearer $accessToken",
+      "X-Not-Using-Xquare-Auth": "true",
+    },
   );
   if (response.statusCode == 200) {
-    return ListDeliveryParty.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return ListDeliveryParty.fromJson(
+        jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception(response.body);
   }
