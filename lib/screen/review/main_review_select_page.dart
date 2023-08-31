@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_posting_page.dart';
-import 'package:mukgen_flutter_v1/service/get/meals/get_today_meals_info.dart';
+import 'package:mukgen_flutter_v1/service/meal_service.dart';
 import 'package:transition/transition.dart';
 
 class MainReviewSelectPage extends StatefulWidget {
@@ -18,18 +18,14 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
   String formattedDate = DateFormat('yy.MM.dd').format(DateTime.now());
   Future<TodayMeal>? todayMeal;
   final PageController pageController =
-  PageController(initialPage: 0, viewportFraction: 0.9);
+      PageController(initialPage: 0, viewportFraction: 0.9);
 
-  List<String> foodImage = [
-    'BREAKFAST.png',
-    'LUNCH.png',
-    'DINNER.png'
-  ];
+  List<String> foodImage = ['BREAKFAST.png', 'LUNCH.png', 'DINNER.png'];
 
   @override
   void initState() {
     super.initState();
-    todayMeal = getTodayMealInfo();
+    todayMeal = MealService.getTodayMealInfo();
   }
 
   @override
@@ -85,7 +81,7 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
             child: FutureBuilder(
               future: todayMeal,
               builder: (context, snapshot) {
-                if(snapshot.hasData) {
+                if (snapshot.hasData) {
                   return ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: snapshot.data!.responseList!.length,
@@ -99,8 +95,13 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
                               Navigator.push(
                                 context,
                                 Transition(
-                                  child: MainReviewPostingPage(riceId: snapshot.data!.responseList![index].riceId, riceType: snapshot.data!.responseList![index].riceType),
-                                  transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                                  child: MainReviewPostingPage(
+                                      riceId: snapshot
+                                          .data!.responseList![index].riceId,
+                                      riceType: snapshot
+                                          .data!.responseList![index].riceType),
+                                  transitionEffect:
+                                      TransitionEffect.RIGHT_TO_LEFT,
                                 ),
                               );
                             },
@@ -120,7 +121,9 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          snapshot.data!.responseList![index].riceType.toString(),
+                                          snapshot.data!.responseList![index]
+                                              .riceType
+                                              .toString(),
                                           style: TextStyle(
                                             color: MukGenColor.pointBase,
                                             fontSize: 16.sp,
@@ -154,10 +157,12 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
                                     width: 181.0.w,
                                     height: 140.0.h,
                                     child: ListView.builder(
-                                      itemCount: snapshot.data!.responseList![index].items!.length,
+                                      itemCount: snapshot.data!
+                                          .responseList![index].items!.length,
                                       itemBuilder: (context, itemIndex) {
                                         return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               itemList[itemIndex],
@@ -195,6 +200,7 @@ class _MainReviewSelectPageState extends State<MainReviewSelectPage> {
     );
   }
 }
+
 List<String> _parseItemList(String itemData) {
   final itemListString = itemData.substring(1, itemData.length - 1);
   return itemListString.split(', ');

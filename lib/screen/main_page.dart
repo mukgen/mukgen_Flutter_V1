@@ -6,8 +6,7 @@ import 'package:mukgen_flutter_v1/model/meal/mukgen_pick.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
 import 'package:mukgen_flutter_v1/screen/board/mukgen_pick_page.dart';
 import 'package:mukgen_flutter_v1/service/board_service.dart';
-import 'package:mukgen_flutter_v1/service/get/meals/get_mukgen_pick_info.dart';
-import 'package:mukgen_flutter_v1/service/get/meals/get_today_meals_info.dart';
+import 'package:mukgen_flutter_v1/service/meal_service.dart';
 import 'package:transition/transition.dart';
 
 import '../widget/comment_icon.dart';
@@ -37,8 +36,8 @@ class _MainHomePageState extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
     hotBoard = BoardService.getHotBoardInfo();
-    todayMeal = getTodayMealInfo();
-    mukgenPick = getMukGenPickInfo();
+    todayMeal = MealService.getTodayMealInfo();
+    mukgenPick = MealService.getMukGenPickInfo();
     return Scaffold(
       backgroundColor: MukGenColor.white,
       body: Column(
