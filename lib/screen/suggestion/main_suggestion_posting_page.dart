@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/post/review/post_review_info.dart';
 import 'package:mukgen_flutter_v1/service/post/suggestion/post_suggestion_info.dart';
 
 class MainSuggestionPostingPage extends StatefulWidget {
   const MainSuggestionPostingPage({Key? key}) : super(key: key);
 
   @override
-  State<MainSuggestionPostingPage> createState() => _MainSuggestionPostingPageState();
+  State<MainSuggestionPostingPage> createState() =>
+      _MainSuggestionPostingPageState();
 }
 
 class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
@@ -77,9 +77,11 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
             child: Padding(
               padding: EdgeInsets.only(right: 20.0.w),
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   postSuggestionInfo(contentController.text);
-                  Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainSuggestionPage');
+                  Navigator.of(context).popUntil((route) =>
+                      route.isFirst ||
+                      route.settings.name == '/MainSuggestionPage');
                 },
                 child: Text(
                   '등록',
@@ -87,8 +89,7 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
                       color: MukGenColor.pointBase,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
-                      fontSize: 16.sp
-                  ),
+                      fontSize: 16.sp),
                 ),
               ),
             ),
@@ -103,13 +104,13 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
               width: 353.0.w,
               height: 261.0.h,
               decoration: BoxDecoration(
-                color: MukGenColor.postIt1,
-                borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(
-                  color: _focusNode.hasFocus ? MukGenColor.pointLight3 : MukGenColor.postIt1,
-                  width: 2.0.w
-                )
-              ),
+                  color: MukGenColor.postIt1,
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(
+                      color: _focusNode.hasFocus
+                          ? MukGenColor.pointLight3
+                          : MukGenColor.postIt1,
+                      width: 2.0.w)),
               child: Column(
                 children: [
                   SizedBox(height: 20.0.h),
