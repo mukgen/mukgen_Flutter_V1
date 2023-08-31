@@ -12,7 +12,7 @@ class MealService {
 
   MealService._();
 
-  Future<MukGenPickBoard> getMukGenPickInfo() async {
+  static Future<MukGenPickBoard> getMukGenPickInfo() async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
       Uri.parse("$baseUrl/mukgen-pick"),
@@ -28,7 +28,7 @@ class MealService {
         jsonDecode(utf8.decode(response.bodyBytes)));
   }
 
-  Future<TodayMeal> getTodayMealInfo() async {
+  static Future<TodayMeal> getTodayMealInfo() async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
       Uri.parse("$_url/today"),
