@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/review/today_review.dart';
-import 'package:mukgen_flutter_v1/service/get/review/get_rank_review_info.dart';
-import 'package:mukgen_flutter_v1/service/get/review/get_today_review_info.dart';
+import 'package:mukgen_flutter_v1/service/review_service.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:mukgen_flutter_v1/screen/review/main_review_otherdays_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +10,12 @@ import 'package:mukgen_flutter_v1/model/review/rank_review.dart';
 import 'package:transition/transition.dart';
 
 class MainReviewPage extends StatefulWidget {
-  const MainReviewPage({Key? key, required this.onReview, required this.onDetail, required this.onMyPage}) : super(key: key);
+  const MainReviewPage(
+      {Key? key,
+      required this.onReview,
+      required this.onDetail,
+      required this.onMyPage})
+      : super(key: key);
 
   final VoidCallback onReview, onMyPage;
   final Function(String, int) onDetail;
@@ -29,8 +33,8 @@ class _MainReviewPageState extends State<MainReviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    rankReview = getRankReviewInfo();
-    todayReview = getTodayReviewInfo();
+    rankReview = ReviewService.getRankReviewInfo();
+    todayReview = ReviewService.getTodayReviewInfo();
     return Scaffold(
       backgroundColor: MukGenColor.white,
       body: Column(
@@ -55,9 +59,7 @@ class _MainReviewPageState extends State<MainReviewPage> {
                   ),
                   SizedBox(width: 8.0.w),
                   GestureDetector(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Icon(
                       CustomIcons.calendar,
                       color: MukGenColor.primaryLight2,
@@ -109,15 +111,16 @@ class _MainReviewPageState extends State<MainReviewPage> {
                         child: FutureBuilder(
                           future: rankReview,
                           builder: (context, snapshot) {
-                            if(snapshot.hasData) {
+                            if (snapshot.hasData) {
                               return Padding(
                                 padding: EdgeInsets.only(left: 16.5.w),
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data!.reviewRankResponseList!.length,
+                                  itemCount: snapshot
+                                      .data!.reviewRankResponseList!.length,
                                   itemBuilder: (context, index) {
                                     return Row(
-                                      children:[
+                                      children: [
                                         SizedBox(
                                           width: 100.0.w,
                                           height: 143.0.h,
@@ -138,32 +141,52 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                                 height: 65.0.h,
                                                 width: 65.0.w,
                                                 decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                    color: MukGenColor.white,
-                                                    width: 5.0.w
-                                                  )
-                                                ),
-                                                child: snapshot.data!.reviewRankResponseList![index].profileUrl != null
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                        color:
+                                                            MukGenColor.white,
+                                                        width: 5.0.w)),
+                                                child: snapshot
+                                                            .data!
+                                                            .reviewRankResponseList![
+                                                                index]
+                                                            .profileUrl !=
+                                                        null
                                                     ? CircleAvatar(
-                                                  radius: 100.r,
-                                                  backgroundImage: NetworkImage(snapshot.data!.reviewRankResponseList![index].profileUrl.toString()),
-                                                ) : CircleAvatar(
-                                                  radius: 100.r,
-                                                  backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
-                                                  backgroundColor: MukGenColor.primaryLight2,
-                                                ),
+                                                        radius: 100.r,
+                                                        backgroundImage:
+                                                            NetworkImage(snapshot
+                                                                .data!
+                                                                .reviewRankResponseList![
+                                                                    index]
+                                                                .profileUrl
+                                                                .toString()),
+                                                      )
+                                                    : CircleAvatar(
+                                                        radius: 100.r,
+                                                        backgroundImage:
+                                                            const AssetImage(
+                                                                'assets/images/DefaultProfile.png'),
+                                                        backgroundColor:
+                                                            MukGenColor
+                                                                .primaryLight2,
+                                                      ),
                                               ),
                                               SizedBox(height: 4.0.h),
                                               Text(
-                                                snapshot.data!.reviewRankResponseList![index].userName.toString(),
+                                                snapshot
+                                                    .data!
+                                                    .reviewRankResponseList![
+                                                        index]
+                                                    .userName
+                                                    .toString(),
                                                 style: TextStyle(
-                                                  color: MukGenColor.black,
-                                                  fontSize: 16.sp,
-                                                  fontFamily: 'MukgenSemiBold',
-                                                  fontWeight: FontWeight.w600
-
-                                                ),
+                                                    color: MukGenColor.black,
+                                                    fontSize: 16.sp,
+                                                    fontFamily:
+                                                        'MukgenSemiBold',
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                               SizedBox(height: 4.0.h),
                                               Row(
@@ -171,33 +194,48 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                                   Icon(
                                                     Icons.star_rounded,
                                                     size: 13.sp,
-                                                    color: MukGenColor.primaryLight2,
+                                                    color: MukGenColor
+                                                        .primaryLight2,
                                                   ),
                                                   Text(
-                                                    snapshot.data!.reviewRankResponseList![index].averageReview.toString(),
+                                                    snapshot
+                                                        .data!
+                                                        .reviewRankResponseList![
+                                                            index]
+                                                        .averageReview
+                                                        .toString(),
                                                     style: TextStyle(
-                                                      color: MukGenColor.primaryLight2,
+                                                      color: MukGenColor
+                                                          .primaryLight2,
                                                       fontSize: 12.sp,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontFamily: 'MukgenRegular',
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily:
+                                                          'MukgenRegular',
                                                     ),
                                                   ),
                                                   Text(
                                                     'ㅣ',
                                                     style: TextStyle(
-                                                      color: MukGenColor.primaryLight2,
+                                                      color: MukGenColor
+                                                          .primaryLight2,
                                                       fontSize: 12.sp,
-                                                      fontFamily: 'MukgenRegular',
-                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily:
+                                                          'MukgenRegular',
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                   Text(
                                                     '리뷰 ${snapshot.data!.reviewRankResponseList![index].reviewCount}개',
                                                     style: TextStyle(
-                                                      color: MukGenColor.primaryLight2,
+                                                      color: MukGenColor
+                                                          .primaryLight2,
                                                       fontSize: 12.sp,
-                                                      fontFamily: 'MukgenRegular',
-                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily:
+                                                          'MukgenRegular',
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   )
                                                 ],
@@ -212,9 +250,11 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                 ),
                               );
                             } else if (snapshot.hasError) {
-                              return Center(child: Text(snapshot.error.toString()));
+                              return Center(
+                                  child: Text(snapshot.error.toString()));
                             } else {
-                              return const Center(child: CircularProgressIndicator());
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                           },
                         ),
@@ -284,7 +324,12 @@ class _MainReviewPageState extends State<MainReviewPage> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              widget.onDetail(snapshot.data!.reviewResponseList![index].riceType.toString(), snapshot.data!.reviewResponseList![index].reviewId!);
+                              widget.onDetail(
+                                  snapshot
+                                      .data!.reviewResponseList![index].riceType
+                                      .toString(),
+                                  snapshot.data!.reviewResponseList![index]
+                                      .reviewId!);
                             },
                             child: Container(
                               width: 353.0.w,
@@ -297,28 +342,42 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(left: 15.0.w),
                                         child: Row(
-                                          children: List<Widget>.generate(5, (index1) {
-                                            return index1 < snapshot.data!.reviewResponseList![index].count! ? Image.asset(
-                                              'assets/images/Star.png',
-                                              width: 24.0.w,
-                                              height: 24.0.h,
-                                            ) : Image.asset(
-                                              'assets/images/StarOutlined.png',
-                                              width: 24.0.w,
-                                               height: 24.0.h,
-                                            );
+                                          children: List<Widget>.generate(5,
+                                              (index1) {
+                                            return index1 <
+                                                    snapshot
+                                                        .data!
+                                                        .reviewResponseList![
+                                                            index]
+                                                        .count!
+                                                ? Image.asset(
+                                                    'assets/images/Star.png',
+                                                    width: 24.0.w,
+                                                    height: 24.0.h,
+                                                  )
+                                                : Image.asset(
+                                                    'assets/images/StarOutlined.png',
+                                                    width: 24.0.w,
+                                                    height: 24.0.h,
+                                                  );
                                           }),
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(right: 21.0.w, top: 1.0.h),
+                                        padding: EdgeInsets.only(
+                                            right: 21.0.w, top: 1.0.h),
                                         child: Text(
-                                          snapshot.data!.reviewResponseList![index].userNickname.toString(),
+                                          snapshot
+                                              .data!
+                                              .reviewResponseList![index]
+                                              .userNickname
+                                              .toString(),
                                           style: TextStyle(
                                             color: MukGenColor.primaryLight2,
                                             fontWeight: FontWeight.w600,
@@ -337,7 +396,11 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            snapshot.data!.reviewResponseList![index].review.toString(),
+                                            snapshot
+                                                .data!
+                                                .reviewResponseList![index]
+                                                .review
+                                                .toString(),
                                             style: TextStyle(
                                               color: MukGenColor.black,
                                               fontSize: 14.sp,
@@ -352,9 +415,17 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                             Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                DateFormat('yy.MM.dd').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
+                                                DateFormat('yy.MM.dd')
+                                                    .format(DateTime.parse(
+                                                        snapshot
+                                                            .data!
+                                                            .reviewResponseList![
+                                                                index]
+                                                            .createdAt!))
+                                                    .toString(),
                                                 style: TextStyle(
-                                                  color: MukGenColor.primaryLight2,
+                                                  color:
+                                                      MukGenColor.primaryLight2,
                                                   fontSize: 12.sp,
                                                   fontFamily: 'MukgenRegular',
                                                   fontWeight: FontWeight.w400,
@@ -364,16 +435,25 @@ class _MainReviewPageState extends State<MainReviewPage> {
                                             Text(
                                               'ㅣ',
                                               style: TextStyle(
-                                                color: MukGenColor.primaryLight2,
+                                                color:
+                                                    MukGenColor.primaryLight2,
                                                 fontSize: 12.sp,
                                                 fontFamily: 'MukgenRegular',
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
                                             Text(
-                                              DateFormat('HH:mm').format(DateTime.parse(snapshot.data!.reviewResponseList![index].createdAt!)).toString(),
+                                              DateFormat('HH:mm')
+                                                  .format(DateTime.parse(
+                                                      snapshot
+                                                          .data!
+                                                          .reviewResponseList![
+                                                              index]
+                                                          .createdAt!))
+                                                  .toString(),
                                               style: TextStyle(
-                                                color: MukGenColor.primaryLight1,
+                                                color:
+                                                    MukGenColor.primaryLight1,
                                                 fontSize: 12.sp,
                                                 fontFamily: 'MukgenRegular',
                                                 fontWeight: FontWeight.w400,

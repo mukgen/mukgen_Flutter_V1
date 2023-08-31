@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_name_page.dart';
-import 'package:mukgen_flutter_v1/service/post/mail/post_authenticate_mail_info.dart';
-import 'package:mukgen_flutter_v1/service/post/mail/post_send_mail_info.dart';
+import 'package:mukgen_flutter_v1/service/mail_service.dart';
+import 'package:mukgen_flutter_v1/service/meal_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_email_confirm.dart';
 
@@ -211,9 +211,7 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
               ),
               SizedBox(width: 10.0.w),
               GestureDetector(
-                onTap: () {
-                  postSendMailInfo(widget.email);
-                },
+                onTap: () => MailService.postSendMailInfo(widget.email),
                 child: Text(
                   '재전송하기',
                   style: TextStyle(
@@ -231,8 +229,9 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
             text: "확인",
             width: 352,
             height: 55,
-            backgroundColor:
-                _isButtonEnabled ? MukGenColor.pointLight1 : MukGenColor.primaryLight2,
+            backgroundColor: _isButtonEnabled
+                ? MukGenColor.pointLight1
+                : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () async {
@@ -243,7 +242,8 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
                   _fifthController.text +
                   _sixthController.text;
               if (_isButtonEnabled) {
-                bool confirmState = await postAuthenticateMailInfo(widget.email, code);
+                bool confirmState = await MailService.postAuthenticateMailInfo(
+                    widget.email, code);
                 if (confirmState == false) {
                   setState(() {
                     _isConfirm = "인증번호가 일치하지 않습니다.";
@@ -251,7 +251,9 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
                 } else {
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                        builder: (context) => SignupNamePage(email: widget.email,)),
+                        builder: (context) => SignupNamePage(
+                              email: widget.email,
+                            )),
                     (route) => false,
                   );
                 }

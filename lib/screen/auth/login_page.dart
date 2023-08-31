@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mukgen_flutter_v1/service/post/auth/post_login_info.dart';
+import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:mukgen_flutter_v1/widget/main_navigator.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -123,7 +123,8 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 16.0.sp,
               textColor: MukGenColor.white,
               onPressed: () {
-                postLoginInfo(idController.text, pwdController.text).then(
+                AuthService.postLoginInfo(idController.text, pwdController.text)
+                    .then(
                   (value) {
                     if (value.message!.isNotEmpty) {
                       storage.write(

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/get/review/get_date_review_info.dart';
+import 'package:mukgen_flutter_v1/service/review_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ReviewCalendarTotalWidget extends StatefulWidget {
   final Function onCancel;
 
-  const ReviewCalendarTotalWidget({Key? key, required this.onCancel}) : super(key: key);
+  const ReviewCalendarTotalWidget({Key? key, required this.onCancel})
+      : super(key: key);
 
   @override
-  State<ReviewCalendarTotalWidget> createState() => _ReviewCalendarTotalWidgetState();
+  State<ReviewCalendarTotalWidget> createState() =>
+      _ReviewCalendarTotalWidgetState();
 }
 
 class _ReviewCalendarTotalWidgetState extends State<ReviewCalendarTotalWidget> {
@@ -64,10 +66,8 @@ class _ReviewCalendarTotalWidgetState extends State<ReviewCalendarTotalWidget> {
                 color: MukGenColor.pointLight1,
                 shape: BoxShape.circle,
               ),
-              todayDecoration: const BoxDecoration(
-                color: null,
-                shape: BoxShape.circle
-              ),
+              todayDecoration:
+                  const BoxDecoration(color: null, shape: BoxShape.circle),
               todayTextStyle: calendarTextStyle(MukGenColor.primaryDark1),
               defaultTextStyle: calendarTextStyle(MukGenColor.primaryDark1),
               weekendTextStyle: calendarTextStyle(MukGenColor.pointLight1),
@@ -133,9 +133,7 @@ class _ReviewCalendarTotalWidgetState extends State<ReviewCalendarTotalWidget> {
               SizedBox(width: 20.0.w),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    getDateReviewInfo(formatDate(_selectedDay));
-                  });
+                  ReviewService.getDateReviewInfo(formatDate(_selectedDay));
                   Navigator.pop(context);
                 },
                 child: Container(

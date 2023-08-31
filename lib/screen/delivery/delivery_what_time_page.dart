@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/post/delivery/post_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/delivery_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 
 class DeliveryWhatTimePage extends StatefulWidget {
-  const DeliveryWhatTimePage({Key? key, required this.menu, required this.participantNumber, required this.place}) : super(key: key);
+  const DeliveryWhatTimePage(
+      {Key? key,
+      required this.menu,
+      required this.participantNumber,
+      required this.place})
+      : super(key: key);
 
   final String menu, place;
   final int participantNumber;
@@ -61,7 +66,6 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
     '40분',
     '50분',
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -135,9 +139,9 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                   itemExtent: 49.0.h,
                   childCount: time.length,
                   onSelectedItemChanged: (index) {
-                    if(timeController.selectedItem == 1) {
+                    if (timeController.selectedItem == 1) {
                       setState(() {
-                        if(hourValues == 0 || hourValues == 1) {
+                        if (hourValues == 0 || hourValues == 1) {
                           hourValues = 13;
                           timeValues = true;
                         } else {
@@ -185,21 +189,21 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
                   itemExtent: 49.0.h,
                   childCount: hour.length,
                   onSelectedItemChanged: (index) {
-                      print(timeValues);
-                      print(hourValues);
-                      if(timeValues == true) {
-                        if(index == 11) {
-                          hourValues = 12;
-                        } else {
-                          hourValues = (index + 1) + 12;
-                        }
+                    print(timeValues);
+                    print(hourValues);
+                    if (timeValues == true) {
+                      if (index == 11) {
+                        hourValues = 12;
                       } else {
-                        if(index == 11) {
-                          hourValues = 0;
-                        } else {
-                          hourValues = index + 1;
-                        }
+                        hourValues = (index + 1) + 12;
                       }
+                    } else {
+                      if (index == 11) {
+                        hourValues = 0;
+                      } else {
+                        hourValues = index + 1;
+                      }
+                    }
                   },
                   squeeze: 0.95.h,
                   diameterRatio: 2.0.r,
@@ -269,11 +273,17 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
             fontSize: 16.sp,
             onPressed: () {
               DateTime now = DateTime.now();
-              DateTime customDateTime = DateTime(now.year, now.month, now.day, hourValues, minuteValues, 0);
-              String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(customDateTime);
-              postDeliveryPartyInfo(widget.menu, widget.participantNumber, widget.place, formattedDateTime);
+              DateTime customDateTime = DateTime(
+                  now.year, now.month, now.day, hourValues, minuteValues, 0);
+              String formattedDateTime =
+                  DateFormat('yyyy-MM-ddTHH:mm:ss').format(customDateTime);
+              DeliveryService.postDeliveryPartyInfo(widget.menu,
+                  widget.participantNumber, widget.place, formattedDateTime);
               print(formattedDateTime);
-              Navigator.of(context).popUntil((route) => route.isFirst || route.settings.name == '/MainDeliveryPartyPage'); // Main 페이지로 갈 때 까지 pop
+              Navigator.of(context).popUntil((route) =>
+                  route.isFirst ||
+                  route.settings.name ==
+                      '/MainDeliveryPartyPage'); // Main 페이지로 갈 때 까지 pop
             },
           ),
           SizedBox(height: 10.0.h),

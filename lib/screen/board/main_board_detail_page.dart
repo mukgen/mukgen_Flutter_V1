@@ -5,11 +5,7 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/detail_board.dart';
 import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_detail_board_info.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_hot_board_info.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_board_info.dart';
-import 'package:mukgen_flutter_v1/service/post/board/post_board_comment_info.dart';
-import 'package:mukgen_flutter_v1/service/post/board/post_like_board_info.dart';
+import 'package:mukgen_flutter_v1/service/board_service.dart';
 
 class MainBoardDetailPage extends StatefulWidget {
   const MainBoardDetailPage({
@@ -39,12 +35,12 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
   Future<HotBoard>? hotBoard;
 
   final PageController pageController =
-  PageController(initialPage: 0, viewportFraction: 0.9);
+      PageController(initialPage: 0, viewportFraction: 0.9);
 
   @override
   void initState() {
     super.initState();
-    detailBoard = getDetailBoardInfo(widget.boardId).then((value) {
+    detailBoard = BoardService.getDetailBoardInfo(widget.boardId).then((value) {
       _isLikeCount = value.likeCount!;
       _isLiked = value.liked!;
       _initLikeState = _isLiked;
@@ -59,7 +55,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
     super.dispose();
     commentController.dispose();
     if (_isLiked != _initLikeState) {
-      postLikeBoardInfo(widget.boardId);
+      BoardService.postLikeBoardInfo(widget.boardId);
     }
   }
 
@@ -82,8 +78,8 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
             onTap: () {
               setState(() {
                 Navigator.of(context).pop();
-                totalBoard = getBoardInfo(widget.query);
-                hotBoard = getHotBoardInfo();
+                totalBoard = BoardService.getBoardInfo(widget.query);
+                hotBoard = BoardService.getHotBoardInfo();
               });
             },
             child: Icon(
@@ -158,7 +154,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                                 child: Text(
                                   DateFormat('yy.MM.dd HH:mm')
                                       .format(DateTime.parse(
-                                      snapshot.data!.createdAt.toString()))
+                                          snapshot.data!.createdAt.toString()))
                                       .toString(),
                                   style: TextStyle(
                                     fontFamily: 'MukgenSemiBold',
@@ -270,14 +266,24 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                         child: ListView.builder(
                           itemCount: snapshot.data!.commentCount!,
                           itemBuilder: (context, index) {
-                            DateTime postTime = DateTime.parse(snapshot.data!.boardCommentList![index].createdAt.toString());
+                            DateTime postTime = DateTime.parse(snapshot
+                                .data!.boardCommentList![index].createdAt
+                                .toString());
                             DateTime currentTime = DateTime.now();
-                            Duration difference = currentTime.difference(postTime);
-                            int minutesDifference = difference.inMinutes; // 올린 시간과 현재 시간의 차이 (분 단위)
-                            int hoursDifference = difference.inHours; // 올린 시간과 현재 시간의 차이 (시간 단위)
-                            int daysDifference = difference.inDays; // 올린 시간과 현재 시간의 차이 (일 단위)
-                            int monthsDifference = (currentTime.year - postTime.year) * 12 + currentTime.month - postTime.month; // 올린 시간과 현재 시간의 차이 (달 단위)
-                            int yearsDifference = currentTime.year - postTime.year; // 올린 시간과 현재 시간의 차이 (년도 단위)
+                            Duration difference =
+                                currentTime.difference(postTime);
+                            int minutesDifference =
+                                difference.inMinutes; // 올린 시간과 현재 시간의 차이 (분 단위)
+                            int hoursDifference =
+                                difference.inHours; // 올린 시간과 현재 시간의 차이 (시간 단위)
+                            int daysDifference =
+                                difference.inDays; // 올린 시간과 현재 시간의 차이 (일 단위)
+                            int monthsDifference =
+                                (currentTime.year - postTime.year) * 12 +
+                                    currentTime.month -
+                                    postTime.month; // 올린 시간과 현재 시간의 차이 (달 단위)
+                            int yearsDifference = currentTime.year -
+                                postTime.year; // 올린 시간과 현재 시간의 차이 (년도 단위)
                             String timeAgo;
                             if (minutesDifference < 1) {
                               timeAgo = '방금 전';
@@ -297,8 +303,8 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                                 Row(
                                   children: [
                                     Text(
-                                      snapshot.data!
-                                          .boardCommentList![index].writer
+                                      snapshot
+                                          .data!.boardCommentList![index].writer
                                           .toString(),
                                       style: TextStyle(
                                         color: MukGenColor.primaryLight1,
@@ -331,8 +337,8 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                                 Row(
                                   children: [
                                     Text(
-                                      snapshot.data!
-                                          .boardCommentList![index].content
+                                      snapshot.data!.boardCommentList![index]
+                                          .content
                                           .toString(),
                                       style: TextStyle(
                                         color: MukGenColor.black,
@@ -412,7 +418,7 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                   onTap: () {
                     if (_isButtonEnabled) {
                       setState(() {
-                        postBoardCommentInfo(
+                        BoardService.postBoardCommentInfo(
                             widget.boardId, commentController.text);
                         commentController.clear();
                       });

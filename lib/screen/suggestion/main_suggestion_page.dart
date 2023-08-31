@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/suggestion/total_suggestion.dart';
-import 'package:mukgen_flutter_v1/service/get/suggestion/get_total_suggestion_info.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/service/post/suggestion/post_dislike_suggestion_info.dart';
-import 'package:mukgen_flutter_v1/service/post/suggestion/post_like_suggestion_info.dart';
+import 'package:mukgen_flutter_v1/service/suggestion_service.dart';
 
 class MainSuggestionPage extends StatefulWidget {
-  const MainSuggestionPage({Key? key, required this.onPosting}) : super(key: key);
+  const MainSuggestionPage({Key? key, required this.onPosting})
+      : super(key: key);
 
   final VoidCallback onPosting;
 
@@ -34,7 +33,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    totalSuggestion = getTotalSuggestionInfo();
+    totalSuggestion = SuggestionService.getTotalSuggestionInfo();
     return Scaffold(
       backgroundColor: MukGenColor.white,
       appBar: AppBar(
@@ -61,7 +60,8 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
               child: RefreshIndicator(
                 onRefresh: () async {
                   setState(() {
-                    totalSuggestion = getTotalSuggestionInfo();
+                    totalSuggestion =
+                        SuggestionService.getTotalSuggestionInfo();
                   });
                 },
                 child: FutureBuilder(
@@ -72,16 +72,24 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                         child: SizedBox(
                           width: 353.0.w,
                           child: GridView.builder(
-                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: 171.5.w,
                                 mainAxisSpacing: 10.0.h,
                                 crossAxisSpacing: 10.0.w,
                                 childAspectRatio: 171.5.w / 150.0.h,
                               ),
-                              itemCount: snapshot.data!.mealSuggestionResponseList!.length,
+                              itemCount: snapshot
+                                  .data!.mealSuggestionResponseList!.length,
                               itemBuilder: (context, index) {
-                                String like = formatCount(snapshot.data!.mealSuggestionResponseList![index].likeCount!);
-                                String dislike = formatCount(snapshot.data!.mealSuggestionResponseList![index].dislikeCount!);
+                                String like = formatCount(snapshot
+                                    .data!
+                                    .mealSuggestionResponseList![index]
+                                    .likeCount!);
+                                String dislike = formatCount(snapshot
+                                    .data!
+                                    .mealSuggestionResponseList![index]
+                                    .dislikeCount!);
                                 return Container(
                                   decoration: BoxDecoration(
                                     color: MukGenColor.postIt1,
@@ -94,12 +102,14 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                         width: 139.5.w,
                                         height: 24.0.h,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               'ㅇㅇ',
                                               style: TextStyle(
-                                                color: MukGenColor.primaryLight1,
+                                                color:
+                                                    MukGenColor.primaryLight1,
                                                 fontSize: 14.sp,
                                                 fontFamily: 'MukgenSemiBold',
                                                 fontWeight: FontWeight.w600,
@@ -107,7 +117,13 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                             ),
                                             Icon(
                                               Icons.check_circle_rounded,
-                                              color: snapshot.data!.mealSuggestionResponseList![index].checked! ? MukGenColor.pointBase : MukGenColor.primaryLight1,
+                                              color: snapshot
+                                                      .data!
+                                                      .mealSuggestionResponseList![
+                                                          index]
+                                                      .checked!
+                                                  ? MukGenColor.pointBase
+                                                  : MukGenColor.primaryLight1,
                                               size: 24.sp,
                                             ),
                                           ],
@@ -118,7 +134,12 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                         width: 139.5.w,
                                         height: 70.0.h,
                                         child: Text(
-                                          snapshot.data!.mealSuggestionResponseList![index].content!.toString(),
+                                          snapshot
+                                              .data!
+                                              .mealSuggestionResponseList![
+                                                  index]
+                                              .content!
+                                              .toString(),
                                           style: TextStyle(
                                             color: MukGenColor.black,
                                             fontSize: 12.sp,
@@ -132,38 +153,50 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                         width: 140.0.w,
                                         height: 20.0.h,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                setState(() {
-                                                  postLikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
-                                                });
+                                                SuggestionService
+                                                    .postLikeSuggestionInfo(snapshot
+                                                        .data!
+                                                        .mealSuggestionResponseList![
+                                                            index]
+                                                        .id!);
                                               },
                                               child: Container(
-                                                width: lengthContainer(like.length),
+                                                width: lengthContainer(
+                                                    like.length),
                                                 height: 20.0.h,
                                                 decoration: BoxDecoration(
                                                   color: MukGenColor.white,
-                                                  borderRadius: BorderRadius.circular(8.07.r),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.07.r),
                                                 ),
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Icon(
                                                       Icons.favorite_rounded,
                                                       size: 14.sp,
-                                                      color: MukGenColor.pointLight1,
+                                                      color: MukGenColor
+                                                          .pointLight1,
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     StatefulBuilder(
-                                                      builder: (context, likeIndex) {
+                                                      builder:
+                                                          (context, likeIndex) {
                                                         return Text(
                                                           like.toString(),
                                                           style: TextStyle(
-                                                            color: MukGenColor.primaryLight1,
+                                                            color: MukGenColor
+                                                                .primaryLight1,
                                                             fontSize: 12.11.sp,
-                                                            fontFamily: 'InterBold',
+                                                            fontFamily:
+                                                                'InterBold',
                                                           ),
                                                         );
                                                       },
@@ -175,34 +208,46 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                             SizedBox(width: 4.0.w),
                                             GestureDetector(
                                               onTap: () {
-                                                setState(() {
-                                                  postDislikeSuggestionInfo(snapshot.data!.mealSuggestionResponseList![index].id!);
-                                                });
+                                                SuggestionService
+                                                    .postDislikeSuggestionInfo(
+                                                        snapshot
+                                                            .data!
+                                                            .mealSuggestionResponseList![
+                                                                index]
+                                                            .id!);
                                               },
                                               child: Container(
-                                                width: lengthContainer(dislike.length),
+                                                width: lengthContainer(
+                                                    dislike.length),
                                                 height: 20.0.h,
                                                 decoration: BoxDecoration(
                                                   color: MukGenColor.white,
-                                                  borderRadius: BorderRadius.circular(8.07.r),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.07.r),
                                                 ),
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Icon(
                                                       Icons.close_rounded,
                                                       size: 14.sp,
-                                                      color: MukGenColor.pointLight1,
+                                                      color: MukGenColor
+                                                          .pointLight1,
                                                     ),
                                                     SizedBox(width: 4.0.w),
                                                     StatefulBuilder(
-                                                      builder: (context, dislikeIndex) {
+                                                      builder: (context,
+                                                          dislikeIndex) {
                                                         return Text(
                                                           dislike.toString(),
                                                           style: TextStyle(
-                                                            color: MukGenColor.primaryLight1,
+                                                            color: MukGenColor
+                                                                .primaryLight1,
                                                             fontSize: 12.11.sp,
-                                                            fontFamily: 'InterBold',
+                                                            fontFamily:
+                                                                'InterBold',
                                                           ),
                                                         );
                                                       },
@@ -217,8 +262,7 @@ class _MainSuggestionPageState extends State<MainSuggestionPage> {
                                     ],
                                   ),
                                 );
-                              }
-                          ),
+                              }),
                         ),
                       );
                     } else if (snapshot.hasError) {

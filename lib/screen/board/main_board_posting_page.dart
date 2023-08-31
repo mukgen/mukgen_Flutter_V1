@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
-import 'package:mukgen_flutter_v1/service/get/board/get_board_info.dart';
-import 'package:mukgen_flutter_v1/service/post/board/post_board_info.dart';
+import 'package:mukgen_flutter_v1/service/board_service.dart';
 
 class MainBoardPostingPage extends StatefulWidget {
   const MainBoardPostingPage({Key? key, required this.query}) : super(key: key);
 
   final String query;
+
   @override
   State<MainBoardPostingPage> createState() => _MainBoardPostingPageState();
 }
@@ -43,7 +43,8 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
 
   void _updateButtonState() {
     setState(() {
-      _isButtonEnabled = titleController.text.isNotEmpty && contentController.text.isNotEmpty;
+      _isButtonEnabled =
+          titleController.text.isNotEmpty && contentController.text.isNotEmpty;
       titleCharacterCount = titleController.text.length;
       contentCharacterCount = contentController.text.length;
     });
@@ -88,8 +89,9 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                   setState(() {
                     if (titleController.text.isNotEmpty &&
                         contentController.text.isNotEmpty) {
-                      postBoardInfo(titleController.text, contentController.text);
-                      totalBoard = getBoardInfo(widget.query);
+                      BoardService.postBoardInfo(
+                          titleController.text, contentController.text);
+                      totalBoard = BoardService.getBoardInfo(widget.query);
                       Navigator.of(context).pop();
                     }
                   });
@@ -100,8 +102,7 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                       color: MukGenColor.pointBase,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'MukgenSemiBold',
-                      fontSize: 16.sp
-                  ),
+                      fontSize: 16.sp),
                 ),
               ),
             ),
@@ -220,7 +221,8 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                   onChanged: (value) => setState(() {}),
                   controller: contentController,
                   maxLength: 300,
-                  maxLines: 30, // 정해진 줄은 없지만 30줄은 안 넘을 거 같아서 30줄로 설정할게요.
+                  maxLines: 30,
+                  // 정해진 줄은 없지만 30줄은 안 넘을 거 같아서 30줄로 설정할게요.
                   style: TextStyle(
                     color: MukGenColor.black,
                     fontSize: 20.sp,
