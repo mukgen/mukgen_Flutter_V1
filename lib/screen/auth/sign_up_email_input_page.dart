@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_email_confirm_page.dart';
-import 'package:mukgen_flutter_v1/service/post/mail/post_send_mail_info.dart';
+import 'package:mukgen_flutter_v1/service/mail_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
@@ -63,9 +63,9 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
             child: Text(
               '이메일 인증을 진행해주세요.',
               style: TextStyle(
-                  fontSize: 24.0.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
+                fontSize: 24.0.sp,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'MukgenSemiBold',
               ),
             ),
           ),
@@ -98,7 +98,8 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
                     maxLength: 256,
                     hintText: "이메일 주소",
                     color: Validation.getEmailFieldColor(emailController.text),
-                    helperText: Validation.getEmailValidation(emailController.text),
+                    helperText:
+                        Validation.getEmailValidation(emailController.text),
                   ),
                   Container(
                     width: 112.0.w,
@@ -107,8 +108,7 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
                         borderRadius: BorderRadius.circular(6.r),
                         border: Border.all(
                           color: MukGenColor.primaryLight2,
-                        )
-                    ),
+                        )),
                     child: Center(
                       child: Text(
                         '@dsm.hs.kr',
@@ -131,15 +131,16 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
             width: 352,
             height: 55,
             backgroundColor:
-            _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
+                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
             fontSize: 16,
             textColor: MukGenColor.white,
             onPressed: () {
               if (_isButtonEnabled) {
                 String mail = "${emailController.text}@dsm.hs.kr";
-                postSendMailInfo(mail);
+                MailService.postSendMailInfo(mail);
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SignupEmailConfirmPage(email: mail),
+                  MaterialPageRoute(
+                    builder: (context) => SignupEmailConfirmPage(email: mail),
                   ),
                 );
               }
