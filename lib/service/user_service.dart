@@ -11,9 +11,11 @@ import 'package:mukgen_flutter_v1/secret.dart';
 import 'package:mukgen_flutter_v1/widget/review/review_posting_image.dart';
 import 'package:path/path.dart';
 
-class SuggestionService {
+class UserService {
   static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/user";
+
+  UserService._();
 
   static Future<ProfileUser> getUserProfileInfo() async {
     dynamic accessToken = await _storage.read(key: 'accessToken');

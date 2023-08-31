@@ -9,6 +9,8 @@ class DeliveryService {
   static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/delivery-party/";
 
+  DeliveryService._();
+
   static Future<ListDeliveryParty> getListDeliveryPartyInfo() async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(

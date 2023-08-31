@@ -11,6 +11,8 @@ class ReviewService {
   static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/review/";
 
+  ReviewService._();
+
   static Future<DateReview> getDateReviewInfo(String date) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(

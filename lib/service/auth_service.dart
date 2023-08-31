@@ -10,6 +10,8 @@ import 'package:mukgen_flutter_v1/secret.dart';
 class AuthService {
   static const _url = "$baseUrl/auth";
 
+  AuthService._();
+
   static Future<DuplicateResponse> getDuplicateInfo(String accountId) async {
     final response = await http.get(
       Uri.parse("$_url/duplicate?accountId=$accountId"),

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/model/suggestion/total_suggestion.dart';
@@ -9,6 +7,8 @@ import 'package:mukgen_flutter_v1/secret.dart';
 class SuggestionService {
   static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/meal-suggestion";
+
+  SuggestionService._();
 
   static Future<void> postDislikeSuggestionInfo(int mealSuggestionId) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');

@@ -6,6 +6,8 @@ import 'package:mukgen_flutter_v1/secret.dart';
 class MailService {
   static const _url = "$baseUrl/mail";
 
+  MailService._();
+
   static Future<int> postSendMailInfo(String mail) async {
     Map<String, dynamic> data = {
       "mail": mail,

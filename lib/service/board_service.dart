@@ -13,6 +13,8 @@ class BoardService {
   static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/board";
 
+  BoardService._();
+
   static Future<BoardResponse> getBoardInfo(String query) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
