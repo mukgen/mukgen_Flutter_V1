@@ -4,13 +4,11 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_upload.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
 import 'package:mukgen_flutter_v1/screen/user/user_info_page.dart';
-import 'package:mukgen_flutter_v1/service/get/user/get_user_profile_info.dart';
-import 'package:mukgen_flutter_v1/service/post/user/post_upload_profile_info.dart';
+import 'package:mukgen_flutter_v1/service/user_service.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mukgen_flutter_v1/widget/user/my_widget.dart';
 import 'package:transition/transition.dart';
-
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -30,15 +28,13 @@ class _MyPageState extends State<MyPage> {
       return null;
     }
 
-    return postUploadProfileInfo(pickedFile);
+    return UserService.postUploadProfileInfo(pickedFile);
   }
-
-
 
   @override
   void initState() {
     super.initState();
-    profileUser = getUserProfileInfo();
+    profileUser = UserService.getUserProfileInfo();
   }
 
   @override
@@ -96,16 +92,16 @@ class _MyPageState extends State<MyPage> {
                                 height: 80.0.h,
                                 child: profileUser.profileUrl == null
                                     ? CircleAvatar(
-                                  backgroundImage: const AssetImage(
-                                      'assets/images/DefaultProfile.png'),
-                                  backgroundColor:
-                                  MukGenColor.primaryLight2,
-                                )
+                                        backgroundImage: const AssetImage(
+                                            'assets/images/DefaultProfile.png'),
+                                        backgroundColor:
+                                            MukGenColor.primaryLight2,
+                                      )
                                     : CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    profileUser.profileUrl.toString(),
-                                  ),
-                                ),
+                                        backgroundImage: NetworkImage(
+                                          profileUser.profileUrl.toString(),
+                                        ),
+                                      ),
                               ),
                               Positioned(
                                 bottom: 0.h,
@@ -123,15 +119,16 @@ class _MyPageState extends State<MyPage> {
                                           child: Center(
                                             child: Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
-                                                    _pickImage(ImageSource.camera);
+                                                    _pickImage(
+                                                        ImageSource.camera);
                                                   },
                                                   child: Container(
                                                     color:
-                                                    MukGenColor.pointLight1,
+                                                        MukGenColor.pointLight1,
                                                     height: 50.h,
                                                     width: 70.0.w,
                                                     child: const Center(
@@ -143,11 +140,12 @@ class _MyPageState extends State<MyPage> {
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    _pickImage(ImageSource.gallery);
+                                                    _pickImage(
+                                                        ImageSource.gallery);
                                                   },
                                                   child: Container(
                                                     color:
-                                                    MukGenColor.pointLight1,
+                                                        MukGenColor.pointLight1,
                                                     height: 50.h,
                                                     width: 70.0.w,
                                                     child: const Center(

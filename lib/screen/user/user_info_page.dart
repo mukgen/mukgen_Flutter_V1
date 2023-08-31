@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
-import 'package:mukgen_flutter_v1/service/get/user/get_user_profile_info.dart';
+import 'package:mukgen_flutter_v1/service/user_service.dart';
 import 'package:mukgen_flutter_v1/widget/user/user_info_widget.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
   @override
   void initState() {
     super.initState();
-    profileUser = getUserProfileInfo();
+    profileUser = UserService.getUserProfileInfo();
   }
 
   @override
@@ -78,11 +78,16 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 return Column(
                   children: [
                     SizedBox(height: 16.0.h),
-                    UserInfoWidget(title: '아이디', content: profileUser.accountId.toString()),
+                    UserInfoWidget(
+                        title: '아이디',
+                        content: profileUser.accountId.toString()),
                     SizedBox(height: 42.0.h),
-                    UserInfoWidget(title: '이메일', content: profileUser.mail.toString()),
+                    UserInfoWidget(
+                        title: '이메일', content: profileUser.mail.toString()),
                     SizedBox(height: 42.0.h),
-                    UserInfoWidget(title: '전화번호', content: profileUser.phoneNumber.toString()),
+                    UserInfoWidget(
+                        title: '전화번호',
+                        content: profileUser.phoneNumber.toString()),
                   ],
                 );
               } else if (snapshot.hasError) {

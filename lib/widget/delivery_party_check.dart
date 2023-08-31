@@ -5,7 +5,7 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
 import 'package:mukgen_flutter_v1/service/delivery_service.dart';
-import 'package:mukgen_flutter_v1/service/get/user/get_user_profile_info.dart';
+import 'package:mukgen_flutter_v1/service/user_service.dart';
 
 class DeliveryPartyCheck extends StatefulWidget {
   const DeliveryPartyCheck({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck>
   void initState() {
     super.initState();
     listDeliveryParty = DeliveryService.getListDeliveryPartyInfo();
-    userProfile = getUserProfileInfo();
+    userProfile = UserService.getUserProfileInfo();
     animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
@@ -87,7 +87,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck>
                   setState(() {
                     listDeliveryParty =
                         DeliveryService.getListDeliveryPartyInfo();
-                    userProfile = getUserProfileInfo();
+                    userProfile = UserService.getUserProfileInfo();
                   });
                 },
                 child: Column(
