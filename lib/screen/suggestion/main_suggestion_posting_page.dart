@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/post/suggestion/post_suggestion_info.dart';
+import 'package:mukgen_flutter_v1/service/suggestion_service.dart';
 
 class MainSuggestionPostingPage extends StatefulWidget {
   const MainSuggestionPostingPage({Key? key}) : super(key: key);
@@ -78,7 +78,7 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
               padding: EdgeInsets.only(right: 20.0.w),
               child: GestureDetector(
                 onTap: () {
-                  postSuggestionInfo(contentController.text);
+                  SuggestionService.postSuggestionInfo(contentController.text);
                   Navigator.of(context).popUntil((route) =>
                       route.isFirst ||
                       route.settings.name == '/MainSuggestionPage');
