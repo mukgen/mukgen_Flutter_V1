@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
-import 'package:mukgen_flutter_v1/service/get/delivery/get_list_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/delivery_service.dart';
 import 'package:mukgen_flutter_v1/widget/delivery_party_check.dart';
 
 class MainDeliveryPartyPage extends StatefulWidget {
-  const MainDeliveryPartyPage({Key? key, required this.onFood}) : super(key: key);
+  const MainDeliveryPartyPage({Key? key, required this.onFood})
+      : super(key: key);
 
   final VoidCallback onFood;
 
@@ -14,11 +15,13 @@ class MainDeliveryPartyPage extends StatefulWidget {
   State<MainDeliveryPartyPage> createState() => _MainDeliveryPartyPageState();
 }
 
-class _MainDeliveryPartyPageState extends State<MainDeliveryPartyPage> with SingleTickerProviderStateMixin {
+class _MainDeliveryPartyPageState extends State<MainDeliveryPartyPage>
+    with SingleTickerProviderStateMixin {
   Future<ListDeliveryParty>? listDeliveryParty;
+
   @override
   Widget build(BuildContext context) {
-    listDeliveryParty = getListDeliveryPartyInfo();
+    listDeliveryParty = DeliveryService.getListDeliveryPartyInfo();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MukGenColor.white,

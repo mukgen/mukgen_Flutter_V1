@@ -4,10 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
-import 'package:mukgen_flutter_v1/service/get/delivery/get_list_delivery-party_info.dart';
+import 'package:mukgen_flutter_v1/service/delivery_service.dart';
 import 'package:mukgen_flutter_v1/service/get/user/get_user_profile_info.dart';
-import 'package:mukgen_flutter_v1/service/post/delivery/post_join_delivery-party_info.dart';
-import 'package:mukgen_flutter_v1/service/post/delivery/post_leave_delivery-party_info.dart';
 
 class DeliveryPartyCheck extends StatefulWidget {
   const DeliveryPartyCheck({Key? key}) : super(key: key);
@@ -16,7 +14,8 @@ class DeliveryPartyCheck extends StatefulWidget {
   State<DeliveryPartyCheck> createState() => _DeliveryPartyCheckState();
 }
 
-class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTickerProviderStateMixin {
+class _DeliveryPartyCheckState extends State<DeliveryPartyCheck>
+    with SingleTickerProviderStateMixin {
   Future<ListDeliveryParty>? listDeliveryParty;
   Future<ProfileUser>? userProfile;
 
@@ -30,7 +29,7 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
   @override
   void initState() {
     super.initState();
-    listDeliveryParty = getListDeliveryPartyInfo();
+    listDeliveryParty = DeliveryService.getListDeliveryPartyInfo();
     userProfile = getUserProfileInfo();
     animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
@@ -86,26 +85,34 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
               child: RefreshIndicator(
                 onRefresh: () async {
                   setState(() {
-                    listDeliveryParty = getListDeliveryPartyInfo();
+                    listDeliveryParty =
+                        DeliveryService.getListDeliveryPartyInfo();
                     userProfile = getUserProfileInfo();
                   });
                 },
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: Future.wait([listDeliveryParty, userProfile].cast<Future<dynamic>>()),
+                      future: Future.wait([listDeliveryParty, userProfile]
+                          .cast<Future<dynamic>>()),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          final listDeliveryParty = snapshot.data![0] as ListDeliveryParty;
+                          final listDeliveryParty =
+                              snapshot.data![0] as ListDeliveryParty;
                           final profileUser = snapshot.data![1] as ProfileUser;
                           return Expanded(
                             child: ListView.builder(
-                              itemCount: listDeliveryParty.deliveryPartyResponseList!.length,
+                              itemCount: listDeliveryParty
+                                  .deliveryPartyResponseList!.length,
                               itemBuilder: (context, index) {
-                                final bool isSelected = selectedContainerIndex == index;
+                                final bool isSelected =
+                                    selectedContainerIndex == index;
                                 bool entered = false;
-                                for (var userInfo in listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList!) {
-                                  if (userInfo.accountId == profileUser.accountId) {
+                                for (var userInfo in listDeliveryParty
+                                    .deliveryPartyResponseList![index]
+                                    .userInfoResponseList!) {
+                                  if (userInfo.accountId ==
+                                      profileUser.accountId) {
                                     entered = true;
                                     break;
                                   }
@@ -114,20 +121,28 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        if(!entered) {
+                                        if (!entered) {
                                           toggleExpansion(index);
                                         }
                                       },
                                       child: Stack(
                                         children: [
                                           AnimatedContainer(
-                                            duration: const Duration(milliseconds: 200),
+                                            duration: const Duration(
+                                                milliseconds: 200),
                                             curve: Curves.easeInOut,
-                                            height: entered ? 187.0.h : isSelected ? 187.0.h : 90.0.h,
+                                            height: entered
+                                                ? 187.0.h
+                                                : isSelected
+                                                    ? 187.0.h
+                                                    : 90.0.h,
                                             width: 353.0.w,
                                             decoration: BoxDecoration(
-                                              color: entered ? MukGenColor.pointLight1 : MukGenColor.primaryLight3,
-                                              borderRadius: BorderRadius.circular(10.r),
+                                              color: entered
+                                                  ? MukGenColor.pointLight1
+                                                  : MukGenColor.primaryLight3,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
                                             ),
                                             child: Column(
                                               children: [
@@ -138,87 +153,166 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                     children: [
                                                       Column(
                                                         children: [
-                                                          SizedBox(height: 15.0.h),
+                                                          SizedBox(
+                                                              height: 15.0.h),
                                                           Container(
-                                                            margin: EdgeInsets.only(left: 16.0.w),
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left:
+                                                                        16.0.w),
                                                             height: 60.0.h,
                                                             width: 60.0.w,
-                                                            child: listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].profileUrl != null
+                                                            child: listDeliveryParty
+                                                                        .deliveryPartyResponseList![
+                                                                            index]
+                                                                        .userInfoResponseList![
+                                                                            0]
+                                                                        .profileUrl !=
+                                                                    null
                                                                 ? CircleAvatar(
-                                                              radius: 100.r,
-                                                              backgroundImage: NetworkImage(listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].profileUrl.toString()),
-                                                            )
+                                                                    radius:
+                                                                        100.r,
+                                                                    backgroundImage: NetworkImage(listDeliveryParty
+                                                                        .deliveryPartyResponseList![
+                                                                            index]
+                                                                        .userInfoResponseList![
+                                                                            0]
+                                                                        .profileUrl
+                                                                        .toString()),
+                                                                  )
                                                                 : CircleAvatar(
-                                                              radius: 100.r,
-                                                              backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
-                                                              backgroundColor: MukGenColor.primaryLight2,
-                                                            ),
+                                                                    radius:
+                                                                        100.r,
+                                                                    backgroundImage:
+                                                                        const AssetImage(
+                                                                            'assets/images/DefaultProfile.png'),
+                                                                    backgroundColor:
+                                                                        MukGenColor
+                                                                            .primaryLight2,
+                                                                  ),
                                                           ),
                                                         ],
                                                       ),
                                                       SizedBox(width: 10.0.w),
                                                       Column(
                                                         children: [
-                                                          SizedBox(height: 15.0.h),
+                                                          SizedBox(
+                                                              height: 15.0.h),
                                                           SizedBox(
                                                             width: 251.0.w,
                                                             child: Row(
                                                               children: [
-                                                                SizedBox(width: 5.0.w),
+                                                                SizedBox(
+                                                                    width:
+                                                                        5.0.w),
                                                                 Text(
-                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![0].nickname.toString(),
-                                                                  style: TextStyle(
-                                                                    color: entered ? MukGenColor.pointLight4 : MukGenColor.black,
-                                                                    fontSize: 12.sp,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: 'InterBold',
+                                                                  listDeliveryParty
+                                                                      .deliveryPartyResponseList![
+                                                                          index]
+                                                                      .userInfoResponseList![
+                                                                          0]
+                                                                      .nickname
+                                                                      .toString(),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: entered
+                                                                        ? MukGenColor
+                                                                            .pointLight4
+                                                                        : MukGenColor
+                                                                            .black,
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        'InterBold',
                                                                   ),
                                                                 ),
                                                                 const Spacer(),
                                                                 Text(
                                                                   '${listDeliveryParty.deliveryPartyResponseList![index].curParticipantNumber.toString()} / ${listDeliveryParty.deliveryPartyResponseList![index].participantNumber.toString()}',
-                                                                  style: TextStyle(
-                                                                    color: entered ? MukGenColor.pointLight4 : MukGenColor.black,
-                                                                    fontSize: 12.sp,
-                                                                    fontFamily: 'InterBold',
-                                                                    fontWeight: FontWeight.w600,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: entered
+                                                                        ? MukGenColor
+                                                                            .pointLight4
+                                                                        : MukGenColor
+                                                                            .black,
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontFamily:
+                                                                        'InterBold',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
                                                                   ),
                                                                 ),
-                                                                SizedBox(width: 5.0.w),
+                                                                SizedBox(
+                                                                    width:
+                                                                        5.0.w),
                                                               ],
                                                             ),
                                                           ),
-                                                          SizedBox(height: 4.0.h),
+                                                          SizedBox(
+                                                              height: 4.0.h),
                                                           SizedBox(
                                                             width: 251.0.w,
                                                             child: Row(
                                                               children: [
-                                                                SizedBox(width: 5.0.w),
+                                                                SizedBox(
+                                                                    width:
+                                                                        5.0.w),
                                                                 Text(
-                                                                  listDeliveryParty.deliveryPartyResponseList![index].menu.toString(),
-                                                                  style: TextStyle(
-                                                                    color: entered ? MukGenColor.white : MukGenColor.black,
-                                                                    fontSize: 14.sp,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: 'MukgenRegular',
+                                                                  listDeliveryParty
+                                                                      .deliveryPartyResponseList![
+                                                                          index]
+                                                                      .menu
+                                                                      .toString(),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: entered
+                                                                        ? MukGenColor
+                                                                            .white
+                                                                        : MukGenColor
+                                                                            .black,
+                                                                    fontSize:
+                                                                        14.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontFamily:
+                                                                        'MukgenRegular',
                                                                   ),
                                                                 ),
                                                               ],
                                                             ),
                                                           ),
-                                                          SizedBox(height: 4.0.h),
+                                                          SizedBox(
+                                                              height: 4.0.h),
                                                           SizedBox(
                                                             width: 251.0.w,
                                                             child: Row(
                                                               children: [
-                                                                SizedBox(width: 5.0.w),
+                                                                SizedBox(
+                                                                    width:
+                                                                        5.0.w),
                                                                 Text(
                                                                   '${listDeliveryParty.deliveryPartyResponseList![index].place.toString()}ㅣ${meetTime(listDeliveryParty.deliveryPartyResponseList![index].meetTime.toString())}',
-                                                                  style: TextStyle(
-                                                                    color: entered ? MukGenColor.white : MukGenColor.primaryBase,
-                                                                    fontSize: 12.sp,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: 'MukgenRegular',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: entered
+                                                                        ? MukGenColor
+                                                                            .white
+                                                                        : MukGenColor
+                                                                            .primaryBase,
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontFamily:
+                                                                        'MukgenRegular',
                                                                   ),
                                                                 ),
                                                               ],
@@ -232,21 +326,38 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                               ],
                                             ),
                                           ),
-                                          if (entered == true || isSelected == true)
+                                          if (entered == true ||
+                                              isSelected == true)
                                             Positioned(
                                               bottom: 53.0.h,
                                               left: 16.0.w,
                                               child: AnimatedOpacity(
-                                                duration: const Duration(milliseconds: 200),
-                                                opacity: entered ? 1.0 : isSelected ? 1.0 : 0.0,
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                opacity: entered
+                                                    ? 1.0
+                                                    : isSelected
+                                                        ? 1.0
+                                                        : 0.0,
                                                 curve: Curves.easeInOut,
                                                 child: SizedBox(
-                                                  height: entered ? 46.0.h : isSelected ? 46.0.h : 0.0.h,
+                                                  height: entered
+                                                      ? 46.0.h
+                                                      : isSelected
+                                                          ? 46.0.h
+                                                          : 0.0.h,
                                                   width: 321.0.w,
                                                   child: ListView.builder(
-                                                    scrollDirection: Axis.horizontal,
-                                                    itemCount: listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList!.length - 1,
-                                                    itemBuilder: (context, index1) {
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: listDeliveryParty
+                                                            .deliveryPartyResponseList![
+                                                                index]
+                                                            .userInfoResponseList!
+                                                            .length -
+                                                        1,
+                                                    itemBuilder:
+                                                        (context, index1) {
                                                       return Row(
                                                         children: [
                                                           SizedBox(
@@ -255,41 +366,86 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                                             child: Column(
                                                               children: [
                                                                 Container(
-                                                                  height: 30.0.h,
+                                                                  height:
+                                                                      30.0.h,
                                                                   width: 30.0.w,
-                                                                  decoration: BoxDecoration(
-                                                                      shape: BoxShape.circle,
-                                                                      border: Border.all(
-                                                                        color: entered ? MukGenColor.pointLight2 : MukGenColor.primaryLight2,
-                                                                        width: 1.0.w,
-                                                                      )
-                                                                  ),
-                                                                  child: listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl != null
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                          shape: BoxShape
+                                                                              .circle,
+                                                                          border:
+                                                                              Border.all(
+                                                                            color: entered
+                                                                                ? MukGenColor.pointLight2
+                                                                                : MukGenColor.primaryLight2,
+                                                                            width:
+                                                                                1.0.w,
+                                                                          )),
+                                                                  child: listDeliveryParty
+                                                                              .deliveryPartyResponseList![index]
+                                                                              .userInfoResponseList![index1 + 1]
+                                                                              .profileUrl !=
+                                                                          null
                                                                       ? CircleAvatar(
-                                                                    radius: 100.r,
-                                                                    backgroundImage: NetworkImage(listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].profileUrl.toString()),
-                                                                  )
+                                                                          radius:
+                                                                              100.r,
+                                                                          backgroundImage: NetworkImage(listDeliveryParty
+                                                                              .deliveryPartyResponseList![index]
+                                                                              .userInfoResponseList![index1 + 1]
+                                                                              .profileUrl
+                                                                              .toString()),
+                                                                        )
                                                                       : CircleAvatar(
-                                                                    radius: 100.r,
-                                                                    backgroundImage: const AssetImage('assets/images/DefaultProfile.png'),
-                                                                    backgroundColor: MukGenColor.primaryLight2,
-                                                                  ),
+                                                                          radius:
+                                                                              100.r,
+                                                                          backgroundImage:
+                                                                              const AssetImage('assets/images/DefaultProfile.png'),
+                                                                          backgroundColor:
+                                                                              MukGenColor.primaryLight2,
+                                                                        ),
                                                                 ),
                                                                 Text(
-                                                                  listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].nickname!.length > 3 ? '${listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].nickname!.substring(0, 3)}...' : listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1+1].nickname.toString(),
-                                                                  overflow: TextOverflow.ellipsis,
+                                                                  listDeliveryParty
+                                                                              .deliveryPartyResponseList![
+                                                                                  index]
+                                                                              .userInfoResponseList![index1 +
+                                                                                  1]
+                                                                              .nickname!
+                                                                              .length >
+                                                                          3
+                                                                      ? '${listDeliveryParty.deliveryPartyResponseList![index].userInfoResponseList![index1 + 1].nickname!.substring(0, 3)}...'
+                                                                      : listDeliveryParty
+                                                                          .deliveryPartyResponseList![
+                                                                              index]
+                                                                          .userInfoResponseList![index1 +
+                                                                              1]
+                                                                          .nickname
+                                                                          .toString(),
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                   maxLines: 1,
-                                                                  style: TextStyle(
-                                                                    color: entered ? MukGenColor.white : MukGenColor.black,
-                                                                    fontSize: 12.sp,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: 'MukgenRegular',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: entered
+                                                                        ? MukGenColor
+                                                                            .white
+                                                                        : MukGenColor
+                                                                            .black,
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontFamily:
+                                                                        'MukgenRegular',
                                                                   ),
                                                                 )
                                                               ],
                                                             ),
                                                           ),
-                                                          SizedBox(width: 6.0.w),
+                                                          SizedBox(
+                                                              width: 6.0.w),
                                                         ],
                                                       );
                                                     },
@@ -302,27 +458,61 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                                             left: 16.0.w,
                                             child: GestureDetector(
                                               onTap: () {
-                                                entered == true ? postLeaveDeliveryPartyInfo(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt()) : postJoinDeliveryPartyInfo(listDeliveryParty.deliveryPartyResponseList![index].deliveryPartyId!.toInt());
+                                                entered == true
+                                                    ? DeliveryService
+                                                        .postLeaveDeliveryPartyInfo(
+                                                            listDeliveryParty
+                                                                .deliveryPartyResponseList![
+                                                                    index]
+                                                                .deliveryPartyId!
+                                                                .toInt())
+                                                    : DeliveryService
+                                                        .postJoinDeliveryPartyInfo(
+                                                            listDeliveryParty
+                                                                .deliveryPartyResponseList![
+                                                                    index]
+                                                                .deliveryPartyId!
+                                                                .toInt());
                                               },
                                               child: AnimatedOpacity(
-                                                duration: const Duration(milliseconds: 200),
-                                                opacity: entered ? 1.0 : isSelected ? 1.0 : 0.0,
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                opacity: entered
+                                                    ? 1.0
+                                                    : isSelected
+                                                        ? 1.0
+                                                        : 0.0,
                                                 curve: Curves.easeInOut,
                                                 child: Container(
-                                                  height: entered ? 39.0.h : isSelected ? 39.0.h : 0.0.h,
+                                                  height: entered
+                                                      ? 39.0.h
+                                                      : isSelected
+                                                          ? 39.0.h
+                                                          : 0.0.h,
                                                   width: 321.0.w,
                                                   decoration: BoxDecoration(
-                                                    color: entered ? MukGenColor.pointLight4 : MukGenColor.pointLight1,
-                                                    borderRadius: BorderRadius.circular(10.r),
+                                                    color: entered
+                                                        ? MukGenColor
+                                                            .pointLight4
+                                                        : MukGenColor
+                                                            .pointLight1,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
                                                   ),
                                                   child: Center(
                                                     child: Text(
                                                       entered ? '떠나기' : '참여하기',
                                                       style: TextStyle(
-                                                        color: entered ? MukGenColor.pointBase : MukGenColor.white,
+                                                        color: entered
+                                                            ? MukGenColor
+                                                                .pointBase
+                                                            : MukGenColor.white,
                                                         fontSize: 16.sp,
-                                                        fontFamily: 'MukgenSemiBold',
-                                                        fontWeight: FontWeight.w600,
+                                                        fontFamily:
+                                                            'MukgenSemiBold',
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
                                                     ),
                                                   ),
@@ -340,9 +530,10 @@ class _DeliveryPartyCheckState extends State<DeliveryPartyCheck> with SingleTick
                             ),
                           );
                         } else if (snapshot.hasError) {
-                        return Center(child: Text(snapshot.error.toString()));
+                          return Center(child: Text(snapshot.error.toString()));
                         } else {
-                        return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                       },
                     ),
