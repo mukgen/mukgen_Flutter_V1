@@ -13,7 +13,7 @@ class BoardService {
   static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/board";
 
-  Future<BoardResponse> getBoardInfo(String query) async {
+  static Future<BoardResponse> getBoardInfo(String query) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
       Uri.parse("$_url/$query"),
@@ -28,7 +28,7 @@ class BoardService {
     return BoardResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   }
 
-  Future<DetailBoard> getDetailBoardInfo(int boardId) async {
+  static Future<DetailBoard> getDetailBoardInfo(int boardId) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
       Uri.parse("$_url/${boardId.toString()}"),
@@ -43,7 +43,7 @@ class BoardService {
     return DetailBoard.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   }
 
-  Future<HotBoard> getHotBoardInfo() async {
+  static Future<HotBoard> getHotBoardInfo() async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
       Uri.parse("$_url/hot"),
@@ -58,7 +58,7 @@ class BoardService {
     return HotBoard.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   }
 
-  Future<int> postBoardCommentInfo(int boardId, String content) async {
+  static Future<int> postBoardCommentInfo(int boardId, String content) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     Map<String, dynamic> data = {
       "boardId": boardId,
@@ -79,7 +79,7 @@ class BoardService {
     return 1;
   }
 
-  Future<int> postBoardInfo(String title, String content) async {
+  static Future<int> postBoardInfo(String title, String content) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     Map<String, String> data = {
       "title": title,
@@ -100,7 +100,7 @@ class BoardService {
     return 1;
   }
 
-  Future<LikeBoard> postLikeBoardInfo(int boardId) async {
+  static Future<LikeBoard> postLikeBoardInfo(int boardId) async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.post(
       Uri.parse("$baseUrl/like/${boardId.toString()}"),
