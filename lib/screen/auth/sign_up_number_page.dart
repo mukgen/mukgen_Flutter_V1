@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
-import 'package:mukgen_flutter_v1/service/post/auth/post_general_signup_info.dart';
+import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
@@ -194,15 +194,15 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
                 phone += _firstController.text +
                     _secondController.text +
                     _thirdController.text;
-                postGeneralSignupInfo(widget.name, widget.id, widget.pwd,
-                        widget.pwdcheck, phone, widget.email)
+                AuthService.postGeneralSignupInfo(widget.name, widget.id,
+                        widget.pwd, widget.pwdcheck, phone, widget.email)
                     .then(
                   (value) {
                     if (value) {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => const StartingPage()),
-                        (route) => false
-                      );
+                          MaterialPageRoute(
+                              builder: (context) => const StartingPage()),
+                          (route) => false);
                     }
                   },
                 );

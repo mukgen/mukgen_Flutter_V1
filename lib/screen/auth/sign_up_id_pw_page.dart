@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/screen/auth/sign_up_number_page.dart';
-import 'package:mukgen_flutter_v1/service/get/auth/get_duplicate_info.dart';
+import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -166,8 +166,9 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      await getDuplicateInfo(idController.text).then((value) =>
-                          DuplicateResult.duplicateState = value.duplicate!);
+                      await AuthService.getDuplicateInfo(idController.text)
+                          .then((value) => DuplicateResult.duplicateState =
+                              value.duplicate!);
                       DuplicateResult.isDuplicate = true;
                       idValid = Validation.getIdValidation(idController.text);
                       idColor = Validation.getIdFieldColor(idController.text);
