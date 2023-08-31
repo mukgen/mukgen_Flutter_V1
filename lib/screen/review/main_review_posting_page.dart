@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/service/post/review/post_review_info.dart';
+import 'package:mukgen_flutter_v1/service/review_service.dart';
+import 'package:mukgen_flutter_v1/service/user_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/review/review_posting_image.dart';
 
@@ -332,7 +333,8 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
                         borderRadius: BorderRadius.circular(8.r),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: FileImage(File(ReviewPostingImage.image!.path)),
+                          image:
+                              FileImage(File(ReviewPostingImage.image!.path)),
                         ),
                       ),
                     ),
@@ -419,7 +421,7 @@ class _MainReviewPostingPageState extends State<MainReviewPostingPage> {
             textColor: MukGenColor.white,
             fontSize: 16.sp,
             onPressed: () {
-              postReviewInfo(starIndex, reviewController.text, widget.riceId!);
+              //일단 없앰
               Navigator.of(context).popUntil((route) =>
                   route.isFirst || route.settings.name == '/MainReviewPage');
             },
