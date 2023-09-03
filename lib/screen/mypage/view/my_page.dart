@@ -3,12 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_upload.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
-import 'package:mukgen_flutter_v1/screen/user/user/view/user_info_page.dart';
 import 'package:mukgen_flutter_v1/service/user_service.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mukgen_flutter_v1/widget/user/my_widget.dart';
 import 'package:transition/transition.dart';
+
+import '../../user/view/user_info_page.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
