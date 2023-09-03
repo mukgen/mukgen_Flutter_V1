@@ -93,18 +93,6 @@ class _MainBoardPostingPageState extends State<MainBoardPostingPage> {
                         contentController.text.isNotEmpty) {
                       BoardService.postBoardInfo(
                           titleController.text, contentController.text);
-                      BlocProvider.of<BoardBloc>(context).add(
-                        CreateBoardEvent(
-                            title: titleController.text,
-                            content: contentController.text,
-                            userNickname: "몰라용",
-                            likeCount: 0,
-                            commentCount: 0,
-                            viewCount: 0,
-                            createdAt: "몰라용",
-                            updatedAt: "몰라용",
-                            updated: false)
-                      );
                       Navigator.of(context).pop();
                     }
                   });

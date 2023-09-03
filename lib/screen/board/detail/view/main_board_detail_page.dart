@@ -358,9 +358,13 @@ class _MainBoardDetailPageState extends State<MainBoardDetailPage> {
                     ),
                   ],
                 );
-              } else if (snapshot.hasError) {
-                return Center(child: Text(snapshot.error.toString()));
               } else {
+                detailBoard = BoardService.getDetailBoardInfo(widget.boardId).then((value) {
+                  _isLikeCount = value.likeCount!;
+                  _isLiked = value.liked!;
+                  _initLikeState = _isLiked;
+                  return value;
+                });
                 return const Center(child: CircularProgressIndicator());
               }
             },
