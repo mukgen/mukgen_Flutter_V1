@@ -1,34 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/posting/view/delivery_where_meet_page.dart';
+import 'package:mukgen_flutter_v1/screen/delivery_posting/view/delivery_what_time_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
+import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:transition/transition.dart';
 
-class DeliveryHowManyPage extends StatefulWidget {
-  const DeliveryHowManyPage({Key? key, required this.menu}) : super(key: key);
+class DeliveryWhereMeetPage extends StatefulWidget {
+  const DeliveryWhereMeetPage({Key? key, required this.menu, required this.participantNumber}) : super(key: key);
 
   final String menu;
-
+  final int participantNumber;
   @override
-  State<DeliveryHowManyPage> createState() => _DeliveryHowManyPageState();
+  State<DeliveryWhereMeetPage> createState() => _DeliveryWhereMeetPageState();
 }
 
-class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
-  late FixedExtentScrollController howmanyscrollController =
-  FixedExtentScrollController();
-  bool _isButtonEnabled = true;
+class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
+  late TextEditingController wheremeetController;
 
-  int howmanyValue = 1; // 컨트롤러에 있는 값을 옮겨주는 변수임., 픽커를 움직여주지 않고 1명을 지정하였을 때 변수의 초기값인 0으로 되기 때문에 1로 설정함.
+  bool _isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    howmanyscrollController = FixedExtentScrollController(initialItem: 0);
+    wheremeetController = TextEditingController();
+    wheremeetController.addListener(_updateButtonState);
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    wheremeetController.dispose();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      _isButtonEnabled = wheremeetController.text.isNotEmpty;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,13 +74,13 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
           SizedBox(height: 20.0.h),
           Container(
             padding: EdgeInsets.only(right: 20.0.w),
-            alignment: Alignment.centerRight,
+            alignment: Alignment.bottomRight,
             child: Text(
-              '2 / 4',
+              '3 / 4',
               style: TextStyle(
                 color: MukGenColor.primaryLight2,
-                fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
+                fontSize: 20.sp,
                 fontFamily: 'MukgenSemiBold',
               ),
             ),
@@ -79,43 +88,26 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
           SizedBox(height: 24.0.h),
           Container(
             padding: EdgeInsets.only(left: 20.0.w),
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.bottomLeft,
             child: Text(
-              '몇명을\n모집하시나요?',
+              '어디서\n만나실 건가요?',
               style: TextStyle(
                 color: MukGenColor.black,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'MukgenSemiBold',
                 fontSize: 24.sp,
+                fontFamily: 'MukgenSemiBold',
               ),
             ),
           ),
-          SizedBox(height: 24.0.h),
-          SizedBox(
-            height: 240.0.h,
-            width: 353.0.w,
-            child: CupertinoPicker(
-                itemExtent: 56.0.h, // 각 항목의 높이
-                onSelectedItemChanged: (index) {
-                  HapticFeedback.mediumImpact();
-                  howmanyValue = index + 1;
-                },
-                squeeze: 0.9.h,
-                diameterRatio: 3.r,
-                scrollController: howmanyscrollController,
-                children: List<Widget>.generate(9, (index) {
-                  return Center(
-                    child: Text(
-                      (index + 1).toString(), // 1부터 9까지의 숫자를 생성
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontFamily: 'MukgenSemiBold',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  );
-                })
-            ),
+          SizedBox(height: 40.0.h),
+          MukGenTextField(
+            width: 353,
+            controller: wheremeetController,
+            fontSize: 20,
+            isPwdTextField: false,
+            autofocus: true,
+            maxLength: null,
+            hintText: "장소",
           ),
           const Spacer(),
           Row(
@@ -151,7 +143,7 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                       ? Navigator.push(
                     context,
                     Transition(
-                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue + 1),
+                      child: DeliveryWhatTimePage(menu: widget.menu, participantNumber: widget.participantNumber, place: wheremeetController.text,),
                       transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                     ),
                   )
