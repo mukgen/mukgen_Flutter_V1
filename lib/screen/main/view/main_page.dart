@@ -4,12 +4,12 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/meal/mukgen_pick.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
-import 'package:mukgen_flutter_v1/screen/board/mukgen_pick_page.dart';
+import 'package:mukgen_flutter_v1/screen/board/pick/view/mukgen_pick_page.dart';
 import 'package:mukgen_flutter_v1/service/board_service.dart';
 import 'package:mukgen_flutter_v1/service/meal_service.dart';
 import 'package:transition/transition.dart';
 
-import '../widget/comment_icon.dart';
+import '../../../widget/comment_icon.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key, required this.onDetail, required this.onMyPage})
