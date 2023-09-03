@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/auth/sign_up_number_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_number_page.dart';
 import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
