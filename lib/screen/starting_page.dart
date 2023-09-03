@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/auth/sign_up_main_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_main_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/auth/login_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_in/view/login_page.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 
 class StartingPage extends StatefulWidget {
