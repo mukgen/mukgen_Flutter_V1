@@ -4,7 +4,7 @@ import 'package:mukgen_flutter_v1/common/common.dart';
 import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/meal/mukgen_pick.dart';
 import 'package:mukgen_flutter_v1/model/meal/today_meal.dart';
-import 'package:mukgen_flutter_v1/screen/board/pick/view/mukgen_pick_page.dart';
+import 'package:mukgen_flutter_v1/screen/board_pick/view/mukgen_pick_page.dart';
 import 'package:mukgen_flutter_v1/service/board_service.dart';
 import 'package:mukgen_flutter_v1/service/meal_service.dart';
 import 'package:transition/transition.dart';
