@@ -7,9 +7,8 @@ import 'package:mukgen_flutter_v1/service/auth_service.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc() : super(Empty()) {
-    on<PressedButton>((event, emit) async {
+    on<LoadSignIn>((event, emit) async {
       try {
-        emit(Loading());
         final loginResponse = await AuthService.postLoginInfo(event.accountId, event.password);
         emit(Loaded(loginResponse: loginResponse));
       } catch (e) {
