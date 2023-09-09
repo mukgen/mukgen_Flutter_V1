@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/screen/board/main_board_detail_page.dart';
-import 'package:mukgen_flutter_v1/screen/board/main_board_posting_page.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/delivery_what_food_page.dart';
-import 'package:mukgen_flutter_v1/screen/review/main_review_detail_page.dart';
-import 'package:mukgen_flutter_v1/screen/review/main_review_select_page.dart';
-import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_page.dart';
-import 'package:mukgen_flutter_v1/screen/suggestion/main_suggestion_posting_page.dart';
-import 'package:mukgen_flutter_v1/screen/user/my_page.dart';
+import 'package:mukgen_flutter_v1/screen/board_detail/view/main_board_detail_page.dart';
+import 'package:mukgen_flutter_v1/screen/board_main/view/main_board_page.dart';
+import 'package:mukgen_flutter_v1/screen/board_posting/view/main_board_posting_page.dart';
+import 'package:mukgen_flutter_v1/screen/delivery_main/view/main_delivery_party_page.dart';
+import 'package:mukgen_flutter_v1/screen/delivery_posting/view/delivery_what_food_page.dart';
+import 'package:mukgen_flutter_v1/screen/mypage/view/my_page.dart';
+import 'package:mukgen_flutter_v1/screen/review_detail/view/main_review_detail_page.dart';
+import 'package:mukgen_flutter_v1/screen/review_main/view/main_review_page.dart';
+import 'package:mukgen_flutter_v1/screen/review_select/view/main_review_select_page.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion_main/view/main_suggestion_page.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion_posting/view/main_suggestion_posting_page.dart';
 import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/screen/main_page.dart';
-import 'package:mukgen_flutter_v1/screen/board/main_board_page.dart';
-import 'package:mukgen_flutter_v1/screen/delivery/main_delivery_party_page.dart';
-import 'package:mukgen_flutter_v1/screen/review/main_review_page.dart';
+import 'package:mukgen_flutter_v1/screen/main/view/main_page.dart';
 import 'package:transition/transition.dart';
 
 class MainNavigator extends StatefulWidget {
