@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_bloc.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_event.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_state.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_name_page.dart';
 import 'package:mukgen_flutter_v1/service/mail_service.dart';
-import 'package:mukgen_flutter_v1/service/meal_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_email_confirm.dart';
 
@@ -181,84 +184,94 @@ class _SignupEmailConfirmPageState extends State<SignupEmailConfirmPage> {
             ],
           ),
           SizedBox(height: 10.0.h),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0.w),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _isConfirm,
-                style: TextStyle(
-                  color: MukGenColor.red,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'MukgenRegular',
-                ),
-              ),
-            ),
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              SizedBox(width: 20.0.w),
-              Text(
-                '이메일을 받지 못하셨나요?',
-                style: TextStyle(
-                  color: MukGenColor.primaryDark1,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'MukgenRegular',
-                ),
-              ),
-              SizedBox(width: 10.0.w),
-              GestureDetector(
-                onTap: () => MailService.postSendMailInfo(widget.email),
-                child: Text(
-                  '재전송하기',
-                  style: TextStyle(
-                    color: MukGenColor.pointBase,
-                    fontSize: 16.sp,
-                    fontFamily: 'MukgenSemiBold',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10.0.h),
-          MukGenButton(
-            text: "확인",
-            width: 352,
-            height: 55,
-            backgroundColor: _isButtonEnabled
-                ? MukGenColor.pointLight1
-                : MukGenColor.primaryLight2,
-            fontSize: 16,
-            textColor: MukGenColor.white,
-            onPressed: () async {
-              String code = _firstController.text +
-                  _secondController.text +
-                  _thirdController.text +
-                  _fourthController.text +
-                  _fifthController.text +
-                  _sixthController.text;
-              if (_isButtonEnabled) {
-                bool confirmState = await MailService.postAuthenticateMailInfo(
-                    widget.email, code);
-                if (confirmState == false) {
-                  setState(() {
-                    _isConfirm = "인증번호가 일치하지 않습니다.";
-                  });
-                } else {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => SignupNamePage(
-                              email: widget.email,
-                            )),
-                    (route) => false,
+          Expanded(
+            child: BlocConsumer<SignUpBloc, SignUpState> (
+              listener: (context, state) {
+                if (state is Error) {
+                  _isConfirm = '인증번호가 일치하지 않습니다.';
+                }
+                if (state is Loaded) {
+                  Future.microtask(
+                        () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                      builder: (context) => SignupNamePage(email: widget.email),
+                    ),(route) => false).then((_) => context.read<SignUpBloc>().add(ResetEvent())), // 다른 화면으로 이동 -> 상태 초기화
                   );
                 }
-              }
-            },
+              },
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.w),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          _isConfirm,
+                          style: TextStyle(
+                            color: MukGenColor.red,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'MukgenRegular',
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        SizedBox(width: 20.0.w),
+                        Text(
+                          '이메일을 받지 못하셨나요?',
+                          style: TextStyle(
+                            color: MukGenColor.primaryDark1,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'MukgenRegular',
+                          ),
+                        ),
+                        SizedBox(width: 10.0.w),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<SignUpBloc>().add(ReloadEmailInput(mail: widget.email));
+                          },
+                          child: Text(
+                            '재전송하기',
+                            style: TextStyle(
+                              color: MukGenColor.pointBase,
+                              fontSize: 16.sp,
+                              fontFamily: 'MukgenSemiBold',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.0.h),
+                    MukGenButton(
+                        text: "확인",
+                        width: 352,
+                        height: 55,
+                        backgroundColor: _isButtonEnabled
+                            ? MukGenColor.pointLight1
+                            : MukGenColor.primaryLight2,
+                        fontSize: 16,
+                        textColor: MukGenColor.white,
+                        onPressed: () {
+                          String code = _firstController.text +
+                              _secondController.text +
+                              _thirdController.text +
+                              _fourthController.text +
+                              _fifthController.text +
+                              _sixthController.text;
+                          if (_isButtonEnabled) {
+                            context.read<SignUpBloc>().add(LoadEmailConfirm(code: code, mail: widget.email));
+                          }
+                        }
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ],
       ),
