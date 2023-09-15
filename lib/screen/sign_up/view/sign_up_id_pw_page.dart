@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_bloc.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_event.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_state.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_number_page.dart';
 import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
@@ -51,6 +55,7 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
         DuplicateResult.isDuplicate = false;
         idValid = Validation.getIdValidation(currentIdValue);
         idColor = Validation.getIdFieldColor(currentIdValue);
+        context.read<SignUpBloc>().add(ResetEvent());
       });
 
       _previousIdValue = currentIdValue;
@@ -60,7 +65,7 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
           Validation.getPwdValidation(pwdController.text).contains("사용 가능한") &&
           Validation.getPwdValidation(pwdCheckController.text,
                   confirmPassword: pwdController.text)
-              .contains("일치");
+              .contains("일치합니다");
     });
   }
 
@@ -113,90 +118,94 @@ class _SignupIdPwPageState extends State<SignupIdPwPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  SizedBox(
-                    width: 352.0.w,
-                    child: TextFormField(
-                      controller: idController,
-                      cursorColor: MukGenColor.black,
-                      style: TextStyle(
-                        color: MukGenColor.black,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'MukgenSemiBold',
-                      ),
-                      decoration: InputDecoration(
-                        helperText: idValid,
-                        helperStyle: TextStyle(
-                          color: idColor,
-                          fontSize: 16.sp,
-                          fontFamily: 'MukgenRegular',
-                          fontWeight: FontWeight.w400,
-                        ),
-                        hintText: "아이디",
-                        hintStyle: TextStyle(
-                          color: MukGenColor.primaryLight2,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'MukgenSemiBold',
-                        ),
-                        enabledBorder: idController.text.isEmpty
-                            ? UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MukGenColor.primaryLight2,
-                                  width: 2,
-                                ),
-                              )
-                            : UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MukGenColor.black,
-                                  width: 2,
-                                ),
-                              ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: MukGenColor.pointBase,
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      await AuthService.getDuplicateInfo(idController.text)
-                          .then((value) => DuplicateResult.duplicateState =
-                              value.duplicate!);
-                      DuplicateResult.isDuplicate = true;
-                      idValid = Validation.getIdValidation(idController.text);
-                      idColor = Validation.getIdFieldColor(idController.text);
-                      setState(() {});
-                    },
-                    child: Container(
-                      width: 84.0.w,
-                      height: 37.0.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.r),
-                        border: Border.all(
-                          color: MukGenColor.primaryLight2,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '중복 확인',
+              BlocConsumer<SignUpBloc, SignUpState>(
+                listener: (context, state) {
+                  if (state is Loaded) {
+                    idValid = '사용 가능한 아이디입니다.';
+                    idColor = MukGenColor.green;
+                  }
+                },
+                builder: (context, state) {
+                  return Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      SizedBox(
+                        width: 352.0.w,
+                        child: TextFormField(
+                          controller: idController,
+                          cursorColor: MukGenColor.black,
                           style: TextStyle(
-                            color: MukGenColor.primaryDark2,
+                            color: MukGenColor.black,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14.sp,
                             fontFamily: 'MukgenSemiBold',
                           ),
+                          decoration: InputDecoration(
+                            helperText: idValid,
+                            helperStyle: TextStyle(
+                              color: idColor,
+                              fontSize: 16.sp,
+                              fontFamily: 'MukgenRegular',
+                              fontWeight: FontWeight.w400,
+                            ),
+                            hintText: "아이디",
+                            hintStyle: TextStyle(
+                              color: MukGenColor.primaryLight2,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'MukgenSemiBold',
+                            ),
+                            enabledBorder: idController.text.isEmpty
+                                ? UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: MukGenColor.primaryLight2,
+                                      width: 2,
+                                    ),
+                                  )
+                                : UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: MukGenColor.black,
+                                      width: 2,
+                                    ),
+                                  ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: MukGenColor.pointBase,
+                                width: 2,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
+                      GestureDetector(
+                        onTap: () {
+                          context.read<SignUpBloc>().add(LoadIdDuplicate(id: idController.text));
+                        },
+                        child: Container(
+                          width: 84.0.w,
+                          height: 37.0.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6.r),
+                            border: Border.all(
+                              color: MukGenColor.primaryLight2,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '중복 확인',
+                              style: TextStyle(
+                                color: MukGenColor.primaryDark2,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                fontFamily: 'MukgenSemiBold',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
