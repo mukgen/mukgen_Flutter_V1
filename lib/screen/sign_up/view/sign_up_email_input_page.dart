@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_bloc.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_event.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_state.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_email_confirm_page.dart';
-import 'package:mukgen_flutter_v1/service/mail_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
 import 'package:mukgen_flutter_v1/widget/text_field_validation.dart';
@@ -28,12 +31,15 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
 
   void _updateState() {
     setState(() {
-      _isButtonEnabled = emailController.text.isNotEmpty;
+      context.read<SignUpBloc>().add(ResetEvent());
+      _isButtonEnabled =
+          emailController.text.isNotEmpty && Validation.emailValidation;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    String mail = "${emailController.text}@dsm.hs.kr";
     return Scaffold(
       backgroundColor: MukGenColor.white,
       appBar: AppBar(
@@ -126,26 +132,34 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
             ],
           ),
           const Spacer(),
-          MukGenButton(
-            text: "다음",
-            width: 352,
-            height: 55,
-            backgroundColor:
-                _isButtonEnabled ? MukGenColor.grey : MukGenColor.primaryLight2,
-            fontSize: 16,
-            textColor: MukGenColor.white,
-            onPressed: () {
-              if (_isButtonEnabled) {
-                String mail = "${emailController.text}@dsm.hs.kr";
-                MailService.postSendMailInfo(mail);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
+          BlocConsumer<SignUpBloc, SignUpState>(
+            listener: (context, state) {
+              if (state is Loaded) {
+                Future.microtask(
+                  () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SignupEmailConfirmPage(email: mail),
-                  ),
+                  )).then((_) => context.read<SignUpBloc>().add(ResetEvent())), // 다른 화면으로 이동 -> 상태 초기화
                 );
               }
             },
-          ),
+            builder: (context, state) {
+              return MukGenButton(
+                text: "다음",
+                width: 352,
+                height: 55,
+                backgroundColor: _isButtonEnabled
+                    ? MukGenColor.grey
+                    : MukGenColor.primaryLight2,
+                fontSize: 16,
+                textColor: MukGenColor.white,
+                onPressed: () {
+                  if (_isButtonEnabled) {
+                    context.read<SignUpBloc>().add(LoadEmailInput(mail: mail));
+                  }
+                },
+              );
+            },
+          )
         ],
       ),
     );
