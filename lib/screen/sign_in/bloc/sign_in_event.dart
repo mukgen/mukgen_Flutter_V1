@@ -11,3 +11,9 @@ class LoadSignIn extends SignInEvent {
   @override
   List<Object?> get props => [accountId, password];
 }
+
+class ResetEvent extends SignInEvent {
+
+  @override
+  List<Object?> get props => [];
+}
