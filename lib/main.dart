@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:mukgen_flutter_v1/observe.dart';
 import 'package:mukgen_flutter_v1/screen/sign_in/bloc/sign_in_bloc.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_bloc.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
@@ -15,6 +17,7 @@ void main() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   String flareLaneKey = getFlareLaneKey(); // 별도의 함수를 사용해 키를 가져옴
   FlareLane.shared.initialize(flareLaneKey);
+  Bloc.observer = Observer();
   initializeDateFormatting().then((_) {
     Intl.defaultLocale = 'ko_KR';
     SystemChrome.setPreferredOrientations([
@@ -51,6 +54,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SignInBloc()),
+        BlocProvider(create: (context) => SignUpBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(393, 852),

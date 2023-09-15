@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_bloc.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_event.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/bloc/sign_up_state.dart';
 import 'package:mukgen_flutter_v1/screen/starting_page.dart';
-import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
@@ -179,37 +182,38 @@ class _SignupNumberPageState extends State<SignupNumberPage> {
             ],
           ),
           const Spacer(),
-          MukGenButton(
-            text: "완료",
-            width: 352,
-            height: 55,
-            backgroundColor: _isButtonEnabled
-                ? MukGenColor.pointLight1
-                : MukGenColor.primaryLight2,
-            fontSize: 16,
-            textColor: MukGenColor.white,
-            onPressed: () {
-              if (_isButtonEnabled) {
-                String phone = "";
-                phone += _firstController.text +
-                    _secondController.text +
-                    _thirdController.text;
-                AuthService.postGeneralSignupInfo(widget.name, widget.id,
-                        widget.pwd, widget.pwdcheck, phone, widget.email)
-                    .then(
-                  (value) {
-                    if (value) {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const StartingPage()),
-                          (route) => false);
-                    }
-                  },
-                );
+          BlocConsumer<SignUpBloc, SignUpState>(
+            listener: (context, state) {
+              if (state is Loaded) {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const StartingPage()),
+                        (route) => false);
               }
             },
+            builder: (context, state) {
+              return MukGenButton(
+                text: "완료",
+                width: 352,
+                height: 55,
+                backgroundColor: _isButtonEnabled
+                    ? MukGenColor.pointLight1
+                    : MukGenColor.primaryLight2,
+                fontSize: 16,
+                textColor: MukGenColor.white,
+                onPressed: () {
+                  if (_isButtonEnabled) {
+                    String phone = "";
+                    phone += _firstController.text +
+                        _secondController.text +
+                        _thirdController.text;
+                    context.read<SignUpBloc>().add(LoadSignUp(nickname: widget.name, accountId: widget.id, password: widget.pwd, passwordCheck: widget.pwdcheck, phoneNumber: phone, mail: widget.email));
+                  }
+                },
+              );
+            }
           ),
-        ],
+        ]
       ),
     );
   }

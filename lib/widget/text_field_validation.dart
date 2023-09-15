@@ -14,11 +14,15 @@ class Validation {
     }
   }
 
+  static bool emailValidation = true;
   static String getEmailValidation(String input) {
     RegExp emailRegex = RegExp(r'^[a-zA-Z\d._%+-]+$');
     if (input.isNotEmpty) {
       if (!emailRegex.hasMatch(input)) {
+        emailValidation = false;
         return "잘못된 유형의 이메일 주소입니다.";
+      } else {
+        emailValidation = true;
       }
     }
     return "";

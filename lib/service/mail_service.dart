@@ -45,6 +45,7 @@ class MailService {
     );
 
     if (response.statusCode != 200) {
+      print(response.statusCode);
       return false;
     }
     debugPrint(utf8.decode(response.bodyBytes));

@@ -29,8 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   final storage = const FlutterSecureStorage();
   dynamic userInfo = '';
 
-  final signInBloc = SignInBloc();
-
   @override
   void initState() {
     super.initState();
@@ -42,7 +40,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    signInBloc.close();
     idController.dispose();
     pwdController.dispose();
     super.dispose();
@@ -51,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
   void _updateButtonState() {
     setState(() {
       ValidateLogin.loginValue = '';
-      _isButtonEnabled = idController.text.isNotEmpty && pwdController.text.isNotEmpty;
+      _isButtonEnabled =
+          idController.text.isNotEmpty && pwdController.text.isNotEmpty;
     });
   }
 
@@ -76,26 +74,25 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-      body: SizedBox(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 40.0.h),
-            Container(
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(left: 20.0.w),
-              child: Text(
-                '로그인을 위한\n정보를 입력해주세요.',
-                style: TextStyle(
-                  fontSize: 24.0.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
-                ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: 40.0.h),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(left: 20.0.w),
+            child: Text(
+              '로그인을 위한\n정보를 입력해주세요.',
+              style: TextStyle(
+                fontSize: 24.0.sp,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'MukgenSemiBold',
               ),
             ),
-            BlocBuilder<SignInBloc, SignInState>(
-              bloc: signInBloc,
-              builder: (context, state) {
+          ),
+          Expanded(
+            child: BlocConsumer<SignInBloc, SignInState>(
+              listener: (context, state) {
                 if (state is Error) {
                   ValidateLogin.loginValue = '아이디나 비밀번호가 맞지 않습니다.';
                 }
@@ -142,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                           actions: <Widget>[
                             Padding(
                               padding:
-                                  EdgeInsets.only(bottom: 10.0.h, left: 4.0.w),
+                              EdgeInsets.only(bottom: 10.0.h, left: 4.0.w),
                               child: MukGenButton(
                                 text: "확인",
                                 width: 285,
@@ -152,11 +149,11 @@ class _LoginPageState extends State<LoginPage> {
                                 textColor: MukGenColor.white,
                                 onPressed: () {
                                   if (_isButtonEnabled) {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MainNavigator()),
-                                        (route) => false);
+                                    Future.microtask(
+                                          () => Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => const MainNavigator(),
+                                      )).then((_) => context.read<SignInBloc>().add(ResetEvent())), // 다른 화면으로 이동 -> 상태 초기화
+                                    );
                                   }
                                 },
                               ),
@@ -168,6 +165,8 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   });
                 }
+              },
+              builder: (context, state) {
                 return Column(
                   children: [
                     SizedBox(height: 24.0.h),
@@ -192,6 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                       helperText: ValidateLogin.loginValue,
                       color: MukGenColor.red,
                     ),
+                    const Spacer(),
                     MukGenButton(
                       text: "로그인",
                       width: 352,
@@ -203,21 +203,16 @@ class _LoginPageState extends State<LoginPage> {
                       textColor: MukGenColor.white,
                       onPressed: _isButtonEnabled
                           ? () {
-                              signInBloc.add(
-                                LoadSignIn(
-                                  accountId: idController.text,
-                                  password: pwdController.text,
-                                ),
-                              );
-                            }
+                        context.read<SignInBloc>().add(LoadSignIn(accountId: idController.text, password: pwdController.text));
+                      }
                           : null,
                     ),
                   ],
                 );
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
