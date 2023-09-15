@@ -39,7 +39,6 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
 
   @override
   Widget build(BuildContext context) {
-    String mail = "${emailController.text}@dsm.hs.kr";
     return Scaffold(
       backgroundColor: MukGenColor.white,
       appBar: AppBar(
@@ -137,7 +136,7 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
               if (state is Loaded) {
                 Future.microtask(
                   () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SignupEmailConfirmPage(email: mail),
+                    builder: (context) => SignupEmailConfirmPage(email: "${emailController.text}@dsm.hs.kr"),
                   )).then((_) => context.read<SignUpBloc>().add(ResetEvent())), // 다른 화면으로 이동 -> 상태 초기화
                 );
               }
@@ -154,7 +153,7 @@ class _SignupEmailInputPageState extends State<SignupEmailInputPage> {
                 textColor: MukGenColor.white,
                 onPressed: () {
                   if (_isButtonEnabled) {
-                    context.read<SignUpBloc>().add(LoadEmailInput(mail: mail));
+                    context.read<SignUpBloc>().add(LoadEmailInput(mail: "${emailController.text}@dsm.hs.kr"));
                   }
                 },
               );
