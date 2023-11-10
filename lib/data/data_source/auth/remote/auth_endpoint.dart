@@ -19,6 +19,11 @@ sealed class AuthEndpoint extends MukgenEndpoint {
   MukgenRestAPIDomain get domain => MukgenRestAPIDomain.auth;
 
   @override
+  JwtTokenType get jwtTokenType => switch (this) {
+        SignIn() => JwtTokenType.none,
+      };
+
+  @override
   Map<int, Exception> get errorMap => throw UnimplementedError();
 
   @override
