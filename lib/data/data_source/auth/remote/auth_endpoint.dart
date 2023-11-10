@@ -2,6 +2,7 @@ import 'package:mukgen_flutter_v1/core/network/base_network_dto.dart';
 import 'package:mukgen_flutter_v1/core/network/http_method.dart';
 import 'package:mukgen_flutter_v1/core/network/mukgen_endpoint.dart';
 import 'package:mukgen_flutter_v1/core/network/mukgen_rest_api_domain.dart';
+import 'package:mukgen_flutter_v1/data/dto/auth/request/change_password_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/re_issue_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/sign_in_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/sign_up_request_dto.dart';
@@ -18,11 +19,17 @@ sealed class AuthEndpoint extends MukgenEndpoint {
   factory AuthEndpoint.signUp({required SignUpRequestDTO signUpRequestDTO}) =
       SignUp;
 
+  factory AuthEndpoint.changePassword(
+          {required ChangePasswordRequestDTO changePasswordRequestDTO}) =
+      ChangePassword;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         SignIn(signInRequestDTO: final signInBody) => signInBody,
         ReIssue(reIssueRequestDTO: final reIssueBody) => reIssueBody,
         SignUp(signUpRequestDTO: final signUpBody) => signUpBody,
+        ChangePassword(changePasswordRequestDTO: final changePasswordBody) =>
+          changePasswordBody,
       };
 
   @override
@@ -33,6 +40,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         SignIn() => JwtTokenType.none,
         ReIssue() => JwtTokenType.accessToken,
         SignUp() => JwtTokenType.none,
+        ChangePassword() => JwtTokenType.accessToken,
       };
 
   @override
@@ -43,6 +51,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         SignIn() => HTTPMethod.post,
         ReIssue() => HTTPMethod.post,
         SignUp() => HTTPMethod.post,
+        ChangePassword() => HTTPMethod.post,
       };
 
   @override
@@ -50,6 +59,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         SignIn() => "/login",
         ReIssue() => "/re-issue",
         SignUp() => "/signup/general",
+        ChangePassword() => "/change/password",
       };
 
   @override
@@ -72,4 +82,10 @@ final class SignUp extends AuthEndpoint {
   final SignUpRequestDTO signUpRequestDTO;
 
   SignUp({required this.signUpRequestDTO});
+}
+
+final class ChangePassword extends AuthEndpoint {
+  final ChangePasswordRequestDTO changePasswordRequestDTO;
+
+  ChangePassword({required this.changePasswordRequestDTO});
 }
