@@ -12,7 +12,7 @@ abstract class MukgenEndpoint extends RequestOptions {
   JwtTokenType get jwtTokenType;
 
   @override
-  String get baseUrl => "${s.baseUrl}/$domain$path";
+  String get baseUrl => "${s.baseUrl}/$path";
 
   @override
   Map<String, String> headers = {'Content-Type': 'application/json'};
