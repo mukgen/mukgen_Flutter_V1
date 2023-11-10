@@ -10,7 +10,7 @@ abstract class MukgenEndpoint extends RequestOptions {
   Map<int, Exception> get errorMap;
 
   @override
-  String get baseUrl => s.baseUrl + path;
+  String get baseUrl => "${s.baseUrl}/$domain$path";
 
   @override
   Map<String, String> headers = {'Content-Type': 'application/json'};
