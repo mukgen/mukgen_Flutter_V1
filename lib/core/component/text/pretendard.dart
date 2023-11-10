@@ -1,0 +1,10 @@
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/body.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/body2.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/body_large.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/body_large2.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/body_strong.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/body_strong2.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/subtitle.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/ttitle.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/title_large.dart';
+export 'package:mukgen_flutter_v1/core/component/text/pretendard/title_large2.dart';
