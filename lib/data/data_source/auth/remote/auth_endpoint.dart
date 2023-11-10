@@ -23,6 +23,8 @@ sealed class AuthEndpoint extends MukgenEndpoint {
           {required ChangePasswordRequestDTO changePasswordRequestDTO}) =
       ChangePassword;
 
+  factory AuthEndpoint.duplicate({required String accountId}) = Duplicate;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         SignIn(signInRequestDTO: final signInBody) => signInBody,
@@ -30,6 +32,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         SignUp(signUpRequestDTO: final signUpBody) => signUpBody,
         ChangePassword(changePasswordRequestDTO: final changePasswordBody) =>
           changePasswordBody,
+        Duplicate() => null,
       };
 
   @override
@@ -41,6 +44,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         ReIssue() => JwtTokenType.accessToken,
         SignUp() => JwtTokenType.none,
         ChangePassword() => JwtTokenType.accessToken,
+        Duplicate() => JwtTokenType.accessToken,
       };
 
   @override
@@ -52,6 +56,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         ReIssue() => HTTPMethod.post,
         SignUp() => HTTPMethod.post,
         ChangePassword() => HTTPMethod.post,
+        Duplicate() => HTTPMethod.post,
       };
 
   @override
@@ -60,10 +65,17 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         ReIssue() => "/re-issue",
         SignUp() => "/signup/general",
         ChangePassword() => "/change/password",
+        Duplicate() => "/duplicate",
       };
 
   @override
-  Map<String, dynamic>? get queryParam => null;
+  Map<String, dynamic>? get queryParam => switch (this) {
+        Duplicate(accountId: final accountId) => {'accountId': accountId},
+        SignIn() => null,
+        ReIssue() => null,
+        SignUp() => null,
+        ChangePassword() => null,
+      };
 }
 
 final class SignIn extends AuthEndpoint {
@@ -88,4 +100,10 @@ final class ChangePassword extends AuthEndpoint {
   final ChangePasswordRequestDTO changePasswordRequestDTO;
 
   ChangePassword({required this.changePasswordRequestDTO});
+}
+
+final class Duplicate extends AuthEndpoint {
+  final String accountId;
+
+  Duplicate({required this.accountId});
 }
