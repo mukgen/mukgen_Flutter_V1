@@ -26,6 +26,9 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
   factory MealSuggestionEndpoint.addMealSuggestionLike(
       {required int mealSuggestionId}) = AddMealSuggestionLike;
 
+  factory MealSuggestionEndpoint.addMealSuggestionDislike(
+      {required int mealSuggestionId}) = AddMealSuggestionDislike;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateMealSuggestion(
@@ -39,6 +42,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         DeleteMealSuggestion() => null,
         ReadAllMealSuggestion() => null,
         AddMealSuggestionLike() => null,
+        AddMealSuggestionDislike() => null,
       };
 
   @override
@@ -54,6 +58,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         DeleteMealSuggestion() => HTTPMethod.delete,
         ReadAllMealSuggestion() => HTTPMethod.get,
         AddMealSuggestionLike() => HTTPMethod.post,
+        AddMealSuggestionDislike() => HTTPMethod.post,
       };
 
   @override
@@ -63,6 +68,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         DeleteMealSuggestion() => JwtTokenType.accessToken,
         ReadAllMealSuggestion() => JwtTokenType.accessToken,
         AddMealSuggestionLike() => JwtTokenType.accessToken,
+        AddMealSuggestionDislike() => JwtTokenType.accessToken,
       };
 
   @override
@@ -75,6 +81,8 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         ReadAllMealSuggestion() => "/meal-suggestion/list",
         AddMealSuggestionLike(mealSuggestionId: final mealSuggestionId) =>
           "/meal-suggestion/like/$mealSuggestionId",
+        AddMealSuggestionDislike(mealSuggestionId: final mealSuggestionId) =>
+          "/meal-suggestion/dislike/$mealSuggestionId",
       };
 
   @override
@@ -84,6 +92,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         DeleteMealSuggestion() => null,
         ReadAllMealSuggestion() => null,
         AddMealSuggestionLike() => null,
+        AddMealSuggestionDislike() => null,
       };
 }
 
@@ -115,4 +124,10 @@ final class AddMealSuggestionLike extends MealSuggestionEndpoint {
   final int mealSuggestionId;
 
   AddMealSuggestionLike({required this.mealSuggestionId});
+}
+
+final class AddMealSuggestionDislike extends MealSuggestionEndpoint {
+  final int mealSuggestionId;
+
+  AddMealSuggestionDislike({required this.mealSuggestionId});
 }
