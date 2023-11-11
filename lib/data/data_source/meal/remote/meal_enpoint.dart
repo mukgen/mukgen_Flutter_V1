@@ -11,10 +11,13 @@ sealed class MealEndpoint extends MukgenEndpoint {
           {required ReadSingleMealRequestDTO readSingleMealRequestDTO}) =
       ReadSingleMeal;
 
+  factory MealEndpoint.readTodayMeal() = ReadTodayMeal;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         ReadSingleMeal(readSingleMealRequestDTO: final readSingleMealBody) =>
           readSingleMealBody,
+        ReadTodayMeal() => null,
       };
 
   @override
@@ -26,19 +29,25 @@ sealed class MealEndpoint extends MukgenEndpoint {
   @override
   HTTPMethod get httpMethod => switch (this) {
         ReadSingleMeal() => HTTPMethod.get,
+        ReadTodayMeal() => HTTPMethod.get,
       };
 
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         ReadSingleMeal() => JwtTokenType.accessToken,
+        ReadTodayMeal() => JwtTokenType.accessToken,
       };
 
   @override
-  String get path => switch (this) { ReadSingleMeal() => "/meal" };
+  String get path => switch (this) {
+        ReadSingleMeal() => "/meal",
+        ReadTodayMeal() => "/meal/today"
+      };
 
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
         ReadSingleMeal() => null,
+        ReadTodayMeal() => null,
       };
 }
 
@@ -47,3 +56,5 @@ class ReadSingleMeal extends MealEndpoint {
 
   ReadSingleMeal({required this.readSingleMealRequestDTO});
 }
+
+class ReadTodayMeal extends MealEndpoint {}
