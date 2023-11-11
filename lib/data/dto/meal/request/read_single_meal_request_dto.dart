@@ -20,4 +20,4 @@ final class ReadSingleMealRequestDTO extends BaseRequestDTO {
       };
 }
 
-enum RiceType { breakfast, lunch, dinner }
+enum RiceType { breakfast, lunch, dinner, none }
