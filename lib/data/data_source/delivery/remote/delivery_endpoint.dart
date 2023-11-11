@@ -20,6 +20,9 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
   factory DeliveryEndpoint.leaveDeliveryParty({required int deliveryId}) =
       LeaveDeliveryParty;
 
+  factory DeliveryEndpoint.deleteDeliveryPartyFeed({required int deliveryId}) =
+      DeleteDeliveryPartyFeed;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateDeliveryPartyFeed(
@@ -29,6 +32,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         ReadAllDeliveryPartyFeed() => null,
         JoinDeliveryParty() => null,
         LeaveDeliveryParty() => null,
+        DeleteDeliveryPartyFeed() => null,
       };
 
   @override
@@ -43,6 +47,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         ReadAllDeliveryPartyFeed() => HTTPMethod.get,
         JoinDeliveryParty() => HTTPMethod.post,
         LeaveDeliveryParty() => HTTPMethod.post,
+        DeleteDeliveryPartyFeed() => HTTPMethod.delete,
       };
 
   @override
@@ -51,6 +56,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         ReadAllDeliveryPartyFeed() => JwtTokenType.accessToken,
         JoinDeliveryParty() => JwtTokenType.accessToken,
         LeaveDeliveryParty() => JwtTokenType.accessToken,
+        DeleteDeliveryPartyFeed() => JwtTokenType.accessToken,
       };
 
   @override
@@ -61,6 +67,8 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
           "/delivery-party/join/$deliveryId",
         LeaveDeliveryParty(deliveryId: final deliveryId) =>
           "/delivery-party/leave/$deliveryId",
+        DeleteDeliveryPartyFeed(deliveryId: final deliveryId) =>
+          "/delivery-party/$deliveryId",
       };
 
   @override
@@ -69,6 +77,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         ReadAllDeliveryPartyFeed() => null,
         JoinDeliveryParty() => null,
         LeaveDeliveryParty() => null,
+        DeleteDeliveryPartyFeed() => null,
       };
 }
 
@@ -90,4 +99,10 @@ final class LeaveDeliveryParty extends DeliveryEndpoint {
   final int deliveryId;
 
   LeaveDeliveryParty({required this.deliveryId});
+}
+
+final class DeleteDeliveryPartyFeed extends DeliveryEndpoint {
+  final int deliveryId;
+
+  DeleteDeliveryPartyFeed({required this.deliveryId});
 }
