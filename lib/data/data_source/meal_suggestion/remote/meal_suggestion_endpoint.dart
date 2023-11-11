@@ -17,6 +17,9 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
       required UpdateMealSuggestionRequestDTO
           updateMealSuggestionRequestDTO}) = UpdateMealSuggestion;
 
+  factory MealSuggestionEndpoint.deleteMealSuggestion(
+      {required int mealSuggestionId}) = DeleteMealSuggestion;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateMealSuggestion(
@@ -27,6 +30,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
           updateMealSuggestionRequestDTO: final updateMealSuggestionBody
         ) =>
           updateMealSuggestionBody,
+        DeleteMealSuggestion() => null,
       };
 
   @override
@@ -39,12 +43,14 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
   HTTPMethod get httpMethod => switch (this) {
         CreateMealSuggestion() => HTTPMethod.post,
         UpdateMealSuggestion() => HTTPMethod.put,
+        DeleteMealSuggestion() => HTTPMethod.delete,
       };
 
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         CreateMealSuggestion() => JwtTokenType.accessToken,
         UpdateMealSuggestion() => JwtTokenType.accessToken,
+        DeleteMealSuggestion() => JwtTokenType.accessToken,
       };
 
   @override
@@ -52,12 +58,15 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         CreateMealSuggestion() => "/meal-suggestion",
         UpdateMealSuggestion(mealSuggestionId: final mealSuggestionId) =>
           "/meal-suggestion/$mealSuggestionId",
+        DeleteMealSuggestion(mealSuggestionId: final mealSuggestionId) =>
+          "/meal-suggestion/$mealSuggestionId",
       };
 
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
         CreateMealSuggestion() => null,
         UpdateMealSuggestion() => null,
+        DeleteMealSuggestion() => null,
       };
 }
 
@@ -75,4 +84,10 @@ final class UpdateMealSuggestion extends MealSuggestionEndpoint {
     required this.mealSuggestionId,
     required this.updateMealSuggestionRequestDTO,
   });
+}
+
+final class DeleteMealSuggestion extends MealSuggestionEndpoint {
+  final int mealSuggestionId;
+
+  DeleteMealSuggestion({required this.mealSuggestionId});
 }
