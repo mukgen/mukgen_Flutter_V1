@@ -11,12 +11,16 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
       {required CreateDeliveryPartyFeedRequestDTO
           createDeliveryPartyFeedRequestDTO}) = CreateDeliveryPartyFeed;
 
+  factory DeliveryEndpoint.readAllDeliveryPartyFeed() =
+      ReadAllDeliveryPartyFeed;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateDeliveryPartyFeed(
           createDeliveryPartyFeedRequestDTO: final createDeliveryPartyFeedBody
         ) =>
           createDeliveryPartyFeedBody,
+        ReadAllDeliveryPartyFeed() => null,
       };
 
   @override
@@ -28,21 +32,25 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
   @override
   HTTPMethod get httpMethod => switch (this) {
         CreateDeliveryPartyFeed() => HTTPMethod.post,
+        ReadAllDeliveryPartyFeed() => HTTPMethod.get,
       };
 
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         CreateDeliveryPartyFeed() => JwtTokenType.accessToken,
+        ReadAllDeliveryPartyFeed() => JwtTokenType.accessToken,
       };
 
   @override
   String get path => switch (this) {
         CreateDeliveryPartyFeed() => "/delivery-party",
+        ReadAllDeliveryPartyFeed() => "/delivery-party/list",
       };
 
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
         CreateDeliveryPartyFeed() => null,
+        ReadAllDeliveryPartyFeed() => null,
       };
 }
 
@@ -51,3 +59,5 @@ final class CreateDeliveryPartyFeed extends DeliveryEndpoint {
 
   CreateDeliveryPartyFeed({required this.createDeliveryPartyFeedRequestDTO});
 }
+
+final class ReadAllDeliveryPartyFeed extends DeliveryEndpoint {}
