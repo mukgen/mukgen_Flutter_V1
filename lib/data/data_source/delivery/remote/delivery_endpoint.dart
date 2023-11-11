@@ -3,6 +3,7 @@ import 'package:mukgen_flutter_v1/core/network/http_method.dart';
 import 'package:mukgen_flutter_v1/core/network/mukgen_endpoint.dart';
 import 'package:mukgen_flutter_v1/core/network/mukgen_rest_api_domain.dart';
 import 'package:mukgen_flutter_v1/data/dto/delivery/request/create_delivery_party_feed_request_dto.dart';
+import 'package:mukgen_flutter_v1/data/dto/delivery/request/update_delivery_party_feed_request_dto.dart';
 
 sealed class DeliveryEndpoint extends MukgenEndpoint {
   DeliveryEndpoint();
@@ -23,6 +24,11 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
   factory DeliveryEndpoint.deleteDeliveryPartyFeed({required int deliveryId}) =
       DeleteDeliveryPartyFeed;
 
+  factory DeliveryEndpoint.updateDeliveryPartyFeed(
+      {required int deliveryId,
+      required UpdateDeliveryPartyFeedRequestDTO
+          updateDeliveryPartyFeedRequestDTO}) = UpdateDeliveryPartyFeed;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateDeliveryPartyFeed(
@@ -33,6 +39,10 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         JoinDeliveryParty() => null,
         LeaveDeliveryParty() => null,
         DeleteDeliveryPartyFeed() => null,
+        UpdateDeliveryPartyFeed(
+          updateDeliveryPartyFeedRequestDTO: final updateDeliveryPartyFeedBody
+        ) =>
+          updateDeliveryPartyFeedBody,
       };
 
   @override
@@ -48,6 +58,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         JoinDeliveryParty() => HTTPMethod.post,
         LeaveDeliveryParty() => HTTPMethod.post,
         DeleteDeliveryPartyFeed() => HTTPMethod.delete,
+        UpdateDeliveryPartyFeed() => HTTPMethod.put,
       };
 
   @override
@@ -57,6 +68,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         JoinDeliveryParty() => JwtTokenType.accessToken,
         LeaveDeliveryParty() => JwtTokenType.accessToken,
         DeleteDeliveryPartyFeed() => JwtTokenType.accessToken,
+        UpdateDeliveryPartyFeed() => JwtTokenType.accessToken,
       };
 
   @override
@@ -69,6 +81,8 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
           "/delivery-party/leave/$deliveryId",
         DeleteDeliveryPartyFeed(deliveryId: final deliveryId) =>
           "/delivery-party/$deliveryId",
+        UpdateDeliveryPartyFeed(deliveryId: final deliveryId) =>
+          "/delivery-party/$deliveryId",
       };
 
   @override
@@ -78,6 +92,7 @@ sealed class DeliveryEndpoint extends MukgenEndpoint {
         JoinDeliveryParty() => null,
         LeaveDeliveryParty() => null,
         DeleteDeliveryPartyFeed() => null,
+        UpdateDeliveryPartyFeed() => null,
       };
 }
 
@@ -105,4 +120,14 @@ final class DeleteDeliveryPartyFeed extends DeliveryEndpoint {
   final int deliveryId;
 
   DeleteDeliveryPartyFeed({required this.deliveryId});
+}
+
+final class UpdateDeliveryPartyFeed extends DeliveryEndpoint {
+  final int deliveryId;
+  final UpdateDeliveryPartyFeedRequestDTO updateDeliveryPartyFeedRequestDTO;
+
+  UpdateDeliveryPartyFeed({
+    required this.deliveryId,
+    required this.updateDeliveryPartyFeedRequestDTO,
+  });
 }
