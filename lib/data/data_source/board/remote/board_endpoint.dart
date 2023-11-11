@@ -23,6 +23,8 @@ sealed class BoardEndpoint extends MukgenEndpoint {
 
   factory BoardEndpoint.readTodayBoard() = ReadTodayBoard;
 
+  factory BoardEndpoint.readThisWeekBoard() = ReadThisWeekBoard;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateBoard(createBoardRequestDTO: final createBoardBody) =>
@@ -33,6 +35,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         ReadAllBoard() => null,
         ReadHotBoard() => null,
         ReadTodayBoard() => null,
+        ReadThisWeekBoard() => null,
       };
 
   @override
@@ -49,6 +52,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         ReadAllBoard() => HTTPMethod.get,
         ReadHotBoard() => HTTPMethod.get,
         ReadTodayBoard() => HTTPMethod.get,
+        ReadThisWeekBoard() => HTTPMethod.get,
       };
 
   @override
@@ -59,6 +63,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         ReadAllBoard() => JwtTokenType.accessToken,
         ReadHotBoard() => JwtTokenType.accessToken,
         ReadTodayBoard() => JwtTokenType.accessToken,
+        ReadThisWeekBoard() => JwtTokenType.accessToken,
       };
 
   @override
@@ -68,7 +73,8 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         DeleteBoard(boardId: final boardId) => "/board/$boardId",
         ReadAllBoard() => "/board/total",
         ReadHotBoard() => "/board/hot",
-        ReadTodayBoard() => "/board/day"
+        ReadTodayBoard() => "/board/day",
+        ReadThisWeekBoard() => "board/week",
       };
 
   @override
@@ -99,3 +105,5 @@ final class ReadAllBoard extends BoardEndpoint {}
 final class ReadHotBoard extends BoardEndpoint {}
 
 final class ReadTodayBoard extends BoardEndpoint {}
+
+final class ReadThisWeekBoard extends BoardEndpoint {}
