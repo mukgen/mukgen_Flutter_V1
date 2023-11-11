@@ -15,12 +15,15 @@ sealed class BoardEndpoint extends MukgenEndpoint {
       {required int boardId,
       required UpdateBoardRequestDTO updateBoardRequestDTO}) = UpdateBoard;
 
+  factory BoardEndpoint.deleteBoard({required int boardId}) = DeleteBoard;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateBoard(createBoardRequestDTO: final createBoardBody) =>
           createBoardBody,
         UpdateBoard(updateBoardRequestDTO: final updateBoardBody) =>
           updateBoardBody,
+        DeleteBoard() => null,
       };
 
   @override
@@ -33,18 +36,21 @@ sealed class BoardEndpoint extends MukgenEndpoint {
   HTTPMethod get httpMethod => switch (this) {
         CreateBoard() => HTTPMethod.post,
         UpdateBoard() => HTTPMethod.put,
+        DeleteBoard() => HTTPMethod.delete,
       };
 
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         CreateBoard() => JwtTokenType.accessToken,
         UpdateBoard() => JwtTokenType.accessToken,
+        DeleteBoard() => JwtTokenType.accessToken,
       };
 
   @override
   String get path => switch (this) {
         CreateBoard() => "/board/",
         UpdateBoard(boardId: final boardId) => "/board/$boardId",
+        DeleteBoard(boardId: final boardId) => "/board/$boardId",
       };
 
   @override
@@ -62,4 +68,10 @@ final class UpdateBoard extends BoardEndpoint {
   final UpdateBoardRequestDTO updateBoardRequestDTO;
 
   UpdateBoard({required this.boardId, required this.updateBoardRequestDTO});
+}
+
+final class DeleteBoard extends BoardEndpoint {
+  final int boardId;
+
+  DeleteBoard({required this.boardId});
 }
