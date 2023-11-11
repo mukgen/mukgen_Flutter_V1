@@ -23,6 +23,9 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
   factory MealSuggestionEndpoint.readAllMealSuggestion() =
       ReadAllMealSuggestion;
 
+  factory MealSuggestionEndpoint.addMealSuggestionLike(
+      {required int mealSuggestionId}) = AddMealSuggestionLike;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateMealSuggestion(
@@ -35,6 +38,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
           updateMealSuggestionBody,
         DeleteMealSuggestion() => null,
         ReadAllMealSuggestion() => null,
+        AddMealSuggestionLike() => null,
       };
 
   @override
@@ -49,6 +53,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         UpdateMealSuggestion() => HTTPMethod.put,
         DeleteMealSuggestion() => HTTPMethod.delete,
         ReadAllMealSuggestion() => HTTPMethod.get,
+        AddMealSuggestionLike() => HTTPMethod.post,
       };
 
   @override
@@ -57,6 +62,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         UpdateMealSuggestion() => JwtTokenType.accessToken,
         DeleteMealSuggestion() => JwtTokenType.accessToken,
         ReadAllMealSuggestion() => JwtTokenType.accessToken,
+        AddMealSuggestionLike() => JwtTokenType.accessToken,
       };
 
   @override
@@ -67,6 +73,8 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         DeleteMealSuggestion(mealSuggestionId: final mealSuggestionId) =>
           "/meal-suggestion/$mealSuggestionId",
         ReadAllMealSuggestion() => "/meal-suggestion/list",
+        AddMealSuggestionLike(mealSuggestionId: final mealSuggestionId) =>
+          "/meal-suggestion/like/$mealSuggestionId",
       };
 
   @override
@@ -75,6 +83,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         UpdateMealSuggestion() => null,
         DeleteMealSuggestion() => null,
         ReadAllMealSuggestion() => null,
+        AddMealSuggestionLike() => null,
       };
 }
 
@@ -101,3 +110,9 @@ final class DeleteMealSuggestion extends MealSuggestionEndpoint {
 }
 
 final class ReadAllMealSuggestion extends MealSuggestionEndpoint {}
+
+final class AddMealSuggestionLike extends MealSuggestionEndpoint {
+  final int mealSuggestionId;
+
+  AddMealSuggestionLike({required this.mealSuggestionId});
+}
