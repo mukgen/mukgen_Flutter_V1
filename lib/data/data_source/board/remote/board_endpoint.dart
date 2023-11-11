@@ -41,6 +41,9 @@ sealed class BoardEndpoint extends MukgenEndpoint {
           required UpdateCommentRequestDTO updateCommentRequestDTO}) =
       UpdateComment;
 
+  factory BoardEndpoint.deleteComment({required int boardCommentId}) =
+      DeleteComment;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateBoard(createBoardRequestDTO: final createBoardBody) =>
@@ -58,6 +61,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
           createCommentBody,
         UpdateComment(updateCommentRequestDTO: final updateCommentBody) =>
           updateCommentBody,
+        DeleteComment() => null,
       };
 
   @override
@@ -79,6 +83,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         AddBoardLike() => HTTPMethod.post,
         CreateComment() => HTTPMethod.post,
         UpdateComment() => HTTPMethod.put,
+        DeleteComment() => HTTPMethod.delete,
       };
 
   @override
@@ -94,6 +99,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         AddBoardLike() => JwtTokenType.accessToken,
         CreateComment() => JwtTokenType.accessToken,
         UpdateComment() => JwtTokenType.accessToken,
+        DeleteComment() => JwtTokenType.accessToken,
       };
 
   @override
@@ -109,6 +115,8 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         AddBoardLike(boardId: final boardId) => "/board/$boardId",
         CreateComment() => "/board-comment",
         UpdateComment(boardCommentId: final boardCommentId) =>
+          "/board-comment/$boardCommentId",
+        DeleteComment(boardCommentId: final boardCommentId) =>
           "/board-comment/$boardCommentId",
       };
 
@@ -167,4 +175,10 @@ final class UpdateComment extends BoardEndpoint {
 
   UpdateComment(
       {required this.boardCommentId, required this.updateCommentRequestDTO});
+}
+
+final class DeleteComment extends BoardEndpoint {
+  final int boardCommentId;
+
+  DeleteComment({required this.boardCommentId});
 }
