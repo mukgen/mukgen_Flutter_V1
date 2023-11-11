@@ -13,11 +13,14 @@ sealed class MealEndpoint extends MukgenEndpoint {
 
   factory MealEndpoint.readTodayMeal() = ReadTodayMeal;
 
+  factory MealEndpoint.readMukgenPick() = ReadMukgenPick;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         ReadSingleMeal(readSingleMealRequestDTO: final readSingleMealBody) =>
           readSingleMealBody,
         ReadTodayMeal() => null,
+        ReadMukgenPick() => null,
       };
 
   @override
@@ -30,24 +33,28 @@ sealed class MealEndpoint extends MukgenEndpoint {
   HTTPMethod get httpMethod => switch (this) {
         ReadSingleMeal() => HTTPMethod.get,
         ReadTodayMeal() => HTTPMethod.get,
+        ReadMukgenPick() => HTTPMethod.get,
       };
 
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         ReadSingleMeal() => JwtTokenType.accessToken,
         ReadTodayMeal() => JwtTokenType.accessToken,
+        ReadMukgenPick() => JwtTokenType.accessToken,
       };
 
   @override
   String get path => switch (this) {
         ReadSingleMeal() => "/meal",
-        ReadTodayMeal() => "/meal/today"
+        ReadTodayMeal() => "/meal/today",
+        ReadMukgenPick() => "/mukgen-pick",
       };
 
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
         ReadSingleMeal() => null,
         ReadTodayMeal() => null,
+        ReadMukgenPick() => null,
       };
 }
 
@@ -58,3 +65,5 @@ class ReadSingleMeal extends MealEndpoint {
 }
 
 class ReadTodayMeal extends MealEndpoint {}
+
+class ReadMukgenPick extends MealEndpoint {}
