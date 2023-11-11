@@ -5,6 +5,7 @@ import 'package:mukgen_flutter_v1/core/network/mukgen_rest_api_domain.dart';
 import 'package:mukgen_flutter_v1/data/dto/board/request/create_board_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/board/request/create_comment_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/board/request/update_board_request_dto.dart';
+import 'package:mukgen_flutter_v1/data/dto/board/request/update_comment_request_dto.dart';
 
 sealed class BoardEndpoint extends MukgenEndpoint {
   BoardEndpoint();
@@ -35,6 +36,11 @@ sealed class BoardEndpoint extends MukgenEndpoint {
           {required CreateCommentRequestDTO createCommentRequestDTO}) =
       CreateComment;
 
+  factory BoardEndpoint.updateComment(
+          {required int boardCommentId,
+          required UpdateCommentRequestDTO updateCommentRequestDTO}) =
+      UpdateComment;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateBoard(createBoardRequestDTO: final createBoardBody) =>
@@ -50,6 +56,8 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         AddBoardLike() => null,
         CreateComment(createCommentRequestDTO: final createCommentBody) =>
           createCommentBody,
+        UpdateComment(updateCommentRequestDTO: final updateCommentBody) =>
+          updateCommentBody,
       };
 
   @override
@@ -70,6 +78,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         ReadDetailBoard() => HTTPMethod.get,
         AddBoardLike() => HTTPMethod.post,
         CreateComment() => HTTPMethod.post,
+        UpdateComment() => HTTPMethod.put,
       };
 
   @override
@@ -84,6 +93,7 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         ReadDetailBoard() => JwtTokenType.accessToken,
         AddBoardLike() => JwtTokenType.accessToken,
         CreateComment() => JwtTokenType.accessToken,
+        UpdateComment() => JwtTokenType.accessToken,
       };
 
   @override
@@ -98,6 +108,8 @@ sealed class BoardEndpoint extends MukgenEndpoint {
         ReadDetailBoard(boardId: final boardId) => "/board/$boardId",
         AddBoardLike(boardId: final boardId) => "/board/$boardId",
         CreateComment() => "/board-comment",
+        UpdateComment(boardCommentId: final boardCommentId) =>
+          "/board-comment/$boardCommentId",
       };
 
   @override
@@ -147,4 +159,12 @@ final class CreateComment extends BoardEndpoint {
   final CreateCommentRequestDTO createCommentRequestDTO;
 
   CreateComment({required this.createCommentRequestDTO});
+}
+
+final class UpdateComment extends BoardEndpoint {
+  final int boardCommentId;
+  final UpdateCommentRequestDTO updateCommentRequestDTO;
+
+  UpdateComment(
+      {required this.boardCommentId, required this.updateCommentRequestDTO});
 }
