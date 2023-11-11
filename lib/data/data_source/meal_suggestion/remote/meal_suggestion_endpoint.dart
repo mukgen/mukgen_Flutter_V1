@@ -20,6 +20,9 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
   factory MealSuggestionEndpoint.deleteMealSuggestion(
       {required int mealSuggestionId}) = DeleteMealSuggestion;
 
+  factory MealSuggestionEndpoint.readAllMealSuggestion() =
+      ReadAllMealSuggestion;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         CreateMealSuggestion(
@@ -31,6 +34,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         ) =>
           updateMealSuggestionBody,
         DeleteMealSuggestion() => null,
+        ReadAllMealSuggestion() => null,
       };
 
   @override
@@ -44,6 +48,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         CreateMealSuggestion() => HTTPMethod.post,
         UpdateMealSuggestion() => HTTPMethod.put,
         DeleteMealSuggestion() => HTTPMethod.delete,
+        ReadAllMealSuggestion() => HTTPMethod.get,
       };
 
   @override
@@ -51,6 +56,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         CreateMealSuggestion() => JwtTokenType.accessToken,
         UpdateMealSuggestion() => JwtTokenType.accessToken,
         DeleteMealSuggestion() => JwtTokenType.accessToken,
+        ReadAllMealSuggestion() => JwtTokenType.accessToken,
       };
 
   @override
@@ -60,6 +66,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
           "/meal-suggestion/$mealSuggestionId",
         DeleteMealSuggestion(mealSuggestionId: final mealSuggestionId) =>
           "/meal-suggestion/$mealSuggestionId",
+        ReadAllMealSuggestion() => "/meal-suggestion/list",
       };
 
   @override
@@ -67,6 +74,7 @@ sealed class MealSuggestionEndpoint extends MukgenEndpoint {
         CreateMealSuggestion() => null,
         UpdateMealSuggestion() => null,
         DeleteMealSuggestion() => null,
+        ReadAllMealSuggestion() => null,
       };
 }
 
@@ -91,3 +99,5 @@ final class DeleteMealSuggestion extends MealSuggestionEndpoint {
 
   DeleteMealSuggestion({required this.mealSuggestionId});
 }
+
+final class ReadAllMealSuggestion extends MealSuggestionEndpoint {}
