@@ -10,7 +10,7 @@ sealed class UserEndpoint extends MukgenEndpoint {
   factory UserEndpoint.readUserProfile() = ReadUserProfile;
 
   factory UserEndpoint.uploadUserProfileImage(
-          {required UploadUserProfileRequestDTO uploadUserProfileRequestDTO}) =
+          {UploadUserProfileRequestDTO uploadUserProfileRequestDTO}) =
       UploadUserProfileImage;
 
   @override
@@ -57,7 +57,7 @@ sealed class UserEndpoint extends MukgenEndpoint {
 final class ReadUserProfile extends UserEndpoint {}
 
 final class UploadUserProfileImage extends UserEndpoint {
-  final UploadUserProfileRequestDTO uploadUserProfileRequestDTO;
+  final UploadUserProfileRequestDTO? uploadUserProfileRequestDTO;
 
-  UploadUserProfileImage({required this.uploadUserProfileRequestDTO});
+  UploadUserProfileImage({this.uploadUserProfileRequestDTO});
 }
