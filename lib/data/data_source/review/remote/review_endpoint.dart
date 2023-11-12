@@ -9,7 +9,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   factory ReviewEndpoint.readDetailReview({required int reviewId}) =
       ReadDetailReview;
 
-  factory ReviewEndpoint.readAllReview() = ReadAllReview;
+  factory ReviewEndpoint.readMyReview() = ReadMyReview;
 
   factory ReviewEndpoint.readReviewRanking() = ReadReviewRanking;
 
@@ -19,7 +19,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   @override
   BaseRequestDTO? get body => switch (this) {
         ReadDetailReview() => null,
-        ReadAllReview() => null,
+        ReadMyReview() => null,
         ReadReviewRanking() => null,
         ReadAnotherDayReview() => null,
       };
@@ -33,7 +33,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   @override
   HTTPMethod get httpMethod => switch (this) {
         ReadDetailReview() => HTTPMethod.get,
-        ReadAllReview() => HTTPMethod.get,
+        ReadMyReview() => HTTPMethod.get,
         ReadReviewRanking() => HTTPMethod.get,
         ReadAnotherDayReview() => HTTPMethod.get,
       };
@@ -41,7 +41,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         ReadDetailReview() => JwtTokenType.accessToken,
-        ReadAllReview() => JwtTokenType.accessToken,
+        ReadMyReview() => JwtTokenType.accessToken,
         ReadReviewRanking() => JwtTokenType.accessToken,
         ReadAnotherDayReview() => JwtTokenType.accessToken,
       };
@@ -49,7 +49,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   @override
   String get path => switch (this) {
         ReadDetailReview(reviewId: final reviewId) => "/review/$reviewId",
-        ReadAllReview() => "/review/total",
+        ReadMyReview() => "/review/total",
         ReadReviewRanking() => "/review/rank",
         ReadAnotherDayReview(date: final date) => "/review/date/$date",
       };
@@ -57,7 +57,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
         ReadDetailReview() => null,
-        ReadAllReview() => null,
+        ReadMyReview() => null,
         ReadReviewRanking() => null,
         ReadAnotherDayReview() => null,
       };
@@ -69,7 +69,7 @@ final class ReadDetailReview extends ReviewEndpoint {
   ReadDetailReview({required this.reviewId});
 }
 
-final class ReadAllReview extends ReviewEndpoint {}
+final class ReadMyReview extends ReviewEndpoint {}
 
 final class ReadReviewRanking extends ReviewEndpoint {}
 
