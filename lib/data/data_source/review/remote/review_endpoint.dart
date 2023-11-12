@@ -13,11 +13,15 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
 
   factory ReviewEndpoint.readReviewRanking() = ReadReviewRanking;
 
+  factory ReviewEndpoint.readAnotherDayReview({required String date}) =
+      ReadAnotherDayReview;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         ReadDetailReview() => null,
         ReadAllReview() => null,
         ReadReviewRanking() => null,
+        ReadAnotherDayReview() => null,
       };
 
   @override
@@ -31,6 +35,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadDetailReview() => HTTPMethod.get,
         ReadAllReview() => HTTPMethod.get,
         ReadReviewRanking() => HTTPMethod.get,
+        ReadAnotherDayReview() => HTTPMethod.get,
       };
 
   @override
@@ -38,6 +43,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadDetailReview() => JwtTokenType.accessToken,
         ReadAllReview() => JwtTokenType.accessToken,
         ReadReviewRanking() => JwtTokenType.accessToken,
+        ReadAnotherDayReview() => JwtTokenType.accessToken,
       };
 
   @override
@@ -45,6 +51,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadDetailReview(reviewId: final reviewId) => "/review/$reviewId",
         ReadAllReview() => "/review/total",
         ReadReviewRanking() => "/review/rank",
+        ReadAnotherDayReview(date: final date) => "/review/date/$date",
       };
 
   @override
@@ -52,6 +59,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadDetailReview() => null,
         ReadAllReview() => null,
         ReadReviewRanking() => null,
+        ReadAnotherDayReview() => null,
       };
 }
 
@@ -64,3 +72,11 @@ final class ReadDetailReview extends ReviewEndpoint {
 final class ReadAllReview extends ReviewEndpoint {}
 
 final class ReadReviewRanking extends ReviewEndpoint {}
+
+final class ReadAnotherDayReview extends ReviewEndpoint {
+  final String date;
+
+  //date는 yyyyddmm(년도, 월, 일. 예시)20230808) 형태로 작성할 것.
+
+  ReadAnotherDayReview({required this.date});
+}
