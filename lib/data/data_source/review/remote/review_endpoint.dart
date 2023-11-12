@@ -16,12 +16,15 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   factory ReviewEndpoint.readAnotherDayReview({required String date}) =
       ReadAnotherDayReview;
 
+  factory ReviewEndpoint.readAllReview() = ReadAllReview;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         ReadDetailReview() => null,
         ReadMyReview() => null,
         ReadReviewRanking() => null,
         ReadAnotherDayReview() => null,
+        ReadAllReview() => null,
       };
 
   @override
@@ -36,6 +39,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadMyReview() => HTTPMethod.get,
         ReadReviewRanking() => HTTPMethod.get,
         ReadAnotherDayReview() => HTTPMethod.get,
+        ReadAllReview() => HTTPMethod.get,
       };
 
   @override
@@ -44,6 +48,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadMyReview() => JwtTokenType.accessToken,
         ReadReviewRanking() => JwtTokenType.accessToken,
         ReadAnotherDayReview() => JwtTokenType.accessToken,
+        ReadAllReview() => JwtTokenType.accessToken,
       };
 
   @override
@@ -52,6 +57,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadMyReview() => "/review/total",
         ReadReviewRanking() => "/review/rank",
         ReadAnotherDayReview(date: final date) => "/review/date/$date",
+        ReadAllReview() => "/review/all",
       };
 
   @override
@@ -60,6 +66,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadMyReview() => null,
         ReadReviewRanking() => null,
         ReadAnotherDayReview() => null,
+        ReadAllReview() => null,
       };
 }
 
@@ -80,3 +87,5 @@ final class ReadAnotherDayReview extends ReviewEndpoint {
 
   ReadAnotherDayReview({required this.date});
 }
+
+final class ReadAllReview extends ReviewEndpoint {}
