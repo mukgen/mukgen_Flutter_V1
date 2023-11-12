@@ -11,10 +11,13 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
 
   factory ReviewEndpoint.readAllReview() = ReadAllReview;
 
+  factory ReviewEndpoint.readReviewRanking() = ReadReviewRanking;
+
   @override
   BaseRequestDTO? get body => switch (this) {
         ReadDetailReview() => null,
         ReadAllReview() => null,
+        ReadReviewRanking() => null,
       };
 
   @override
@@ -27,24 +30,28 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
   HTTPMethod get httpMethod => switch (this) {
         ReadDetailReview() => HTTPMethod.get,
         ReadAllReview() => HTTPMethod.get,
+        ReadReviewRanking() => HTTPMethod.get,
       };
 
   @override
   JwtTokenType get jwtTokenType => switch (this) {
         ReadDetailReview() => JwtTokenType.accessToken,
         ReadAllReview() => JwtTokenType.accessToken,
+        ReadReviewRanking() => JwtTokenType.accessToken,
       };
 
   @override
   String get path => switch (this) {
         ReadDetailReview(reviewId: final reviewId) => "/review/$reviewId",
         ReadAllReview() => "/review/total",
+        ReadReviewRanking() => "/review/rank",
       };
 
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
         ReadDetailReview() => null,
         ReadAllReview() => null,
+        ReadReviewRanking() => null,
       };
 }
 
@@ -55,3 +62,5 @@ final class ReadDetailReview extends ReviewEndpoint {
 }
 
 final class ReadAllReview extends ReviewEndpoint {}
+
+final class ReadReviewRanking extends ReviewEndpoint {}
