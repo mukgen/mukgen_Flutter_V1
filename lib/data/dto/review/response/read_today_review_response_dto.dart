@@ -1,36 +1,36 @@
 import 'package:mukgen_flutter_v1/core/network/base_network_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/meal/request/read_single_meal_request_dto.dart';
-import 'package:mukgen_flutter_v1/domain/entity/review/simple_review_for_today_entity.dart';
+import 'package:mukgen_flutter_v1/domain/entity/review/simple_review_for_day_entity.dart';
 
 final class ReadTodayReviewResponseDTO
-    extends BaseResponseDTO<List<SimpleReviewForTodayEntity>> {
-  late List<TodayReviewResponse> todayReviewResponses;
+    extends BaseResponseDTO<List<SimpleReviewForDayEntity>> {
+  late List<DayReviewResponse> todayReviewResponses;
 
   @override
   fromJson(Map<String, dynamic> json) {
     if (json['reviewResponseList'] != null) {
       todayReviewResponses = List.empty(growable: true);
       json['reviewResponseList'].forEach((data) {
-        todayReviewResponses.add(TodayReviewResponse.fromJson(data));
+        todayReviewResponses.add(DayReviewResponse.fromJson(data));
       });
     }
   }
 
   @override
-  List<SimpleReviewForTodayEntity> toEntity() =>
+  List<SimpleReviewForDayEntity> toEntity() =>
       todayReviewResponses.map((e) => e.toEntity()).toList();
 }
 
-final class TodayReviewResponse
-    extends BaseResponseDTO<SimpleReviewForTodayEntity> {
+final class DayReviewResponse
+    extends BaseResponseDTO<SimpleReviewForDayEntity> {
   late final int riceId, count, reviewId;
   late final String review, userNickname, createdAt;
   late final RiceType riceType;
 
-  TodayReviewResponse();
+  DayReviewResponse();
 
-  factory TodayReviewResponse.fromJson(Map<String, dynamic> json) =>
-      TodayReviewResponse()
+  factory DayReviewResponse.fromJson(Map<String, dynamic> json) =>
+      DayReviewResponse()
         ..riceId = json['riceId']
         ..count = json['count']
         ..reviewId = json['reviewId']
@@ -41,10 +41,10 @@ final class TodayReviewResponse
             RiceType.values.byName(json['riceType'].toString().toLowerCase());
 
   @override
-  fromJson(Map<String, dynamic> json) => TodayReviewResponse.fromJson(json);
+  fromJson(Map<String, dynamic> json) => DayReviewResponse.fromJson(json);
 
   @override
-  SimpleReviewForTodayEntity toEntity() => SimpleReviewForTodayEntity(
+  SimpleReviewForDayEntity toEntity() => SimpleReviewForDayEntity(
         riceId: riceId,
         count: count,
         reviewId: reviewId,
