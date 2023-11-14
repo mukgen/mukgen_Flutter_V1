@@ -23,7 +23,8 @@ sealed class AuthEndpoint extends MukgenEndpoint {
           {required ChangePasswordRequestDTO changePasswordRequestDTO}) =
       ChangePassword;
 
-  factory AuthEndpoint.duplicate({required String accountId}) = Duplicate;
+  factory AuthEndpoint.idDuplicateCheck({required String accountId}) =
+      IdDuplicateCheck;
 
   @override
   BaseRequestDTO? get body => switch (this) {
@@ -32,7 +33,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         SignUp(signUpRequestDTO: final signUpBody) => signUpBody,
         ChangePassword(changePasswordRequestDTO: final changePasswordBody) =>
           changePasswordBody,
-        Duplicate() => null,
+        IdDuplicateCheck() => null,
       };
 
   @override
@@ -44,7 +45,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         ReIssue() => JwtTokenType.accessToken,
         SignUp() => JwtTokenType.none,
         ChangePassword() => JwtTokenType.accessToken,
-        Duplicate() => JwtTokenType.accessToken,
+        IdDuplicateCheck() => JwtTokenType.none,
       };
 
   @override
@@ -56,7 +57,7 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         ReIssue() => HTTPMethod.post,
         SignUp() => HTTPMethod.post,
         ChangePassword() => HTTPMethod.post,
-        Duplicate() => HTTPMethod.post,
+        IdDuplicateCheck() => HTTPMethod.get,
       };
 
   @override
@@ -65,12 +66,14 @@ sealed class AuthEndpoint extends MukgenEndpoint {
         ReIssue() => "auth/re-issue",
         SignUp() => "auth/signup/general",
         ChangePassword() => "auth/change/password",
-        Duplicate() => "auth/duplicate",
+        IdDuplicateCheck() => "auth/duplicate",
       };
 
   @override
   Map<String, dynamic>? get queryParam => switch (this) {
-        Duplicate(accountId: final accountId) => {'accountId': accountId},
+        IdDuplicateCheck(accountId: final accountId) => {
+            'accountId': accountId
+          },
         SignIn() => null,
         ReIssue() => null,
         SignUp() => null,
@@ -102,8 +105,8 @@ final class ChangePassword extends AuthEndpoint {
   ChangePassword({required this.changePasswordRequestDTO});
 }
 
-final class Duplicate extends AuthEndpoint {
+final class IdDuplicateCheck extends AuthEndpoint {
   final String accountId;
 
-  Duplicate({required this.accountId});
+  IdDuplicateCheck({required this.accountId});
 }
