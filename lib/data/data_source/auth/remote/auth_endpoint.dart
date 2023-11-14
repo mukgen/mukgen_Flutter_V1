@@ -61,11 +61,11 @@ sealed class AuthEndpoint extends MukgenEndpoint {
 
   @override
   String get path => switch (this) {
-        SignIn() => "/login",
-        ReIssue() => "/re-issue",
-        SignUp() => "/signup/general",
-        ChangePassword() => "/change/password",
-        Duplicate() => "/duplicate",
+        SignIn() => "auth/login",
+        ReIssue() => "auth/re-issue",
+        SignUp() => "auth/signup/general",
+        ChangePassword() => "auth/change/password",
+        Duplicate() => "auth/duplicate",
       };
 
   @override
