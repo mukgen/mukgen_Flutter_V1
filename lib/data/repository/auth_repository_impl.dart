@@ -1,4 +1,5 @@
 import 'package:mukgen_flutter_v1/core/network/result.dart';
+import 'package:mukgen_flutter_v1/data/data_source/auth/local_auth_data_source.dart';
 import 'package:mukgen_flutter_v1/data/data_source/auth/remote/remote_auth_data_source.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/change_password_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/re_issue_request_dto.dart';
@@ -9,9 +10,13 @@ import 'package:mukgen_flutter_v1/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final RemoteAuthDataSource _remoteAuthDataSource;
+  final LocalAuthDataSource _localAuthDataSource;
 
-  AuthRepositoryImpl({required RemoteAuthDataSource remoteAuthDataSource})
-      : _remoteAuthDataSource = remoteAuthDataSource;
+  AuthRepositoryImpl(
+      {required RemoteAuthDataSource remoteAuthDataSource,
+      required LocalAuthDataSource localAuthDataSource})
+      : _remoteAuthDataSource = remoteAuthDataSource,
+        _localAuthDataSource = localAuthDataSource;
 
   @override
   Future<Result<void, Exception>> changePassword(
@@ -38,4 +43,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Result<void, Exception>> signUp(
           {required SignUpRequestDTO signUpRequestDTO}) =>
       _remoteAuthDataSource.signUp(signUpRequestDTO: signUpRequestDTO);
+
+  @override
+  Future<void> logOut() => _localAuthDataSource.logOut();
+
+  @override
+  Future<void> tokenSave({required JWTTokenEntity jwtTokenEntity}) =>
+      _localAuthDataSource.tokenSave(jwtTokenEntity: jwtTokenEntity);
 }
