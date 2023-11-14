@@ -19,4 +19,8 @@ abstract class AuthRepository {
       {required ChangePasswordRequestDTO changePasswordRequestDTO});
 
   Future<Result<bool, Exception>> idDuplicateCheck({required String accountId});
+
+  Future<void> tokenSave({required JWTTokenEntity jwtTokenEntity});
+
+  Future<void> logOut();
 }
