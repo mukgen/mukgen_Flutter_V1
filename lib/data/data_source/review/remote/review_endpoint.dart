@@ -8,7 +8,7 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
 
   factory ReviewEndpoint.readDetailReview({required int reviewId}) =
       ReadDetailReview;
-  
+
   factory ReviewEndpoint.readMyReview() = ReadMyReview;
 
   factory ReviewEndpoint.readReviewRanking() = ReadReviewRanking;
@@ -27,7 +27,8 @@ sealed class ReviewEndpoint extends MukgenEndpoint {
         ReadReviewRanking() => null,
         ReadAnotherDayReview() => null,
         ReadAllReview() => null,
-        ReadTodayReview() => null,
+        ReadTodayReview() => null
+      };
 
   @override
   MukgenRestAPIDomain get domain => MukgenRestAPIDomain.review;
