@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
-import 'package:mukgen_flutter_v1/widget/text_field_duplicate.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
+import 'package:mukgen_flutter_v1/screen/widget/text_field_duplicate.dart';
 
 class Validation {
   static String getValidation(String input, String inputCondition,

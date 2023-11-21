@@ -7,7 +7,7 @@ import 'package:mukgen_flutter_v1/secret.dart';
 
 class DeliveryService {
   static const _storage = FlutterSecureStorage();
-  static const _url = "$baseUrl/delivery-party/";
+  static const _url = "$baseUrl/delivery-party";
 
   DeliveryService._();
 

@@ -1,12 +1,12 @@
-class MukGenPickBoard {
+class MukGenPick {
   int? month;
   int? day;
   String? riceType;
   int? riceId;
 
-  MukGenPickBoard({this.month, this.day, this.riceType, this.riceId});
+  MukGenPick({this.month, this.day, this.riceType, this.riceId});
 
-  MukGenPickBoard.fromJson(Map<String, dynamic> json) {
+  MukGenPick.fromJson(Map<String, dynamic> json) {
     month = json['month'];
     day = json['day'];
     riceType = json['riceType'];

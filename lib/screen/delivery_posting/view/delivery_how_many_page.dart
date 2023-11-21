@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
+import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/screen/delivery_posting/view/delivery_where_meet_page.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 import 'package:transition/transition.dart';
 
 class DeliveryHowManyPage extends StatefulWidget {
@@ -18,10 +20,11 @@ class DeliveryHowManyPage extends StatefulWidget {
 
 class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
   late FixedExtentScrollController howmanyscrollController =
-  FixedExtentScrollController();
+      FixedExtentScrollController();
   final bool _isButtonEnabled = true;
 
-  int howmanyValue = 1; // 컨트롤러에 있는 값을 옮겨주는 변수임., 픽커를 움직여주지 않고 1명을 지정하였을 때 변수의 초기값인 0으로 되기 때문에 1로 설정함.
+  int howmanyValue =
+      1; // 컨트롤러에 있는 값을 옮겨주는 변수임., 픽커를 움직여주지 않고 1명을 지정하였을 때 변수의 초기값인 0으로 되기 때문에 1로 설정함.
 
   @override
   void initState() {
@@ -95,7 +98,8 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
             height: 240.0.h,
             width: 353.0.w,
             child: CupertinoPicker(
-                itemExtent: 56.0.h, // 각 항목의 높이
+                itemExtent: 56.0.h,
+                // 각 항목의 높이
                 onSelectedItemChanged: (index) {
                   HapticFeedback.mediumImpact();
                   howmanyValue = index + 1;
@@ -114,8 +118,7 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
                       ),
                     ),
                   );
-                })
-            ),
+                })),
           ),
           const Spacer(),
           Row(
@@ -124,10 +127,11 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
               MukGenButton(
                 width: 161.5,
                 height: 55,
-                text: "이전",
+                text: PtdTextWidget.bodyLarge2(
+                  '이전',
+                  MukGenColor.pointBase,
+                ),
                 backgroundColor: MukGenColor.primaryLight3,
-                textColor: MukGenColor.pointBase,
-                fontSize: 16.sp,
                 outlineColor: MukGenColor.pointBase,
                 outlineWidth: 1.0,
                 onPressed: () {
@@ -140,21 +144,24 @@ class _DeliveryHowManyPageState extends State<DeliveryHowManyPage> {
               MukGenButton(
                 width: 161.5,
                 height: 55,
-                text: "다음",
+                text: PtdTextWidget.bodyLarge2(
+                  '다음',
+                  MukGenColor.white,
+                ),
                 backgroundColor: _isButtonEnabled
                     ? MukGenColor.pointBase
                     : MukGenColor.primaryLight2,
-                textColor: MukGenColor.white,
-                fontSize: 16.sp,
                 onPressed: () {
                   _isButtonEnabled
                       ? Navigator.push(
-                    context,
-                    Transition(
-                      child: DeliveryWhereMeetPage(menu: widget.menu, participantNumber: howmanyValue + 1),
-                      transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                    ),
-                  )
+                          context,
+                          Transition(
+                            child: DeliveryWhereMeetPage(
+                                menu: widget.menu,
+                                participantNumber: howmanyValue + 1),
+                            transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                          ),
+                        )
                       : null;
                 },
               ),

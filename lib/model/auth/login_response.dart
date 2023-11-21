@@ -19,6 +19,14 @@ class LoginResponse {
     data['message'] = message;
     return data;
   }
+
+  // 초기 상태를 생성하는 메서드 추가
+  static LoginResponse initial() {
+    return LoginResponse(
+      tokenResponse: null,
+      message: null,
+    );
+  }
 }
 
 class TokenResponse {

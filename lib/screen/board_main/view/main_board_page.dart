@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
 import 'package:mukgen_flutter_v1/service/board_service.dart';
-import 'package:mukgen_flutter_v1/widget/comment_icon.dart';
+import 'package:mukgen_flutter_v1/screen/widget/comment_icon.dart';
 
 class MainBoardPage extends StatefulWidget {
   const MainBoardPage(

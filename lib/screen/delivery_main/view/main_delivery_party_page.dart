@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/model/delivery/list_delivery-party.dart';
 import 'package:mukgen_flutter_v1/service/delivery_service.dart';
-import 'package:mukgen_flutter_v1/widget/delivery_party_check.dart';
+import 'package:mukgen_flutter_v1/screen/widget/delivery_party_check.dart';
 
 class MainDeliveryPartyPage extends StatefulWidget {
   const MainDeliveryPartyPage({Key? key, required this.onFood})

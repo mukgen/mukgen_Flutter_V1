@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_upload.dart';
 import 'package:mukgen_flutter_v1/model/user/profile_user.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
-import 'package:mukgen_flutter_v1/widget/review/review_posting_image.dart';
+import 'package:mukgen_flutter_v1/screen/widget/review/review_posting_image.dart';
 import 'package:path/path.dart';
 
 class UserService {
