@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mukgen_flutter_v1/model/auth/duplicate_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/model/auth/login_response.dart';
@@ -8,6 +10,7 @@ import 'package:mukgen_flutter_v1/model/auth/refreshToken_response.dart';
 import 'package:mukgen_flutter_v1/secret.dart';
 
 class AuthService {
+  static const _storage = FlutterSecureStorage();
   static const _url = "$baseUrl/auth";
 
   AuthService._();
@@ -77,23 +80,29 @@ class AuthService {
     return LoginResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   }
 
-  static Future<RefreshTokenResponse> postRefreshTokenInfo(
-      String accessToken, String refreshToken) async {
-    Map<String, dynamic> data = {
-      "accessToken": accessToken,
-      "refreshToken": refreshToken
-    };
+  static Future<RefreshTokenResponse> postRefreshTokenInfo() async {
+    final dio = Dio();
 
-    final response = await http.post(Uri.parse("$_url/re-issue"),
-        headers: {
-          "Content-Type": "application/json",
-          "X-Not-Using-Xquare-Auth": "true",
-        },
-        body: jsonEncode(data));
-    if (response.statusCode != 200) {
-      throw Exception(response.body);
+    final refreshToken = await _storage.read(key: 'refreshToken');
+
+    try {
+      final resp = await dio.post(
+        '$_url/re-issue',
+        options: Options(
+          headers: {
+            'authorization': 'Bearer $refreshToken',
+            "X-Not-Using-Xquare-Auth": "true",
+          },
+        ),
+      );
+      if (resp.statusCode == 200) {
+        return RefreshTokenResponse.fromJson(resp.data);
+      } else {
+        throw Exception();
+      }
+    } catch (err) {
+      debugPrint(err.toString());
+      throw Exception();
     }
-    return RefreshTokenResponse.fromJson(
-        jsonDecode(utf8.decode(response.bodyBytes)));
   }
 }
