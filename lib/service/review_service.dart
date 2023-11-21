@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 class ReviewService {
   static const _storage = FlutterSecureStorage();
-  static const _url = "$baseUrl/review/";
+  static const _url = "$baseUrl/review";
 
   ReviewService._();
 

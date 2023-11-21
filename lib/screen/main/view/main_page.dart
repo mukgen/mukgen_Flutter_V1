@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
 import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
-import 'package:mukgen_flutter_v1/core/component/text/pretendard.dart';
 import 'package:mukgen_flutter_v1/screen/widget/comment_icon.dart';
 import 'package:mukgen_flutter_v1/screen/widget/custom_icons.dart';
 import 'package:mukgen_flutter_v1/screen/widget/show_detail_widget.dart';
 
 class MainHomePage extends StatefulWidget {
-  const MainHomePage({Key? key}) : super(key: key);
+  final Function(int) onDetail;
+  final VoidCallback onMyPage;
+
+  const MainHomePage({
+    Key? key,
+    required this.onDetail,
+    required this.onMyPage,
+  }) : super(key: key);
 
   @override
   State<MainHomePage> createState() => _MainHomePageState();
@@ -57,11 +64,9 @@ class _MainHomePageState extends State<MainHomePage> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 20.h, left: 20.w),
-            child: Subtitle(
-              customText: CustomText(
-                text: '오늘의 급식',
-                color: MukGenColor.black,
-              ),
+            child: PtdTextWidget.subtitle(
+              '오늘의 급식',
+              MukGenColor.black,
             ),
           ),
           SizedBox(
@@ -94,11 +99,9 @@ class _MainHomePageState extends State<MainHomePage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  BodyLarge2(
-                                    customText: CustomText(
-                                      text: '아침',
-                                      color: MukGenColor.pointBase,
-                                    ),
+                                  PtdTextWidget.bodyLarge2(
+                                    '아침',
+                                    MukGenColor.pointBase,
                                   ),
                                   SizedBox(height: 24.h),
                                   Image.asset(
@@ -118,12 +121,10 @@ class _MainHomePageState extends State<MainHomePage> {
                                 children: List.generate(5, (index) {
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 6.h),
-                                    child: Body2(
-                                      customText: CustomText(
-                                        text: '밥/카레소스',
-                                        color: MukGenColor.black,
-                                        textOverflow: TextOverflow.clip,
-                                      ),
+                                    child: PtdTextWidget.body2(
+                                      '밥/카레소스',
+                                      MukGenColor.black,
+                                      overflow: TextOverflow.clip,
                                     ),
                                   );
                                 }),
@@ -160,11 +161,9 @@ class _MainHomePageState extends State<MainHomePage> {
                         children: [
                           Row(
                             children: [
-                              Subtitle(
-                                customText: CustomText(
-                                  text: 'PICK',
-                                  color: MukGenColor.pointBase,
-                                ),
+                              PtdTextWidget.subtitle(
+                                'PICK',
+                                MukGenColor.pointBase,
                               ),
                               SizedBox(width: 2.w),
                               Image.asset(
@@ -174,19 +173,15 @@ class _MainHomePageState extends State<MainHomePage> {
                               ),
                             ],
                           ),
-                          Body(
-                            customText: CustomText(
-                              text: 'GPT가 골라주는 급식',
-                              color: MukGenColor.pointBase,
-                            ),
+                          PtdTextWidget.body(
+                            'GPT가 골라주는 급식',
+                            MukGenColor.pointBase,
                           ),
                         ],
                       ),
-                      tTitle(
-                        customText: CustomText(
-                          text: '5월 10일',
-                          color: MukGenColor.pointBase,
-                        ),
+                      PtdTextWidget.title(
+                        '5월 10일',
+                        MukGenColor.pointBase,
                       ),
                     ],
                   ),
@@ -199,19 +194,15 @@ class _MainHomePageState extends State<MainHomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Subtitle(
-                  customText: CustomText(
-                    text: '인기글',
-                    color: MukGenColor.black,
-                  ),
+                PtdTextWidget.subtitle(
+                  '인기글',
+                  MukGenColor.black,
                 ),
                 GestureDetector(
                   onTap: () {},
-                  child: Body2(
-                    customText: CustomText(
-                      text: '더보기',
-                      color: MukGenColor.pointLight1,
-                    ),
+                  child: PtdTextWidget.body2(
+                    '더보기',
+                    MukGenColor.pointLight1,
                   ),
                 ),
               ],
@@ -241,23 +232,23 @@ class _MainHomePageState extends State<MainHomePage> {
                           SizedBox(
                             width: 191.w,
                             height: 17.h,
-                            child: Body2(
-                              customText: CustomText(
-                                text: '여기에 쓸 거 10분동안 고민함 이거 뭐써야됨?',
-                                color: MukGenColor.black,
-                                textOverflow: TextOverflow.ellipsis
-                              ),
+                            child: PtdTextWidget.body2(
+                              '여기에 쓸 거 10분동안 고민함 이거 뭐써야됨?',
+                              MukGenColor.black,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ShowDetailWidget(
+                                iconSize: 13,
                                 text: '5',
                                 type: IconType.comment,
                               ),
                               SizedBox(width: 8.w),
                               ShowDetailWidget(
+                                iconSize: 15,
                                 text: '999+',
                                 type: IconType.view,
                               ),

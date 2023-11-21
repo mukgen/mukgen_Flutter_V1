@@ -12,7 +12,7 @@ class MealService {
 
   MealService._();
 
-  static Future<MukGenPickBoard> getMukGenPickInfo() async {
+  static Future<MukGenPick> getMukGenPickInfo() async {
     dynamic accessToken = await _storage.read(key: 'accessToken');
     final response = await http.get(
       Uri.parse("$baseUrl/mukgen-pick"),
@@ -24,7 +24,7 @@ class MealService {
     if (response.statusCode != 200) {
       throw Exception(response.body);
     }
-    return MukGenPickBoard.fromJson(
+    return MukGenPick.fromJson(
         jsonDecode(utf8.decode(response.bodyBytes)));
   }
 
