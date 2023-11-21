@@ -6,6 +6,7 @@ import 'package:mukgen_flutter_v1/model/board/detail_board.dart';
 import 'package:mukgen_flutter_v1/model/board/hot_board.dart';
 import 'package:mukgen_flutter_v1/model/board/like_board.dart';
 import 'package:mukgen_flutter_v1/model/board/total_board.dart';
+import 'package:mukgen_flutter_v1/service/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukgen_flutter_v1/secret.dart';
 
@@ -24,7 +25,14 @@ class BoardService {
         "X-Not-Using-Xquare-Auth": "true",
       },
     );
-    if (response.statusCode != 200) {
+
+    if (response.statusCode == 401) {
+      AuthService.postRefreshTokenInfo().then((value) async {
+        await _storage.write(key: 'accessToken', value: value.accessToken);
+        await _storage.write(key: 'refreshToken', value: value.refreshToken);
+        getBoardInfo(query);
+      });
+    } else if (response.statusCode != 200) {
       throw Exception(response.body);
     }
     return BoardResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
