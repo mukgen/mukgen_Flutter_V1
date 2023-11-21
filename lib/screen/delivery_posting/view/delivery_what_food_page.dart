@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
+import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/screen/delivery_posting/view/delivery_how_many_page.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_text_field.dart';
 import 'package:transition/transition.dart';
 
 class DeliveryWhatFoodPage extends StatefulWidget {
@@ -112,18 +114,20 @@ class _DeliveryWhatFoodPageState extends State<DeliveryWhatFoodPage> {
           MukGenButton(
             width: 352,
             height: 55,
-            text: "다음",
+            text: PtdTextWidget.bodyLarge2(
+              '다음',
+              MukGenColor.white,
+            ),
             backgroundColor: _isButtonEnabled
                 ? MukGenColor.pointBase
                 : MukGenColor.primaryLight2,
-            textColor: MukGenColor.white,
-            fontSize: 16.sp,
             onPressed: () {
               _isButtonEnabled
                   ? Navigator.push(
                       context,
                       Transition(
-                        child: DeliveryHowManyPage(menu: whatfoodController.text),
+                        child:
+                            DeliveryHowManyPage(menu: whatfoodController.text),
                         transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
                       ),
                     )

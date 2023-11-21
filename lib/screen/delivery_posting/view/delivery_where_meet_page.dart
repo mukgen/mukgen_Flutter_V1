@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
+import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/screen/delivery_posting/view/delivery_what_time_page.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_text_field.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_text_field.dart';
 import 'package:transition/transition.dart';
 
 class DeliveryWhereMeetPage extends StatefulWidget {
-  const DeliveryWhereMeetPage({Key? key, required this.menu, required this.participantNumber}) : super(key: key);
+  const DeliveryWhereMeetPage(
+      {Key? key, required this.menu, required this.participantNumber})
+      : super(key: key);
 
   final String menu;
   final int participantNumber;
+
   @override
   State<DeliveryWhereMeetPage> createState() => _DeliveryWhereMeetPageState();
 }
@@ -38,6 +43,7 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
       _isButtonEnabled = wheremeetController.text.isNotEmpty;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,10 +122,11 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
               MukGenButton(
                 width: 161.5,
                 height: 55,
-                text: "이전",
+                text: PtdTextWidget.bodyLarge2(
+                  '이전',
+                  MukGenColor.pointBase,
+                ),
                 backgroundColor: MukGenColor.primaryLight3,
-                textColor: MukGenColor.pointBase,
-                fontSize: 16.sp,
                 outlineColor: MukGenColor.pointBase,
                 outlineWidth: 1.0,
                 onPressed: () {
@@ -132,21 +139,26 @@ class _DeliveryWhereMeetPageState extends State<DeliveryWhereMeetPage> {
               MukGenButton(
                 width: 161.5,
                 height: 55,
-                text: "다음",
+                text: PtdTextWidget.bodyLarge2(
+                  '다음',
+                  MukGenColor.white,
+                ),
                 backgroundColor: _isButtonEnabled
                     ? MukGenColor.pointBase
                     : MukGenColor.primaryLight2,
-                textColor: MukGenColor.white,
-                fontSize: 16.sp,
                 onPressed: () {
                   _isButtonEnabled
                       ? Navigator.push(
-                    context,
-                    Transition(
-                      child: DeliveryWhatTimePage(menu: widget.menu, participantNumber: widget.participantNumber, place: wheremeetController.text,),
-                      transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
-                    ),
-                  )
+                          context,
+                          Transition(
+                            child: DeliveryWhatTimePage(
+                              menu: widget.menu,
+                              participantNumber: widget.participantNumber,
+                              place: wheremeetController.text,
+                            ),
+                            transitionEffect: TransitionEffect.RIGHT_TO_LEFT,
+                          ),
+                        )
                       : null;
                 },
               ),

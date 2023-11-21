@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
+import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/service/delivery_service.dart';
-import 'package:mukgen_flutter_v1/widget/mukgen_button.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 
 class DeliveryWhatTimePage extends StatefulWidget {
   const DeliveryWhatTimePage(
@@ -267,10 +269,11 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
           MukGenButton(
             width: 352,
             height: 55,
-            text: "모집하기",
+            text: PtdTextWidget.bodyLarge2(
+              '모집하기',
+              MukGenColor.white,
+            ),
             backgroundColor: MukGenColor.pointBase,
-            textColor: MukGenColor.white,
-            fontSize: 16.sp,
             onPressed: () {
               DateTime now = DateTime.now();
               DateTime customDateTime = DateTime(
@@ -290,10 +293,11 @@ class _DeliveryWhatTimePageState extends State<DeliveryWhatTimePage> {
           MukGenButton(
             width: 352,
             height: 55,
-            text: "뒤로",
+            text: PtdTextWidget.bodyLarge2(
+              '뒤로',
+              MukGenColor.black,
+            ),
             backgroundColor: MukGenColor.primaryLight3,
-            textColor: MukGenColor.black,
-            fontSize: 16.sp,
             onPressed: () {
               setState(() {
                 Navigator.of(context).pop();
