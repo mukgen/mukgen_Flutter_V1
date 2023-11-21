@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/model/review/today_review.dart';
 import 'package:mukgen_flutter_v1/screen/review_otherdays/view/main_review_otherdays_page.dart';
 import 'package:mukgen_flutter_v1/service/review_service.dart';
-import 'package:mukgen_flutter_v1/widget/custom_icons.dart';
+import 'package:mukgen_flutter_v1/screen/widget/custom_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/model/review/rank_review.dart';
 import 'package:transition/transition.dart';

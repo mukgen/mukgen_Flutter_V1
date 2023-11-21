@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
 
 class MukGenButton extends StatelessWidget {
   const MukGenButton({
@@ -8,16 +9,14 @@ class MukGenButton extends StatelessWidget {
     required this.width,
     required this.height,
     required this.backgroundColor,
-    required this.fontSize,
-    required this.textColor,
     this.outlineColor,
     this.outlineWidth,
     this.onPressed,
   }) : super(key: key);
 
-  final String text;
-  final double width, height, fontSize;
-  final Color backgroundColor, textColor;
+  final Text text;
+  final double width, height;
+  final Color backgroundColor;
   final Color? outlineColor;
   final VoidCallback? onPressed;
   final double? outlineWidth;
@@ -45,15 +44,7 @@ class MukGenButton extends StatelessWidget {
           if (onPressed != null) onPressed!();
         },
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'MukgenSemiBold',
-              fontSize: fontSize.sp,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
-          ),
+          child: text,
         ),
       ),
     );

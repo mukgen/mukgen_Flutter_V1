@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/common/common.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/model/suggestion/total_suggestion.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/service/suggestion_service.dart';
