@@ -1,3 +1,84 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_text_field.dart';
+
+class SignUpEmailConfirmPage extends StatefulWidget {
+  const SignUpEmailConfirmPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpEmailConfirmPage> createState() => _SignUpEmailConfirmPageState();
+}
+
+class _SignUpEmailConfirmPageState extends State<SignUpEmailConfirmPage> {
+  late TextEditingController emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: MukGenColor.white,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(59.h),
+        child: AppBar(
+          backgroundColor: MukGenColor.white,
+          elevation: 0,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back_outlined,
+              color: MukGenColor.primaryLight1,
+              size: 24.sp,
+            ),
+          ),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 40.h),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w),
+            child: PtdTextWidget.title(
+              '이메일 인증을 진행해주세요.',
+              MukGenColor.black,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w),
+            child: PtdTextWidget.bodyLarge(
+              '입력한 이메일로 인증번호가 전송됩니다.',
+              MukGenColor.black,
+            ),
+          ),
+          SizedBox(height: 24.h),
+          Center(
+            child: MukGenTextField(
+              width: 352,
+              height: 56,
+              controller: emailController,
+              hintText: '이메일 주소',
+              fontSize: 20,
+              isPwdTextField: false,
+              maxLength: null,
+              autofocus: true,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:mukgen_flutter_v1/common/mukgen_color.dart';
