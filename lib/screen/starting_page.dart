@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
-import 'package:mukgen_flutter_v1/core/constant/custom_text.dart';
-import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
-import 'package:mukgen_flutter_v1/screen/login/view/login_page.dart';
-import 'package:mukgen_flutter_v1/screen/main/view/main_page.dart';
-import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
+import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
+import 'package:mukgen_flutter_v1/screen/sign_in/view/sign_in_page.dart';
+import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 
 class StartingPage extends StatefulWidget {
   const StartingPage({Key? key}) : super(key: key);
@@ -47,7 +45,8 @@ class _StartingPageState extends State<StartingPage> {
                         MukGenColor.black,
                       ),
                       onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const SignInPage()),
                       ),
                     ),
                   ),

@@ -1,6 +1,6 @@
 import 'package:mukgen_flutter_v1/core/network/result.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/sign_in_request_dto.dart';
-import 'package:mukgen_flutter_v1/domain/repository/auth_repository.dart';
+import 'package:mukgen_flutter_v1/domain/repository/auth_repository/auth_repository.dart';
 
 class SignInUseCase {
   final AuthRepository _authRepository;

@@ -3,18 +3,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
-import 'package:mukgen_flutter_v1/screen/login/provider/login_provider.dart';
+import 'package:mukgen_flutter_v1/data/dto/auth/request/sign_in_request_dto.dart';
+import 'package:mukgen_flutter_v1/screen/sign_in/provider/sign_in_view_model_provider.dart';
+import 'package:mukgen_flutter_v1/screen/sign_in/provider/state/sign_in_state.dart';
+import 'package:mukgen_flutter_v1/screen/widget/main_navigator.dart';
 import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 import 'package:mukgen_flutter_v1/screen/widget/mukgen_text_field.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignInPage extends ConsumerStatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<SignInPage> createState() => _SignInPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _SignInPageState extends ConsumerState<SignInPage> {
   late TextEditingController idController;
   late TextEditingController pwdController;
 
@@ -27,7 +30,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(loginProvider);
+    ref.listen(signInViewModelProvider.select((value) => value),
+        (previous, next) {
+      switch (next) {
+        case SignInState.success:
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const MainNavigator()),
+              (route) => false);
+        case SignInState.failure:
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(next.name.toString())));
+        default:
+          null;
+      }
+    });
     return Scaffold(
       backgroundColor: MukGenColor.white,
       appBar: PreferredSize(
@@ -36,9 +52,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           backgroundColor: MukGenColor.white,
           elevation: 0,
           leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () => Navigator.pop(context),
             child: Icon(
               Icons.arrow_back_outlined,
               color: MukGenColor.primaryLight1,
@@ -90,9 +104,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             padding: EdgeInsets.only(bottom: 34.h),
             child: Center(
               child: MukGenButton(
-                onPressed: () {
-                  
-                },
+                onPressed: () =>
+                    ref.read(signInViewModelProvider.notifier).signIn(
+                            signInRequestDTO: SignInRequestDTO(
+                          accountId: idController.text,
+                          password: pwdController.text,
+                        )),
                 backgroundColor: MukGenColor.primaryLight2,
                 width: 352,
                 height: 55,

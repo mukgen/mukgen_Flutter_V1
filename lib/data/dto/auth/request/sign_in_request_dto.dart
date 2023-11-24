@@ -7,5 +7,6 @@ final class SignInRequestDTO extends BaseRequestDTO {
   SignInRequestDTO({required this.accountId, required this.password});
 
   @override
-  Map<String, dynamic> toJson() => {'id': accountId, 'password': password};
+  Map<String, dynamic> toJson() =>
+      {'accountId': accountId, 'password': password};
 }
