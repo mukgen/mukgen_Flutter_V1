@@ -6,7 +6,7 @@ import 'package:mukgen_flutter_v1/data/dto/auth/request/re_issue_request_dto.dar
 import 'package:mukgen_flutter_v1/data/dto/auth/request/sign_in_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/auth/request/sign_up_request_dto.dart';
 import 'package:mukgen_flutter_v1/domain/entity/auth/jwt_token_entity.dart';
-import 'package:mukgen_flutter_v1/domain/repository/auth_repository.dart';
+import 'package:mukgen_flutter_v1/domain/repository/auth_repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final RemoteAuthDataSource _remoteAuthDataSource;

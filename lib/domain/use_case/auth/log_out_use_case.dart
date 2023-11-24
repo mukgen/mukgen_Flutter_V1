@@ -1,4 +1,4 @@
-import 'package:mukgen_flutter_v1/domain/repository/auth_repository.dart';
+import 'package:mukgen_flutter_v1/domain/repository/auth_repository/auth_repository.dart';
 
 class LogOutUseCase {
   final AuthRepository _authRepository;
