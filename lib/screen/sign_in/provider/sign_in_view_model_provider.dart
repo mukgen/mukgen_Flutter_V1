@@ -6,3 +6,6 @@ import 'package:mukgen_flutter_v1/screen/sign_in/provider/state/sign_in_view_mod
 final signInViewModelProvider =
     StateNotifierProvider<SignInViewModel, SignInState>((ref) =>
         SignInViewModel(signInUseCase: ref.watch(signInUseCaseProvider)));
+
+final buttonStateProvider = StateProvider<bool>((ref) => false);
+
