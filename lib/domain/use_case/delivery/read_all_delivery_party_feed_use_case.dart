@@ -1,6 +1,6 @@
 import 'package:mukgen_flutter_v1/core/network/result.dart';
 import 'package:mukgen_flutter_v1/domain/entity/delivery/delivery_party_info_entity.dart';
-import 'package:mukgen_flutter_v1/domain/repository/delivery_repository.dart';
+import 'package:mukgen_flutter_v1/domain/repository/delivery/delivery_repository.dart';
 
 class ReadAllDeliveryPartyFeedUseCase {
   final DeliveryRepository _deliveryRepository;
