@@ -11,7 +11,13 @@ class SendMailUseCase {
   SendMailUseCase({required MailRepository mailRepository})
       : _mailRepository = mailRepository;
 
-  Future<Result<void, Exception>> execute(
-      {required SendMailAuthCodeRequestDTO sendMailAuthCodeRequestDTO}) =>
-      _mailRepository.sendMailAuthCode(sendMailAuthCodeRequestDTO: sendMailAuthCodeRequestDTO);
+  Future<Result<void, Exception>> execute({required SendMailAuthCodeRequestDTO sendMailAuthCodeRequestDTO}) async {
+    final res = await _mailRepository.sendMailAuthCode(sendMailAuthCodeRequestDTO: sendMailAuthCodeRequestDTO);
+    switch (res) {
+      case Success(value: final value):
+        return const Success(value: null);
+      case Failure(exception: final e):
+        return Failure(exception: e);
+    }
+  }
 }
