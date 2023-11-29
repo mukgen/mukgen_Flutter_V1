@@ -16,9 +16,10 @@ class MukGenTextField extends StatefulWidget {
     this.height,
     this.hintText,
     this.helperText,
+    this.suffixText,
     this.textAlign,
     this.textInputType,
-    this.color
+    this.color,
   }) : super(key: key);
 
   final double width;
@@ -30,6 +31,7 @@ class MukGenTextField extends StatefulWidget {
   final int fontSize;
   final TextEditingController controller;
   final String? hintText, helperText;
+  final Widget? suffixText;
   final TextInputType? textInputType;
   final TextAlign? textAlign;
   final bool isPwdTextField;
@@ -66,7 +68,6 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'MukgenSemiBold',
               ),
               decoration: InputDecoration(
                 counterText: '',
@@ -75,13 +76,11 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
                   color: MukGenColor.primaryLight2,
                 ),
                 helperStyle: TextStyle(
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
-                  fontFamily: 'MukgenRegular',
                   color: widget.color,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
@@ -134,7 +133,6 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'MukgenSemiBold',
               ),
               decoration: InputDecoration(
                 counterText: '',
@@ -143,15 +141,14 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
                   color: MukGenColor.primaryLight2,
                 ),
                 helperStyle: TextStyle(
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
-                  fontFamily: 'MukgenRegular',
                   color: widget.color,
                 ),
+                suffix: widget.suffixText,
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(
