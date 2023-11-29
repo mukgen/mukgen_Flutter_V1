@@ -1,3 +1,21 @@
+import 'package:flutter/material.dart';
+
+class SignUpIdPwPage extends StatefulWidget {
+  final String email;
+  final String name;
+  const SignUpIdPwPage({Key? key, required this.email, required this.name}) : super(key: key);
+
+  @override
+  State<SignUpIdPwPage> createState() => _SignUpIdPwPageState();
+}
+
+class _SignUpIdPwPageState extends State<SignUpIdPwPage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:mukgen_flutter_v1/common/mukgen_color.dart';
