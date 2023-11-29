@@ -7,5 +7,5 @@ final signInViewModelProvider =
     StateNotifierProvider<SignInViewModel, SignInState>((ref) =>
         SignInViewModel(signInUseCase: ref.watch(signInUseCaseProvider)));
 
-final signInButtonStateProvider = StateProvider<bool>((ref) => false);
+final signInButtonStateProvider = StateProvider.autoDispose<bool>((ref) => false);
 

@@ -7,4 +7,4 @@ final checkMailViewModelProvider =
     StateNotifierProvider<CheckMailViewModel, CheckMailState>((ref) =>
         CheckMailViewModel(checkMailUseCase: ref.watch(checkMainUseCaseProvider)));
 
-final checkMailButtonStateProvider = StateProvider<bool>((ref) => false);
+final checkMailButtonStateProvider = StateProvider.autoDispose<bool>((ref) => false);

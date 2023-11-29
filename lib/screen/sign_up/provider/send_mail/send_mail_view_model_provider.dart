@@ -7,4 +7,4 @@ final sendMailViewModelProvider =
 StateNotifierProvider<SendMailViewModel, SendMailState>((ref) =>
     SendMailViewModel(sendMailUseCase: ref.watch(sendMainUseCaseProvider)));
 
-final sendMailButtonStateProvider = StateProvider<bool>((ref) => false);
+final sendMailButtonStateProvider = StateProvider.autoDispose<bool>((ref) => false);
