@@ -4,6 +4,7 @@ import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/screen/sign_in/view/sign_in_page.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_email_confirm_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_email_input_page.dart';
 import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 
 class StartingPage extends StatefulWidget {
@@ -63,7 +64,7 @@ class _StartingPageState extends State<StartingPage> {
                         ),
                         onPressed: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => SignUpEmailConfirmPage(),
+                                builder: (context) => SignUpEmailInputPage(),
                               ),
                             )),
                   ),
