@@ -31,10 +31,11 @@ class _EmailConfirmTextFieldState extends State<EmailConfirmTextField> {
         decoration: BoxDecoration(
           color: widget._focusNode.hasFocus ? MukGenColor.pointLight4 : null,
           border: Border.all(
-              color: widget._focusNode.hasFocus ||
-                      widget._controller.text.isNotEmpty
-                  ? MukGenColor.pointBase
-                  : MukGenColor.primaryLight2),
+            color:
+                widget._focusNode.hasFocus || widget._controller.text.isNotEmpty
+                    ? MukGenColor.pointBase
+                    : MukGenColor.primaryLight2,
+          ),
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: TextFormField(
@@ -46,7 +47,8 @@ class _EmailConfirmTextFieldState extends State<EmailConfirmTextField> {
           cursorColor: MukGenColor.black,
           keyboardType: TextInputType.number,
           onChanged: (value) {
-            if (widget.nextFocusNode == null && widget._controller.text.isNotEmpty) {
+            if (widget.nextFocusNode == null &&
+                widget._controller.text.isNotEmpty) {
               FocusScope.of(context).unfocus();
             } else if (value.isNotEmpty) {
               widget.nextFocusNode?.requestFocus();
@@ -55,7 +57,6 @@ class _EmailConfirmTextFieldState extends State<EmailConfirmTextField> {
           style: TextStyle(
             color: MukGenColor.black,
             fontSize: 24.sp,
-            fontFamily: 'MukgenSemiBold',
             fontWeight: FontWeight.w600,
           ),
           decoration: const InputDecoration(
