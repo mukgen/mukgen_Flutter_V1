@@ -11,7 +11,7 @@ class SendMailViewModel extends StateNotifier<SendMailState> {
       : _sendMailUseCase = sendMailUseCase,
         super(SendMailState.initial);
 
-  Future<void> sendMail({required SendMailAuthCodeRequestDTO sendMailAuthCodeRequestDTO}) async {
+  Future<void> sendMailAuthCode({required SendMailAuthCodeRequestDTO sendMailAuthCodeRequestDTO}) async {
     state = SendMailState.loading;
     final res =
     await _sendMailUseCase.execute(sendMailAuthCodeRequestDTO: sendMailAuthCodeRequestDTO);
