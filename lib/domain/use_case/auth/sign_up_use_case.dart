@@ -9,6 +9,14 @@ class SignUpUseCase {
       : _authRepository = authRepository;
 
   Future<Result<void, Exception>> execute(
-          {required SignUpRequestDTO signUpRequestDTO}) =>
-      _authRepository.signUp(signUpRequestDTO: signUpRequestDTO);
+      {required SignUpRequestDTO signUpRequestDTO}) async {
+    final res =
+        await _authRepository.signUp(signUpRequestDTO: signUpRequestDTO);
+    switch (res) {
+      case Success():
+        return const Success(value: null);
+      case Failure(exception: final e):
+        return Failure(exception: e);
+    }
+  }
 }
