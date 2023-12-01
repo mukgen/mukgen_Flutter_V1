@@ -43,17 +43,17 @@ class _SignUpEmailConfirmPageState
   void initState() {
     super.initState();
     _firstController = TextEditingController();
-    _firstController.addListener(_updateState);
+    _firstController.addListener(_updateButtonState);
     _secondController = TextEditingController();
-    _secondController.addListener(_updateState);
+    _secondController.addListener(_updateButtonState);
     _thirdController = TextEditingController();
-    _thirdController.addListener(_updateState);
+    _thirdController.addListener(_updateButtonState);
     _fourthController = TextEditingController();
-    _fourthController.addListener(_updateState);
+    _fourthController.addListener(_updateButtonState);
     _fifthController = TextEditingController();
-    _fifthController.addListener(_updateState);
+    _fifthController.addListener(_updateButtonState);
     _sixthController = TextEditingController();
-    _sixthController.addListener(_updateState);
+    _sixthController.addListener(_updateButtonState);
   }
 
   @override
@@ -67,7 +67,7 @@ class _SignUpEmailConfirmPageState
     super.dispose();
   }
 
-  void _updateState() {
+  void _updateButtonState() {
     ref
         .read(checkMailButtonStateProvider.notifier)
         .state =
