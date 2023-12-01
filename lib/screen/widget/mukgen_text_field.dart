@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 
@@ -12,11 +13,12 @@ class MukGenTextField extends StatefulWidget {
     required this.maxLength,
     required this.autofocus,
     this.nextFocusNode,
+    this.inputFormatters,
     this.focusNode,
     this.height,
     this.hintText,
     this.helperText,
-    this.suffixText,
+    this.suffix,
     this.textAlign,
     this.textInputType,
     this.color,
@@ -31,11 +33,13 @@ class MukGenTextField extends StatefulWidget {
   final int fontSize;
   final TextEditingController controller;
   final String? hintText, helperText;
-  final Widget? suffixText;
+  final Widget? suffix;
   final TextInputType? textInputType;
   final TextAlign? textAlign;
   final bool isPwdTextField;
   final bool autofocus;
+
+  final List<TextInputFormatter>? inputFormatters;
 
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
@@ -65,6 +69,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               cursorColor: MukGenColor.black,
               obscureText: !_isClicked,
               obscuringCharacter: '*',
+              inputFormatters: widget.inputFormatters,
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
@@ -128,6 +133,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   widget.nextFocusNode?.requestFocus();
                 }
               }),
+              inputFormatters: widget.inputFormatters,
               maxLength: widget.maxLength,
               cursorColor: MukGenColor.black,
               style: TextStyle(
@@ -148,7 +154,7 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   fontWeight: FontWeight.w400,
                   color: widget.color,
                 ),
-                suffix: widget.suffixText,
+                suffix: widget.suffix,
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(
