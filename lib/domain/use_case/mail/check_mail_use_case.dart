@@ -12,7 +12,7 @@ class CheckMailUseCase {
   Future<Result<void, Exception>> execute({required CheckMailAuthCodeRequestDTO checkMailAuthCodeRequestDTO}) async {
     final res = await _mailRepository.checkMailAuthCode(checkMailAuthCodeRequestDTO: checkMailAuthCodeRequestDTO);
     switch (res) {
-      case Success(value: final value):
+      case Success():
         return const Success(value: null);
       case Failure(exception: final e):
         return Failure(exception: e);
