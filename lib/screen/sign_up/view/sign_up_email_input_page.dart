@@ -19,25 +19,24 @@ class SignUpEmailInputPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpEmailInputPageState extends ConsumerState<SignUpEmailInputPage> {
-  late TextEditingController emailController;
+  late TextEditingController _emailController;
 
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
-
-    emailController.addListener(_updateButtonState);
+    _emailController = TextEditingController();
+    _emailController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
-    emailController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
   void _updateButtonState() {
     ref.read(sendMailButtonStateProvider.notifier).state =
-        emailController.text.isNotEmpty;
+        _emailController.text.isNotEmpty;
   }
 
   @override
@@ -47,7 +46,7 @@ class _SignUpEmailInputPageState extends ConsumerState<SignUpEmailInputPage> {
       switch (next) {
         case SendMailState.loading:
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => SignUpEmailConfirmPage(email: '${emailController.text}@dsm.hs.kr',)));
+              builder: (context) => SignUpEmailConfirmPage(email: '${_emailController.text}@dsm.hs.kr',)));
         default:
           null;
       }
@@ -90,9 +89,9 @@ class _SignUpEmailInputPageState extends ConsumerState<SignUpEmailInputPage> {
             MukGenTextField(
               width: 352,
               height: 56,
-              controller: emailController,
+              controller: _emailController,
               hintText: '이메일 주소',
-              suffixText: Padding(
+              suffix: Padding(
                 padding: EdgeInsets.only(right: 10.w),
                 child: Text(
                   '@dsm.hs.kr',
@@ -113,7 +112,7 @@ class _SignUpEmailInputPageState extends ConsumerState<SignUpEmailInputPage> {
               onPressed: () {
                 ref.read(sendMailViewModelProvider.notifier).sendMailAuthCode(
                     sendMailAuthCodeRequestDTO: SendMailAuthCodeRequestDTO(
-                        mail: '${emailController.text}@dsm.hs.kr'));
+                        mail: '${_emailController.text}@dsm.hs.kr'));
               },
               backgroundColor: ref.watch(sendMailButtonStateProvider)
                   ? MukGenColor.primaryBase
