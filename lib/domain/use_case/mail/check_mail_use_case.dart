@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:mukgen_flutter_v1/core/network/result.dart';
 import 'package:mukgen_flutter_v1/data/dto/mail/request/check_mail_auth_code_request_dto.dart';
 import 'package:mukgen_flutter_v1/domain/repository/mail_repository/mail_repository.dart';
@@ -9,13 +8,8 @@ class CheckMailUseCase {
   CheckMailUseCase({required MailRepository mailRepository})
       : _mailRepository = mailRepository;
 
-  Future<Result<void, Exception>> execute({required CheckMailAuthCodeRequestDTO checkMailAuthCodeRequestDTO}) async {
-    final res = await _mailRepository.checkMailAuthCode(checkMailAuthCodeRequestDTO: checkMailAuthCodeRequestDTO);
-    switch (res) {
-      case Success():
-        return const Success(value: null);
-      case Failure(exception: final e):
-        return Failure(exception: e);
-    }
-  }
+  Future<Result<void, Exception>> execute(
+          {required CheckMailAuthCodeRequestDTO checkMailAuthCodeRequestDTO}) =>
+      _mailRepository.checkMailAuthCode(
+          checkMailAuthCodeRequestDTO: checkMailAuthCodeRequestDTO);
 }
