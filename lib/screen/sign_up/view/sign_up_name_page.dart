@@ -34,7 +34,7 @@ class _SignUpNamePageState extends ConsumerState<SignUpNamePage> {
   }
 
   void _updateButtonState() {
-    ref.read(controllerProvider.notifier).state =
+    ref.read(nameButtonProvider.notifier).state =
         _nameController.text.isNotEmpty;
   }
 
@@ -84,13 +84,13 @@ class _SignUpNamePageState extends ConsumerState<SignUpNamePage> {
             const Spacer(),
             MukGenButton(
               onPressed: () {
-                ref.watch(controllerProvider) ?
+                ref.watch(nameButtonProvider) ?
                     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpIdPwPage(
                                 email: widget.email,
                                 name: _nameController.text)))
                     : null;
               },
-              backgroundColor: ref.watch(controllerProvider)
+              backgroundColor: ref.watch(nameButtonProvider)
                   ? MukGenColor.primaryBase
                   : MukGenColor.primaryLight2,
               width: 352,

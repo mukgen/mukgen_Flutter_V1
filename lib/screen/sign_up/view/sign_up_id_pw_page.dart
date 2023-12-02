@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
-import 'package:mukgen_flutter_v1/screen/sign_up/provider/controller_provider.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/provider/id_duplicate/id_duplicate_view_model_provider.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/provider/id_duplicate/state/id_duplicate_state.dart';
 import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_number_page.dart';
@@ -50,12 +49,12 @@ class _SignUpIdPwPageState extends ConsumerState<SignUpIdPwPage> {
   }
 
   void _updatePwdField() {
-    ref.watch(controllerProvider.notifier).state = _pwdController.text.isNotEmpty && _pwdCheckController.text.isNotEmpty;
+    ref.watch(idPwdButtonStateProvider.notifier).state = _pwdController.text.isNotEmpty && _pwdCheckController.text.isNotEmpty;
   }
 
   void _updateIdField() {
     ref.watch(idControllerProvider.notifier).state = _idController.text.isNotEmpty;
-    ref.watch(controllerProvider.notifier).state =
+    ref.watch(idPwdButtonStateProvider.notifier).state =
         _idController.text.isNotEmpty && _pwdController.text.isNotEmpty && _pwdCheckController.text.isNotEmpty;
     ref.invalidate(
         idDuplicateViewModelProvider); // idController의 값이 바뀔때마다 provider 초기화
@@ -175,7 +174,7 @@ class _SignUpIdPwPageState extends ConsumerState<SignUpIdPwPage> {
         padding: EdgeInsets.only(bottom: 34.h),
         child: MukGenButton(
           onPressed: () {
-            if (ref.watch(controllerProvider)) {
+            if (ref.watch(idPwdButtonStateProvider)) {
               if (idDuplicateState == IdDuplicateState.initial) {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('중복 여부를 확인해주세요.')));
@@ -214,7 +213,7 @@ class _SignUpIdPwPageState extends ConsumerState<SignUpIdPwPage> {
           ),
           width: 352,
           height: 55,
-          backgroundColor: ref.watch(controllerProvider) ? MukGenColor.primaryBase : MukGenColor.primaryLight2,
+          backgroundColor: ref.watch(idPwdButtonStateProvider) ? MukGenColor.primaryBase : MukGenColor.primaryLight2,
         ),
       ),
     );

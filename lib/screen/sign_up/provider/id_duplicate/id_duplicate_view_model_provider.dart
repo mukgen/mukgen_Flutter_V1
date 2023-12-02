@@ -6,6 +6,8 @@ import 'package:mukgen_flutter_v1/screen/sign_up/provider/id_duplicate/state/id_
 final idDuplicateViewModelProvider = StateNotifierProvider<IdDuplicateViewModel, IdDuplicateState>((ref) =>
     IdDuplicateViewModel(idDuplicateCheckUseCase: ref.watch(idDuplicateCheckUseCaseProvider)));
 
+final idPwdButtonStateProvider = StateProvider<bool>((ref) => false);
+
 final idControllerProvider = StateProvider<bool>((ref) => false);
 final pwdControllerProvider = StateProvider<bool>((ref) => false);
 final pwdCheckControllerProvider = StateProvider<bool>((ref) => false);

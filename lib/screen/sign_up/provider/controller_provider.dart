@@ -1,3 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final controllerProvider = StateProvider.autoDispose<bool>((ref) => false);
+// name page에서 사용되는 provider
+final nameButtonProvider = StateProvider.autoDispose<bool>((ref) => false);
+
+// number page에서 사용되는 provider
+final numberButtonProvider = StateProvider.autoDispose<bool>((ref) => false);

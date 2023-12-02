@@ -66,7 +66,7 @@ class _SignUpNumberPageState extends ConsumerState<SignUpNumberPage> {
   }
 
   void _updateButtonState() {
-    ref.read(controllerProvider.notifier).state =
+    ref.read(numberButtonProvider.notifier).state =
         _firstController.text.isNotEmpty &&
             _secondController.text.isNotEmpty &&
             _thirdController.text.isNotEmpty;
@@ -189,7 +189,7 @@ class _SignUpNumberPageState extends ConsumerState<SignUpNumberPage> {
                   String phoneNumber = _firstController.text +
                       _secondController.text +
                       _thirdController.text;
-                  ref.watch(controllerProvider)
+                  ref.watch(numberButtonProvider)
                       ? ref.read(signUpViewModelProvider.notifier).signUp(
                               signUpRequestDTO: SignUpRequestDTO(
                             accountId: widget.id,
@@ -207,7 +207,7 @@ class _SignUpNumberPageState extends ConsumerState<SignUpNumberPage> {
                 ),
                 width: 352,
                 height: 55,
-                backgroundColor: ref.watch(controllerProvider)
+                backgroundColor: ref.watch(numberButtonProvider)
                     ? MukGenColor.pointBase
                     : MukGenColor.primaryLight2,
               ),
