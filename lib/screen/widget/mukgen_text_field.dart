@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 
@@ -12,13 +13,15 @@ class MukGenTextField extends StatefulWidget {
     required this.maxLength,
     required this.autofocus,
     this.nextFocusNode,
+    this.inputFormatters,
     this.focusNode,
     this.height,
     this.hintText,
     this.helperText,
+    this.suffix,
     this.textAlign,
     this.textInputType,
-    this.color
+    this.color,
   }) : super(key: key);
 
   final double width;
@@ -30,10 +33,13 @@ class MukGenTextField extends StatefulWidget {
   final int fontSize;
   final TextEditingController controller;
   final String? hintText, helperText;
+  final Widget? suffix;
   final TextInputType? textInputType;
   final TextAlign? textAlign;
   final bool isPwdTextField;
   final bool autofocus;
+
+  final List<TextInputFormatter>? inputFormatters;
 
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
@@ -63,10 +69,10 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
               cursorColor: MukGenColor.black,
               obscureText: !_isClicked,
               obscuringCharacter: '*',
+              inputFormatters: widget.inputFormatters,
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'MukgenSemiBold',
               ),
               decoration: InputDecoration(
                 counterText: '',
@@ -75,13 +81,11 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
                   color: MukGenColor.primaryLight2,
                 ),
                 helperStyle: TextStyle(
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
-                  fontFamily: 'MukgenRegular',
                   color: widget.color,
                 ),
                 enabledBorder: widget.controller.text.isEmpty
@@ -129,12 +133,12 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                   widget.nextFocusNode?.requestFocus();
                 }
               }),
+              inputFormatters: widget.inputFormatters,
               maxLength: widget.maxLength,
               cursorColor: MukGenColor.black,
               style: TextStyle(
                 fontSize: widget.fontSize.sp,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'MukgenSemiBold',
               ),
               decoration: InputDecoration(
                 counterText: '',
@@ -143,15 +147,14 @@ class _MukGenTextFieldState extends State<MukGenTextField> {
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'MukgenSemiBold',
                   color: MukGenColor.primaryLight2,
                 ),
                 helperStyle: TextStyle(
                   fontSize: 16.0.sp,
                   fontWeight: FontWeight.w400,
-                  fontFamily: 'MukgenRegular',
                   color: widget.color,
                 ),
+                suffix: widget.suffix,
                 enabledBorder: widget.controller.text.isEmpty
                     ? UnderlineInputBorder(
                         borderSide: BorderSide(

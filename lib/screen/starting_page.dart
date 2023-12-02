@@ -3,6 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/core/component/text/pretendard/ptd_text_widget.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
 import 'package:mukgen_flutter_v1/screen/sign_in/view/sign_in_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_email_confirm_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_email_input_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_main_page.dart';
+import 'package:mukgen_flutter_v1/screen/sign_up/view/sign_up_name_page.dart';
 import 'package:mukgen_flutter_v1/screen/widget/mukgen_button.dart';
 
 class StartingPage extends StatefulWidget {
@@ -15,7 +19,7 @@ class StartingPage extends StatefulWidget {
 class _StartingPageState extends State<StartingPage> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return PopScope(
       child: Scaffold(
         backgroundColor: MukGenColor.primaryLight3,
         body: Column(
@@ -53,19 +57,18 @@ class _StartingPageState extends State<StartingPage> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 34.h),
                     child: MukGenButton(
-                      width: 353,
-                      height: 55,
-                      backgroundColor: MukGenColor.pointLight1,
-                      text: PtdTextWidget.bodyLarge2(
-                        '시작하기',
-                        MukGenColor.white,
-                      ),
-                      /*onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MainHomePage(),
+                        width: 353,
+                        height: 55,
+                        backgroundColor: MukGenColor.pointLight1,
+                        text: PtdTextWidget.bodyLarge2(
+                          '시작하기',
+                          MukGenColor.white,
                         ),
-                      ),*/
-                    ),
+                        onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => SignUpMainPage(),
+                              ),
+                            )),
                   ),
                 ],
               ),
@@ -73,7 +76,6 @@ class _StartingPageState extends State<StartingPage> {
           ],
         ),
       ),
-      onWillPop: () async => false,
     );
   }
 }

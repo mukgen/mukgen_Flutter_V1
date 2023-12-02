@@ -32,7 +32,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   }
 
   void _updateButtonState() {
-    ref.read(buttonStateProvider.notifier).state =
+    ref.read(signInButtonStateProvider.notifier).state =
         idController.text.isNotEmpty && pwdController.text.isNotEmpty;
   }
 
@@ -120,7 +120,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             child: Center(
               child: MukGenButton(
                 onPressed: () {
-                  ref.watch(buttonStateProvider)
+                  ref.watch(signInButtonStateProvider)
                       ? ref.read(signInViewModelProvider.notifier).signIn(
                               signInRequestDTO: SignInRequestDTO(
                             accountId: idController.text,
@@ -128,7 +128,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                           ))
                       : null;
                 },
-                backgroundColor: ref.watch(buttonStateProvider) ? MukGenColor.primaryBase : MukGenColor.primaryLight2,
+                backgroundColor: ref.watch(signInButtonStateProvider) ? MukGenColor.primaryBase : MukGenColor.primaryLight2,
                 width: 352,
                 height: 55,
                 text: PtdTextWidget.bodyLarge2(

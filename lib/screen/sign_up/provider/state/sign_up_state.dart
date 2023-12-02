@@ -1,0 +1,1 @@
+enum SignUpState { initial, loading, failure, success }

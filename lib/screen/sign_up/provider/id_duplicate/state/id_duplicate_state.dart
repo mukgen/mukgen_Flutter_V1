@@ -1,0 +1,1 @@
+enum IdDuplicateState { initial, loading, failure, success }

@@ -7,6 +7,6 @@ class IdDuplicateCheckUseCase {
   IdDuplicateCheckUseCase({required AuthRepository authRepository})
       : _authRepository = authRepository;
 
-  Future<Result<void, Exception>> execute({required String accountId}) =>
+  Future<Result<bool, Exception>> execute({required String accountId}) =>
       _authRepository.idDuplicateCheck(accountId: accountId);
 }
