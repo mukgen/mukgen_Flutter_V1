@@ -7,13 +7,6 @@ class IdDuplicateCheckUseCase {
   IdDuplicateCheckUseCase({required AuthRepository authRepository})
       : _authRepository = authRepository;
 
-  Future<Result<bool, Exception>> execute({required String accountId}) async {
-    final res = await _authRepository.idDuplicateCheck(accountId: accountId);
-    switch (res) {
-      case Success(value: final value):
-        return Success(value: value);
-      case Failure(exception: final e):
-        return Failure(exception: e);
-    }
-  }
+  Future<Result<bool, Exception>> execute({required String accountId}) =>
+      _authRepository.idDuplicateCheck(accountId: accountId);
 }
