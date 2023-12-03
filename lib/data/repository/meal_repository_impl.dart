@@ -3,7 +3,7 @@ import 'package:mukgen_flutter_v1/data/data_source/meal/remote/remote_meal_data_
 import 'package:mukgen_flutter_v1/data/dto/meal/request/read_single_meal_request_dto.dart';
 import 'package:mukgen_flutter_v1/domain/entity/meal/meal_entity.dart';
 import 'package:mukgen_flutter_v1/domain/entity/meal/mukgen_pick_entity.dart';
-import 'package:mukgen_flutter_v1/domain/repository/meal_repository.dart';
+import 'package:mukgen_flutter_v1/domain/repository/meal_repository/meal_repository.dart';
 
 class MealRepositoryImpl extends MealRepository {
   final RemoteMealDataSource _remoteMealDataSource;
