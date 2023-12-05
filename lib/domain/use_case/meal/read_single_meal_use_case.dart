@@ -10,14 +10,7 @@ class ReadSingleMealUseCase {
       : _mealRepository = mealRepository;
 
   Future<Result<MealEntity, Exception>> execute(
-      {required ReadSingleMealRequestDTO readSingleMealRequestDTO}) async {
-    final res =
-        await _mealRepository.readSingleMeal(readSingleMealRequestDTO: readSingleMealRequestDTO);
-    switch (res) {
-      case Success(value: final value) :
-        return Success(value: value);
-      case Failure(exception: final e) :
-        return Failure(exception: e);
-    }
-  }
+      {required ReadSingleMealRequestDTO readSingleMealRequestDTO}) =>
+      _mealRepository.readSingleMeal(
+          readSingleMealRequestDTO: readSingleMealRequestDTO);
 }
