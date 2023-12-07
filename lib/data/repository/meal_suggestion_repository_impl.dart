@@ -3,7 +3,7 @@ import 'package:mukgen_flutter_v1/data/data_source/meal_suggestion/remote/remote
 import 'package:mukgen_flutter_v1/data/dto/meal_suggestion/request/create_meal_suggestion_request_dto.dart';
 import 'package:mukgen_flutter_v1/data/dto/meal_suggestion/request/update_meal_suggestion_request_dto.dart';
 import 'package:mukgen_flutter_v1/domain/entity/meal_suggestion/meal_suggestion_entity.dart';
-import 'package:mukgen_flutter_v1/domain/repository/meal_suggestion_repository.dart';
+import 'package:mukgen_flutter_v1/domain/repository/meal_suggestion/meal_suggestion_repository.dart';
 
 class MealSuggestionRepositoryImpl extends MealSuggestionRepository {
   final RemoteMealSuggestionDataSource _remoteMealSuggestionDataSource;
