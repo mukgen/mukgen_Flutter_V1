@@ -15,9 +15,9 @@ abstract class MukgenEndpoint extends RequestOptions {
   String get baseUrl => "${s.baseUrl}/$path";
 
   @override
-  Map<String, String> headers = {
+  Map<String, dynamic> headers = {
     'Content-Type': 'application/json',
-    'X-Not-Using-Xquare-Auth': 'true',
+    'X-Not-Using-Xquare-Auth': true,
   };
 }
 
