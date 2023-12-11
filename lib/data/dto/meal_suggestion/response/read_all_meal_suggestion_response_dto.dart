@@ -34,7 +34,7 @@ final class MealSuggestionResponse
       MealSuggestionResponse()
         ..id = json['id']
         ..likeCount = json['likeCount']
-        ..dislikeCount = json['disCount']
+        ..dislikeCount = json['dislikeCount']
         ..content = json['content']
         ..checked = json['checked'];
 
