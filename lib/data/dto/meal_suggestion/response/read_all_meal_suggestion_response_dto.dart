@@ -3,18 +3,18 @@ import 'package:mukgen_flutter_v1/domain/entity/meal_suggestion/meal_suggestion_
 
 final class ReadAllMealSuggestionResponseDTO
     extends BaseResponseDTO<List<MealSuggestionEntity>> {
-  late List<MealSuggestionResponse> mealSuggestions;
+  List<MealSuggestionResponse> mealSuggestions = [];
 
   ReadAllMealSuggestionResponseDTO();
 
   @override
-  fromJson(Map<String, dynamic> json) {
-    if (json['mealSuggestionResponseList'] != null) {
-      mealSuggestions = List.empty(growable: true);
-      json['mealSuggestionResponseList'].forEach((data) {
+  List<MealSuggestionResponse> fromJson(Map<String, dynamic> json) {
+    if (json["mealSuggestionResponseList"] != null) {
+      json["mealSuggestionResponseList"].forEach((data) {
         mealSuggestions.add(MealSuggestionResponse.fromJson(data));
       });
     }
+    return mealSuggestions;
   }
 
   @override
@@ -39,7 +39,8 @@ final class MealSuggestionResponse
         ..checked = json['checked'];
 
   @override
-  fromJson(Map<String, dynamic> json) => MealSuggestionResponse.fromJson(json);
+  MealSuggestionResponse fromJson(Map<String, dynamic> json) =>
+      MealSuggestionResponse.fromJson(json);
 
   @override
   MealSuggestionEntity toEntity() => MealSuggestionEntity(
