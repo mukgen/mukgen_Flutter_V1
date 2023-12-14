@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mukgen_flutter_v1/core/constant/mukgen_color.dart';
-import 'package:mukgen_flutter_v1/service/suggestion_service.dart';
+import 'package:mukgen_flutter_v1/data/dto/meal_suggestion/request/create_meal_suggestion_request_dto.dart';
+import 'package:mukgen_flutter_v1/screen/suggestion_main/provider/meal_suggestion_page_view_model_provider.dart';
 
-class MainSuggestionPostingPage extends StatefulWidget {
+class MainSuggestionPostingPage extends ConsumerStatefulWidget {
   const MainSuggestionPostingPage({Key? key}) : super(key: key);
 
   @override
-  State<MainSuggestionPostingPage> createState() =>
+  ConsumerState<MainSuggestionPostingPage> createState() =>
       _MainSuggestionPostingPageState();
 }
 
-class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
+class _MainSuggestionPostingPageState
+    extends ConsumerState<MainSuggestionPostingPage> {
   bool _isButtonEnabled = false;
 
   final FocusNode _focusNode = FocusNode();
@@ -78,7 +81,12 @@ class _MainSuggestionPostingPageState extends State<MainSuggestionPostingPage> {
               padding: EdgeInsets.only(right: 20.0.w),
               child: GestureDetector(
                 onTap: () {
-                  SuggestionService.postSuggestionInfo(contentController.text);
+                  ref
+                      .watch(mealSuggestionPageViewModelProvider.notifier)
+                      .createMealSuggestion(
+                          createMealSuggestionRequestDTO:
+                              CreateMealSuggestionRequestDTO(
+                                  content: contentController.text));
                   Navigator.of(context).popUntil((route) =>
                       route.isFirst ||
                       route.settings.name == '/MainSuggestionPage');

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mukgen_flutter_v1/core/network/result.dart' as r;
+import 'package:mukgen_flutter_v1/data/dto/meal_suggestion/request/create_meal_suggestion_request_dto.dart';
 import 'package:mukgen_flutter_v1/domain/entity/meal_suggestion/meal_suggestion_entity.dart';
 import 'package:mukgen_flutter_v1/domain/use_case/meal_suggestion/add_meal_suggestion_dislike_use_case.dart';
 import 'package:mukgen_flutter_v1/domain/use_case/meal_suggestion/add_meal_suggestion_like_use_case.dart';
@@ -63,6 +64,22 @@ class MealSuggestionPageViewModel
                         checked: e.checked)
                     : e)
                 .toList());
+      case r.Failure(exception: final e):
+        state = state.copyWith(
+            state: MealSuggestionPageStateEnum.failure,
+            failMessage: e.toString());
+    }
+  }
+
+  Future<void> createMealSuggestion(
+      {required CreateMealSuggestionRequestDTO
+          createMealSuggestionRequestDTO}) async {
+    final res = await _createMealSuggestionUseCase.execute(
+        createMealSuggestionRequestDTO: createMealSuggestionRequestDTO);
+    switch (res) {
+      case r.Success():
+        state = state.copyWith(state: MealSuggestionPageStateEnum.loading);
+        readAllMealSuggestion();
       case r.Failure(exception: final e):
         state = state.copyWith(
             state: MealSuggestionPageStateEnum.failure,
