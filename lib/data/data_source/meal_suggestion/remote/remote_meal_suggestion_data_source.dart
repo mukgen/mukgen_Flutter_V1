@@ -42,11 +42,12 @@ class RemoteMealSuggestionDataSource {
   Future<Result<List<MealSuggestionEntity>, Exception>>
       readAllMealSuggestion() async {
     final res = await _networking.request<ReadAllMealSuggestionResponseDTO,
-            ReadAllMealSuggestionResponseDTO>(
+            List<MealSuggestionResponse>>(
         endpoint: MealSuggestionEndpoint.readAllMealSuggestion(),
         responseType: ReadAllMealSuggestionResponseDTO());
     return switch (res) {
-      Success(value: final value) => Success(value: value.toEntity()),
+      Success(value: final value) =>
+        Success(value: value.map((e) => e.toEntity()).toList()),
       Failure(exception: final e) => Failure(exception: e),
     };
   }

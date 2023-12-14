@@ -10,5 +10,5 @@ abstract class RequestOptions {
 
   BaseRequestDTO? get body;
 
-  Map<String, String> headers = {};
+  Map<String, dynamic> headers = {};
 }
